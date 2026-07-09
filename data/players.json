@@ -7,7 +7,7 @@
     "nationality": "Ukraine",
     "nationalityFlag": "🇺🇦",
     "position": "GK",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/a_pyatov.png"
   },
@@ -19,7 +19,7 @@
     "nationality": "Russia",
     "nationalityFlag": "🇷🇺",
     "position": "CB",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/g_dzhikiya.png"
   },
@@ -31,7 +31,7 @@
     "nationality": "Switzerland",
     "nationalityFlag": "🇨🇭",
     "position": "DMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/g_xhaka.png"
   },
@@ -43,7 +43,7 @@
     "nationality": "England",
     "nationalityFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/h_kane.png"
   },
@@ -55,7 +55,7 @@
     "nationality": "Belgium",
     "nationalityFlag": "🇧🇪",
     "position": "CB",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/j_denayer.png"
   },
@@ -67,7 +67,7 @@
     "nationality": "Italy",
     "nationalityFlag": "🇮🇹",
     "position": "CB",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/l_bonucci.png"
   },
@@ -79,7 +79,7 @@
     "nationality": "Germany",
     "nationalityFlag": "🇩🇪",
     "position": "CMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/l_goretzka.png"
   },
@@ -91,7 +91,7 @@
     "nationality": "France",
     "nationalityFlag": "🇫🇷",
     "position": "CMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/n_kante.png"
   },
@@ -103,7 +103,7 @@
     "nationality": "Portugal",
     "nationalityFlag": "🇵🇹",
     "position": "RMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/pizzi.png"
   },
@@ -115,7 +115,7 @@
     "nationality": "Poland",
     "nationalityFlag": "🇵🇱",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/r_lewandowski.png"
   },
@@ -127,7 +127,7 @@
     "nationality": "Portugal",
     "nationalityFlag": "🇵🇹",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/andre_silva.png"
   },
@@ -139,7 +139,7 @@
     "nationality": "Spain",
     "nationalityFlag": "🇪🇸",
     "position": "DMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/busquets.png"
   },
@@ -151,7 +151,7 @@
     "nationality": "Italy",
     "nationalityFlag": "🇮🇹",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/c_immobile.png"
   },
@@ -163,7 +163,7 @@
     "nationality": "Poland",
     "nationalityFlag": "🇵🇱",
     "position": "DMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/g_krychowiak.png"
   },
@@ -175,7 +175,7 @@
     "nationality": "Germany",
     "nationalityFlag": "🇩🇪",
     "position": "AMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/k_havertz.png"
   },
@@ -187,7 +187,7 @@
     "nationality": "Germany",
     "nationalityFlag": "🇩🇪",
     "position": "GK",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/m_neuer.png"
   },
@@ -199,7 +199,7 @@
     "nationality": "France",
     "nationalityFlag": "🇫🇷",
     "position": "CMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/p_pogba.png"
   },
@@ -211,7 +211,7 @@
     "nationality": "Belgium",
     "nationalityFlag": "🇧🇪",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/r_lukaku.png"
   },
@@ -223,7 +223,7 @@
     "nationality": "Portugal",
     "nationalityFlag": "🇵🇹",
     "position": "CB",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/ruben_dias.png"
   },
@@ -235,7 +235,7 @@
     "nationality": "France",
     "nationalityFlag": "🇫🇷",
     "position": "CB",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/s_umtiti.png"
   },
@@ -247,7 +247,7 @@
     "nationality": "Belgium",
     "nationalityFlag": "🇧🇪",
     "position": "RB",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/t_meunier.png"
   },
@@ -259,7 +259,7 @@
     "nationality": "France",
     "nationalityFlag": "🇫🇷",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/a_griezmann.png"
   },
@@ -271,7 +271,7 @@
     "nationality": "Belgium",
     "nationalityFlag": "🇧🇪",
     "position": "DMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/a_witsel.png"
   },
@@ -283,7 +283,7 @@
     "nationality": "Portugal",
     "nationalityFlag": "🇵🇹",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/c_ronaldo.png"
   },
@@ -295,7 +295,7 @@
     "nationality": "Portugal",
     "nationalityFlag": "🇵🇹",
     "position": "DMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/danilo_pereira.png"
   },
@@ -307,7 +307,7 @@
     "nationality": "Germany",
     "nationalityFlag": "🇩🇪",
     "position": "CB",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/j_tah.png"
   },
@@ -319,7 +319,7 @@
     "nationality": "France",
     "nationalityFlag": "🇫🇷",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/k_mbappe.png"
   },
@@ -331,7 +331,7 @@
     "nationality": "Germany",
     "nationalityFlag": "🇩🇪",
     "position": "CB",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/m_ginter.png"
   },
@@ -343,7 +343,7 @@
     "nationality": "France",
     "nationalityFlag": "🇫🇷",
     "position": "AMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/n_fekir.png"
   },
@@ -355,7 +355,7 @@
     "nationality": "Portugal",
     "nationalityFlag": "🇵🇹",
     "position": "CB",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/pepe.png"
   },
@@ -367,7 +367,7 @@
     "nationality": "Belgium",
     "nationalityFlag": "🇧🇪",
     "position": "GK",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/t_courtois.png"
   },
@@ -379,7 +379,7 @@
     "nationality": "Germany",
     "nationalityFlag": "🇩🇪",
     "position": "CMF",
-    "rarity": "preta",
+    "rarity": "black",
     "rarityLabel": "Featured",
     "image": "assets/players/t_kroos.png"
   }
