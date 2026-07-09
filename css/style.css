@@ -129,7 +129,7 @@ button{ font-family:inherit; cursor:pointer; }
 .screen.active{ display:block; }
 @keyframes fadeUp{ from{ opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
 
-.page-title{ font-family:var(--font-display); font-size:28px; font-weight:700; margin:0 0 4px; letter-spacing:.2px; }
+.page-title{ font-family:var(--font-display); font-size:clamp(21px,5.5vw,28px); font-weight:700; margin:0 0 4px; letter-spacing:.2px; }
 .page-sub{ color:var(--text-muted); margin:0 0 22px; font-size:14px; }
 
 .card{
@@ -141,7 +141,7 @@ button{ font-family:inherit; cursor:pointer; }
 /* ============ Home ============ */
 .hero-stadium{
   position:relative; overflow:hidden; border-radius:var(--radius-lg);
-  padding:34px 26px; margin-bottom:22px;
+  padding:clamp(20px,5vw,34px) clamp(16px,4vw,26px); margin-bottom:22px;
   background:linear-gradient(135deg, var(--brand) 0%, #0B5FC7 100%);
   border:1px solid var(--border);
   box-shadow:var(--shadow-card);
@@ -152,7 +152,7 @@ button{ font-family:inherit; cursor:pointer; }
   background:radial-gradient(ellipse 60% 40% at 85% -10%, rgba(255,255,255,0.25), transparent 60%);
 }
 .hero-eyebrow{ font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#DCEEFF; font-weight:700; }
-.hero-title{ font-family:var(--font-display); font-size:38px; font-weight:800; margin:6px 0 10px; max-width:520px; line-height:1.05; color:#fff; }
+.hero-title{ font-family:var(--font-display); font-size:clamp(22px,7vw,38px); font-weight:800; margin:6px 0 10px; max-width:520px; line-height:1.1; color:#fff; }
 .hero-desc{ color:rgba(255,255,255,0.85); max-width:460px; font-size:14.5px; margin-bottom:18px; }
 
 .quick-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:14px; margin-bottom:24px; }
@@ -164,7 +164,7 @@ button{ font-family:inherit; cursor:pointer; }
   transition:transform .15s ease, box-shadow .15s ease;
 }
 .quick-card:hover{ transform:translateY(-2px); box-shadow:var(--shadow-card-hover); }
-.quick-card .num{ font-family:var(--font-display); font-size:26px; font-weight:700; color:var(--text); }
+.quick-card .num{ font-family:var(--font-display); font-size:clamp(20px,5vw,26px); font-weight:700; color:var(--text); }
 .quick-card .lbl{ color:var(--text-muted); font-size:12.5px; }
 
 .btn{
@@ -196,17 +196,17 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .menu-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-card-hover); }
 .menu-card-banner{
-  height:100px; border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative; overflow:hidden;
+  height:clamp(80px,22vw,100px); border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative; overflow:hidden;
   background:linear-gradient(135deg, var(--brand), var(--brand-dim));
   background-size:cover; background-position:center; background-repeat:no-repeat;
   display:flex; align-items:center; justify-content:center;
 }
 .menu-card-banner::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,0.28); }
 .menu-card-icon{
-  position:relative; z-index:1; width:52px; height:52px; border-radius:50%;
+  position:relative; z-index:1; width:clamp(40px,11vw,52px); height:clamp(40px,11vw,52px); border-radius:50%;
   background:var(--surface); box-shadow:0 4px 10px rgba(0,0,0,0.2);
-  display:flex; align-items:center; justify-content:center; font-size:24px;
-  margin-top:56px; /* sobrepõe metade do ícone no banner, metade no corpo */
+  display:flex; align-items:center; justify-content:center; font-size:clamp(18px,5vw,24px);
+  margin-top:clamp(44px,12vw,56px); /* sobrepõe metade do ícone no banner, metade no corpo */
 }
 .menu-card-body{ padding:16px 16px 0; text-align:center; }
 .menu-card-title{ font-family:var(--font-display); font-weight:700; font-size:16.5px; color:var(--brand); margin-bottom:4px; }
@@ -232,7 +232,7 @@ button{ font-family:inherit; cursor:pointer; }
 
 /* --- Banners: imagem de fundo + overlay escuro para legibilidade do texto branco --- */
 .box-banner{
-  height:130px; position:relative;
+  height:clamp(96px,26vw,130px); position:relative;
   display:flex; align-items:flex-end; padding:14px;
   background-size:cover; background-position:center;
   color:#fff;
@@ -254,7 +254,7 @@ button{ font-family:inherit; cursor:pointer; }
 .banner-gold{    background-image:url('../assets/banners/banner-gold.jpg');    background-color:#8A6B1E; background-position:center 30%; }
 .banner-boxdraw{ background-image:url('../assets/banners/banner-boxdraw.jpg'); background-color:#3A2E10; background-position:center 35%; }
 
-.box-banner .box-name{ font-family:var(--font-display); font-weight:700; font-size:20px; position:relative; z-index:1; text-shadow:0 2px 6px rgba(0,0,0,.5); }
+.box-banner .box-name{ font-family:var(--font-display); font-weight:700; font-size:clamp(15px,4.2vw,20px); position:relative; z-index:1; text-shadow:0 2px 6px rgba(0,0,0,.5); }
 .box-badge{
   position:absolute; top:10px; right:10px; font-size:11px; font-weight:700; z-index:2;
   padding:4px 9px; border-radius:20px; background:rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.25); color:#fff;
@@ -268,11 +268,11 @@ button{ font-family:inherit; cursor:pointer; }
   display:flex; align-items:center; gap:6px; font-size:12px; font-weight:600;
   background:var(--surface-2); border:1px solid var(--border); border-radius:20px; padding:5px 10px 5px 6px;
 }
-.ball-dot{ width:14px; height:14px; border-radius:50%; }
-.ball-dot.preta{ background:radial-gradient(circle at 30% 30%, var(--legend-glow), #3D1E7A); box-shadow:0 0 6px var(--legend); }
-.ball-dot.dourada{ background:radial-gradient(circle at 30% 30%, #FFEFB0, var(--gold)); box-shadow:0 0 6px rgba(255,201,60,.6); }
-.ball-dot.prata{ background:radial-gradient(circle at 30% 30%, #F1F5F9, var(--silver)); box-shadow:0 0 4px rgba(185,194,206,.5); }
-.ball-dot.branca{ background:radial-gradient(circle at 30% 30%, #ffffff, var(--common)); }
+.ball-dot{ width:14px; height:14px; border-radius:50%; background-size:cover; background-position:center; }
+.ball-dot.preta{   background-image:url('../assets/balls/ball-preta.jpg');   box-shadow:0 0 6px rgba(0,0,0,.5); }
+.ball-dot.dourada{ background-image:url('../assets/balls/ball-dourada.jpg'); box-shadow:0 0 6px rgba(255,201,60,.6); }
+.ball-dot.prata{   background-image:url('../assets/balls/ball-prata.jpg');   box-shadow:0 0 4px rgba(185,194,206,.5); }
+.ball-dot.branca{  background-image:url('../assets/balls/ball-branca.jpg');  box-shadow:0 0 4px rgba(255,255,255,.4); }
 .box-progress{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-muted); }
 .progress-track{ flex:1; height:6px; border-radius:6px; background:var(--surface-3); overflow:hidden; }
 .progress-fill{ height:100%; background:linear-gradient(90deg, var(--brand), var(--legend)); }
@@ -283,15 +283,15 @@ button{ font-family:inherit; cursor:pointer; }
 /* ============ Box opening (signature) ============ */
 .stage-overlay{
   position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center;
-  background:#0B1220;
+  background:#0B1220 url('../assets/ui/roulette-stadium.jpg') center 30%/cover no-repeat;
   overflow:hidden;
 }
 .stage-overlay::before{
   content:""; position:absolute; inset:0;
   background:
+    linear-gradient(180deg, rgba(6,12,24,.55) 0%, rgba(6,12,24,.35) 45%, rgba(4,8,18,.85) 100%),
     conic-gradient(from 200deg at 15% -10%, rgba(255,255,255,.14), transparent 30%),
     conic-gradient(from 20deg at 85% -10%, rgba(255,255,255,.12), transparent 30%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0 70px, transparent 70px 140px),
     radial-gradient(ellipse at 50% 110%, rgba(25,140,255,.18), transparent 60%);
 }
 .beam{
@@ -317,11 +317,12 @@ button{ font-family:inherit; cursor:pointer; }
   width:96px; height:96px; border-radius:50%; flex-shrink:0; position:relative;
   display:flex; align-items:center; justify-content:center;
   border:2px solid rgba(255,255,255,.15);
+  background-size:cover; background-position:center;
 }
-.ball-item.preta{ background:radial-gradient(circle at 32% 28%, var(--legend-glow), #3D1E7A 70%); box-shadow:0 0 26px rgba(124,77,255,.5); }
-.ball-item.dourada{ background:radial-gradient(circle at 32% 28%, #FFF3C6, var(--gold) 70%); box-shadow:0 0 22px rgba(255,201,60,.5); }
-.ball-item.prata{ background:radial-gradient(circle at 32% 28%, #FFFFFF, var(--silver) 70%); box-shadow:0 0 16px rgba(185,194,206,.4); }
-.ball-item.branca{ background:radial-gradient(circle at 32% 28%, #FFFFFF, var(--common) 75%); box-shadow:0 0 12px rgba(143,183,217,.35); }
+.ball-item.preta{   background-image:url('../assets/balls/ball-preta.jpg');   box-shadow:0 0 26px rgba(0,0,0,.55); }
+.ball-item.dourada{ background-image:url('../assets/balls/ball-dourada.jpg'); box-shadow:0 0 22px rgba(255,201,60,.55); }
+.ball-item.prata{   background-image:url('../assets/balls/ball-prata.jpg');   box-shadow:0 0 16px rgba(185,194,206,.45); }
+.ball-item.branca{  background-image:url('../assets/balls/ball-branca.jpg');  box-shadow:0 0 12px rgba(255,255,255,.4); }
 
 .selector-frame{
   position:absolute; left:50%; top:0; bottom:0; width:112px; transform:translateX(-50%);
@@ -332,11 +333,12 @@ button{ font-family:inherit; cursor:pointer; }
 .reveal-ball{
   width:130px; height:130px; border-radius:50%; margin:0 auto 22px;
   display:flex; align-items:center; justify-content:center; position:relative;
+  background-size:cover; background-position:center;
 }
-.reveal-ball.glow-preta{ background:radial-gradient(circle at 32% 28%, var(--legend-glow), #3D1E7A 70%); animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 50px rgba(124,77,255,.6); }
-.reveal-ball.glow-dourada{ background:radial-gradient(circle at 32% 28%, #FFF3C6, var(--gold) 70%); animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 44px rgba(255,201,60,.65); }
-.reveal-ball.glow-prata{ background:radial-gradient(circle at 32% 28%, #FFFFFF, var(--silver) 70%); animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 34px rgba(185,194,206,.5); }
-.reveal-ball.glow-branca{ background:radial-gradient(circle at 32% 28%, #FFFFFF, var(--common) 75%); animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 28px rgba(143,183,217,.45); }
+.reveal-ball.glow-preta{   background-image:url('../assets/balls/ball-preta.jpg');   animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 50px rgba(0,0,0,.6); }
+.reveal-ball.glow-dourada{ background-image:url('../assets/balls/ball-dourada.jpg'); animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 44px rgba(255,201,60,.65); }
+.reveal-ball.glow-prata{   background-image:url('../assets/balls/ball-prata.jpg');   animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 34px rgba(185,194,206,.5); }
+.reveal-ball.glow-branca{  background-image:url('../assets/balls/ball-branca.jpg');  animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 28px rgba(255,255,255,.45); }
 @keyframes pulseGlow{ from{ filter:brightness(1);} to{ filter:brightness(1.35);} }
 @keyframes ballOpen{ 0%,55%{ transform:scale(1);} 70%{ transform:scale(1.15);} 100%{ transform:scale(0); opacity:0;} }
 
@@ -452,7 +454,7 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .pitch-line{ position:absolute; border:2px solid rgba(255,255,255,.7); }
 .pitch-slot{
-  position:absolute; width:58px; height:58px; transform:translate(-50%,-50%);
+  position:absolute; width:clamp(40px,11vw,58px); height:clamp(40px,11vw,58px); transform:translate(-50%,-50%);
   border-radius:50%; border:2px dashed rgba(255,255,255,.8);
   display:flex; align-items:center; justify-content:center; flex-direction:column;
   background:rgba(255,255,255,.5); font-size:10px; color:var(--text-muted); cursor:pointer;
@@ -473,8 +475,8 @@ button{ font-family:inherit; cursor:pointer; }
   text-shadow:0 1px 4px rgba(0,0,0,0.35);
   box-shadow:0 4px 10px rgba(25,140,255,0.35);
 }
-.pitch-slot .slot-ovr{ font-family:var(--font-display); font-size:15px; font-weight:800; }
-.pitch-slot .slot-role{ font-size:8.5px; color:var(--text-muted); }
+.pitch-slot .slot-ovr{ font-family:var(--font-display); font-size:clamp(11px,3vw,15px); font-weight:800; }
+.pitch-slot .slot-role{ font-size:clamp(7px,2vw,8.5px); color:var(--text-muted); }
 .pitch-slot.filled .slot-role{ color:rgba(255,255,255,0.85); }
 
 /* Detalhe "C" de capitão em dourado, como no jogo original */
@@ -496,7 +498,7 @@ button{ font-family:inherit; cursor:pointer; }
 .bench-item .mini-avatar{ width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-family:var(--font-display); background:var(--surface-2); }
 .team-stats{ display:flex; gap:14px; margin-top:14px; }
 .team-stat{ flex:1; text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:10px; }
-.team-stat .num{ font-family:var(--font-display); font-size:22px; font-weight:800; color:var(--brand); }
+.team-stat .num{ font-family:var(--font-display); font-size:clamp(18px,4.5vw,22px); font-weight:800; color:var(--brand); }
 .team-stat .lbl{ font-size:11px; color:var(--text-muted); }
 
 /* ============ Missions / Gifts ============ */
@@ -567,8 +569,52 @@ button{ font-family:inherit; cursor:pointer; }
   .app-topbar{ padding:10px 14px; }
   .menu-tabs{ top:52px; padding:0 14px; gap:16px; }
   .main{ padding:16px 14px 40px; }
-  .hero-title{ font-size:28px; }
   .lineup-wrap{ gap:14px; }
+  .box-grid{ grid-template-columns:repeat(auto-fill, minmax(210px,1fr)); gap:14px; }
+  .menu-card-grid{ grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:14px; }
+  .club-grid{ grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:10px; }
+  .quick-grid{ grid-template-columns:repeat(auto-fit, minmax(120px,1fr)); gap:10px; }
+}
+
+/* --- Telas bem pequenas (a maioria dos celulares em pé) ---
+   Aqui é onde botões, ícones e textos costumavam ficar grandes
+   demais / cortados. Reduzimos densidade, gaps e paddings. --- */
+@media (max-width: 420px){
+  .app-topbar{ padding:8px 10px; gap:8px; }
+  .wallet-inline{ gap:8px; }
+  .wallet-chip{ font-size:12.5px; gap:5px; }
+  .coin-icon{ width:18px; height:18px; font-size:10px; }
+  .topicons{ gap:10px; }
+  .topicon-btn{ font-size:17px; width:24px; height:24px; }
+
+  .menu-tabs{ gap:10px; padding:0 10px; }
+  .menu-tab-item{ font-size:12.5px; padding:11px 1px 9px; }
+
+  .main{ padding:12px 10px 32px; }
+  .page-sub{ font-size:12.5px; margin-bottom:16px; }
+  .card{ padding:14px; }
+
+  .btn{ padding:9px 14px; font-size:12.5px; }
+  .btn-sm{ padding:6px 10px; font-size:11.5px; }
+
+  .box-grid{ grid-template-columns:1fr; }
+  .menu-card-grid{ grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; }
+  .club-grid{ grid-template-columns:repeat(auto-fill, minmax(105px,1fr)); gap:8px; }
+  .quick-grid{ grid-template-columns:repeat(2, 1fr); gap:8px; }
+
+  .box-body{ padding:12px; gap:9px; }
+  .box-desc{ font-size:12px; min-height:0; }
+  .box-prices{ flex-direction:column; gap:6px; }
+  .price-pill{ font-size:11.5px; padding:7px 9px; }
+
+  .filter-bar{ gap:8px; }
+  .filter-bar select, .filter-bar input{ font-size:12px; padding:8px 10px; }
+
+  .stage-inner{ width:94vw; }
+  .stage-hint{ font-size:11.5px; margin-bottom:12px; }
+  .ball-track{ height:130px; }
+  .stage-actions{ gap:8px; }
+  .stage-actions .btn{ padding:9px 12px; font-size:12.5px; }
 }
 
 /* ============ Responsive: paisagem (landscape) ============
@@ -583,6 +629,8 @@ button{ font-family:inherit; cursor:pointer; }
 }
 @media (orientation: landscape) and (max-height: 480px){
   .hero-stadium{ padding:20px 22px; }
-  .hero-title{ font-size:26px; margin:4px 0 8px; }
   .hero-desc{ margin-bottom:10px; }
+  .app-topbar{ padding:6px 14px; }
+  .menu-tabs{ top:44px; }
+  .stage-inner{ transform:scale(.82); }
 }
