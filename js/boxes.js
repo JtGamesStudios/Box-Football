@@ -205,13 +205,19 @@ function renderPlayerCard(p){
   return `
     <div class="p-card rarity-${p.rarity}">
       <span class="p-rarity-label">${p.rarityLabel}</span>
-      <div class="p-image-wrap">
+      <div class="p-photo-frame">
         <img src="${p.image}" alt="${p.name}" class="p-photo" onerror="this.onerror=null; this.src='assets/players/default.png';">
+        <div class="p-card-shade"></div>
+        <div class="p-corner-info">
+          <span class="p-ovr">${p.overall}</span>
+          <span class="p-pos-badge">${p.position}</span>
+          <span class="p-flag">${p.nationalityFlag}</span>
+        </div>
+        <div class="p-name-bar">
+          <span class="p-name">${p.name}</span>
+          <span class="p-meta">${p.club}</span>
+        </div>
       </div>
-      <div class="p-ovr">${p.overall}</div>
-      <div class="p-name">${p.name}</div>
-      <div class="p-meta">${p.nationalityFlag} ${p.club}</div>
-      <div class="p-tag-row"><span class="p-tag">${p.position}</span></div>
     </div>`;
 }
 document.getElementById("btnCloseStage").addEventListener("click", ()=>{
@@ -271,12 +277,24 @@ function showBoxDetail(boxId){
       <div class="club-grid" style="margin-top:14px;">
         ${players.map(p=>{
           const owned = removed.includes(p.id);
-          return `<div class="p-card rarity-${p.rarity}" style="${owned?'':'opacity:.35;filter:grayscale(1);'}">
+          const initials = p.name.split(" ").map(w=>w[0]).slice(0,2).join("");
+          return `<div class="p-card rarity-${p.rarity} ${owned?'':'p-locked'}">
             <span class="p-rarity-label">${p.rarityLabel}</span>
-            <div class="p-avatar" style="background:linear-gradient(135deg,#444,#222);">${owned? p.name.split(" ").map(w=>w[0]).slice(0,2).join("") : "?"}</div>
-            <div class="p-ovr">${owned? p.overall : "??"}</div>
-            <div class="p-name">${owned? p.name : "Bloqueado"}</div>
-            <div class="p-meta">${owned? (p.nationalityFlag+" "+p.club) : "Ainda não contratado"}</div>
+            <div class="p-photo-frame">
+              ${owned
+                ? `<img src="${p.image}" alt="${p.name}" class="p-photo" onerror="this.onerror=null; this.src='assets/players/default.png';">`
+                : `<div class="p-avatar">${initials}</div>`}
+              <div class="p-card-shade"></div>
+              <div class="p-corner-info">
+                <span class="p-ovr">${owned? p.overall : "??"}</span>
+                <span class="p-pos-badge">${p.position}</span>
+                <span class="p-flag">${owned? p.nationalityFlag : "🔒"}</span>
+              </div>
+              <div class="p-name-bar">
+                <span class="p-name">${owned? p.name : "Bloqueado"}</span>
+                <span class="p-meta">${owned? p.club : "Ainda não contratado"}</span>
+              </div>
+            </div>
           </div>`;
         }).join("")}
       </div>
