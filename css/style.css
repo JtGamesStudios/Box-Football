@@ -198,6 +198,7 @@ button{ font-family:inherit; cursor:pointer; }
 .menu-card-banner{
   height:100px; border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative; overflow:hidden;
   background:linear-gradient(135deg, var(--brand), var(--brand-dim));
+  background-size:cover; background-position:center; background-repeat:no-repeat;
   display:flex; align-items:center; justify-content:center;
 }
 .menu-card-banner::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,0.28); }
@@ -245,13 +246,13 @@ button{ font-family:inherit; cursor:pointer; }
 .box-banner > *{ position:relative; z-index:1; }
 
 /* Cada variação de box recebe sua própria imagem — troque a url() pela imagem real do card */
-.banner-emerald{ background-image:linear-gradient(150deg, rgba(0,0,0,0) , rgba(0,0,0,.15)), url('images/banner-emerald.jpg'); background-color:#0B8A5F; }
-.banner-violet{  background-image:linear-gradient(150deg, rgba(0,0,0,0) , rgba(0,0,0,.15)), url('images/banner-violet.jpg');  background-color:#5B2FA6; }
-.banner-crimson{ background-image:linear-gradient(150deg, rgba(0,0,0,0) , rgba(0,0,0,.15)), url('images/banner-crimson.jpg'); background-color:#8A1F3D; }
-.banner-poland{  background-image:url('images/banner-poland.jpg');  background-color:#8A1F3D; }
-.banner-russia{  background-image:url('images/banner-russia.jpg');  background-color:#B22222; }
-.banner-gold{    background-image:url('images/banner-gold.jpg');    background-color:#8A6B1E; }
-.banner-boxdraw{ background-image:url('images/banner-boxdraw.jpg'); background-color:#3A2E10; }
+.banner-emerald{ background-image:linear-gradient(150deg, rgba(0,0,0,0) , rgba(0,0,0,.15)), url('assets/banners/banner-emerald.jpg'); background-color:#0B8A5F; }
+.banner-violet{  background-image:linear-gradient(150deg, rgba(0,0,0,0) , rgba(0,0,0,.15)), url('assets/banners/banner-violet.jpg');  background-color:#5B2FA6; }
+.banner-crimson{ background-image:linear-gradient(150deg, rgba(0,0,0,0) , rgba(0,0,0,.15)), url('assets/banners/banner-crimson.jpg'); background-color:#8A1F3D; }
+.banner-poland{  background-image:url('assets/banners/banner-poland.jpg');  background-color:#8A1F3D; }
+.banner-russia{  background-image:url('assets/banners/banner-russia.jpg');  background-color:#B22222; }
+.banner-gold{    background-image:url('assets/banners/banner-gold.jpg');    background-color:#8A6B1E; background-position:center 30%; }
+.banner-boxdraw{ background-image:url('assets/banners/banner-boxdraw.jpg'); background-color:#3A2E10; background-position:center 35%; }
 
 .box-banner .box-name{ font-family:var(--font-display); font-weight:700; font-size:20px; position:relative; z-index:1; text-shadow:0 2px 6px rgba(0,0,0,.5); }
 .box-badge{
@@ -507,6 +508,25 @@ button{ font-family:inherit; cursor:pointer; }
 .toast.success{ border-color:var(--turf); }
 .toast.gold{ border-color:var(--gold); }
 
+/* ============ Paisagem obrigatória + Tela cheia ============
+   Em telas pequenas no modo retrato, cobrimos a tela pedindo pro
+   usuário girar o aparelho e/ou entrar em tela cheia — replicando
+   a experiência "só paisagem" de apps de futebol mobile. */
+.rotate-overlay{
+  display:none;
+  position:fixed; inset:0; z-index:500;
+  background:#0B1220; color:#fff;
+  flex-direction:column; align-items:center; justify-content:center; gap:18px;
+  text-align:center; padding:24px;
+}
+.rotate-icon{ font-size:54px; animation:rotateHint 1.6s ease-in-out infinite; }
+@keyframes rotateHint{ 0%,100%{ transform:rotate(0deg);} 50%{ transform:rotate(90deg);} }
+.rotate-overlay h2{ font-family:var(--font-display); font-size:22px; margin:0; }
+.rotate-overlay p{ color:#9DAAC2; font-size:13.5px; max-width:280px; margin:0; }
+@media (orientation: portrait) and (max-width: 900px){
+  .rotate-overlay{ display:flex; }
+}
+
 /* ============ Responsive: retrato (mobile) ============ */
 @media (max-width: 880px){
   .app-topbar{ padding:10px 14px; }
@@ -530,4 +550,4 @@ button{ font-family:inherit; cursor:pointer; }
   .hero-stadium{ padding:20px 22px; }
   .hero-title{ font-size:26px; margin:4px 0 8px; }
   .hero-desc{ margin-bottom:10px; }
-   }
+}
