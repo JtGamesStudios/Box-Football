@@ -19,8 +19,22 @@ function getEffectiveBox(boxId){
     active: ov.active ?? raw.active,
     priceGP: ov.priceGP ?? raw.priceGP ?? 0,
     priceCoins: ov.priceCoins ?? raw.priceCoins,
+    expiresAt: ov.expiresAt ?? raw.expiresAt ?? null,
     allPlayerIds: ov.playerIds ?? raw.players,
   };
+}
+
+/* "13 dias 20 hrs restantes" — funciona só se a box tiver o campo
+   opcional "expiresAt" (ISO datetime, ex: "2026-07-23T00:00:00").
+   Sem esse campo, o card simplesmente não mostra o prazo. */
+function formatTimeLeft(expiresAt){
+  if(!expiresAt) return null;
+  const diff = new Date(expiresAt).getTime() - Date.now();
+  if(diff <= 0) return "Expirada";
+  const totalHours = Math.floor(diff / 3600000);
+  const days = Math.floor(totalHours / 24);
+  const hours = totalHours % 24;
+  return days > 0 ? `${days} dias ${hours} hrs restantes` : `${hours} hrs restantes`;
 }
 
 function getRemainingIds(boxId){
@@ -55,27 +69,38 @@ function renderContratarGrid(){
   wrap.innerHTML = boxes.map(box=>{
     const remaining = getRemainingIds(box.id).length;
     const total = box.allPlayerIds.length;
-    const pct = total ? Math.round(((total-remaining)/total)*100) : 0;
+    const timeLeft = formatTimeLeft(box.expiresAt);
     return `
-    <div class="box-card">
-      <div class="box-banner" style="background-image: url('${box.banner}'), linear-gradient(150deg,#1B2438,#0A0E17); background-size: cover; background-position: center;">
-        <span class="box-badge on">ATIVA</span>
-        <span class="box-name">${box.name}</span>
+    <div class="box-pair">
+      <div class="box-card">
+        <div class="box-banner" style="background-image: url('${box.banner}'), linear-gradient(150deg,#1B2438,#0A0E17); background-size: cover; background-position: center;">
+          <span class="box-badge on">ATIVA</span>
+        </div>
+        <div class="box-body">
+          <div class="box-name-row">
+            <span class="box-name-lg">${box.name}</span>
+            ${timeLeft ? `<span class="box-timeleft">⏱ ${timeLeft}</span>` : ""}
+          </div>
+          <div class="box-bottom-row">
+            <button class="box-search-btn" onclick="showBoxSearchModal('${box.id}')" title="Ver jogadores disponíveis">🔍</button>
+            <div class="box-prices-inline">
+              <div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','coins')">Contratar</button>
+        </div>
       </div>
-      <div class="box-body">
-        <div class="box-desc">${box.description}</div>
-        <div class="ball-row">${renderBallChips(box.id)}</div>
-        <div class="box-progress">
-          <span>${remaining}/${total} restantes</span>
-          <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="box-stats-panel">
+        <div class="stat-block">
+          <div class="stat-label">Jogadores Restantes</div>
+          <div class="stat-value">${remaining}</div>
         </div>
-        <div class="box-prices">
-          <div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")} Moedas</div>
+        <div class="stat-block">
+          <div class="stat-label">Bolas Restantes</div>
+          <div class="ball-row-dark">${renderBallChips(box.id)}</div>
         </div>
-        <div class="box-actions">
-          <button class="btn btn-primary btn-block" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','coins')">Contratar (Moedas)</button>
-          <button class="btn btn-sm" onclick="resetBox('${box.id}')" title="Resetar Box">↺ Resetar</button>
-        </div>
+        <div class="stat-note">Resete para restaurar os jogadores disponíveis às configurações iniciais.</div>
+        <button class="btn btn-sm btn-block btn-reset-dark" onclick="resetBox('${box.id}')">↺ Resetar</button>
       </div>
     </div>`;
   }).join("");
@@ -216,7 +241,29 @@ function renderPlayerCard(p){
       </div>
     </div>`;
 }
-document.getElementById("btnCloseStage").addEventListener("click", ()=>{
+/* ---------------- LUPA: modal "Jogadores Disponíveis" ---------------- */
+function showBoxSearchModal(boxId){
+  const box = getEffectiveBox(boxId);
+  if(!box) return;
+  const players = getRemainingIds(boxId).map(getPlayer).filter(Boolean);
+
+  document.getElementById("searchModalTitle").textContent = `Jogadores Disponíveis — ${box.name}`;
+  document.getElementById("searchModalCount").textContent = players.length;
+  document.getElementById("searchModalGrid").innerHTML = players.length
+    ? players.map(p=>renderPlayerCard(p)).join("")
+    : `<div class="empty-state"><div class="big">🔍</div>Essa Box já foi completada.</div>`;
+
+  document.getElementById("boxSearchOverlay").classList.remove("hidden");
+}
+
+function closeBoxSearchModal(){
+  document.getElementById("boxSearchOverlay").classList.add("hidden");
+}
+
+document.getElementById("btnCloseSearch").addEventListener("click", closeBoxSearchModal);
+document.getElementById("boxSearchOverlay").addEventListener("click", (e)=>{
+  if(e.target.id === "boxSearchOverlay") closeBoxSearchModal();
+});
   document.getElementById("stageOverlay").classList.add("hidden");
   document.getElementById("beam1").classList.remove("sweep");
   document.getElementById("beam2").classList.remove("sweep");
