@@ -1,4 +1,6 @@
-
+/* =========================================================
+   BOXES — grid de contratação, animação de abertura, coleção
+   ========================================================= */
 const RARITY_ORDER = ["preta","dourada","prata","branca"];
 const RARITY_LABEL = { preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
 const RARITY_WEIGHT_BASE = { preta:1, dourada:3, prata:8, branca:14 }; // peso "natural" de cada bola quando sorteando visual
@@ -262,6 +264,17 @@ document.getElementById("btnCloseSearch").addEventListener("click", closeBoxSear
 document.getElementById("boxSearchOverlay").addEventListener("click", (e)=>{
   if(e.target.id === "boxSearchOverlay") closeBoxSearchModal();
 });
+
+/* ---------------- Carrossel: setas de navegação ---------------- */
+function scrollBoxCarousel(dir){
+  const grid = document.getElementById("contratarGrid");
+  if(!grid) return;
+  const card = grid.querySelector(".box-pair");
+  const step = card ? card.getBoundingClientRect().width + 24 : grid.clientWidth * 0.8;
+  grid.scrollBy({ left: dir * step, behavior: "smooth" });
+}
+document.getElementById("btnBoxPrev").addEventListener("click", ()=>scrollBoxCarousel(-1));
+document.getElementById("btnBoxNext").addEventListener("click", ()=>scrollBoxCarousel(1));
 
 document.getElementById("btnCloseStage").addEventListener("click", ()=>{
   document.getElementById("stageOverlay").classList.add("hidden");
