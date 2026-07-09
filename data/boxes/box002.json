@@ -1,10 +1,10 @@
 {
   "id": "box002",
-  "name": "Featured Players",
-  "date": "13/08/2020",
-  "description": "Featured Players - 13/08/2020",
+  "name": "Featured Players Eurocopa",
+  "date": "20/08/2020",
+  "description": "Featured Players - 20/08/2020",
   "banner": "assets/banners/featured_13082020.png",
   "active": true,
   "priceCoins": 100,
-  "players": ["p028", "p029", "p030", "p031", "p032", "p033", "p034"]
+  "players": ["p011", "P012", "P013", "P014", "P015", "P016", "P017", "P018", "P019", "P020", "P021"]
 }
