@@ -797,8 +797,13 @@ button{ font-family:inherit; cursor:pointer; }
   .rotate-overlay{ display:flex; }
 }
 /* Dentro do mobile, some SÓ quando paisagem + tela cheia estiverem
-   ativos ao mesmo tempo. */
+   ativos ao mesmo tempo. Prioriza as classes controladas pelo
+   fullscreen.js (is-fullscreen / fs-unsupported), mais confiáveis
+   entre navegadores mobile; mantém a pseudo-classe :fullscreen como
+   reforço extra. */
 @media (max-width: 900px) and (orientation: landscape){
+  html.is-fullscreen .rotate-overlay,
+  html.fs-unsupported .rotate-overlay,
   html:fullscreen .rotate-overlay,
   html:-webkit-full-screen .rotate-overlay,
   html:-moz-full-screen .rotate-overlay,
