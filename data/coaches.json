@@ -1,0 +1,7 @@
+[
+  { "id": "c1", "name": "Heitor Salgueiro", "style": "Ofensivo", "bonus": "+2 ATA", "nationalityFlag": "🇧🇷" },
+  { "id": "c2", "name": "Marcelo Andrade", "style": "Equilibrado", "bonus": "+1 em todas posições", "nationalityFlag": "🇧🇷" },
+  { "id": "c3", "name": "Ricardo Fontoura", "style": "Defensivo", "bonus": "+2 ZAG / +2 GOL", "nationalityFlag": "🇵🇹" },
+  { "id": "c4", "name": "Bastian Kruger", "style": "Pressão Alta", "bonus": "+2 VOL", "nationalityFlag": "🇩🇪" },
+  { "id": "c5", "name": "Diego Farrel", "style": "Posse de Bola", "bonus": "+2 MEI", "nationalityFlag": "🇦🇷" }
+]
