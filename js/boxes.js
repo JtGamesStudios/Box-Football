@@ -1,6 +1,4 @@
-/* =========================================================
-   BOXES — grid de contratação, animação de abertura, coleção
-   ========================================================= */
+
 const RARITY_ORDER = ["preta","dourada","prata","branca"];
 const RARITY_LABEL = { preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
 const RARITY_WEIGHT_BASE = { preta:1, dourada:3, prata:8, branca:14 }; // peso "natural" de cada bola quando sorteando visual
@@ -264,6 +262,8 @@ document.getElementById("btnCloseSearch").addEventListener("click", closeBoxSear
 document.getElementById("boxSearchOverlay").addEventListener("click", (e)=>{
   if(e.target.id === "boxSearchOverlay") closeBoxSearchModal();
 });
+
+document.getElementById("btnCloseStage").addEventListener("click", ()=>{
   document.getElementById("stageOverlay").classList.add("hidden");
   document.getElementById("beam1").classList.remove("sweep");
   document.getElementById("beam2").classList.remove("sweep");
