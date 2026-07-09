@@ -53,6 +53,13 @@
 
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  /* Impede o Android/Chrome de "inflar" o texto automaticamente em
+     colunas estreitas — é a causa mais comum de texto/botões
+     aparecerem gigantes e desproporcionais só no celular. */
+}
 body{
   margin:0;
   background:var(--bg);
@@ -190,6 +197,7 @@ button{ font-family:inherit; cursor:pointer; }
 .menu-card{
   background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
   overflow:visible; text-align:left; padding:0 0 16px; display:flex; flex-direction:column;
+  width:100%; max-width:320px; margin:0 auto;
   box-shadow:var(--shadow-card);
   animation:fadeUp .4s ease both;
   transition:transform .18s ease, box-shadow .18s ease;
@@ -224,6 +232,7 @@ button{ font-family:inherit; cursor:pointer; }
 .box-card{
   border-radius:var(--radius-lg); border:1px solid var(--border); overflow:hidden;
   background:var(--surface); display:flex; flex-direction:column;
+  width:100%; max-width:360px; margin:0 auto;
   box-shadow:var(--shadow-card);
   animation:fadeUp .4s ease both;
   transition:transform .18s ease, box-shadow .18s ease;
@@ -269,10 +278,10 @@ button{ font-family:inherit; cursor:pointer; }
   background:var(--surface-2); border:1px solid var(--border); border-radius:20px; padding:5px 10px 5px 6px;
 }
 .ball-dot{ width:14px; height:14px; border-radius:50%; background-size:cover; background-position:center; }
-.ball-dot.preta{   background-image:url('../assets/balls/ball-preta.jpg');   box-shadow:0 0 6px rgba(0,0,0,.5); }
-.ball-dot.dourada{ background-image:url('../assets/balls/ball-dourada.jpg'); box-shadow:0 0 6px rgba(255,201,60,.6); }
-.ball-dot.prata{   background-image:url('../assets/balls/ball-prata.jpg');   box-shadow:0 0 4px rgba(185,194,206,.5); }
-.ball-dot.branca{  background-image:url('../assets/balls/ball-branca.jpg');  box-shadow:0 0 4px rgba(255,255,255,.4); }
+.ball-dot.preta{   background-image:url('../assets/balls/ball-preta.png');   box-shadow:0 0 6px rgba(0,0,0,.5); }
+.ball-dot.dourada{ background-image:url('../assets/balls/ball-dourada.png'); box-shadow:0 0 6px rgba(255,201,60,.6); }
+.ball-dot.prata{   background-image:url('../assets/balls/ball-prata.png');   box-shadow:0 0 4px rgba(185,194,206,.5); }
+.ball-dot.branca{  background-image:url('../assets/balls/ball-branca.png');  box-shadow:0 0 4px rgba(255,255,255,.4); }
 .box-progress{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-muted); }
 .progress-track{ flex:1; height:6px; border-radius:6px; background:var(--surface-3); overflow:hidden; }
 .progress-fill{ height:100%; background:linear-gradient(90deg, var(--brand), var(--legend)); }
@@ -283,7 +292,7 @@ button{ font-family:inherit; cursor:pointer; }
 /* ============ Box opening (signature) ============ */
 .stage-overlay{
   position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center;
-  background:#0B1220 url('../assets/ui/roulette-stadium.jpg') center 30%/cover no-repeat;
+  background:#0B1220 url('../assets/ui/roulette-stadium.png') center 30%/cover no-repeat;
   overflow:hidden;
 }
 .stage-overlay::before{
@@ -319,10 +328,10 @@ button{ font-family:inherit; cursor:pointer; }
   border:2px solid rgba(255,255,255,.15);
   background-size:cover; background-position:center;
 }
-.ball-item.preta{   background-image:url('../assets/balls/ball-preta.jpg');   box-shadow:0 0 26px rgba(0,0,0,.55); }
-.ball-item.dourada{ background-image:url('../assets/balls/ball-dourada.jpg'); box-shadow:0 0 22px rgba(255,201,60,.55); }
-.ball-item.prata{   background-image:url('../assets/balls/ball-prata.jpg');   box-shadow:0 0 16px rgba(185,194,206,.45); }
-.ball-item.branca{  background-image:url('../assets/balls/ball-branca.jpg');  box-shadow:0 0 12px rgba(255,255,255,.4); }
+.ball-item.preta{   background-image:url('../assets/balls/ball-preta.png');   box-shadow:0 0 26px rgba(0,0,0,.55); }
+.ball-item.dourada{ background-image:url('../assets/balls/ball-dourada.png'); box-shadow:0 0 22px rgba(255,201,60,.55); }
+.ball-item.prata{   background-image:url('../assets/balls/ball-prata.png');   box-shadow:0 0 16px rgba(185,194,206,.45); }
+.ball-item.branca{  background-image:url('../assets/balls/ball-branca.png');  box-shadow:0 0 12px rgba(255,255,255,.4); }
 
 .selector-frame{
   position:absolute; left:50%; top:0; bottom:0; width:112px; transform:translateX(-50%);
@@ -335,10 +344,10 @@ button{ font-family:inherit; cursor:pointer; }
   display:flex; align-items:center; justify-content:center; position:relative;
   background-size:cover; background-position:center;
 }
-.reveal-ball.glow-preta{   background-image:url('../assets/balls/ball-preta.jpg');   animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 50px rgba(0,0,0,.6); }
-.reveal-ball.glow-dourada{ background-image:url('../assets/balls/ball-dourada.jpg'); animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 44px rgba(255,201,60,.65); }
-.reveal-ball.glow-prata{   background-image:url('../assets/balls/ball-prata.jpg');   animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 34px rgba(185,194,206,.5); }
-.reveal-ball.glow-branca{  background-image:url('../assets/balls/ball-branca.jpg');  animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 28px rgba(255,255,255,.45); }
+.reveal-ball.glow-preta{   background-image:url('../assets/balls/ball-preta.png');   animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 50px rgba(0,0,0,.6); }
+.reveal-ball.glow-dourada{ background-image:url('../assets/balls/ball-dourada.png'); animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 44px rgba(255,201,60,.65); }
+.reveal-ball.glow-prata{   background-image:url('../assets/balls/ball-prata.png');   animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 34px rgba(185,194,206,.5); }
+.reveal-ball.glow-branca{  background-image:url('../assets/balls/ball-branca.png');  animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 28px rgba(255,255,255,.45); }
 @keyframes pulseGlow{ from{ filter:brightness(1);} to{ filter:brightness(1.35);} }
 @keyframes ballOpen{ 0%,55%{ transform:scale(1);} 70%{ transform:scale(1.15);} 100%{ transform:scale(0); opacity:0;} }
 
@@ -350,6 +359,7 @@ button{ font-family:inherit; cursor:pointer; }
 /* ============ Player card — estilo "cartinha" (foto de corpo inteiro) ============ */
 .p-card{
   position:relative;
+  width:100%; max-width:230px; margin:0 auto;
   border-radius:var(--radius-md);
   overflow:hidden;
   aspect-ratio:2 / 3;
