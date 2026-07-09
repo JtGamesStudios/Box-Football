@@ -1,0 +1,10 @@
+[
+  { "id": "m1", "type": "openBox", "target": 5, "description": "Abrir 5 Boxes", "rewardGP": 1500, "rewardCoins": 0 },
+  { "id": "m2", "type": "ballCount", "ball": "preta", "target": 10, "description": "Conseguir 10 Bolas Pretas", "rewardGP": 0, "rewardCoins": 300 },
+  { "id": "m3", "type": "completeBox", "target": 1, "description": "Completar uma Box inteira", "rewardGP": 5000, "rewardCoins": 100 },
+  { "id": "m4", "type": "loginStreak", "target": 7, "description": "Entrar durante 7 dias seguidos", "rewardGP": 4000, "rewardCoins": 150 },
+  { "id": "m5", "type": "spendGP", "target": 20000, "description": "Gastar 20.000 GP em Boxes", "rewardGP": 0, "rewardCoins": 250 },
+  { "id": "m6", "type": "openBox", "target": 20, "description": "Abrir 20 Boxes", "rewardGP": 6000, "rewardCoins": 200 },
+  { "id": "m7", "type": "ballCount", "ball": "dourada", "target": 15, "description": "Conseguir 15 Bolas Douradas", "rewardGP": 3000, "rewardCoins": 0 },
+  { "id": "m8", "type": "collectionTotal", "target": 25, "description": "Ter 25 jogadores diferentes no clube", "rewardGP": 5000, "rewardCoins": 150 }
+]

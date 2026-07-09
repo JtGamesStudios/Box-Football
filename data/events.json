@@ -1,0 +1,11 @@
+{
+  "dailyLogin": [
+    { "day": 1, "rewardGP": 500,  "rewardCoins": 0 },
+    { "day": 2, "rewardGP": 500,  "rewardCoins": 0 },
+    { "day": 3, "rewardGP": 1000, "rewardCoins": 20 },
+    { "day": 4, "rewardGP": 1000, "rewardCoins": 0 },
+    { "day": 5, "rewardGP": 1500, "rewardCoins": 20 },
+    { "day": 6, "rewardGP": 1500, "rewardCoins": 30 },
+    { "day": 7, "rewardGP": 3000, "rewardCoins": 100 }
+  ]
+}

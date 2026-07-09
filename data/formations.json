@@ -1,0 +1,70 @@
+[
+  {
+    "id": "f433",
+    "name": "4-3-3",
+    "slots": [
+      { "id": "gol", "role": "GOL", "x": 50, "y": 8 },
+      { "id": "zag1", "role": "ZAG", "x": 32, "y": 22 },
+      { "id": "zag2", "role": "ZAG", "x": 68, "y": 22 },
+      { "id": "lat1", "role": "LAT", "x": 12, "y": 24 },
+      { "id": "lat2", "role": "LAT", "x": 88, "y": 24 },
+      { "id": "vol1", "role": "VOL", "x": 36, "y": 44 },
+      { "id": "vol2", "role": "VOL", "x": 64, "y": 44 },
+      { "id": "mei1", "role": "MEI", "x": 50, "y": 56 },
+      { "id": "pon1", "role": "PON", "x": 15, "y": 78 },
+      { "id": "ata1", "role": "ATA", "x": 50, "y": 86 },
+      { "id": "pon2", "role": "PON", "x": 85, "y": 78 }
+    ]
+  },
+  {
+    "id": "f442",
+    "name": "4-4-2",
+    "slots": [
+      { "id": "gol", "role": "GOL", "x": 50, "y": 8 },
+      { "id": "zag1", "role": "ZAG", "x": 32, "y": 22 },
+      { "id": "zag2", "role": "ZAG", "x": 68, "y": 22 },
+      { "id": "lat1", "role": "LAT", "x": 12, "y": 24 },
+      { "id": "lat2", "role": "LAT", "x": 88, "y": 24 },
+      { "id": "mei1", "role": "MEI", "x": 15, "y": 50 },
+      { "id": "vol1", "role": "VOL", "x": 40, "y": 46 },
+      { "id": "vol2", "role": "VOL", "x": 60, "y": 46 },
+      { "id": "mei2", "role": "MEI", "x": 85, "y": 50 },
+      { "id": "ata1", "role": "ATA", "x": 35, "y": 84 },
+      { "id": "ata2", "role": "ATA", "x": 65, "y": 84 }
+    ]
+  },
+  {
+    "id": "f352",
+    "name": "3-5-2",
+    "slots": [
+      { "id": "gol", "role": "GOL", "x": 50, "y": 8 },
+      { "id": "zag1", "role": "ZAG", "x": 25, "y": 22 },
+      { "id": "zag2", "role": "ZAG", "x": 50, "y": 18 },
+      { "id": "zag3", "role": "ZAG", "x": 75, "y": 22 },
+      { "id": "vol1", "role": "VOL", "x": 38, "y": 42 },
+      { "id": "vol2", "role": "VOL", "x": 62, "y": 42 },
+      { "id": "pon1", "role": "PON", "x": 10, "y": 56 },
+      { "id": "mei1", "role": "MEI", "x": 50, "y": 58 },
+      { "id": "pon2", "role": "PON", "x": 90, "y": 56 },
+      { "id": "ata1", "role": "ATA", "x": 38, "y": 86 },
+      { "id": "ata2", "role": "ATA", "x": 62, "y": 86 }
+    ]
+  },
+  {
+    "id": "f4231",
+    "name": "4-2-3-1",
+    "slots": [
+      { "id": "gol", "role": "GOL", "x": 50, "y": 8 },
+      { "id": "zag1", "role": "ZAG", "x": 32, "y": 20 },
+      { "id": "zag2", "role": "ZAG", "x": 68, "y": 20 },
+      { "id": "lat1", "role": "LAT", "x": 12, "y": 22 },
+      { "id": "lat2", "role": "LAT", "x": 88, "y": 22 },
+      { "id": "vol1", "role": "VOL", "x": 38, "y": 38 },
+      { "id": "vol2", "role": "VOL", "x": 62, "y": 38 },
+      { "id": "mei1", "role": "MEI", "x": 15, "y": 62 },
+      { "id": "mei2", "role": "MEI", "x": 50, "y": 58 },
+      { "id": "mei3", "role": "MEI", "x": 85, "y": 62 },
+      { "id": "ata1", "role": "ATA", "x": 50, "y": 86 }
+    ]
+  }
+]

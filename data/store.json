@@ -1,0 +1,6 @@
+[
+  { "id": "s1", "name": "Saco de GP Pequeno", "costCoins": 50,  "grantGP": 3000, "grantCoins": 0 },
+  { "id": "s2", "name": "Saco de GP Médio",   "costCoins": 120, "grantGP": 8000, "grantCoins": 0 },
+  { "id": "s3", "name": "Saco de GP Grande",  "costCoins": 250, "grantGP": 20000,"grantCoins": 0 },
+  { "id": "s4", "name": "Bolsa de Moedas",    "costCoins": 0,   "grantGP": 0,    "grantCoins": 0, "note": "Moedas só via missões e eventos" }
+]
