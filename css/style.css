@@ -721,8 +721,10 @@ button{ font-family:inherit; cursor:pointer; }
 .splash-slide.active{ opacity:1; }
 
 .splash-shade{
-  position:absolute; inset:0; z-index:1;
-  background:linear-gradient(180deg, rgba(5,7,12,.35) 0%, rgba(5,7,12,.15) 40%, rgba(5,7,12,.78) 100%);
+  /* Removido o escurecimento pra manter a cor original da foto.
+     Se o texto ficar difícil de ler em cima de imagens muito claras,
+     dá pra voltar um gradiente leve só aqui embaixo. */
+  display:none;
 }
 
 .splash-content{
