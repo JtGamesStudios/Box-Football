@@ -10,42 +10,22 @@
 
 <div id="app">
 
-  <!-- ===================== SIDEBAR (desktop) ===================== -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-badge">BC</div>
-      <div>
-        <div class="brand-name">BOX CLUBE</div>
-        <div class="brand-sub">JT Games Studios</div>
-      </div>
+  <!-- ===================== TOPBAR: carteira + ícones rápidos ===================== -->
+  <header class="app-topbar">
+    <div class="wallet-inline">
+      <span class="wallet-chip"><span class="coin-icon gp">$</span><strong id="gpValue-top">0</strong></span>
+      <span class="wallet-chip"><span class="coin-icon coins">◆</span><strong id="coinsValue-top">0</strong></span>
     </div>
-
-    <div class="wallet">
-      <div class="wallet-row"><span class="coin"><span class="coin-icon gp">$</span>GP</span><strong id="gpValue-side">0</strong></div>
-      <div class="wallet-row"><span class="coin"><span class="coin-icon coins">◆</span>Moedas</span><strong id="coinsValue-side">0</strong></div>
-    </div>
-
-    <nav class="nav-list" id="navListDesktop"></nav>
-
-    <div class="sidebar-foot">v1.0 · Não recarrega a página</div>
-  </aside>
-
-  <!-- ===================== TOPBAR (mobile) ===================== -->
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-badge">BC</div>
-      <div class="brand-name" style="font-size:16px;">BOX CLUBE</div>
-    </div>
-    <div class="wallet">
-      <div class="wallet-row"><span class="coin"><span class="coin-icon gp">$</span></span><strong id="gpValue-top">0</strong></div>
-      <div class="wallet-row"><span class="coin"><span class="coin-icon coins">◆</span></span><strong id="coinsValue-top">0</strong></div>
-    </div>
+    <div class="topicons" id="topIcons"></div>
   </header>
+
+  <!-- ===================== ABAS: Match / Club House / Contract / Extras ===================== -->
+  <nav class="menu-tabs" id="menuTabs"></nav>
 
   <!-- ===================== MAIN ===================== -->
   <main class="main" id="mainContent">
 
-    <!-- HOME -->
+    <!-- HOME (aba "Match") -->
     <section class="screen" id="screen-home" data-title="Início">
       <div class="hero-stadium">
         <div class="hero-eyebrow">Boas-vindas de volta</div>
@@ -70,14 +50,35 @@
       </div>
     </section>
 
-    <!-- CONTRATAR -->
+    <!-- CLUB HOUSE (hub) -->
+    <section class="screen" id="screen-clubhouse" data-title="Club House">
+      <h1 class="page-title">Club House</h1>
+      <p class="page-sub">Gerencie seu elenco e acompanhe seu progresso.</p>
+      <div class="menu-card-grid" id="clubhouseGrid"></div>
+    </section>
+
+    <!-- CONTRACT (hub) -->
+    <section class="screen" id="screen-contract" data-title="Contract">
+      <h1 class="page-title">Contract</h1>
+      <p class="page-sub">Contrate reforços e gerencie suas Boxes.</p>
+      <div class="menu-card-grid" id="contractGrid"></div>
+    </section>
+
+    <!-- EXTRAS (hub) -->
+    <section class="screen" id="screen-extras" data-title="Extras">
+      <h1 class="page-title">Extras</h1>
+      <p class="page-sub">Presentes, configurações e mais.</p>
+      <div class="menu-card-grid" id="extrasGrid"></div>
+    </section>
+
+    <!-- CONTRATAR (tela real — inalterada) -->
     <section class="screen" id="screen-contratar" data-title="Contratar">
       <h1 class="page-title">Contratar</h1>
       <p class="page-sub">Escolha uma Box ativa e contrate seu próximo reforço.</p>
       <div class="box-grid" id="contratarGrid"></div>
     </section>
 
-    <!-- BOXES (coleção detalhada) -->
+    <!-- BOXES (coleção detalhada — inalterada) -->
     <section class="screen" id="screen-boxes" data-title="Boxes">
       <h1 class="page-title">Boxes</h1>
       <p class="page-sub">Acompanhe o progresso de cada Box e resete quando quiser recomeçar.</p>
@@ -85,7 +86,7 @@
       <div id="boxDetailWrap"></div>
     </section>
 
-    <!-- MEU CLUBE -->
+    <!-- MEU CLUBE (inalterada) -->
     <section class="screen" id="screen-clube" data-title="Meu Clube">
       <h1 class="page-title">Meu Clube</h1>
       <p class="page-sub">Todos os jogadores contratados ficam aqui.</p>
@@ -112,7 +113,7 @@
       <div class="club-grid" id="clubeGrid"></div>
     </section>
 
-    <!-- ESCALAÇÃO -->
+    <!-- ESCALAÇÃO (inalterada) -->
     <section class="screen" id="screen-escalacao" data-title="Escalação">
       <h1 class="page-title">Escalação</h1>
       <p class="page-sub">Monte seu time titular, escolha o técnico e salve vários elencos.</p>
@@ -141,7 +142,7 @@
       </div>
     </section>
 
-    <!-- CAIXA DE PRESENTES -->
+    <!-- CAIXA DE PRESENTES (inalterada) -->
     <section class="screen" id="screen-presentes" data-title="Caixa de Presentes">
       <h1 class="page-title">Caixa de Presentes</h1>
       <p class="page-sub">Resgate suas recompensas de missões, eventos e login diário.</p>
@@ -151,21 +152,21 @@
       <div id="giftsList"></div>
     </section>
 
-    <!-- MISSÕES -->
+    <!-- MISSÕES (inalterada) -->
     <section class="screen" id="screen-missoes" data-title="Missões">
       <h1 class="page-title">Missões</h1>
       <p class="page-sub">Complete objetivos para ganhar GP e Moedas extras.</p>
       <div id="missionsList"></div>
     </section>
 
-    <!-- LOJA -->
+    <!-- LOJA (inalterada) -->
     <section class="screen" id="screen-loja" data-title="Loja">
       <h1 class="page-title">Loja</h1>
       <p class="page-sub">Troque Moedas por GP para contratar mais rápido.</p>
       <div class="quick-grid" id="storeGrid"></div>
     </section>
 
-    <!-- CONFIGURAÇÕES / ADMIN -->
+    <!-- CONFIGURAÇÕES / ADMIN (inalterada) -->
     <section class="screen" id="screen-config" data-title="Configurações">
       <h1 class="page-title">Configurações</h1>
       <p class="page-sub">Preferências e painel administrativo das Boxes.</p>
@@ -198,17 +199,7 @@
   </main>
 </div>
 
-<!-- ===================== TABBAR (mobile) ===================== -->
-<nav class="tabbar" id="tabbar"></nav>
-
-<!-- ===================== DRAWER (mobile "mais") ===================== -->
-<div class="drawer-backdrop" id="drawerBackdrop"></div>
-<aside class="drawer" id="drawer">
-  <h3>Mais opções</h3>
-  <div class="nav-list" id="navListDrawer"></div>
-</aside>
-
-<!-- ===================== BOX OPENING OVERLAY ===================== -->
+<!-- ===================== BOX OPENING OVERLAY (inalterado) ===================== -->
 <div class="stage-overlay hidden" id="stageOverlay">
   <div class="beam" id="beam1" style="left:10%;"></div>
   <div class="beam" id="beam2" style="left:70%;"></div>
@@ -234,7 +225,7 @@
   </div>
 </div>
 
-<!-- ===================== TOASTS ===================== -->
+<!-- ===================== TOASTS (inalterado) ===================== -->
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script src="js/state.js"></script>
