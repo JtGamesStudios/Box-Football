@@ -44,7 +44,7 @@ async function loadGameData(){
   GAME_DATA.boxesRaw = boxFiles.filter(Boolean);
 
   GAME_DATA.playersById = {};
-  players.forEach(p => GAME_DATA.playersById[p.id] = p);
+players.forEach(p => GAME_DATA.playersById[p.id.toLowerCase()] = p);
 }
 
-function getPlayer(id){ return GAME_DATA.playersById[id]; }
+function getPlayer(id){ return id ? GAME_DATA.playersById[String(id).toLowerCase()] : undefined; }
