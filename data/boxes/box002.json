@@ -1,0 +1,11 @@
+{
+  "id": "box002",
+  "name": "Featured Players",
+  "date": "13/08/2020",
+  "description": "Featured Players - 13/08/2020",
+  "banner": "assets/banners/featured_13082020.png",
+  "active": true,
+  "priceGP": 25000,
+  "priceCoins": 100,
+  "players": ["p008", "p009", "p010", "p011", "p012", "p013", "p014"]
+}
