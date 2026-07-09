@@ -673,6 +673,73 @@ button{ font-family:inherit; cursor:pointer; }
 .toast.success{ border-color:var(--turf); }
 .toast.gold{ border-color:var(--gold); }
 
+/* ============ Splash screen (carrossel inicial) ============
+   Fica por cima de tudo (inclusive do rotate-overlay) até o usuário
+   tocar. Cada .splash-slide é uma imagem de fundo que aparece/some
+   por opacidade — troca automática a cada 10s via js/splash.js. */
+.splash-overlay{
+  position:fixed; inset:0; z-index:600;
+  background:#05070C;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  cursor:pointer;
+  transition:opacity .5s ease;
+}
+.splash-overlay.fade-out{ opacity:0; pointer-events:none; }
+.splash-overlay.hidden{ display:none !important; }
+
+.splash-slides{ position:absolute; inset:0; }
+.splash-slide{
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  opacity:0; transition:opacity 1.2s ease;
+}
+.splash-slide.active{ opacity:1; }
+
+.splash-shade{
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(180deg, rgba(5,7,12,.35) 0%, rgba(5,7,12,.15) 40%, rgba(5,7,12,.78) 100%);
+}
+
+.splash-content{
+  position:relative; z-index:2; text-align:center; color:#fff;
+  display:flex; flex-direction:column; align-items:center; gap:18px;
+  padding:24px;
+}
+.splash-logo{
+  font-family:var(--font-display); font-weight:800;
+  font-size:clamp(28px,7vw,48px); letter-spacing:.5px;
+  text-shadow:0 4px 16px rgba(0,0,0,.5);
+}
+.splash-tap-hint{
+  font-size:14px; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,.85);
+  padding:10px 22px; border:1px solid rgba(255,255,255,.4); border-radius:30px;
+  animation:splashPulse 1.6s ease-in-out infinite;
+}
+.splash-tap-hint.hidden{ display:none; }
+@keyframes splashPulse{ 0%,100%{ opacity:.6; transform:scale(1);} 50%{ opacity:1; transform:scale(1.04);} }
+
+.splash-loading{
+  position:absolute; inset:0; z-index:3;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+  background:rgba(5,7,12,.55);
+  color:#fff;
+}
+.splash-loading.hidden{ display:none; }
+.splash-spinner{
+  width:42px; height:42px; border-radius:50%;
+  border:3px solid rgba(255,255,255,.25); border-top-color:#fff;
+  animation:splashSpin .8s linear infinite;
+}
+@keyframes splashSpin{ to{ transform:rotate(360deg); } }
+.splash-loading-text{ font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,.8); }
+
+@media (max-width:480px){
+  .splash-tap-hint{ font-size:12px; padding:8px 16px; }
+  .splash-spinner{ width:34px; height:34px; }
+}
+
 /* ============ Paisagem obrigatória + Tela cheia ============
    Em telas pequenas no modo retrato, cobrimos a tela pedindo pro
    usuário girar o aparelho e/ou entrar em tela cheia — replicando
