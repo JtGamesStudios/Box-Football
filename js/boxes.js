@@ -17,7 +17,7 @@ function getEffectiveBox(boxId){
     description: ov.description ?? raw.description,
     banner: ov.banner ?? raw.banner,
     active: ov.active ?? raw.active,
-    priceGP: ov.priceGP ?? raw.priceGP,
+    priceGP: ov.priceGP ?? raw.priceGP ?? 0,
     priceCoins: ov.priceCoins ?? raw.priceCoins,
     allPlayerIds: ov.playerIds ?? raw.players,
   };
@@ -70,14 +70,10 @@ function renderContratarGrid(){
           <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
         </div>
         <div class="box-prices">
-          <div class="price-pill">💰 ${box.priceGP.toLocaleString("pt-BR")} GP</div>
           <div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")} Moedas</div>
         </div>
         <div class="box-actions">
-          <button class="btn btn-primary btn-block" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','gp')">Contratar (GP)</button>
-        </div>
-        <div class="box-actions">
-          <button class="btn btn-block" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','coins')">Contratar (Moedas)</button>
+          <button class="btn btn-primary btn-block" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','coins')">Contratar (Moedas)</button>
           <button class="btn btn-sm" onclick="resetBox('${box.id}')" title="Resetar Box">↺ Resetar</button>
         </div>
       </div>
@@ -103,8 +99,8 @@ function startBoxOpen(boxId, method){
   const remaining = getRemainingIds(boxId);
   if(remaining.length===0){ toast("Essa Box já foi completada. Resete para jogar de novo.", ""); return; }
 
-  const price = method==="gp" ? { gp: box.priceGP, coins: 0 } : { gp: 0, coins: box.priceCoins };
-  if(price.gp > STATE.currency.gp || price.coins > STATE.currency.coins){
+  const price = { gp: 0, coins: box.priceCoins };
+  if(price.coins > STATE.currency.coins){
     toast("Saldo insuficiente para essa contratação.", "");
     return;
   }
