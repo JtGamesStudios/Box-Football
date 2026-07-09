@@ -7,7 +7,7 @@
    aqui só organizamos COMO se chega até elas.
    ========================================================= */
 
-/* Abas principais do topo */
+/* Abas principais do topo (dot = pontinho de notificação, opcional) */
 const TOP_TABS = [
   { id: "home",      label: "Match" },
   { id: "clubhouse", label: "Club House" },
@@ -23,21 +23,24 @@ const TOP_ICONS = [
   { icon: "🛒", nav: "loja",      title: "Loja" },
 ];
 
-/* Cards grandes de cada hub (banner + ícone + título + subtítulo),
-   no estilo das telas "Club House" / "Contract" / "Extras" do eFootball. */
+/* Cards grandes de cada hub (banner + ícone + título + subtítulo + badge
+   numérico opcional), no padrão exato do PES (Agent/Scout/Auction/Manager,
+   Squad Management/My Team/Achievements/Practice).
+   badgeSource: id de um elemento já existente na tela (ex: "homeMissions")
+   cujo texto vira o número do badge — deixe null pra não mostrar badge. */
 const CLUBHOUSE_CARDS = [
-  { nav: "clube",     banner: "banner-emerald", icon: "👥", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados" },
-  { nav: "escalacao", banner: "banner-violet",  icon: "⚽", title: "Escalação",  sub: "Monte seu time titular e salve elencos" },
-  { nav: "missoes",   banner: "banner-crimson", icon: "🎯", title: "Missões",   sub: "Complete objetivos e ganhe recompensas" },
+  { nav: "clube",     banner: "banner-emerald", icon: "👥", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados", badgeSource: null },
+  { nav: "escalacao", banner: "banner-violet",  icon: "⚽", title: "Escalação",  sub: "Monte seu time titular e salve elencos", badgeSource: null },
+  { nav: "missoes",   banner: "banner-crimson", icon: "🎯", title: "Missões",   sub: "Complete objetivos e ganhe recompensas", badgeSource: "homeMissions" },
 ];
 const CONTRACT_CARDS = [
-  { nav: "contratar", banner: "banner-gold",    icon: "🎰", title: "Contratar", sub: "Abra Boxes e contrate seu próximo reforço" },
-  { nav: "boxes",      banner: "banner-boxdraw", icon: "📦", title: "Boxes",      sub: "Acompanhe o progresso de cada Box" },
-  { nav: "loja",       banner: "banner-emerald", icon: "💰", title: "Loja",       sub: "Troque Moedas por GP" },
+  { nav: "contratar", banner: "banner-gold",    icon: "🎰", title: "Contratar", sub: "Abra Boxes e contrate seu próximo reforço", badgeSource: null },
+  { nav: "boxes",      banner: "banner-boxdraw", icon: "📦", title: "Boxes",      sub: "Acompanhe o progresso de cada Box", badgeSource: null },
+  { nav: "loja",       banner: "banner-emerald", icon: "💰", title: "Loja",       sub: "Troque Moedas por GP", badgeSource: null },
 ];
 const EXTRAS_CARDS = [
-  { nav: "presentes", banner: "banner-violet",  icon: "🎁", title: "Caixa de Presentes", sub: "Resgate recompensas de missões e eventos" },
-  { nav: "config",     banner: "banner-crimson", icon: "⚙",  title: "Configurações",       sub: "Preferências e painel administrativo" },
+  { nav: "presentes", banner: "banner-violet",  icon: "🎁", title: "Caixa de Presentes", sub: "Resgate recompensas de missões e eventos", badgeSource: "homeGifts" },
+  { nav: "config",     banner: "banner-crimson", icon: "⚙",  title: "Configurações",       sub: "Preferências e painel administrativo", badgeSource: null },
 ];
 
 /* Cada tela "filha" pertence a uma aba do topo — usado para destacar
@@ -70,7 +73,7 @@ function buildTopTabs(){
     const btn = document.createElement("button");
     btn.className = "menu-tab-item";
     btn.dataset.tab = tab.id;
-    btn.textContent = tab.label;
+    btn.innerHTML = tab.label + (tab.dot ? `<span class="tab-dot ${tab.dot==="orange"?"orange":""}"></span>` : "");
     btn.onclick = ()=> showScreen(tab.id);
     wrap.appendChild(btn);
   });
@@ -103,6 +106,7 @@ function buildHubGrid(containerId, cards){
     btn.dataset.nav = c.nav;
     btn.innerHTML = `
       <div class="menu-card-banner ${c.banner}">
+        ${c.badgeSource ? `<span class="menu-card-badge hidden" data-hub-badge-for="${c.nav}">0</span>` : ""}
         <div class="menu-card-icon">${c.icon}</div>
       </div>
       <div class="menu-card-body">
@@ -130,13 +134,25 @@ function updateBackButton(id){
   target.prepend(back);
 }
 
-/* Sincroniza o badge numérico do ícone de presentes com o valor
-   já calculado pelo app (id="homeGifts"), sem duplicar lógica. */
+/* Sincroniza os badges numéricos (ícones do topo + cards de hub) com
+   valores já calculados pelo app (ex: id="homeGifts"), sem duplicar lógica. */
+const ALL_HUB_CARDS = [...CLUBHOUSE_CARDS, ...CONTRACT_CARDS, ...EXTRAS_CARDS];
+
 function syncTopBadges(){
   TOP_ICONS.forEach(item=>{
     if(!item.badgeSource) return;
     const source = document.getElementById(item.badgeSource);
     const badge = document.querySelector(`[data-badge-for="${item.nav}"]`);
+    if(!source || !badge) return;
+    const val = parseInt(source.textContent, 10) || 0;
+    badge.textContent = val;
+    badge.classList.toggle("hidden", val <= 0);
+  });
+
+  ALL_HUB_CARDS.forEach(c=>{
+    if(!c.badgeSource) return;
+    const source = document.getElementById(c.badgeSource);
+    const badge = document.querySelector(`[data-hub-badge-for="${c.nav}"]`);
     if(!source || !badge) return;
     const val = parseInt(source.textContent, 10) || 0;
     badge.textContent = val;
