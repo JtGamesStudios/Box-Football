@@ -698,11 +698,14 @@ button{ font-family:inherit; cursor:pointer; }
 .toast.gold{ border-color:var(--gold); }
 
 /* ============ Splash screen (carrossel inicial) ============
-   Fica por cima de tudo (inclusive do rotate-overlay) até o usuário
-   tocar. Cada .splash-slide é uma imagem de fundo que aparece/some
+   Fica por cima do menu, mas ABAIXO do aviso de girar/tela cheia
+   (.rotate-overlay) — assim, se o app abrir em retrato ou fora da
+   tela cheia, quem aparece primeiro é o aviso, e a splash só é
+   revelada depois que o usuário girar o celular E entrar em tela
+   cheia. Cada .splash-slide é uma imagem de fundo que aparece/some
    por opacidade — troca automática a cada 10s via js/splash.js. */
 .splash-overlay{
-  position:fixed; inset:0; z-index:600;
+  position:fixed; inset:0; z-index:550;
   background:#05070C;
   display:flex; align-items:center; justify-content:center;
   overflow:hidden;
@@ -767,22 +770,71 @@ button{ font-family:inherit; cursor:pointer; }
 }
 
 /* ============ Paisagem obrigatória + Tela cheia ============
-   Em telas pequenas no modo retrato, cobrimos a tela pedindo pro
-   usuário girar o aparelho e/ou entrar em tela cheia — replicando
-   a experiência "só paisagem" de apps de futebol mobile. */
+   Fica ACIMA de tudo (inclusive da splash) — é a primeira coisa que
+   o usuário vê. Só libera o resto do app (splash → menu) quando as
+   DUAS condições forem verdadeiras ao mesmo tempo: celular em
+   paisagem E navegador em tela cheia. Se faltar qualquer uma das
+   duas, o aviso continua na tela.
+   Antes usava um emoji (📱) como ícone, que renderiza de forma
+   inconsistente (às vezes feio/quebrado) em vários Androids, sem
+   nenhum "cartão" ou cor de marca ao redor — daí a aparência estranha.
+   Agora usa um ícone SVG (sempre consistente) dentro de um card,
+   com o mesmo azul de marca do resto do app. */
 .rotate-overlay{
   display:none;
-  position:fixed; inset:0; z-index:500;
-  background:#0B1220; color:#fff;
-  flex-direction:column; align-items:center; justify-content:center; gap:18px;
-  text-align:center; padding:24px;
+  position:fixed; inset:0; z-index:700;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(25,140,255,.22), transparent 65%),
+    linear-gradient(180deg, #0B1220 0%, #060A14 100%);
+  color:#fff;
+  align-items:center; justify-content:center;
+  padding:24px;
+  padding-top:calc(24px + env(safe-area-inset-top, 0px));
+  padding-bottom:calc(24px + env(safe-area-inset-bottom, 0px));
 }
-.rotate-icon{ font-size:54px; animation:rotateHint 1.6s ease-in-out infinite; }
-@keyframes rotateHint{ 0%,100%{ transform:rotate(0deg);} 50%{ transform:rotate(90deg);} }
-.rotate-overlay h2{ font-family:var(--font-display); font-size:22px; margin:0; }
-.rotate-overlay p{ color:#9DAAC2; font-size:13.5px; max-width:280px; margin:0; }
-@media (orientation: portrait) and (max-width: 900px){
+/* Só se aplica em telas pequenas (mobile) — igual era antes. */
+@media (max-width: 900px){
   .rotate-overlay{ display:flex; }
+}
+/* Dentro do mobile, some SÓ quando paisagem + tela cheia estiverem
+   ativos ao mesmo tempo. */
+@media (max-width: 900px) and (orientation: landscape){
+  html:fullscreen .rotate-overlay,
+  html:-webkit-full-screen .rotate-overlay,
+  html:-moz-full-screen .rotate-overlay,
+  html:-ms-fullscreen .rotate-overlay{
+    display:none;
+  }
+}
+
+.rotate-card{
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  max-width:300px; text-align:center;
+  animation:rotateCardIn .4s ease both;
+}
+@keyframes rotateCardIn{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+
+.rotate-icon-wrap{
+  width:88px; height:88px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(25,140,255,.14); border:1px solid rgba(25,140,255,.35);
+  box-shadow:0 0 30px rgba(25,140,255,.18);
+}
+.rotate-icon-svg{
+  width:38px; height:38px; color:var(--brand);
+  animation:rotateHint 1.6s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes rotateHint{ 0%,100%{ transform:rotate(0deg);} 50%{ transform:rotate(90deg);} }
+
+.rotate-overlay h2{ font-family:var(--font-display); font-size:21px; font-weight:700; margin:0; }
+.rotate-overlay p{ color:#9DAAC2; font-size:13.5px; max-width:270px; margin:0; line-height:1.5; }
+.rotate-overlay .btn{ margin-top:4px; }
+
+@media (max-width:360px){
+  .rotate-icon-wrap{ width:74px; height:74px; }
+  .rotate-icon-svg{ width:32px; height:32px; }
+  .rotate-overlay h2{ font-size:18.5px; }
 }
 
 /* ============ Responsive: retrato (mobile) ============ */
