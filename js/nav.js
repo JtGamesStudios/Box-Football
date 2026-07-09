@@ -105,10 +105,9 @@ function buildHubGrid(containerId, cards){
     btn.className = "menu-card";
     btn.dataset.nav = c.nav;
     btn.innerHTML = `
-      <div class="menu-card-banner ${c.banner}">
-        ${c.badgeSource ? `<span class="menu-card-badge hidden" data-hub-badge-for="${c.nav}">0</span>` : ""}
-        <div class="menu-card-icon">${c.icon}</div>
-      </div>
+      <div class="menu-card-banner ${c.banner}"></div>
+      ${c.badgeSource ? `<span class="menu-card-badge hidden" data-hub-badge-for="${c.nav}">0</span>` : ""}
+      <div class="menu-card-icon">${c.icon}</div>
       <div class="menu-card-body">
         <div class="menu-card-title">${c.title}</div>
         <div class="menu-card-sub">${c.sub}</div>
