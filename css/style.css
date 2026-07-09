@@ -74,96 +74,54 @@ button{ font-family:inherit; cursor:pointer; }
 .hidden{ display:none !important; }
 
 /* ============ App shell ============ */
-#app{ display:flex; min-height:100vh; }
+#app{ display:flex; flex-direction:column; min-height:100vh; }
 
-/* --- Sidebar (desktop) --- */
-.sidebar{
-  width:248px; flex-shrink:0;
-  background:var(--surface);
-  border-right:1px solid var(--border);
-  padding:20px 14px;
-  display:flex; flex-direction:column; gap:22px;
-  position:sticky; top:0; height:100vh;
+/* --- Barra superior: carteira (G$/estrelas) + ícones rápidos ---
+   Replica o topo das telas do eFootball (moedas à esquerda,
+   perfil/presentes/mensagens/loja à direita). --- */
+.app-topbar{
+  position:sticky; top:0; z-index:30;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:12px 18px;
+  background:rgba(255,255,255,0.94); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
 }
-.brand{ display:flex; align-items:center; gap:10px; padding:0 6px; }
-.brand-badge{
-  width:38px; height:38px; border-radius:10px;
-  background:linear-gradient(135deg, var(--brand), var(--brand-dim));
-  display:flex; align-items:center; justify-content:center;
-  font-family:var(--font-display); font-weight:700; color:#fff; font-size:18px;
-  box-shadow:0 4px 10px rgba(25,140,255,0.35);
+.wallet-inline{ display:flex; align-items:center; gap:14px; }
+.wallet-chip{
+  display:flex; align-items:center; gap:7px; font-weight:700; font-size:14.5px; color:var(--text);
 }
-.brand-name{ font-family:var(--font-display); font-size:19px; letter-spacing:0.3px; font-weight:700; }
-.brand-sub{ font-size:11px; color:var(--text-muted); margin-top:-2px; }
-
-.wallet{
-  display:flex; flex-direction:column; gap:8px;
-  background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-md);
-  padding:12px;
-}
-.wallet-row{ display:flex; align-items:center; justify-content:space-between; font-size:14px; }
-.wallet-row .coin{ display:flex; align-items:center; gap:8px; font-weight:600; }
-.coin-icon{ width:20px; height:20px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; }
+.coin-icon{ width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:12px; }
 .coin-icon.gp{ background:radial-gradient(circle at 30% 30%, #FFF3CE, var(--gold)); color:#5A4200; }
 .coin-icon.coins{ background:radial-gradient(circle at 30% 30%, #E7F3FF, var(--brand)); color:#06264A; }
 
-.nav-list{ display:flex; flex-direction:column; gap:2px; overflow-y:auto; flex:1; }
-.nav-item{
-  display:flex; align-items:center; gap:12px;
-  padding:10px 12px; border-radius:var(--radius-sm);
-  color:var(--text-muted); background:transparent; border:none; text-align:left;
-  font-size:14.5px; font-weight:500; width:100%;
-  transition:background .15s, color .15s;
+.topicons{ display:flex; align-items:center; gap:18px; }
+.topicon-btn{
+  position:relative; background:none; border:none; font-size:20px; color:var(--brand);
+  display:flex; align-items:center; justify-content:center; width:30px; height:30px;
+  transition:transform .12s;
 }
-.nav-item:hover{ background:var(--surface-2); color:var(--text); }
-.nav-item.active{ background:var(--brand-light); color:var(--brand); font-weight:700; }
-.nav-item .ico{ font-size:17px; width:22px; text-align:center; }
+.topicon-btn:hover{ transform:translateY(-1px); }
+.topicon-btn.active{ color:var(--brand-dim); }
+.badge-dot{
+  position:absolute; top:-4px; right:-6px; min-width:16px; height:16px; padding:0 3px;
+  border-radius:20px; background:var(--crimson); color:#fff;
+  font-size:9.5px; font-weight:800; line-height:16px; text-align:center;
+}
 
-.sidebar-foot{ font-size:11px; color:var(--text-dim); padding:0 6px; }
-
-/* --- Mobile top bar --- */
-.topbar{
-  display:none;
-  position:sticky; top:0; z-index:30;
-  align-items:center; justify-content:space-between;
-  padding:10px 14px; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px);
+/* --- Abas horizontais: Match / Club House / Contract / Extras --- */
+.menu-tabs{
+  position:sticky; top:56px; z-index:25;
+  display:flex; align-items:center; gap:22px;
+  padding:0 18px; background:var(--surface);
   border-bottom:1px solid var(--border);
+  overflow-x:auto;
 }
-.topbar .wallet{ flex-direction:row; padding:6px 10px; gap:14px; background:transparent; border:none; }
-.topbar .wallet-row{ font-size:13px; }
-
-/* --- Bottom tab bar (mobile) --- */
-.tabbar{
-  display:none;
-  position:fixed; bottom:0; left:0; right:0; z-index:40;
-  background:rgba(255,255,255,0.96); backdrop-filter:blur(14px);
-  border-top:1px solid var(--border);
-  padding:6px 4px calc(6px + env(safe-area-inset-bottom));
-  justify-content:space-around;
-  box-shadow:0 -4px 16px rgba(0,0,0,0.06);
+.menu-tab-item{
+  position:relative; background:none; border:none; white-space:nowrap;
+  padding:14px 2px 12px; font-size:14.5px; font-weight:600; color:var(--text-muted);
+  border-bottom:3px solid transparent;
 }
-.tab-item{
-  background:none; border:none; color:var(--text-muted);
-  display:flex; flex-direction:column; align-items:center; gap:2px;
-  font-size:10.5px; padding:6px 4px; border-radius:10px; flex:1;
-}
-.tab-item .ico{ font-size:19px; }
-.tab-item.active{ color:var(--brand); }
-
-/* --- Drawer (mobile "mais") --- */
-.drawer-backdrop{
-  position:fixed; inset:0; background:rgba(20,24,34,0.45); z-index:49; display:none;
-}
-.drawer-backdrop.open{ display:block; }
-.drawer{
-  position:fixed; right:0; top:0; bottom:0; width:min(78vw, 300px); z-index:50;
-  background:var(--surface); border-left:1px solid var(--border);
-  padding:18px; transform:translateX(100%); transition:transform .25s ease;
-  display:flex; flex-direction:column; gap:6px;
-  box-shadow:-8px 0 24px rgba(0,0,0,0.12);
-}
-.drawer.open{ transform:translateX(0); }
-.drawer h3{ font-family:var(--font-display); margin:4px 0 12px; }
+.menu-tab-item.active{ color:var(--brand); border-bottom-color:var(--brand); }
 
 /* ============ Main content ============ */
 .main{ flex:1; min-width:0; padding:26px 30px 60px; }
@@ -224,6 +182,41 @@ button{ font-family:inherit; cursor:pointer; }
 .btn:disabled{ opacity:.4; cursor:not-allowed; transform:none; }
 .btn-sm{ padding:7px 12px; font-size:12.5px; border-radius:9px; }
 .btn-block{ width:100%; }
+
+/* ============ Hub cards (Club House / Contract / Extras) ============
+   Grid de cards grandes com banner colorido + ícone circular sobreposto,
+   igual ao layout das telas "Club House", "Contract" e "Extras" do eFootball. */
+.menu-card-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:18px; margin-top:4px; }
+.menu-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
+  overflow:visible; text-align:left; padding:0 0 16px; display:flex; flex-direction:column;
+  box-shadow:var(--shadow-card);
+  animation:fadeUp .4s ease both;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.menu-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-card-hover); }
+.menu-card-banner{
+  height:100px; border-radius:var(--radius-lg) var(--radius-lg) 0 0; position:relative; overflow:hidden;
+  background:linear-gradient(135deg, var(--brand), var(--brand-dim));
+  display:flex; align-items:center; justify-content:center;
+}
+.menu-card-banner::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,0.28); }
+.menu-card-icon{
+  position:relative; z-index:1; width:52px; height:52px; border-radius:50%;
+  background:var(--surface); box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  display:flex; align-items:center; justify-content:center; font-size:24px;
+  margin-top:56px; /* sobrepõe metade do ícone no banner, metade no corpo */
+}
+.menu-card-body{ padding:16px 16px 0; text-align:center; }
+.menu-card-title{ font-family:var(--font-display); font-weight:700; font-size:16.5px; color:var(--brand); margin-bottom:4px; }
+.menu-card-sub{ font-size:12.5px; color:var(--text-muted); line-height:1.35; }
+
+/* --- Botão "‹ Voltar" injetado no topo das telas-filha --- */
+.screen-back-btn{
+  display:inline-flex; align-items:center; gap:6px; margin-bottom:16px;
+  background:var(--brand); color:#fff; border:none; font-weight:700;
+}
+.screen-back-btn:hover{ background:var(--brand-dim); }
 
 /* ============ Boxes / Contratar ============ */
 .box-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:18px; }
@@ -516,10 +509,9 @@ button{ font-family:inherit; cursor:pointer; }
 
 /* ============ Responsive: retrato (mobile) ============ */
 @media (max-width: 880px){
-  .sidebar{ display:none; }
-  .topbar{ display:flex; }
-  .tabbar{ display:flex; }
-  .main{ padding:16px 14px 90px; }
+  .app-topbar{ padding:10px 14px; }
+  .menu-tabs{ top:52px; padding:0 14px; gap:16px; }
+  .main{ padding:16px 14px 40px; }
   .hero-title{ font-size:28px; }
   .lineup-wrap{ gap:14px; }
 }
@@ -532,11 +524,10 @@ button{ font-family:inherit; cursor:pointer; }
   .box-grid{ grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); }
   .club-grid{ grid-template-columns:repeat(auto-fill, minmax(130px,1fr)); }
   .lineup-wrap{ grid-template-columns:1.1fr 0.9fr; gap:16px; }
-  .main{ padding:14px 20px 70px; }
-  .tabbar{ padding-bottom:6px; }
+  .main{ padding:14px 20px 40px; }
 }
 @media (orientation: landscape) and (max-height: 480px){
   .hero-stadium{ padding:20px 22px; }
   .hero-title{ font-size:26px; margin:4px 0 8px; }
   .hero-desc{ margin-bottom:10px; }
-}
+   }
