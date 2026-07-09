@@ -403,9 +403,15 @@ button{ font-family:inherit; cursor:pointer; }
 
 /* ============ Box opening (signature) ============ */
 .stage-overlay{
-  position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center;
+  position:fixed; inset:0; z-index:100; display:flex; align-items:flex-start; justify-content:center;
   background:#0B1220 url('../assets/ui/roulette-stadium.png') center 30%/cover no-repeat;
-  overflow:hidden;
+  /* Antes era "overflow:hidden", que cortava a carta/botões quando o
+     conteúdo era mais alto que a tela (comum no mobile em pé).
+     Agora permite rolar verticalmente sem cortar nada. */
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:28px 0 calc(28px + env(safe-area-inset-bottom, 0px));
 }
 .stage-overlay::before{
   content:""; position:absolute; inset:0;
@@ -426,7 +432,7 @@ button{ font-family:inherit; cursor:pointer; }
   50%{ opacity:.6; }
   100%{ opacity:0; transform:rotate(35deg) translateX(40vw); }
 }
-.stage-inner{ position:relative; z-index:2; width:min(92vw, 480px); text-align:center; }
+.stage-inner{ position:relative; z-index:2; width:min(92vw, 480px); text-align:center; margin:auto 0; }
 .stage-hint{ color:#9DAAC2; font-size:13px; margin-bottom:18px; letter-spacing:1px; text-transform:uppercase; }
 
 .ball-track{
@@ -756,4 +762,18 @@ button{ font-family:inherit; cursor:pointer; }
   .app-topbar{ padding:6px 14px; }
   .menu-tabs{ top:44px; }
   .stage-inner{ transform:scale(.82); }
+}
+
+/* --- Telas com pouca altura (celular com barra do navegador,
+   ou landscape curto): reduz tamanhos do "abrir Box" para que
+   a carta e os botões caibam sem precisar rolar tanto. --- */
+@media (max-height: 700px){
+  .stage-overlay{ padding:16px 0; }
+  .stage-hint{ margin-bottom:10px; }
+  .ball-track{ height:120px; }
+  .ball-item{ width:78px; height:78px; }
+  .selector-frame{ width:94px; }
+  .reveal-ball{ width:96px; height:96px; margin-bottom:14px; }
+  .p-card{ max-width:190px; }
+  .stage-actions{ margin-top:14px; }
 }
