@@ -8,6 +8,30 @@
 </head>
 <body>
 
+<!-- ===================== SPLASH SCREEN (carrossel inicial) =====================
+     Troca de imagem a cada 10s. Ao tocar/clicar, mostra um loading rápido e
+     revela o app (que já está carregado por trás, como sempre foi).
+     Troque as imagens em assets/splash/ pelas suas (splash1.jpg ... splash4.jpg). -->
+<div class="splash-overlay" id="splashOverlay">
+  <div class="splash-slides" id="splashSlides">
+    <div class="splash-slide active" style="background-image:url('assets/splash/splash1.jpg')"></div>
+    <div class="splash-slide" style="background-image:url('assets/splash/splash2.jpg')"></div>
+    <div class="splash-slide" style="background-image:url('assets/splash/splash3.jpg')"></div>
+    <div class="splash-slide" style="background-image:url('assets/splash/splash4.jpg')"></div>
+  </div>
+  <div class="splash-shade"></div>
+
+  <div class="splash-content">
+    <div class="splash-logo">Box Clube</div>
+    <div class="splash-tap-hint" id="splashTapHint">Toque para começar</div>
+  </div>
+
+  <div class="splash-loading hidden" id="splashLoading">
+    <div class="splash-spinner"></div>
+    <div class="splash-loading-text">Carregando...</div>
+  </div>
+</div>
+
 <!-- ===================== OVERLAY: gire o celular / tela cheia ===================== -->
 <div class="rotate-overlay" id="rotateOverlay">
   <div class="rotate-icon">📱</div>
@@ -258,6 +282,7 @@
 <!-- ===================== TOASTS (inalterado) ===================== -->
 <div class="toast-wrap" id="toastWrap"></div>
 
+<script src="js/splash.js?v=1"></script>
 <script src="js/state.js?v=2"></script>
 <script src="js/data.js?v=2"></script>
 <script src="js/nav.js?v=2"></script>
