@@ -252,7 +252,7 @@ button{ font-family:inherit; cursor:pointer; }
 .screen-back-btn:hover{ background:var(--brand-dim); }
 
 /* ============ Boxes / Contratar ============ */
-.box-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:18px; }
+.box-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(480px,1fr)); gap:24px; }
 .box-card{
   border-radius:var(--radius-lg); border:1px solid var(--border); overflow:hidden;
   background:var(--surface); display:flex; flex-direction:column;
@@ -311,7 +311,79 @@ button{ font-family:inherit; cursor:pointer; }
 .progress-fill{ height:100%; background:linear-gradient(90deg, var(--brand), var(--legend)); }
 .box-prices{ display:flex; gap:8px; }
 .price-pill{ font-size:12.5px; font-weight:700; padding:8px 10px; border-radius:10px; flex:1; text-align:center; background:var(--surface-2); border:1px solid var(--border); }
-.box-actions{ display:flex; gap:8px; }
+/* --- Par: card claro + painel escuro de estatísticas (estilo myClub) --- */
+.box-pair{ display:flex; align-items:stretch; gap:16px; width:100%; max-width:560px; margin:0 auto; }
+.box-pair .box-card{ flex:1 1 auto; max-width:340px; margin:0; }
+
+.box-name-row{ display:flex; flex-direction:column; gap:2px; }
+.box-name-lg{ font-family:var(--font-display); font-weight:700; font-size:16.5px; color:var(--text); }
+.box-timeleft{ font-size:11.5px; color:var(--text-muted); }
+
+.box-bottom-row{ display:flex; align-items:center; gap:10px; }
+.box-search-btn{
+  flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+  border:1px solid var(--border); background:var(--surface-2); color:var(--text-muted);
+  display:flex; align-items:center; justify-content:center; font-size:15px;
+  transition:transform .12s, border-color .15s, color .15s;
+}
+.box-search-btn:hover{ transform:translateY(-1px); border-color:var(--brand); color:var(--brand); }
+.box-prices-inline{ flex:1; display:flex; }
+.box-prices-inline .price-pill{ flex:1; }
+
+/* --- Painel escuro: Jogadores/Bolas restantes + Resetar --- */
+.box-stats-panel{
+  flex:0 0 190px; display:flex; flex-direction:column; gap:14px;
+  background:linear-gradient(160deg, #232B3A, #141922);
+  border:1px solid #2B3444; border-radius:var(--radius-lg);
+  padding:18px 16px; color:#fff;
+  box-shadow:var(--shadow-card);
+}
+.stat-block{ text-align:center; }
+.stat-label{ font-size:11px; color:#9DAAC2; text-transform:uppercase; letter-spacing:.4px; margin-bottom:4px; }
+.stat-value{ font-family:var(--font-display); font-size:26px; font-weight:800; color:#fff; }
+.ball-row-dark{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; }
+.ball-row-dark .ball-chip{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.18); color:#fff; }
+.stat-note{ font-size:10.5px; color:#7C8AA3; text-align:center; line-height:1.35; }
+.btn-reset-dark{ background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:#fff; }
+.btn-reset-dark:hover{ background:rgba(255,255,255,.16); }
+
+@media (max-width: 620px){
+  .box-pair{ flex-direction:column; max-width:340px; }
+  .box-pair .box-card{ max-width:none; }
+  .box-stats-panel{ flex-direction:row; flex-wrap:wrap; }
+  .stat-block{ flex:1 1 45%; }
+  .stat-note, .btn-reset-dark{ flex:1 1 100%; }
+}
+
+/* ============ Modal lupa: "Jogadores Disponíveis" ============ */
+.search-overlay{
+  position:fixed; inset:0; z-index:250; background:rgba(8,11,18,0.72); backdrop-filter:blur(4px);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.search-inner{
+  background:var(--surface); border-radius:var(--radius-lg); border:1px solid var(--border);
+  width:min(920px, 100%); max-height:86vh; display:flex; flex-direction:column;
+  box-shadow:var(--shadow-card-hover); animation:fadeUp .3s ease both;
+}
+.search-header{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:18px 22px; border-bottom:1px solid var(--border);
+}
+.search-header h3{ margin:0; font-family:var(--font-display); font-size:19px; }
+.search-count{ font-size:13px; color:var(--text-muted); }
+.search-count strong{ color:var(--text); }
+.search-grid{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(110px,1fr)); gap:12px;
+  padding:20px 22px; overflow-y:auto;
+}
+.search-grid .p-card{ max-width:none; }
+.search-actions{ padding:14px 22px; border-top:1px solid var(--border); }
+
+@media (max-width: 480px){
+  .search-header{ padding:14px 16px; }
+  .search-grid{ grid-template-columns:repeat(auto-fill, minmax(92px,1fr)); gap:8px; padding:14px 16px; }
+  .search-actions{ padding:12px 16px; }
+}
 
 /* ============ Box opening (signature) ============ */
 .stage-overlay{
