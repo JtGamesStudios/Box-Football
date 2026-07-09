@@ -26,8 +26,8 @@ function getEffectiveBox(boxId){
 function getRemainingIds(boxId){
   const box = getEffectiveBox(boxId);
   if(!box) return [];
-  const removed = STATE.boxRemoved[boxId] || [];
-  return box.allPlayerIds.filter(id => !removed.includes(id));
+  const removed = (STATE.boxRemoved[boxId] || []).map(id => String(id).toUpperCase());
+  return box.allPlayerIds.filter(id => !removed.includes(String(id).toUpperCase()));
 }
 
 function getRemainingByRarity(boxId){
