@@ -345,50 +345,85 @@ button{ font-family:inherit; cursor:pointer; }
 
 .stage-actions{ margin-top:22px; display:flex; gap:10px; justify-content:center; }
 
-/* ============ Player card ============ */
+/* ============ Player card — estilo "cartinha" (foto de corpo inteiro) ============ */
 .p-card{
-  border-radius:var(--radius-md); border:1px solid var(--border);
-  padding:14px; position:relative; overflow:hidden;
-  display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
+  position:relative;
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  aspect-ratio:2 / 3;
   background:var(--surface);
   box-shadow:var(--shadow-card);
   animation:fadeUp .35s ease both;
   transition:transform .15s ease, box-shadow .15s ease;
 }
 .p-card:hover{ transform:translateY(-2px); box-shadow:var(--shadow-card-hover); }
-.p-card.rarity-branca{ background:linear-gradient(160deg, #EAF2F9, var(--surface)); border-color:rgba(143,183,217,.5); }
-.p-card.rarity-prata{ background:linear-gradient(160deg, #F0F2F5, var(--surface)); border-color:rgba(185,194,206,.6); }
-.p-card.rarity-dourada{ background:linear-gradient(160deg, #FFF6DD, var(--surface)); border-color:rgba(255,201,60,.6); box-shadow:0 0 0 1px rgba(255,201,60,.15), var(--shadow-card); }
-.p-card.rarity-preta{ background:linear-gradient(160deg, #F0EBFF, var(--surface)); border-color:rgba(124,77,255,.5); box-shadow:0 0 0 1px rgba(124,77,255,.15), var(--shadow-card); }
 
-/* --- Avatar / foto do jogador --- */
-.p-image-wrap {
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  border: 3px solid var(--border);
-  background: linear-gradient(135deg, #F0F2F5, #E3E6EB);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.p-card.rarity-branca{ background:linear-gradient(160deg, #DCE9F5, #9FB9CC); }
+.p-card.rarity-prata{ background:linear-gradient(160deg, #E4E8ED, #A9B2BE); }
+.p-card.rarity-dourada{ background:linear-gradient(160deg, #FFE9A8, var(--gold-dim)); box-shadow:0 0 0 1px rgba(255,201,60,.35), var(--shadow-card); }
+.p-card.rarity-preta{ background:linear-gradient(160deg, #C9B7FF, var(--legend)); box-shadow:0 0 0 1px rgba(124,77,255,.35), var(--shadow-card); }
+
+.p-rarity-label{
+  position:absolute; top:8px; left:8px; z-index:3;
+  font-size:9.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase;
+  padding:2px 8px; border-radius:20px; color:#fff;
+  background:rgba(0,0,0,.45); backdrop-filter:blur(2px);
 }
-.p-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.rarity-dourada .p-rarity-label{ background:linear-gradient(135deg, var(--gold), var(--gold-dim)); color:#3A2A00; }
+.rarity-preta .p-rarity-label{ background:linear-gradient(135deg, var(--legend-glow), var(--legend)); }
+
+/* --- Foto de corpo inteiro cobrindo o card --- */
+.p-photo-frame{ position:absolute; inset:0; }
+.p-photo{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center top;
 }
 
-.p-name{ font-weight:700; font-size:14.5px; line-height:1.2; color:var(--text); }
-.p-meta{ font-size:11.5px; color:var(--text-muted); }
-.p-ovr{ font-family:var(--font-display); font-size:24px; font-weight:800; color:var(--brand); }
-.p-tag-row{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
-.p-tag{ font-size:10.5px; padding:2px 7px; border-radius:8px; background:var(--surface-2); border:1px solid var(--border); color:var(--text-muted); }
-.p-rarity-label{ position:absolute; top:8px; left:8px; font-size:9.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; padding:2px 7px; border-radius:6px; }
-.rarity-branca .p-rarity-label{ background:rgba(143,183,217,.2); color:#3D6E96; }
-.rarity-prata .p-rarity-label{ background:rgba(185,194,206,.3); color:#5B6472; }
-.rarity-dourada .p-rarity-label{ background:rgba(255,201,60,.25); color:#8A6B1E; }
-.rarity-preta .p-rarity-label{ background:rgba(124,77,255,.2); color:#5A32C7; }
+.p-card-shade{
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(180deg,
+    rgba(0,0,0,.1) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 52%,
+    rgba(0,0,0,.55) 78%, rgba(0,0,0,.88) 100%);
+}
+
+.p-corner-info{
+  position:absolute; top:30px; left:10px; z-index:2;
+  display:flex; flex-direction:column; align-items:flex-start; gap:6px;
+}
+.p-ovr{
+  font-family:var(--font-display); font-size:clamp(20px,6vw,28px); font-weight:800;
+  color:#fff; line-height:1; text-shadow:0 2px 6px rgba(0,0,0,.6);
+}
+.p-pos-badge{
+  font-size:10.5px; font-weight:700; color:#fff;
+  background:rgba(0,0,0,.5); border:1px solid rgba(255,255,255,.4);
+  border-radius:50%; width:24px; height:24px;
+  display:flex; align-items:center; justify-content:center;
+}
+.p-flag{ font-size:17px; filter:drop-shadow(0 1px 3px rgba(0,0,0,.6)); }
+
+.p-name-bar{
+  position:absolute; left:0; right:0; bottom:0; z-index:2;
+  padding:9px 10px 11px; display:flex; flex-direction:column; gap:2px; text-align:left;
+}
+.p-name{
+  font-family:var(--font-display); font-weight:800; font-size:clamp(12.5px,3.6vw,15px);
+  line-height:1.15; color:#fff; text-transform:uppercase; text-shadow:0 2px 4px rgba(0,0,0,.6);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.p-meta{
+  font-size:11px; color:rgba(255,255,255,.8);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+/* --- Card bloqueado (ainda não obtido), usado na coleção da Box --- */
+.p-avatar{
+  position:absolute; inset:0; z-index:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:800; font-size:22px; color:#fff;
+  background:linear-gradient(135deg,#5B6472,#2E333B);
+}
+.p-card.p-locked{ filter:grayscale(.85); opacity:.72; }
 
 .club-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:14px; }
 
