@@ -5,7 +5,6 @@
   "description": "Featured Players - 20/08/2020",
   "banner": "assets/banners/featured_20082020.png",
   "active": true,
-  "priceGP": 25000,
   "priceCoins": 100,
-  "players": ["p015", "p016", "p004", "p017", "p018", "p019", "p020"]
+  "players": ["p035", "p036", "p037", "p038", "p039", "p040", "p041"]
 }

@@ -1,11 +1,10 @@
 {
   "id": "box001",
   "name": "Featured Players",
-  "date": "06/08/2020",
-  "description": "Featured Players - 06/08/2020",
-  "banner": "assets/banners/featured_06082020.png",
+  "date": "27/08/2020",
+  "description": "Featured Players - 27/08/2020",
+  "banner": "assets/banners/featured_27082020.png",
   "active": true,
-  "priceGP": 25000,
   "priceCoins": 100,
-  "players": ["p001", "p002", "p003", "p004", "p005", "p006", "p007"]
+  "players": ["p021", "p022", "p023", "p024", "p025", "p026", "p027"]
 }
