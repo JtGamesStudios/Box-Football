@@ -69,7 +69,13 @@ function buildTopTabs(){
   const wrap = document.getElementById("menuTabs");
   if(!wrap) return;
   wrap.innerHTML = "";
-  TOP_TABS.forEach(tab=>{
+  TOP_TABS.forEach((tab, i)=>{
+    if(i > 0){
+      const sep = document.createElement("span");
+      sep.className = "tab-sep";
+      sep.textContent = "|";
+      wrap.appendChild(sep);
+    }
     const btn = document.createElement("button");
     btn.className = "menu-tab-item";
     btn.dataset.tab = tab.id;
@@ -168,6 +174,12 @@ function showScreen(id){
   const activeTab = SCREEN_PARENT_TAB[id] || id;
   document.querySelectorAll(".menu-tab-item").forEach(b => b.classList.toggle("active", b.dataset.tab === activeTab));
   document.querySelectorAll(".topicon-btn").forEach(b => b.classList.toggle("active", b.dataset.nav === id));
+
+  // Telas de grid (Club House / Contract / Extras) ficam travadas no
+  // tamanho da tela, sem scroll — igual ao layout do eFootball. As
+  // demais telas (listas, boxes, escalação etc.) continuam rolando
+  // normalmente, por isso essa classe só entra/sai com base no id.
+  document.documentElement.classList.toggle("hub-active", HUB_SCREENS.includes(id));
 
   updateBackButton(id);
 
