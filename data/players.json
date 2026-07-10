@@ -427,7 +427,7 @@
     "nationality": "Sweden",
     "nationalityFlag": "🇸🇪",
     "position": "RMF",
-    "rarity": "preta",
+    "rarity": "ouro",
     "rarityLabel": "Lendária",
     "image": "assets/players/f_ljungberg.png"
   },
@@ -463,7 +463,7 @@
     "nationality": "England",
     "nationalityFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "ouro",
     "rarityLabel": "Lendária",
     "image": "assets/players/m_owen.png"
   },
@@ -475,7 +475,7 @@
     "nationality": "Chile",
     "nationalityFlag": "🇨🇱",
     "position": "CF",
-    "rarity": "preta",
+    "rarity": "ouro",
     "rarityLabel": "Lendária",
     "image": "assets/players/i_zamorano.png"
   },
