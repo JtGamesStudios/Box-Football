@@ -28,6 +28,13 @@ function renderAdminPanel(){
           </select>
         </div>
         <div>
+          <label>Categoria</label>
+          <select id="adm-category-${raw.id}">
+            <option value="especial" ${box.category==="especial"?"selected":""}>Especial</option>
+            <option value="boxdraw" ${box.category==="boxdraw"?"selected":""}>Box Draw</option>
+          </select>
+        </div>
+        <div>
           <label>Preço em GP</label>
           <input type="number" id="adm-gp-${raw.id}" value="${box.priceGP}">
         </div>
@@ -57,13 +64,16 @@ function adminSetField(boxId, field, value){
   STATE.adminOverrides[boxId][field] = value;
   persist();
   toast(`Box atualizada.`, "success");
-  renderContratarGrid();
+  renderContratarGrid("boxdraw");
+  renderContratarGrid("especial");
+  updateContratarCardBanners();
   renderBoxesScreen();
 }
 
 function adminSaveBox(boxId){
   const name = document.getElementById(`adm-name-${boxId}`).value.trim();
   const banner = document.getElementById(`adm-banner-${boxId}`).value;
+  const category = document.getElementById(`adm-category-${boxId}`).value;
   const priceGP = parseInt(document.getElementById(`adm-gp-${boxId}`).value, 10) || 0;
   const priceCoins = parseInt(document.getElementById(`adm-coins-${boxId}`).value, 10) || 0;
   const description = document.getElementById(`adm-desc-${boxId}`).value.trim();
@@ -71,11 +81,13 @@ function adminSaveBox(boxId){
     .split(",").map(s=>s.trim()).filter(Boolean);
 
   STATE.adminOverrides[boxId] = Object.assign({}, STATE.adminOverrides[boxId], {
-    name, banner, priceGP, priceCoins, description, playerIds
+    name, banner, category, priceGP, priceCoins, description, playerIds
   });
   persist();
   toast("Box salva com sucesso!", "success");
-  renderContratarGrid();
+  renderContratarGrid("boxdraw");
+  renderContratarGrid("especial");
+  updateContratarCardBanners();
   renderBoxesScreen();
 }
 
@@ -84,7 +96,9 @@ function adminResetOverrides(boxId){
   delete STATE.adminOverrides[boxId];
   persist();
   renderAdminPanel();
-  renderContratarGrid();
+  renderContratarGrid("boxdraw");
+  renderContratarGrid("especial");
+  updateContratarCardBanners();
   renderBoxesScreen();
   toast("Box restaurada ao padrão.", "success");
 }
