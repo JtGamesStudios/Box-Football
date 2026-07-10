@@ -111,19 +111,41 @@
       <div class="menu-card-grid" id="extrasGrid"></div>
     </section>
 
-    <!-- CONTRATAR (tela real — inalterada) -->
+    <!-- CONTRATAR (sub-hub: escolher Box Draw ou Especial) -->
     <section class="screen" id="screen-contratar" data-title="Contratar">
+      <h1 class="page-title">Contratar</h1>
+      <p class="page-sub">Escolha o tipo de contratação.</p>
+      <div class="menu-card-grid" id="contratarSubGrid"></div>
+    </section>
+
+    <!-- BOX DRAW (Legends, pago em GP) -->
+    <section class="screen" id="screen-boxdraw" data-title="Box Draw">
       <div class="carousel-title-row">
         <div>
-          <h1 class="page-title">Contratar</h1>
-          <p class="page-sub">Escolha uma Box ativa e contrate seu próximo reforço.</p>
+          <h1 class="page-title">Box Draw</h1>
+          <p class="page-sub">A grande Box de Lendas — sorteio pago em GP.</p>
         </div>
         <div class="carousel-nav">
-          <button class="carousel-arrow" id="btnBoxPrev" aria-label="Anterior">‹</button>
-          <button class="carousel-arrow" id="btnBoxNext" aria-label="Próxima">›</button>
+          <button class="carousel-arrow" id="btnBoxDrawPrev" aria-label="Anterior">‹</button>
+          <button class="carousel-arrow" id="btnBoxDrawNext" aria-label="Próxima">›</button>
         </div>
       </div>
-      <div class="box-grid" id="contratarGrid"></div>
+      <div class="box-grid" id="boxdrawGrid"></div>
+    </section>
+
+    <!-- ESPECIAL (eventos / jogadores em destaque, pago em Moedas) -->
+    <section class="screen" id="screen-especial" data-title="Especial">
+      <div class="carousel-title-row">
+        <div>
+          <h1 class="page-title">Especial</h1>
+          <p class="page-sub">Boxes de eventos e jogadores em destaque.</p>
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-arrow" id="btnEspecialPrev" aria-label="Anterior">‹</button>
+          <button class="carousel-arrow" id="btnEspecialNext" aria-label="Próxima">›</button>
+        </div>
+      </div>
+      <div class="box-grid" id="especialGrid"></div>
     </section>
 
     <!-- BOXES (coleção detalhada — inalterada) -->
