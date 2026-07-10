@@ -20,6 +20,30 @@ async function fetchJSON(path){
   return res.json();
 }
 
+/* Raridade (cor da bola) é sempre derivada do overall do jogador —
+   não depende mais do campo "rarity" salvo no players.json. Assim,
+   ajustar o overall de um jogador já atualiza a bola automaticamente
+   na próxima vez que o app carregar os dados. Pra mudar os cortes,
+   edite só os números abaixo. */
+const RARITY_THRESHOLDS = [
+  { min: 90, rarity: "preta",   label: "Lendária" },
+  { min: 85, rarity: "dourada", label: "Ouro" },
+  { min: 80, rarity: "prata",   label: "Prata" },
+  { min: 0,  rarity: "branca",  label: "Comum" },
+];
+
+function rarityForOverall(overall){
+  return RARITY_THRESHOLDS.find(t => overall >= t.min);
+}
+
+function applyRarities(players){
+  players.forEach(p=>{
+    const r = rarityForOverall(p.overall);
+    p.rarity = r.rarity;
+    p.rarityLabel = r.label;
+  });
+}
+
 async function loadGameData(){
   const [players, formations, coaches, missions, events, store, boxIndex] = await Promise.all([
     fetchJSON("data/players.json"),
@@ -30,6 +54,8 @@ async function loadGameData(){
     fetchJSON("data/store.json"),
     fetchJSON("data/boxes/index.json"),
   ]);
+
+  applyRarities(players);
 
   GAME_DATA.players = players;
   GAME_DATA.formations = formations;
