@@ -15,12 +15,21 @@ const TOP_TABS = [
   { id: "extras",    label: "Extras" },
 ];
 
-/* Ícones de atalho no topo direito (perfil / presentes / missões / loja) */
+/* Ícones de atalho no topo direito, agora em SVG (padrão eFootball:
+   perfil / presentes / mensagens / loja). Trocar o path do <svg> aqui
+   dentro é o suficiente pra mudar o desenho do ícone. */
+const ICON_SVG = {
+  user: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.4c-3.3 0-9.8 1.6-9.8 4.9v2.5h19.6v-2.5c0-3.3-6.5-4.9-9.8-4.9z"/></svg>`,
+  gift: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20 7h-2.2c.1-.3.2-.6.2-1a2.5 2.5 0 0 0-4.6-1.4L12 6.1l-1.4-1.5A2.5 2.5 0 0 0 6 6c0 .4.1.7.2 1H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM9 6a.9.9 0 0 1 .9-.9c.3 0 .5.1.7.3L12 7l1.4-1.6c.2-.2.4-.3.7-.3A.9.9 0 0 1 15 6c0 .5-.4 1-.9 1H9.9c-.5 0-.9-.5-.9-1zM4 13v7a1 1 0 0 0 1 1h6v-8H4zm9 8h6a1 1 0 0 0 1-1v-7h-7v8z"/></svg>`,
+  mail: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>`,
+  cart: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.2 14h9.6c.8 0 1.5-.5 1.8-1.2l3.1-6.8H5.2L4.3 4H1v2h2l3.6 7.6-1.3 2.4c-.6 1.1.2 2.5 1.5 2.5h13v-2H7l1.1-2z"/></svg>`,
+};
+
 const TOP_ICONS = [
-  { icon: "👤", nav: "config",    title: "Perfil / Configurações" },
-  { icon: "🎁", nav: "presentes", title: "Caixa de Presentes", badgeSource: "homeGifts" },
-  { icon: "🎯", nav: "missoes",   title: "Missões" },
-  { icon: "🛒", nav: "loja",      title: "Loja" },
+  { iconKey: "user", nav: "config",    title: "Perfil / Configurações", badgeSource: null },
+  { iconKey: "gift", nav: "presentes", title: "Caixa de Presentes",     badgeSource: "homeGifts" },
+  { iconKey: "mail", nav: "missoes",   title: "Mensagens / Missões",    badgeSource: null },
+  { iconKey: "cart", nav: "loja",      title: "Loja",                  badgeSource: null },
 ];
 
 /* Cards grandes de cada hub (banner + ícone + título + subtítulo + badge
@@ -95,8 +104,8 @@ function buildTopIcons(){
     btn.title = item.title;
     btn.dataset.nav = item.nav;
     btn.innerHTML = item.badgeSource
-      ? `<span class="badge-dot hidden" data-badge-for="${item.nav}">0</span>${item.icon}`
-      : item.icon;
+      ? `<span class="badge-dot hidden" data-badge-for="${item.nav}">0</span>${ICON_SVG[item.iconKey]}`
+      : ICON_SVG[item.iconKey];
     btn.onclick = ()=> showScreen(item.nav);
     wrap.appendChild(btn);
   });
