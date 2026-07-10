@@ -796,18 +796,28 @@ button{ font-family:inherit; cursor:pointer; }
 @media (max-width: 900px){
   .rotate-overlay{ display:flex; }
 }
-/* Dentro do mobile, some SÓ quando paisagem + tela cheia estiverem
-   ativos ao mesmo tempo. Prioriza as classes controladas pelo
-   fullscreen.js (is-fullscreen / fs-unsupported), mais confiáveis
-   entre navegadores mobile; mantém a pseudo-classe :fullscreen como
-   reforço extra. */
+/* Dentro do mobile, some assim que o fullscreen estiver realmente
+   ativo — não exigimos paisagem JUNTO, porque o lock de orientação
+   (screen.orientation.lock) costuma falhar silenciosamente fora de
+   PWA instalada (e não existe no iOS Safari), mesmo com o fullscreen
+   já funcionando. Exigir as duas condições ao mesmo tempo deixava o
+   aviso preso na tela pra sempre nesses casos — esse era o bug.
+   Prioriza as classes controladas pelo fullscreen.js (is-fullscreen),
+   mais confiáveis entre navegadores mobile; mantém a pseudo-classe
+   :fullscreen como reforço extra. */
+html.is-fullscreen .rotate-overlay,
+html:fullscreen .rotate-overlay,
+html:-webkit-full-screen .rotate-overlay,
+html:-moz-full-screen .rotate-overlay,
+html:-ms-fullscreen .rotate-overlay{
+  display:none !important;
+}
+/* Sem NENHUM suporte a Fullscreen API (ex: iOS Safari) não tem como
+   pedir tela cheia de verdade — aí sim a única saída é girar o
+   aparelho fisicamente, então mantemos a exigência de paisagem
+   só pra esse caso específico. */
 @media (max-width: 900px) and (orientation: landscape){
-  html.is-fullscreen .rotate-overlay,
-  html.fs-unsupported .rotate-overlay,
-  html:fullscreen .rotate-overlay,
-  html:-webkit-full-screen .rotate-overlay,
-  html:-moz-full-screen .rotate-overlay,
-  html:-ms-fullscreen .rotate-overlay{
+  html.fs-unsupported .rotate-overlay{
     display:none;
   }
 }
