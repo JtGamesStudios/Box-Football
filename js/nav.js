@@ -47,6 +47,12 @@ const CONTRACT_CARDS = [
   { nav: "boxes",      banner: "banner-boxdraw", icon: "📦", title: "Boxes",      sub: "Acompanhe o progresso de cada Box", badgeSource: null },
   { nav: "loja",       banner: "banner-emerald", icon: "💰", title: "Loja",       sub: "Troque Moedas por GP", badgeSource: null },
 ];
+/* Sub-hub da tela "Contratar": escolher entre a Box Draw (Legends,
+   paga em GP) e as Boxes Especiais (eventos/destaque, pagas em Moedas). */
+const CONTRATAR_CARDS = [
+  { nav: "boxdraw",  banner: "banner-boxdraw", icon: "🎲", title: "Box Draw", sub: "A grande Box de Lendas — sorteio pago em GP", badgeSource: null },
+  { nav: "especial", banner: "banner-emerald", icon: "⭐", title: "Especial", sub: "Boxes de eventos e jogadores em destaque", badgeSource: null },
+];
 const EXTRAS_CARDS = [
   { nav: "presentes", banner: "banner-violet",  icon: "🎁", title: "Caixa de Presentes", sub: "Resgate recompensas de missões e eventos", badgeSource: "homeGifts" },
   { nav: "config",     banner: "banner-crimson", icon: "⚙",  title: "Configurações",       sub: "Preferências e painel administrativo", badgeSource: null },
@@ -58,11 +64,12 @@ const SCREEN_PARENT_TAB = {
   home: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
   contract: "contract", contratar: "contract", boxes: "contract", loja: "contract",
+  boxdraw: "contratar", especial: "contratar",
   extras: "extras", presentes: "extras", config: "extras",
 };
 
 /* Telas "hub" mostram grid de cards; as demais são telas-folha reais */
-const HUB_SCREENS = ["clubhouse", "contract", "extras"];
+const HUB_SCREENS = ["clubhouse", "contract", "extras", "contratar"];
 
 let currentScreen = "home";
 
@@ -72,6 +79,27 @@ function buildNav(){
   buildHubGrid("clubhouseGrid", CLUBHOUSE_CARDS);
   buildHubGrid("contractGrid", CONTRACT_CARDS);
   buildHubGrid("extrasGrid", EXTRAS_CARDS);
+  buildHubGrid("contratarSubGrid", CONTRATAR_CARDS);
+  updateContratarCardBanners();
+}
+
+/* Os cards "Box Draw" e "Especial" usam como imagem o banner da
+   primeira Box ativa de cada categoria (ordem de data/boxes/index.json).
+   Se nenhuma box ativa existir na categoria, mantém o banner CSS padrão. */
+function updateContratarCardBanners(){
+  if(!window.GAME_DATA || !GAME_DATA.boxesRaw || !GAME_DATA.boxesRaw.length) return;
+  ["boxdraw","especial"].forEach(cat=>{
+    const el = document.getElementById(`menuCardBanner-${cat}`);
+    if(!el) return;
+    const first = GAME_DATA.boxesRaw
+      .map(b=>getEffectiveBox(b.id))
+      .find(b=>b.active && b.category===cat);
+    if(first && first.banner){
+      el.style.backgroundImage = `url('${first.banner}')`;
+      el.style.backgroundSize = "cover";
+      el.style.backgroundPosition = "center";
+    }
+  });
 }
 
 function buildTopTabs(){
@@ -120,7 +148,7 @@ function buildHubGrid(containerId, cards){
     btn.className = "menu-card";
     btn.dataset.nav = c.nav;
     btn.innerHTML = `
-      <div class="menu-card-banner ${c.banner}"></div>
+      <div class="menu-card-banner ${c.banner}" id="menuCardBanner-${c.nav}"></div>
       ${c.badgeSource ? `<span class="menu-card-badge hidden" data-hub-badge-for="${c.nav}">0</span>` : ""}
       <div class="menu-card-icon">${c.icon}</div>
       <div class="menu-card-body">
@@ -150,7 +178,7 @@ function updateBackButton(id){
 
 /* Sincroniza os badges numéricos (ícones do topo + cards de hub) com
    valores já calculados pelo app (ex: id="homeGifts"), sem duplicar lógica. */
-const ALL_HUB_CARDS = [...CLUBHOUSE_CARDS, ...CONTRACT_CARDS, ...EXTRAS_CARDS];
+const ALL_HUB_CARDS = [...CLUBHOUSE_CARDS, ...CONTRACT_CARDS, ...EXTRAS_CARDS, ...CONTRATAR_CARDS];
 
 function syncTopBadges(){
   TOP_ICONS.forEach(item=>{
@@ -193,7 +221,9 @@ function showScreen(id){
   updateBackButton(id);
 
   // recarrega conteúdo dinâmico de cada tela ao entrar nela (inalterado)
-  if(id==="contratar") renderContratarGrid();
+  if(id==="boxdraw") renderContratarGrid("boxdraw");
+  if(id==="especial") renderContratarGrid("especial");
+  if(id==="contratar") updateContratarCardBanners();
   if(id==="boxes") renderBoxesScreen();
   if(id==="clube") renderClubeGrid();
   if(id==="escalacao") renderEscalacao();
