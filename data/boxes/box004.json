@@ -1,11 +1,13 @@
 {
   "id": "box004",
   "name": "LEGENDS - Worldwide Clubs",
-  "date": "10/07/2026",
+  "date": "--/--/----",
   "description": "LEGENDS - Worldwide Clubs",
   "banner": "assets/banners/Worldwide Clubs.png",
   "active": true,
-  "priceCoins": 100,
+  "category": "boxdraw",
+  "priceGP": 25000,
+  "priceCoins": 0,
   "players": [
     "p033",
     "p034",
