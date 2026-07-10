@@ -18,6 +18,31 @@
   const MAINTENANCE_MODE = true;
   const MAINTENANCE_END_LABEL = "domingo, 12/07";
 
+  // ---------------------------------------------------------------
+  // ACESSO SECRETO (bypass da manutenção)
+  // Troque "minha-chave-secreta" por algo só seu.
+  // Pra entrar mesmo em manutenção, abra o link assim:
+  //   https://seusite.com/?acesso=minha-chave-secreta
+  // Uma vez usado, o navegador lembra (localStorage) e você não
+  // precisa repetir o link nas próximas vezes — até apagar os dados
+  // do site ou trocar de dispositivo/navegador.
+  // ---------------------------------------------------------------
+  const BYPASS_KEY = "efootball";
+  const BYPASS_STORAGE_FLAG = "boxclube_bypass_maintenance";
+
+  function hasBypass() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("acesso") === BYPASS_KEY) {
+        localStorage.setItem(BYPASS_STORAGE_FLAG, "1");
+        return true;
+      }
+      return localStorage.getItem(BYPASS_STORAGE_FLAG) === "1";
+    } catch (e) {
+      return false;
+    }
+  }
+
   const overlay = document.getElementById("splashOverlay");
   if (!overlay) return;
 
@@ -70,7 +95,7 @@
     if (loadingWrap) loadingWrap.classList.remove("hidden");
 
     setTimeout(() => {
-      if (MAINTENANCE_MODE) {
+      if (MAINTENANCE_MODE && !hasBypass()) {
         showMaintenance();
         return;
       }
