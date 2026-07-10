@@ -17,6 +17,7 @@ function getEffectiveBox(boxId){
     description: ov.description ?? raw.description,
     banner: ov.banner ?? raw.banner,
     active: ov.active ?? raw.active,
+    category: ov.category ?? raw.category ?? "especial", // "boxdraw" | "especial"
     priceGP: ov.priceGP ?? raw.priceGP ?? 0,
     priceCoins: ov.priceCoins ?? raw.priceCoins,
     expiresAt: ov.expiresAt ?? raw.expiresAt ?? null,
@@ -59,9 +60,12 @@ function renderBallChips(boxId){
 }
 
 /* ---------------- CONTRATAR GRID ---------------- */
-function renderContratarGrid(){
-  const wrap = document.getElementById("contratarGrid");
-  const boxes = GAME_DATA.boxesRaw.map(b=>getEffectiveBox(b.id)).filter(b=>b.active);
+const CONTRATAR_GRID_IDS = { boxdraw: "boxdrawGrid", especial: "especialGrid" };
+
+function renderContratarGrid(category){
+  const wrap = document.getElementById(CONTRATAR_GRID_IDS[category] || "contratarGrid");
+  if(!wrap) return;
+  const boxes = GAME_DATA.boxesRaw.map(b=>getEffectiveBox(b.id)).filter(b=>b.active && b.category===category);
   if(boxes.length===0){
     wrap.innerHTML = `<div class="empty-state"><div class="big">📦</div>Nenhuma Box ativa no momento.<br>Ative uma no Painel Admin (Configurações).</div>`;
     return;
@@ -84,10 +88,12 @@ function renderContratarGrid(){
           <div class="box-bottom-row">
             <button class="box-search-btn" onclick="showBoxSearchModal('${box.id}')" title="Ver jogadores disponíveis">🔍</button>
             <div class="box-prices-inline">
-              <div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>
+              ${box.category === "boxdraw"
+                ? `<div class="price-pill">$ ${box.priceGP.toLocaleString("pt-BR")}</div>`
+                : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`}
             </div>
           </div>
-          <button class="btn btn-primary btn-block" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','coins')">Contratar</button>
+          <button class="btn btn-primary btn-block" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':'coins'}')">Contratar</button>
         </div>
       </div>
       <div class="box-stats-panel">
@@ -112,7 +118,8 @@ function resetBox(boxId){
   STATE.boxRemoved[boxId] = [];
   persist();
   toast(`Box "${box.name}" resetada!`, "success");
-  renderContratarGrid();
+  renderContratarGrid("boxdraw");
+  renderContratarGrid("especial");
   renderBoxesScreen();
 }
 
@@ -124,8 +131,10 @@ function startBoxOpen(boxId, method){
   const remaining = getRemainingIds(boxId);
   if(remaining.length===0){ toast("Essa Box já foi completada. Resete para jogar de novo.", ""); return; }
 
-  const price = { gp: 0, coins: box.priceCoins };
-  if(price.coins > STATE.currency.coins){
+  const price = box.category === "boxdraw"
+    ? { gp: box.priceGP, coins: 0 }
+    : { gp: 0, coins: box.priceCoins };
+  if(price.gp > STATE.currency.gp || price.coins > STATE.currency.coins){
     toast("Saldo insuficiente para essa contratação.", "");
     return;
   }
@@ -266,21 +275,24 @@ document.getElementById("boxSearchOverlay").addEventListener("click", (e)=>{
 });
 
 /* ---------------- Carrossel: setas de navegação ---------------- */
-function scrollBoxCarousel(dir){
-  const grid = document.getElementById("contratarGrid");
+function scrollBoxCarousel(dir, gridId){
+  const grid = document.getElementById(gridId || "contratarGrid");
   if(!grid) return;
   const card = grid.querySelector(".box-pair");
   const step = card ? card.getBoundingClientRect().width + 24 : grid.clientWidth * 0.8;
   grid.scrollBy({ left: dir * step, behavior: "smooth" });
 }
-document.getElementById("btnBoxPrev").addEventListener("click", ()=>scrollBoxCarousel(-1));
-document.getElementById("btnBoxNext").addEventListener("click", ()=>scrollBoxCarousel(1));
+document.getElementById("btnBoxDrawPrev").addEventListener("click", ()=>scrollBoxCarousel(-1,"boxdrawGrid"));
+document.getElementById("btnBoxDrawNext").addEventListener("click", ()=>scrollBoxCarousel(1,"boxdrawGrid"));
+document.getElementById("btnEspecialPrev").addEventListener("click", ()=>scrollBoxCarousel(-1,"especialGrid"));
+document.getElementById("btnEspecialNext").addEventListener("click", ()=>scrollBoxCarousel(1,"especialGrid"));
 
 document.getElementById("btnCloseStage").addEventListener("click", ()=>{
   document.getElementById("stageOverlay").classList.add("hidden");
   document.getElementById("beam1").classList.remove("sweep");
   document.getElementById("beam2").classList.remove("sweep");
-  renderContratarGrid();
+  renderContratarGrid("boxdraw");
+  renderContratarGrid("especial");
   renderHome();
 });
 document.getElementById("btnOpenAnother").addEventListener("click", ()=>{
