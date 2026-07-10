@@ -428,7 +428,7 @@
     "nationalityFlag": "🇸🇪",
     "position": "RMF",
     "rarity": "ouro",
-    "rarityLabel": "Lendária",
+    "rarityLabel": "dourada",
     "image": "assets/players/f_ljungberg.png"
   },
   {
@@ -464,7 +464,7 @@
     "nationalityFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "position": "CF",
     "rarity": "ouro",
-    "rarityLabel": "Lendária",
+    "rarityLabel": "dourada",
     "image": "assets/players/m_owen.png"
   },
   {
@@ -476,7 +476,7 @@
     "nationalityFlag": "🇨🇱",
     "position": "CF",
     "rarity": "ouro",
-    "rarityLabel": "Lendária",
+    "rarityLabel": "dourada",
     "image": "assets/players/i_zamorano.png"
   },
   {
@@ -523,8 +523,8 @@
     "nationality": "Chile",
     "nationalityFlag": "🇨🇱",
     "position": "CF",
-    "rarity": "preta",
-    "rarityLabel": "Lendária",
+    "rarity": "ouro",
+    "rarityLabel": "dourada",
     "image": "assets/players/m_salas.png"
   },
   {
@@ -559,8 +559,8 @@
     "nationality": "England",
     "nationalityFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "position": "CF",
-    "rarity": "preta",
-    "rarityLabel": "Lendária",
+    "rarity": "ouro",
+    "rarityLabel": "dourada",
     "image": "assets/players/a_cole.png"
   },
   {
@@ -571,8 +571,8 @@
     "nationality": "England",
     "nationalityFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "position": "DMF",
-    "rarity": "preta",
-    "rarityLabel": "Lendária",
+    "rarity": "ouro",
+    "rarityLabel": "dourada",
     "image": "assets/players/g_barry.png"
   },
   {
@@ -607,8 +607,8 @@
     "nationality": "Trinidad and Tobago",
     "nationalityFlag": "🇹🇹",
     "position": "CF",
-    "rarity": "preta",
-    "rarityLabel": "Lendária",
+    "rarity": "ouro",
+    "rarityLabel": "dourada",
     "image": "assets/players/d_yorke.png"
   },
   {
