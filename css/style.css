@@ -109,6 +109,7 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .topicon-btn:hover{ transform:translateY(-1px); }
 .topicon-btn.active{ color:var(--brand-dim); }
+.topicon-btn[data-nav="loja"]{ color:var(--crimson); } /* carrinho vermelho, como na referência */
 .badge-dot{
   position:absolute; top:-4px; right:-6px; min-width:16px; height:16px; padding:0 3px;
   border-radius:20px; background:var(--crimson); color:#fff;
