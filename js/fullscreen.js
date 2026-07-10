@@ -65,9 +65,24 @@
     }
   }
 
+  // "Continuar sem tela cheia" — sem isso, em navegadores que não
+  // suportam Fullscreen API (iOS Safari) ou que negam o lock de
+  // orientação, o overlay nunca teria uma saída manual.
+  function dismissRotateOverlay(){
+    html.classList.add("rotate-dismissed");
+    try{ sessionStorage.setItem("rotateDismissed","1"); }catch(e){}
+  }
+
+  try{
+    if(sessionStorage.getItem("rotateDismissed")==="1") html.classList.add("rotate-dismissed");
+  }catch(e){}
+
   document.addEventListener("DOMContentLoaded", ()=>{
     const btn = document.getElementById("btnFullscreen");
     if(btn) btn.addEventListener("click", enterFullscreenLandscape);
+
+    const skipBtn = document.getElementById("btnSkipRotate");
+    if(skipBtn) skipBtn.addEventListener("click", dismissRotateOverlay);
   });
 })();
 
