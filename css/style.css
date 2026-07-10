@@ -118,14 +118,14 @@ button{ font-family:inherit; cursor:pointer; }
 /* --- Abas horizontais: Match / Club House / Contract / Extras --- */
 .menu-tabs{
   position:sticky; top:56px; z-index:25;
-  display:flex; align-items:center; gap:22px;
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
   padding:0 18px; background:var(--surface);
   border-bottom:1px solid var(--border);
   overflow-x:auto;
 }
 .menu-tab-item{
   position:relative; background:none; border:none; white-space:nowrap;
-  padding:14px 14px 12px 2px; font-size:14.5px; font-weight:600; color:var(--text-muted);
+  padding:14px 6px 12px; font-size:14.5px; font-weight:600; color:var(--text-muted);
   border-bottom:3px solid transparent;
 }
 .menu-tab-item.active{ color:var(--brand); border-bottom-color:var(--brand); }
@@ -134,6 +134,8 @@ button{ font-family:inherit; cursor:pointer; }
   background:var(--crimson);
 }
 .menu-tab-item .tab-dot.orange{ background:#F5A623; }
+/* Separador "|" entre as abas, igual ao eFootball */
+.tab-sep{ color:var(--border-strong); font-size:14px; font-weight:400; user-select:none; }
 
 /* ============ Main content ============ */
 .main{ flex:1; min-width:0; padding:26px 30px 60px; }
@@ -243,6 +245,47 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .menu-card-title{ font-family:var(--font-display); font-weight:700; font-size:clamp(13px,3.6vw,15.5px); color:var(--brand); margin-bottom:2px; }
 .menu-card-sub{ font-size:clamp(10px,2.8vw,11.5px); color:var(--text-muted); line-height:1.25; }
+
+/* ============ Grid de menu travado na tela (sem scroll) ============
+   As telas Club House / Contract / Extras usam essa grade 2x2 de
+   cards; nav.js coloca a classe "hub-active" no <html> só quando uma
+   delas está ativa, então isso NÃO afeta telas de lista (Boxes, Meu
+   Clube, Escalação etc.), que continuam rolando normal.
+   A ideia: #app vira uma coluna flex com altura = altura real da tela
+   (100dvh); topbar e abas mantêm o tamanho natural delas; o que sobra
+   vai inteiro pra .main → pro .screen ativo → pro .menu-card-grid, que
+   divide esse espaço em 2 linhas iguais (grid-template-rows). Cada
+   card então tem uma altura FIXA (a da linha), e o banner/corpo dele
+   viram porcentagem dessa altura — por isso os cards nunca mais
+   "estouram" a tela pedindo scroll, em nenhum tamanho de celular. */
+html.hub-active, html.hub-active body{ height:100%; overflow:hidden; }
+html.hub-active #app{ height:100vh; height:100dvh; }
+html.hub-active .main{
+  flex:1; min-height:0; overflow:hidden;
+  display:flex; flex-direction:column;
+  padding-bottom:clamp(10px,2.5vh,20px);
+}
+html.hub-active .screen.active{
+  flex:1; min-height:0; display:flex; flex-direction:column;
+}
+html.hub-active .page-title,
+html.hub-active .page-sub{ flex:0 0 auto; }
+html.hub-active .page-sub{ margin-bottom:clamp(10px,2.5vh,22px); }
+html.hub-active .menu-card-grid{
+  flex:1; min-height:0;
+  grid-template-rows:repeat(2, 1fr);
+}
+html.hub-active .menu-card{ height:100%; min-height:0; }
+/* Banner ocupa 60% da altura do card, corpo os outros 40% — os dois
+   em porcentagem (não em px fixo), então o ícone circular que fica
+   sobre a base do banner também usa "top:60%" em vez da variável
+   --hub-banner-h antiga (que só funcionava com altura em px). */
+html.hub-active .menu-card-banner{ flex:0 0 60%; height:auto; min-height:0; }
+html.hub-active .menu-card-icon{ top:60%; }
+html.hub-active .menu-card-body{
+  flex:1 1 auto; min-height:0; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:center;
+}
 
 /* --- Botão "‹ Voltar" injetado no topo das telas-filha --- */
 .screen-back-btn{
@@ -855,7 +898,7 @@ html:-ms-fullscreen .rotate-overlay{
 /* ============ Responsive: retrato (mobile) ============ */
 @media (max-width: 880px){
   .app-topbar{ padding:10px 14px; }
-  .menu-tabs{ top:52px; padding:0 14px; gap:16px; }
+  .menu-tabs{ top:52px; padding:0 14px; gap:8px; }
   .main{ padding:16px 14px 40px; }
   .lineup-wrap{ gap:14px; }
   .box-grid{ gap:14px; }
@@ -876,8 +919,9 @@ html:-ms-fullscreen .rotate-overlay{
   .topicons{ gap:10px; }
   .topicon-btn{ font-size:17px; width:24px; height:24px; }
 
-  .menu-tabs{ gap:10px; padding:0 10px; }
-  .menu-tab-item{ font-size:12.5px; padding:11px 1px 9px; }
+  .menu-tabs{ gap:6px; padding:0 10px; }
+  .menu-tab-item{ font-size:12.5px; padding:11px 4px 9px; }
+  .tab-sep{ font-size:12px; }
 
   .main{ padding:12px 10px 32px; }
   .page-sub{ font-size:12.5px; margin-bottom:16px; }
