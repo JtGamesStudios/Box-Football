@@ -37,6 +37,14 @@ const TOP_ICONS = [
    Squad Management/My Team/Achievements/Practice).
    badgeSource: id de um elemento já existente na tela (ex: "homeMissions")
    cujo texto vira o número do badge — deixe null pra não mostrar badge. */
+/* Cards da aba "Match" (home) — atalhos rápidos pras 4 áreas mais usadas,
+   no mesmo padrão visual dos outros hubs (banner + ícone + título + sub). */
+const HOME_CARDS = [
+  { nav: "contratar", banner: "banner-gold",    icon: "🎰", title: "Contratar", sub: "Abra Boxes e contrate seu próximo reforço", badgeSource: null },
+  { nav: "boxes",      banner: "banner-boxdraw", icon: "📦", title: "Boxes",      sub: "Acompanhe o progresso de cada Box", badgeSource: null },
+  { nav: "clube",      banner: "banner-emerald", icon: "👥", title: "Clube",      sub: "Veja e organize seus jogadores contratados", badgeSource: null },
+  { nav: "missoes",    banner: "banner-crimson", icon: "🎯", title: "Missões",    sub: "Complete objetivos e ganhe recompensas", badgeSource: "homeMissions" },
+];
 const CLUBHOUSE_CARDS = [
   { nav: "clube",     banner: "banner-emerald", icon: "👥", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados", badgeSource: null },
   { nav: "escalacao", banner: "banner-violet",  icon: "⚽", title: "Escalação",  sub: "Monte seu time titular e salve elencos", badgeSource: null },
@@ -69,13 +77,14 @@ const SCREEN_PARENT_TAB = {
 };
 
 /* Telas "hub" mostram grid de cards; as demais são telas-folha reais */
-const HUB_SCREENS = ["clubhouse", "contract", "extras", "contratar"];
+const HUB_SCREENS = ["home", "clubhouse", "contract", "extras", "contratar"];
 
 let currentScreen = "home";
 
 function buildNav(){
   buildTopTabs();
   buildTopIcons();
+  buildHubGrid("homeGrid", HOME_CARDS);
   buildHubGrid("clubhouseGrid", CLUBHOUSE_CARDS);
   buildHubGrid("contractGrid", CONTRACT_CARDS);
   buildHubGrid("extrasGrid", EXTRAS_CARDS);
@@ -178,7 +187,7 @@ function updateBackButton(id){
 
 /* Sincroniza os badges numéricos (ícones do topo + cards de hub) com
    valores já calculados pelo app (ex: id="homeGifts"), sem duplicar lógica. */
-const ALL_HUB_CARDS = [...CLUBHOUSE_CARDS, ...CONTRACT_CARDS, ...EXTRAS_CARDS, ...CONTRATAR_CARDS];
+const ALL_HUB_CARDS = [...HOME_CARDS, ...CLUBHOUSE_CARDS, ...CONTRACT_CARDS, ...EXTRAS_CARDS, ...CONTRATAR_CARDS];
 
 function syncTopBadges(){
   TOP_ICONS.forEach(item=>{
