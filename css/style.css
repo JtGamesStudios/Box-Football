@@ -1090,3 +1090,26 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   .p-card{ max-width:190px; }
   .stage-actions{ margin-top:14px; }
 }
+
+/* --- Card de revelação ("Contratar") menor no mobile: cabe na tela
+   inteira sem precisar rolar pra alcançar os botões. Usa um seletor
+   mais específico que .p-card (#revealCardWrap .p-card) pra não
+   afetar a coleção (tela Boxes) nem o modal da lupa, que usam a
+   mesma classe .p-card só que em contextos diferentes. --- */
+@media (max-width: 480px){
+  #revealCardWrap .p-card{ max-width:145px; }
+  .reveal-ball{ width:74px; height:74px; margin-bottom:8px; }
+  .stage-topbar{ margin-bottom:10px; }
+  .stage-hint{ margin-bottom:6px; }
+  .stage-actions{ margin-top:10px; }
+  .stage-actions .btn{ padding:8px 10px; font-size:12px; min-width:120px; }
+}
+
+@media (max-height: 700px){
+  #revealCardWrap .p-card{ max-width:150px; }
+}
+
+@media (orientation: landscape) and (max-height: 480px){
+  #revealCardWrap .p-card{ max-width:120px; }
+  .reveal-ball{ width:64px; height:64px; margin-bottom:8px; }
+}
