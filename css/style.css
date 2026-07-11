@@ -363,6 +363,30 @@ html.hub-active .menu-card-body{
 .banner-gold{    background-image:url('../assets/banners/banner-gold.jpg');    background-color:#8A6B1E; background-position:center 30%; }
 .banner-boxdraw{ background-image:url('../assets/banners/banner-boxdraw.jpg'); background-color:#3A2E10; background-position:center 35%; }
 
+/* --- Banners individuais dos cards de menu (hub) ---
+   Cada card do menu agora tem sua própria classe/imagem — nada mais
+   de duas telas compartilhando o mesmo banner-emerald/violet/etc.
+   Basta colocar o arquivo .jpg com o mesmo nome em /assets/banners/
+   que a imagem certa aparece automaticamente no card certo. */
+.banner-home-efootball{  background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-efootball.jpg');  background-color:#0B8A5F; }
+.banner-home-evento{     background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-evento.jpg');     background-color:#5B2FA6; }
+.banner-home-amigo{      background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-amigo.jpg');      background-color:#8A1F3D; }
+.banner-home-campanha{   background-image:url('../assets/banners/banner-home-campanha.jpg');   background-color:#8A6B1E; background-position:center 30%; }
+
+.banner-club-meuclube{   background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-club-meuclube.jpg');   background-color:#0F6FD1; }
+.banner-club-escalacao{  background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-club-escalacao.jpg');  background-color:#1E8A4C; }
+.banner-club-missoes{    background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-club-missoes.jpg');    background-color:#C89A1F; }
+
+.banner-contract-contratar{ background-image:url('../assets/banners/banner-contract-contratar.jpg'); background-color:#3A2E10; background-position:center 35%; }
+.banner-contract-boxes{     background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-contract-boxes.jpg');     background-color:#5B2FA6; }
+.banner-contract-loja{      background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-contract-loja.jpg');      background-color:#0B8A5F; }
+
+.banner-contratar-boxdraw{  background-image:url('../assets/banners/banner-contratar-boxdraw.jpg');  background-color:#3A2E10; background-position:center 35%; }
+.banner-contratar-especial{ background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-contratar-especial.jpg'); background-color:#8A6B1E; }
+
+.banner-extras-presentes{ background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-extras-presentes.jpg'); background-color:#5B2FA6; }
+.banner-extras-config{    background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-extras-config.jpg');    background-color:#8A1F3D; }
+
 .box-banner .box-name{ font-family:var(--font-display); font-weight:700; font-size:clamp(15px,4.2vw,20px); position:relative; z-index:1; text-shadow:0 2px 6px rgba(0,0,0,.5); }
 .box-badge{
   position:absolute; top:10px; right:10px; font-size:11px; font-weight:700; z-index:2;
