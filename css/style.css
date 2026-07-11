@@ -481,8 +481,8 @@ html.hub-active .menu-card-body{
 }
 .search-grid .p-card,
 #searchModalGrid .p-card{
-  max-width:230px; margin:0;
-  flex:1 1 150px; /* cresce/encolhe a partir de 150px, quebra linha sozinho */
+  max-width:160px; margin:0;
+  flex:1 1 110px; /* cresce/encolhe a partir de 110px, quebra linha sozinho */
 }
 .search-actions{ padding:14px 22px; border-top:1px solid var(--border); }
 
@@ -491,7 +491,7 @@ html.hub-active .menu-card-body{
   .search-grid,
   #searchModalGrid{ gap:10px; padding:14px 16px; }
   .search-grid .p-card,
-  #searchModalGrid .p-card{ flex-basis:110px; }
+  #searchModalGrid .p-card{ flex-basis:82px; max-width:120px; }
   .search-actions{ padding:12px 16px; }
 }
 
