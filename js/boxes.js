@@ -193,7 +193,6 @@ function playOpenAnimation(rarity, player){
   document.getElementById("beam2").classList.add("sweep");
 
   // monta sequência de bolas: aleatórias + a vencedora no índice alvo
-  const ITEM_W = 96 + 26; // width + gap
   const targetIndex = 34;
   const sequence = [];
   for(let i=0;i<40;i++){
@@ -205,8 +204,17 @@ function playOpenAnimation(rarity, player){
   // força reflow
   void strip.offsetWidth;
 
+  // Lê o tamanho REAL da bola renderizada (em vez de um valor fixo),
+  // porque o CSS reduz a bola em telas baixas/paisagem (ex: 78px, 72px).
+  // Usando um valor fixo aqui, a conta de onde parar ficava errada
+  // nesses breakpoints — o alvo não parava centralizado de verdade.
+  const firstBall = strip.querySelector(".ball-item");
+  const ballW = firstBall ? firstBall.getBoundingClientRect().width : 96;
+  const gap = parseFloat(getComputedStyle(strip).columnGap || getComputedStyle(strip).gap) || 26;
+  const ITEM_W = ballW + gap;
+
   const trackWidth = strip.parentElement.clientWidth;
-  const offset = (targetIndex * ITEM_W) + (96/2) - (trackWidth/2);
+  const offset = (targetIndex * ITEM_W) + (ballW/2) - (trackWidth/2);
 
   requestAnimationFrame(()=>{
     strip.style.transition = "transform 2.4s cubic-bezier(.11,.79,.16,1)";
