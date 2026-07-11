@@ -5,6 +5,54 @@ const RARITY_ORDER = ["preta","dourada","prata","branca"];
 const RARITY_LABEL = { preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
 const RARITY_WEIGHT_BASE = { preta:1, dourada:3, prata:8, branca:14 }; // peso "natural" de cada bola quando sorteando visual
 
+/* ---------------- CUTSCENES (bola preta: Destaque x Lendário x Iconic) ----------------
+   Cada jogador tem um campo "tier" em players.json: "destaque" | "lendario" |
+   "iconic" | "normal" (ou qualquer outro tier que vocês criarem no futuro).
+   Só disparamos cutscene quando a bola sorteada é "preta" (Lendária) E o
+   tier do jogador sorteado tem uma entrada em CUTSCENE_BY_TIER abaixo.
+   Pra adicionar um tier novo: (1) marque "tier":"nome-do-tier" nos jogadores
+   em players.json, (2) adicione "nome-do-tier": "caminho/do/video.mp4" aqui
+   embaixo. Não precisa mexer em mais nada. */
+const CUTSCENE_BY_TIER = {
+  destaque: "assets/video/cutscene-destaque.mp4",
+  lendario: "assets/video/cutscene-lendario.mp4",
+  iconic: "assets/video/cutscene-iconic.mp4",
+};
+
+function playCutscene(tier, onDone){
+  const src = CUTSCENE_BY_TIER[tier];
+  if(!src){ onDone(); return; }
+
+  const overlay = document.getElementById("cutsceneOverlay");
+  const video = document.getElementById("cutsceneVideo");
+  const skipBtn = document.getElementById("cutsceneSkipBtn");
+
+  let finished = false;
+  function finish(){
+    if(finished) return;
+    finished = true;
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+    overlay.classList.add("hidden");
+    video.onended = null;
+    skipBtn.onclick = null;
+    onDone();
+  }
+
+  video.src = src;
+  video.currentTime = 0;
+  overlay.classList.remove("hidden");
+  video.onended = finish;
+  skipBtn.onclick = finish;
+
+  // se o arquivo de vídeo não existir/der erro, não trava o fluxo do jogo
+  video.onerror = finish;
+
+  const playPromise = video.play();
+  if(playPromise && playPromise.catch) playPromise.catch(finish);
+}
+
 function getOverride(boxId){ return STATE.adminOverrides[boxId] || {}; }
 
 function getEffectiveBox(boxId){
@@ -228,13 +276,26 @@ function playOpenAnimation(rarity, player){
     hint.textContent = "Revelando jogador...";
     if(STATE.settings.vibration && navigator.vibrate) navigator.vibrate([40,30,60]);
 
-    setTimeout(()=>{
+    function showPlayerCard(){
       revealCardWrap.innerHTML = renderPlayerCard(player);
       hint.textContent = "Novo reforço contratado!";
       actions.classList.remove("hidden");
       const remaining = getRemainingIds(_pendingOpen.boxId);
       btnAnother.classList.toggle("hidden", remaining.length===0);
       refreshWalletUI();
+    }
+
+    // Bola preta + jogador com tier que tem cutscene cadastrada (destaque,
+    // lendario, iconic, ou qualquer tier novo que vocês adicionarem depois
+    // em CUTSCENE_BY_TIER) -> toca a cutscene certa antes da carta.
+    const wantsCutscene = rarity === "preta" && !!CUTSCENE_BY_TIER[player.tier];
+
+    setTimeout(()=>{
+      if(wantsCutscene){
+        playCutscene(player.tier, showPlayerCard);
+      } else {
+        showPlayerCard();
+      }
     }, 900);
   }, 2500);
 }
