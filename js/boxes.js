@@ -19,29 +19,6 @@ const CUTSCENE_BY_TIER = {
   iconic: "assets/videos/iconic-Moment-Opening-Animation.mp4",
 };
 
-// Cria (se ainda não existir) o botão de "ativar som" que fica sobre o vídeo.
-// Assim não é preciso mexer no HTML pra essa correção funcionar.
-function getCutsceneUnmuteBtn(overlay, video){
-  let btn = document.getElementById("cutsceneUnmuteBtn");
-  if(btn) return btn;
-  btn = document.createElement("button");
-  btn.id = "cutsceneUnmuteBtn";
-  btn.type = "button";
-  btn.textContent = "🔇 Ativar som";
-  btn.style.cssText = `
-    position:absolute; left:50%; bottom:64px; transform:translateX(-50%);
-    z-index:20; padding:10px 18px; border:none; border-radius:999px;
-    background:rgba(0,0,0,.65); color:#fff; font-size:14px; font-weight:600;
-    cursor:pointer; backdrop-filter:blur(4px); display:none;
-  `;
-  overlay.appendChild(btn);
-  btn.addEventListener("click", ()=>{
-    video.muted = false;
-    btn.style.display = "none";
-  });
-  return btn;
-}
-
 function playCutscene(tier, onDone){
   const src = CUTSCENE_BY_TIER[tier];
   if(!src){ onDone(); return; }
@@ -49,7 +26,6 @@ function playCutscene(tier, onDone){
   const overlay = document.getElementById("cutsceneOverlay");
   const video = document.getElementById("cutsceneVideo");
   const skipBtn = document.getElementById("cutsceneSkipBtn");
-  const unmuteBtn = getCutsceneUnmuteBtn(overlay, video);
 
   let finished = false;
   function finish(){
@@ -59,7 +35,6 @@ function playCutscene(tier, onDone){
     video.removeAttribute("src");
     video.load();
     overlay.classList.add("hidden");
-    unmuteBtn.style.display = "none";
     video.onended = null;
     skipBtn.onclick = null;
     onDone();
@@ -67,44 +42,15 @@ function playCutscene(tier, onDone){
 
   video.src = src;
   video.currentTime = 0;
-  video.playsInline = true; // evita fullscreen nativo automático no iOS
   overlay.classList.remove("hidden");
   video.onended = finish;
   skipBtn.onclick = finish;
 
   // se o arquivo de vídeo não existir/der erro, não trava o fluxo do jogo
-  video.onerror = ()=>{
-    const mediaErr = video.error;
-    const CODES = {1:"MEDIA_ERR_ABORTED",2:"MEDIA_ERR_NETWORK",3:"MEDIA_ERR_DECODE",4:"MEDIA_ERR_SRC_NOT_SUPPORTED"};
-    console.error("[cutscene] video.onerror:", mediaErr && CODES[mediaErr.code], mediaErr && mediaErr.message, "| src:", video.currentSrc);
-    finish();
-  };
+  video.onerror = finish;
 
-  // 1ª tentativa: com som (o clique em "Contratar" já foi o gesto do usuário,
-  // então às vezes o navegador ainda deixa passar dependendo do timing).
-  video.muted = false;
   const playPromise = video.play();
-
-  if(playPromise && playPromise.catch){
-    playPromise.catch((err)=>{
-      // LOG TEMPORÁRIO DE DIAGNÓSTICO — pode remover depois de identificar a causa
-      console.warn("[cutscene] play() com som falhou:", err && err.name, err && err.message);
-
-      // Bloqueado: autoplay com som negado. Autoplay MUDO nunca é bloqueado,
-      // então tocamos mudo e mostramos o botão pra o usuário ativar o som
-      // quando quiser (isso conta como novo gesto de usuário).
-      video.muted = true;
-      unmuteBtn.style.display = "block";
-      const retryPromise = video.play();
-      if(retryPromise && retryPromise.catch){
-        // só chega aqui se o problema for outro (arquivo/formato), não autoplay
-        retryPromise.catch((err2)=>{
-          console.error("[cutscene] play() mudo TAMBÉM falhou:", err2 && err2.name, err2 && err2.message, "| readyState:", video.readyState, "| networkState:", video.networkState, "| src:", video.currentSrc);
-          finish();
-        });
-      }
-    });
-  }
+  if(playPromise && playPromise.catch) playPromise.catch(finish);
 }
 
 function getOverride(boxId){ return STATE.adminOverrides[boxId] || {}; }
@@ -289,117 +235,69 @@ function playOpenAnimation(rarity, player){
   spinWrap.classList.remove("hidden");
   revealWrap.classList.add("hidden");
   actions.classList.add("hidden");
-  hint.textContent = "Toque na tela para parar";
+  hint.textContent = "Abrindo Box...";
   revealCardWrap.innerHTML = "";
   document.getElementById("beam1").classList.add("sweep");
   document.getElementById("beam2").classList.add("sweep");
 
-  // ---------- FASE 1: giro contínuo/infinito, sem destino ainda ----------
-  // Mantém uma janela fixa de bolas na tela e vai reciclando a primeira pro
-  // final conforme passa (efeito "esteira infinita"), até o usuário tocar.
-  const IDLE_BALLS = 24;
-  const idleSeq = [];
-  for(let i=0;i<IDLE_BALLS;i++) idleSeq.push(RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)]);
-  strip.innerHTML = idleSeq.map(r=>`<div class="ball-item ${r}"></div>`).join("");
+  // monta sequência de bolas: aleatórias + a vencedora no índice alvo
+  const targetIndex = 34;
+  const sequence = [];
+  for(let i=0;i<40;i++){
+    sequence.push(i===targetIndex ? rarity : RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)]);
+  }
+  strip.innerHTML = sequence.map(r=>`<div class="ball-item ${r}"></div>`).join("");
   strip.style.transition = "none";
   strip.style.transform = "translateX(0px)";
-  void strip.offsetWidth; // força reflow
+  // força reflow
+  void strip.offsetWidth;
 
   // Lê o tamanho REAL da bola renderizada (em vez de um valor fixo),
   // porque o CSS reduz a bola em telas baixas/paisagem (ex: 78px, 72px).
+  // Usando um valor fixo aqui, a conta de onde parar ficava errada
+  // nesses breakpoints — o alvo não parava centralizado de verdade.
   const firstBall = strip.querySelector(".ball-item");
   const ballW = firstBall ? firstBall.getBoundingClientRect().width : 96;
   const gap = parseFloat(getComputedStyle(strip).columnGap || getComputedStyle(strip).gap) || 26;
   const ITEM_W = ballW + gap;
+
   const trackWidth = strip.parentElement.clientWidth;
+  const offset = (targetIndex * ITEM_W) + (ballW/2) - (trackWidth/2);
 
-  const SPIN_SPEED = 720; // px por segundo durante o giro rápido
-  let currentX = 0;
-  let lastTs = null;
-  let rafId = null;
-  let stopped = false;
+  requestAnimationFrame(()=>{
+    strip.style.transition = "transform 2.4s cubic-bezier(.11,.79,.16,1)";
+    strip.style.transform = `translateX(-${offset}px)`;
+  });
 
-  function idleTick(ts){
-    if(stopped) return;
-    if(lastTs == null) lastTs = ts;
-    const dt = (ts - lastTs) / 1000;
-    lastTs = ts;
-    currentX -= SPIN_SPEED * dt;
-
-    // conforme a bola da esquerda sai da tela, manda ela pro final (loop infinito de verdade)
-    while(-currentX > ITEM_W){
-      currentX += ITEM_W;
-      const first = strip.firstElementChild;
-      const r = RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)];
-      first.className = `ball-item ${r}`;
-      strip.appendChild(first);
-    }
-    strip.style.transform = `translateX(${currentX}px)`;
-    rafId = requestAnimationFrame(idleTick);
-  }
-  rafId = requestAnimationFrame(idleTick);
-
-  // ---------- FASE 2: usuário toca -> desacelera até parar na bola sorteada ----------
-  function stopAndReveal(){
-    if(stopped) return;
-    stopped = true;
-    cancelAnimationFrame(rafId);
-    overlay.removeEventListener("click", stopAndReveal);
+  setTimeout(()=>{
+    spinWrap.classList.add("hidden");
+    revealWrap.classList.remove("hidden");
+    revealBall.className = "reveal-ball glow-" + rarity;
     hint.textContent = "Revelando jogador...";
+    if(STATE.settings.vibration && navigator.vibrate) navigator.vibrate([40,30,60]);
 
-    // acrescenta mais algumas bolas aleatórias (suspense) e a vencedora no final
-    const EXTRA_SPINS = 22;
-    for(let i=0;i<EXTRA_SPINS;i++){
-      const r = RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)];
-      const el = document.createElement("div");
-      el.className = `ball-item ${r}`;
-      strip.appendChild(el);
+    function showPlayerCard(){
+      revealCardWrap.innerHTML = renderPlayerCard(player);
+      hint.textContent = "Novo reforço contratado!";
+      actions.classList.remove("hidden");
+      const remaining = getRemainingIds(_pendingOpen.boxId);
+      btnAnother.classList.toggle("hidden", remaining.length===0);
+      refreshWalletUI();
     }
-    const winnerEl = document.createElement("div");
-    winnerEl.className = `ball-item ${rarity}`;
-    strip.appendChild(winnerEl);
 
-    // posição física do vencedor (índice entre os filhos atuais do strip)
-    const winnerIndex = strip.children.length - 1;
-    const finalTransform = (trackWidth/2) - (ballW/2) - (winnerIndex * ITEM_W);
-
-    requestAnimationFrame(()=>{
-      strip.style.transition = "transform 2.6s cubic-bezier(.11,.79,.16,1)";
-      strip.style.transform = `translateX(${finalTransform}px)`;
-    });
+    // Bola preta + jogador com tier que tem cutscene cadastrada (destaque,
+    // lendario, iconic, ou qualquer tier novo que vocês adicionarem depois
+    // em CUTSCENE_BY_TIER) -> toca a cutscene certa antes da carta.
+    const wantsCutscene = rarity === "preta" && !!CUTSCENE_BY_TIER[player.tier];
 
     setTimeout(()=>{
-      spinWrap.classList.add("hidden");
-      revealWrap.classList.remove("hidden");
-      revealBall.className = "reveal-ball glow-" + rarity;
-      hint.textContent = "Revelando jogador...";
-      if(STATE.settings.vibration && navigator.vibrate) navigator.vibrate([40,30,60]);
-
-      function showPlayerCard(){
-        revealCardWrap.innerHTML = renderPlayerCard(player);
-        hint.textContent = "Novo reforço contratado!";
-        actions.classList.remove("hidden");
-        const remaining = getRemainingIds(_pendingOpen.boxId);
-        btnAnother.classList.toggle("hidden", remaining.length===0);
-        refreshWalletUI();
+      if(wantsCutscene){
+        playCutscene(player.tier, showPlayerCard);
+      } else {
+        showPlayerCard();
       }
-
-      // Bola preta + jogador com tier que tem cutscene cadastrada (destaque,
-      // lendario, iconic, ou qualquer tier novo que vocês adicionarem depois
-      // em CUTSCENE_BY_TIER) -> toca a cutscene certa antes da carta.
-      const wantsCutscene = rarity === "preta" && !!CUTSCENE_BY_TIER[player.tier];
-
-      setTimeout(()=>{
-        if(wantsCutscene){
-          playCutscene(player.tier, showPlayerCard);
-        } else {
-          showPlayerCard();
-        }
-      }, 900);
-    }, 2600);
-  }
-
-  overlay.addEventListener("click", stopAndReveal);
+    }, 900);
+  }, 2500);
 }
 
 function renderPlayerCard(p){
