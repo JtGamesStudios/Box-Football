@@ -1062,7 +1062,19 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   .hero-desc{ margin-bottom:10px; }
   .app-topbar{ padding:6px 14px; }
   .menu-tabs{ top:44px; }
-  .stage-inner{ transform:scale(.82); }
+  /* Antes usava "transform:scale(.82)" aqui pra encolher a roleta.
+     Só que isso cria um conflito de camadas de composição no GPU do
+     celular junto com o translateZ(0) das .ball-item (que existe
+     pra resolver OUTRO bug de bolas somindo) — o resultado é o mesmo
+     tipo de bug voltando: bolas próximas umas das outras bugam e
+     somem durante o giro, só que agora só em paisagem. Substituído
+     por redução de tamanho "de verdade" (largura/altura), sem
+     transform, que não conflita com as camadas do ball-strip. */
+  .stage-inner{ width:80vw; }
+  .ball-track{ height:110px; }
+  .ball-item{ width:72px; height:72px; }
+  .selector-frame{ width:88px; }
+  .reveal-ball{ width:88px; height:88px; margin-bottom:12px; }
 }
 
 /* --- Telas com pouca altura (celular com barra do navegador,
