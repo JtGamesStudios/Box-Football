@@ -63,6 +63,17 @@
     } else {
       tryLockOrientation();
     }
+
+    // Rede de segurança: alguns navegadores/webviews mobile (in-app
+    // browser do Instagram/WhatsApp, Android WebView mais antigo etc.)
+    // confirmam o fullscreen de forma inconsistente — o evento
+    // fullscreenchange às vezes não dispara, deixando o aviso preso
+    // mesmo com o usuário já tendo confirmado a intenção ao clicar.
+    // Se depois de meio segundo o navegador ainda não reportou o
+    // fullscreen "de verdade", liberamos o aviso do mesmo jeito.
+    setTimeout(()=>{
+      if(!getFullscreenElement()) dismissRotateOverlay();
+    }, 600);
   }
 
   // "Continuar sem tela cheia" — sem isso, em navegadores que não
