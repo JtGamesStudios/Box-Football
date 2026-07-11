@@ -9,7 +9,8 @@
     "position": "GK",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/a_pyatov.png"
+    "image": "assets/players/a_pyatov.png",
+    "tier": "destaque"
   },
   {
     "id": "p002",
@@ -21,7 +22,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/g_dzhikiya.png"
+    "image": "assets/players/g_dzhikiya.png",
+    "tier": "destaque"
   },
   {
     "id": "p003",
@@ -33,7 +35,8 @@
     "position": "DMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/g_xhaka.png"
+    "image": "assets/players/g_xhaka.png",
+    "tier": "destaque"
   },
   {
     "id": "p004",
@@ -45,7 +48,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/h_kane.png"
+    "image": "assets/players/h_kane.png",
+    "tier": "destaque"
   },
   {
     "id": "p005",
@@ -57,7 +61,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/j_denayer.png"
+    "image": "assets/players/j_denayer.png",
+    "tier": "destaque"
   },
   {
     "id": "p006",
@@ -69,7 +74,8 @@
     "position": "CB",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/l_bonucci.png"
+    "image": "assets/players/l_bonucci.png",
+    "tier": "destaque"
   },
   {
     "id": "p007",
@@ -81,7 +87,8 @@
     "position": "CMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/l_goretzka.png"
+    "image": "assets/players/l_goretzka.png",
+    "tier": "destaque"
   },
   {
     "id": "p008",
@@ -93,7 +100,8 @@
     "position": "CMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/n_kante.png"
+    "image": "assets/players/n_kante.png",
+    "tier": "destaque"
   },
   {
     "id": "p009",
@@ -105,7 +113,8 @@
     "position": "RMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/pizzi.png"
+    "image": "assets/players/pizzi.png",
+    "tier": "destaque"
   },
   {
     "id": "p010",
@@ -117,7 +126,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/r_lewandowski.png"
+    "image": "assets/players/r_lewandowski.png",
+    "tier": "destaque"
   },
   {
     "id": "p011",
@@ -129,7 +139,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/andre_silva.png"
+    "image": "assets/players/andre_silva.png",
+    "tier": "destaque"
   },
   {
     "id": "p012",
@@ -141,7 +152,8 @@
     "position": "DMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/busquets.png"
+    "image": "assets/players/busquets.png",
+    "tier": "destaque"
   },
   {
     "id": "p013",
@@ -153,7 +165,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/c_immobile.png"
+    "image": "assets/players/c_immobile.png",
+    "tier": "destaque"
   },
   {
     "id": "p014",
@@ -165,7 +178,8 @@
     "position": "DMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/g_krychowiak.png"
+    "image": "assets/players/g_krychowiak.png",
+    "tier": "destaque"
   },
   {
     "id": "p015",
@@ -177,7 +191,8 @@
     "position": "AMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/k_havertz.png"
+    "image": "assets/players/k_havertz.png",
+    "tier": "destaque"
   },
   {
     "id": "p016",
@@ -189,7 +204,8 @@
     "position": "GK",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/m_neuer.png"
+    "image": "assets/players/m_neuer.png",
+    "tier": "destaque"
   },
   {
     "id": "p017",
@@ -201,7 +217,8 @@
     "position": "CMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/p_pogba.png"
+    "image": "assets/players/p_pogba.png",
+    "tier": "destaque"
   },
   {
     "id": "p018",
@@ -213,7 +230,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/r_lukaku.png"
+    "image": "assets/players/r_lukaku.png",
+    "tier": "destaque"
   },
   {
     "id": "p019",
@@ -225,7 +243,8 @@
     "position": "CB",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/ruben_dias.png"
+    "image": "assets/players/ruben_dias.png",
+    "tier": "destaque"
   },
   {
     "id": "p020",
@@ -237,7 +256,8 @@
     "position": "CB",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/s_umtiti.png"
+    "image": "assets/players/s_umtiti.png",
+    "tier": "destaque"
   },
   {
     "id": "p021",
@@ -249,7 +269,8 @@
     "position": "RB",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/t_meunier.png"
+    "image": "assets/players/t_meunier.png",
+    "tier": "destaque"
   },
   {
     "id": "p022",
@@ -261,7 +282,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/a_griezmann.png"
+    "image": "assets/players/a_griezmann.png",
+    "tier": "destaque"
   },
   {
     "id": "p023",
@@ -273,7 +295,8 @@
     "position": "DMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/a_witsel.png"
+    "image": "assets/players/a_witsel.png",
+    "tier": "destaque"
   },
   {
     "id": "p024",
@@ -285,7 +308,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/c_ronaldo.png"
+    "image": "assets/players/c_ronaldo.png",
+    "tier": "destaque"
   },
   {
     "id": "p025",
@@ -297,7 +321,8 @@
     "position": "DMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/danilo_pereira.png"
+    "image": "assets/players/danilo_pereira.png",
+    "tier": "destaque"
   },
   {
     "id": "p026",
@@ -309,7 +334,8 @@
     "position": "CB",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/j_tah.png"
+    "image": "assets/players/j_tah.png",
+    "tier": "destaque"
   },
   {
     "id": "p027",
@@ -321,7 +347,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/k_mbappe.png"
+    "image": "assets/players/k_mbappe.png",
+    "tier": "destaque"
   },
   {
     "id": "p028",
@@ -333,7 +360,8 @@
     "position": "CB",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/m_ginter.png"
+    "image": "assets/players/m_ginter.png",
+    "tier": "destaque"
   },
   {
     "id": "p029",
@@ -345,7 +373,8 @@
     "position": "AMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/n_fekir.png"
+    "image": "assets/players/n_fekir.png",
+    "tier": "destaque"
   },
   {
     "id": "p030",
@@ -357,7 +386,8 @@
     "position": "CB",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/pepe.png"
+    "image": "assets/players/pepe.png",
+    "tier": "destaque"
   },
   {
     "id": "p031",
@@ -369,7 +399,8 @@
     "position": "GK",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/t_courtois.png"
+    "image": "assets/players/t_courtois.png",
+    "tier": "destaque"
   },
   {
     "id": "p032",
@@ -381,7 +412,8 @@
     "position": "CMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/t_kroos.png"
+    "image": "assets/players/t_kroos.png",
+    "tier": "destaque"
   },
   {
     "id": "p033",
@@ -393,7 +425,8 @@
     "position": "AMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/zico.png"
+    "image": "assets/players/zico.png",
+    "tier": "lendario"
   },
   {
     "id": "p034",
@@ -405,7 +438,8 @@
     "position": "CB",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/p_maldini.png"
+    "image": "assets/players/p_maldini.png",
+    "tier": "lendario"
   },
   {
     "id": "p035",
@@ -417,7 +451,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/fernando_torres.png"
+    "image": "assets/players/fernando_torres.png",
+    "tier": "lendario"
   },
   {
     "id": "p036",
@@ -429,7 +464,8 @@
     "position": "RMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/f_ljungberg.png"
+    "image": "assets/players/f_ljungberg.png",
+    "tier": "lendario"
   },
   {
     "id": "p037",
@@ -441,7 +477,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/g_batistuta.png"
+    "image": "assets/players/g_batistuta.png",
+    "tier": "lendario"
   },
   {
     "id": "p038",
@@ -453,7 +490,8 @@
     "position": "CMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/s_gerrard.png"
+    "image": "assets/players/s_gerrard.png",
+    "tier": "lendario"
   },
   {
     "id": "p039",
@@ -465,7 +503,8 @@
     "position": "CF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/m_owen.png"
+    "image": "assets/players/m_owen.png",
+    "tier": "lendario"
   },
   {
     "id": "p040",
@@ -477,7 +516,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/i_zamorano.png"
+    "image": "assets/players/i_zamorano.png",
+    "tier": "lendario"
   },
   {
     "id": "p041",
@@ -489,7 +529,8 @@
     "position": "LMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/p_nedved.png"
+    "image": "assets/players/p_nedved.png",
+    "tier": "lendario"
   },
   {
     "id": "p042",
@@ -501,7 +542,8 @@
     "position": "RB",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/cafu.png"
+    "image": "assets/players/cafu.png",
+    "tier": "lendario"
   },
   {
     "id": "p043",
@@ -513,7 +555,8 @@
     "position": "LMF",
     "rarity": "preta",
     "rarityLabel": "Lendária",
-    "image": "assets/players/park_ji_sung.png"
+    "image": "assets/players/park_ji_sung.png",
+    "tier": "lendario"
   },
   {
     "id": "p044",
@@ -525,7 +568,8 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/m_salas.png"
+    "image": "assets/players/m_salas.png",
+    "tier": "lendario"
   },
   {
     "id": "p045",
@@ -537,7 +581,8 @@
     "position": "SS",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/a_del_piero.png"
+    "image": "assets/players/a_del_piero.png",
+    "tier": "lendario"
   },
   {
     "id": "p046",
@@ -549,7 +594,8 @@
     "position": "GK",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/p_cech.png"
+    "image": "assets/players/p_cech.png",
+    "tier": "lendario"
   },
   {
     "id": "p047",
@@ -561,7 +607,8 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/a_cole.png"
+    "image": "assets/players/a_cole.png",
+    "tier": "lendario"
   },
   {
     "id": "p048",
@@ -573,7 +620,8 @@
     "position": "DMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/g_barry.png"
+    "image": "assets/players/g_barry.png",
+    "tier": "lendario"
   },
   {
     "id": "p049",
@@ -585,7 +633,8 @@
     "position": "SS",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/f_totti.png"
+    "image": "assets/players/f_totti.png",
+    "tier": "lendario"
   },
   {
     "id": "p050",
@@ -597,7 +646,8 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/b_robson.png"
+    "image": "assets/players/b_robson.png",
+    "tier": "lendario"
   },
   {
     "id": "p051",
@@ -609,7 +659,8 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/d_yorke.png"
+    "image": "assets/players/d_yorke.png",
+    "tier": "lendario"
   },
   {
     "id": "p052",
@@ -621,7 +672,8 @@
     "position": "DMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/gilberto_silva.png"
+    "image": "assets/players/gilberto_silva.png",
+    "tier": "lendario"
   },
   {
     "id": "p053",
@@ -633,7 +685,8 @@
     "position": "LB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/irwin.png"
+    "image": "assets/players/irwin.png",
+    "tier": "lendario"
   },
   {
     "id": "p054",
@@ -645,7 +698,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/s_campbell.png"
+    "image": "assets/players/s_campbell.png",
+    "tier": "lendario"
   },
   {
     "id": "p055",
@@ -657,7 +711,8 @@
     "position": "DMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/e_petit.png"
+    "image": "assets/players/e_petit.png",
+    "tier": "lendario"
   },
   {
     "id": "p056",
@@ -669,7 +724,8 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/j_koller.png"
+    "image": "assets/players/j_koller.png",
+    "tier": "lendario"
   },
   {
     "id": "p057",
@@ -681,8 +737,9 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/s_given.png"
-  },[
+    "image": "assets/players/s_given.png",
+    "tier": "lendario"
+  },
   {
     "id": "p058",
     "name": "H. Greco",
@@ -693,7 +750,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p059",
@@ -705,7 +763,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p060",
@@ -717,7 +776,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p061",
@@ -729,7 +789,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p062",
@@ -741,7 +802,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p063",
@@ -753,7 +815,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p064",
@@ -765,7 +828,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p065",
@@ -777,7 +841,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p066",
@@ -789,7 +854,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p067",
@@ -801,7 +867,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p068",
@@ -813,7 +880,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p069",
@@ -825,7 +893,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p070",
@@ -837,7 +906,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p071",
@@ -849,7 +919,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p072",
@@ -861,7 +932,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p073",
@@ -873,7 +945,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p074",
@@ -885,7 +958,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p075",
@@ -897,7 +971,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p076",
@@ -909,7 +984,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p077",
@@ -921,7 +997,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p078",
@@ -933,7 +1010,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p079",
@@ -945,7 +1023,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p080",
@@ -957,7 +1036,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p081",
@@ -969,7 +1049,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p082",
@@ -981,7 +1062,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p083",
@@ -993,7 +1075,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p084",
@@ -1005,7 +1088,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p085",
@@ -1017,7 +1101,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p086",
@@ -1029,7 +1114,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p087",
@@ -1041,7 +1127,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p088",
@@ -1053,7 +1140,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p089",
@@ -1065,7 +1153,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p090",
@@ -1077,7 +1166,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p091",
@@ -1089,7 +1179,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p092",
@@ -1101,7 +1192,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p093",
@@ -1113,7 +1205,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p094",
@@ -1125,7 +1218,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p095",
@@ -1137,7 +1231,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p096",
@@ -1149,7 +1244,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p097",
@@ -1161,7 +1257,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p098",
@@ -1173,7 +1270,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p099",
@@ -1185,7 +1283,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p100",
@@ -1197,7 +1296,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p101",
@@ -1209,7 +1309,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p102",
@@ -1221,7 +1322,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p103",
@@ -1233,7 +1335,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p104",
@@ -1245,7 +1348,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p105",
@@ -1257,7 +1361,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p106",
@@ -1269,7 +1374,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p107",
@@ -1281,7 +1387,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p108",
@@ -1293,7 +1400,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p109",
@@ -1305,7 +1413,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p110",
@@ -1317,7 +1426,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p111",
@@ -1329,7 +1439,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p112",
@@ -1341,7 +1452,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p113",
@@ -1353,7 +1465,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p114",
@@ -1365,7 +1478,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p115",
@@ -1377,7 +1491,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p116",
@@ -1389,7 +1504,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p117",
@@ -1401,7 +1517,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p118",
@@ -1413,7 +1530,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p119",
@@ -1425,7 +1543,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p120",
@@ -1437,7 +1556,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p121",
@@ -1449,7 +1569,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p122",
@@ -1461,7 +1582,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p123",
@@ -1473,7 +1595,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p124",
@@ -1485,7 +1608,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p125",
@@ -1497,7 +1621,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p126",
@@ -1509,7 +1634,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p127",
@@ -1521,7 +1647,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p128",
@@ -1533,7 +1660,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p129",
@@ -1545,7 +1673,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p130",
@@ -1557,7 +1686,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p131",
@@ -1569,7 +1699,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p132",
@@ -1581,7 +1712,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p133",
@@ -1593,7 +1725,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p134",
@@ -1605,7 +1738,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p135",
@@ -1617,7 +1751,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p136",
@@ -1629,7 +1764,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p137",
@@ -1641,7 +1777,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p138",
@@ -1653,7 +1790,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p139",
@@ -1665,7 +1803,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p140",
@@ -1677,7 +1816,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p141",
@@ -1689,7 +1829,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p142",
@@ -1701,7 +1842,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p143",
@@ -1713,7 +1855,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p144",
@@ -1725,7 +1868,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p145",
@@ -1737,7 +1881,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p146",
@@ -1749,7 +1894,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p147",
@@ -1761,7 +1907,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p148",
@@ -1773,7 +1920,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p149",
@@ -1785,7 +1933,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p150",
@@ -1797,7 +1946,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p151",
@@ -1809,7 +1959,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p152",
@@ -1821,7 +1972,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p153",
@@ -1833,7 +1985,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p154",
@@ -1845,7 +1998,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p155",
@@ -1857,7 +2011,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p156",
@@ -1869,7 +2024,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p157",
@@ -1881,7 +2037,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p158",
@@ -1893,7 +2050,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p159",
@@ -1905,7 +2063,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p160",
@@ -1917,7 +2076,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p161",
@@ -1929,7 +2089,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p162",
@@ -1941,7 +2102,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p163",
@@ -1953,7 +2115,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p164",
@@ -1965,7 +2128,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p165",
@@ -1977,7 +2141,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p166",
@@ -1989,7 +2154,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p167",
@@ -2001,7 +2167,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p168",
@@ -2013,7 +2180,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p169",
@@ -2025,7 +2193,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p170",
@@ -2037,7 +2206,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p171",
@@ -2049,7 +2219,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p172",
@@ -2061,7 +2232,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p173",
@@ -2073,7 +2245,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p174",
@@ -2085,7 +2258,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p175",
@@ -2097,7 +2271,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p176",
@@ -2109,7 +2284,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p177",
@@ -2121,7 +2297,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p178",
@@ -2133,7 +2310,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p179",
@@ -2145,7 +2323,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p180",
@@ -2157,7 +2336,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p181",
@@ -2169,7 +2349,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p182",
@@ -2181,7 +2362,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p183",
@@ -2193,7 +2375,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p184",
@@ -2205,7 +2388,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p185",
@@ -2217,7 +2401,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p186",
@@ -2229,7 +2414,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p187",
@@ -2241,7 +2427,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p188",
@@ -2253,7 +2440,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p189",
@@ -2265,7 +2453,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p190",
@@ -2277,7 +2466,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p191",
@@ -2289,7 +2479,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p192",
@@ -2301,7 +2492,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p193",
@@ -2313,7 +2505,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p194",
@@ -2325,7 +2518,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p195",
@@ -2337,7 +2531,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p196",
@@ -2349,7 +2544,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p197",
@@ -2361,7 +2557,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p198",
@@ -2373,7 +2570,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p199",
@@ -2385,7 +2583,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p200",
@@ -2397,7 +2596,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p201",
@@ -2409,7 +2609,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p202",
@@ -2421,7 +2622,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p203",
@@ -2433,7 +2635,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p204",
@@ -2445,7 +2648,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p205",
@@ -2457,7 +2661,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p206",
@@ -2469,7 +2674,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p207",
@@ -2481,7 +2687,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p208",
@@ -2493,7 +2700,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p209",
@@ -2505,7 +2713,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p210",
@@ -2517,7 +2726,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p211",
@@ -2529,7 +2739,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p212",
@@ -2541,7 +2752,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p213",
@@ -2553,7 +2765,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p214",
@@ -2565,7 +2778,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p215",
@@ -2577,7 +2791,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p216",
@@ -2589,7 +2804,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p217",
@@ -2601,7 +2817,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p218",
@@ -2613,7 +2830,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p219",
@@ -2625,7 +2843,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p220",
@@ -2637,7 +2856,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p221",
@@ -2649,7 +2869,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p222",
@@ -2661,7 +2882,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p223",
@@ -2673,7 +2895,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p224",
@@ -2685,7 +2908,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p225",
@@ -2697,7 +2921,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p226",
@@ -2709,7 +2934,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p227",
@@ -2721,7 +2947,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p228",
@@ -2733,7 +2960,8 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p229",
@@ -2745,7 +2973,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p230",
@@ -2757,7 +2986,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p231",
@@ -2769,7 +2999,8 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p232",
@@ -2781,7 +3012,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p233",
@@ -2793,7 +3025,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p234",
@@ -2805,7 +3038,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p235",
@@ -2817,7 +3051,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p236",
@@ -2829,7 +3064,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p237",
@@ -2841,7 +3077,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p238",
@@ -2853,7 +3090,8 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p239",
@@ -2865,7 +3103,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p240",
@@ -2877,7 +3116,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p241",
@@ -2889,7 +3129,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p242",
@@ -2901,7 +3142,8 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p243",
@@ -2913,7 +3155,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p244",
@@ -2925,7 +3168,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p245",
@@ -2937,7 +3181,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p246",
@@ -2949,7 +3194,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p247",
@@ -2961,7 +3207,8 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p248",
@@ -2973,7 +3220,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p249",
@@ -2985,7 +3233,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p250",
@@ -2997,7 +3246,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p251",
@@ -3009,7 +3259,8 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p252",
@@ -3021,7 +3272,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p253",
@@ -3033,7 +3285,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p254",
@@ -3045,7 +3298,8 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p255",
@@ -3057,7 +3311,8 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p256",
@@ -3069,7 +3324,8 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p257",
@@ -3081,7 +3337,8 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p258",
@@ -3093,7 +3350,8 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p259",
@@ -3105,7 +3363,8 @@
     "position": "RB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p260",
@@ -3117,7 +3376,8 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p261",
@@ -3129,7 +3389,8 @@
     "position": "LB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p262",
@@ -3141,7 +3402,8 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p263",
@@ -3153,7 +3415,8 @@
     "position": "CB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p264",
@@ -3165,7 +3428,8 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p265",
@@ -3177,7 +3441,8 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p266",
@@ -3189,7 +3454,8 @@
     "position": "CMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p267",
@@ -3201,7 +3467,8 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p268",
@@ -3213,7 +3480,8 @@
     "position": "RMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p269",
@@ -3225,7 +3493,8 @@
     "position": "LB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p270",
@@ -3237,7 +3506,8 @@
     "position": "CB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p271",
@@ -3249,7 +3519,8 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p272",
@@ -3261,7 +3532,8 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p273",
@@ -3273,7 +3545,8 @@
     "position": "LMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p274",
@@ -3285,7 +3558,8 @@
     "position": "RMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p275",
@@ -3297,7 +3571,8 @@
     "position": "CB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p276",
@@ -3309,7 +3584,8 @@
     "position": "CB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p277",
@@ -3321,7 +3597,8 @@
     "position": "RMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p278",
@@ -3333,7 +3610,8 @@
     "position": "CMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p279",
@@ -3345,7 +3623,8 @@
     "position": "LMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p280",
@@ -3357,7 +3636,8 @@
     "position": "RMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p281",
@@ -3369,7 +3649,8 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p282",
@@ -3381,7 +3662,8 @@
     "position": "LB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p283",
@@ -3393,7 +3675,8 @@
     "position": "LMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p284",
@@ -3405,7 +3688,8 @@
     "position": "CB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p285",
@@ -3417,7 +3701,8 @@
     "position": "CMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p286",
@@ -3429,7 +3714,8 @@
     "position": "CB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p287",
@@ -3441,7 +3727,8 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p288",
@@ -3453,7 +3740,8 @@
     "position": "LB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p289",
@@ -3465,7 +3753,8 @@
     "position": "RB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p290",
@@ -3477,7 +3766,8 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p291",
@@ -3489,7 +3779,8 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p292",
@@ -3501,7 +3792,8 @@
     "position": "LMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p293",
@@ -3513,7 +3805,8 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p294",
@@ -3525,7 +3818,8 @@
     "position": "RB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p295",
@@ -3537,7 +3831,8 @@
     "position": "CB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p296",
@@ -3549,7 +3844,8 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p297",
@@ -3561,7 +3857,8 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p298",
@@ -3573,7 +3870,8 @@
     "position": "RMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p299",
@@ -3585,7 +3883,8 @@
     "position": "RMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p300",
@@ -3597,7 +3896,8 @@
     "position": "CB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p301",
@@ -3609,7 +3909,8 @@
     "position": "CMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p302",
@@ -3621,7 +3922,8 @@
     "position": "LMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p303",
@@ -3633,7 +3935,8 @@
     "position": "LMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p304",
@@ -3645,7 +3948,8 @@
     "position": "CMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p305",
@@ -3657,7 +3961,8 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p306",
@@ -3669,7 +3974,8 @@
     "position": "RMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p307",
@@ -3681,7 +3987,8 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p308",
@@ -3693,7 +4000,8 @@
     "position": "AMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p309",
@@ -3705,7 +4013,8 @@
     "position": "AMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p310",
@@ -3717,7 +4026,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p311",
@@ -3729,7 +4039,8 @@
     "position": "AMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p312",
@@ -3741,7 +4052,8 @@
     "position": "LB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p313",
@@ -3753,7 +4065,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p314",
@@ -3765,7 +4078,8 @@
     "position": "GK",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p315",
@@ -3777,7 +4091,8 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p316",
@@ -3789,7 +4104,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p317",
@@ -3801,7 +4117,8 @@
     "position": "AMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p318",
@@ -3813,7 +4130,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p319",
@@ -3825,7 +4143,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p320",
@@ -3837,7 +4156,8 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p321",
@@ -3849,7 +4169,8 @@
     "position": "AMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p322",
@@ -3861,7 +4182,8 @@
     "position": "GK",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p323",
@@ -3873,7 +4195,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p324",
@@ -3885,7 +4208,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p325",
@@ -3897,7 +4221,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p326",
@@ -3909,7 +4234,8 @@
     "position": "AMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p327",
@@ -3921,7 +4247,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p328",
@@ -3933,7 +4260,8 @@
     "position": "DMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p329",
@@ -3945,7 +4273,8 @@
     "position": "DMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p330",
@@ -3957,7 +4286,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p331",
@@ -3969,7 +4299,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p332",
@@ -3981,7 +4312,8 @@
     "position": "RMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p333",
@@ -3993,7 +4325,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p334",
@@ -4005,7 +4338,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p335",
@@ -4017,7 +4351,8 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p336",
@@ -4029,7 +4364,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p337",
@@ -4041,7 +4377,8 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p338",
@@ -4053,7 +4390,8 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p339",
@@ -4065,7 +4403,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p340",
@@ -4077,7 +4416,8 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p341",
@@ -4089,7 +4429,8 @@
     "position": "LMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p342",
@@ -4101,7 +4442,8 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p343",
@@ -4113,7 +4455,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p344",
@@ -4125,7 +4468,8 @@
     "position": "AMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p345",
@@ -4137,7 +4481,8 @@
     "position": "RMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p346",
@@ -4149,7 +4494,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p347",
@@ -4161,7 +4507,8 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p348",
@@ -4173,7 +4520,8 @@
     "position": "LMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p349",
@@ -4185,7 +4533,8 @@
     "position": "AMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p350",
@@ -4197,7 +4546,8 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p351",
@@ -4209,7 +4559,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p352",
@@ -4221,7 +4572,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p353",
@@ -4233,7 +4585,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p354",
@@ -4245,7 +4598,8 @@
     "position": "AMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p355",
@@ -4257,7 +4611,8 @@
     "position": "LMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p356",
@@ -4269,7 +4624,8 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   },
   {
     "id": "p357",
@@ -4281,6 +4637,7 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/default.png"
+    "image": "assets/players/default.png",
+    "tier": "normal"
   }
 ]
