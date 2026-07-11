@@ -229,6 +229,8 @@ button{ font-family:inherit; cursor:pointer; }
   transition:transform .18s ease, box-shadow .18s ease;
 }
 .menu-card:hover{ transform:translateY(-4px); }
+.menu-card.no-nav{ cursor:default; }
+.menu-card.no-nav:hover{ transform:none; }
 .menu-card-banner{
   height:var(--hub-banner-h); position:relative; overflow:hidden;
   border-radius:var(--radius-lg) var(--radius-lg) 0 0;
