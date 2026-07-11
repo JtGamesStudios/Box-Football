@@ -16,7 +16,7 @@ const RARITY_WEIGHT_BASE = { preta:1, dourada:3, prata:8, branca:14 }; // peso "
 const CUTSCENE_BY_TIER = {
   destaque: "assets/video/cutscene-destaque.mp4",
   lendario: "assets/video/cutscene-lendario.mp4",
-  iconic: "assets/video/cutscene-iconic.mp4",
+  iconic: "assets/video/iconic-Moment-Opening-Animation.mp4",
 };
 
 function playCutscene(tier, onDone){
