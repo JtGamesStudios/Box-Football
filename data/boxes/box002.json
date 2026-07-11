@@ -8,11 +8,7 @@
   "category": "boxdraw",
   "priceGP": 125000,
   "priceCoins": 0,
-  "players": [
-  "p540",
-  "p541",
-  "p542",
-  "p543",
+  "players": [ "p540","p541", "p542", "p543",
   "p544",
   "p545", 
   "p090",
