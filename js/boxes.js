@@ -250,17 +250,50 @@ function renderPlayerCard(p){
       </div>
     </div>`;
 }
-/* ---------------- LUPA: modal "Jogadores Disponíveis" ---------------- */
+/* ---------------- LUPA: modal "Jogadores Disponíveis" ----------------
+   Antes renderizava TODOS os jogadores restantes de uma vez só — com
+   Boxes grandes isso sobrecarregava o grid e bugava o layout (cards
+   empilhados). Agora carrega só os primeiros 15, e vai soltando mais
+   conforme o usuário rola até o fim da lista, até acabar o total. */
+const SEARCH_PAGE_SIZE = 15;
+let _searchModalPlayers = [];
+let _searchModalRendered = 0;
+
+function renderSearchModalBatch(){
+  const grid = document.getElementById("searchModalGrid");
+  const next = _searchModalPlayers.slice(_searchModalRendered, _searchModalRendered + SEARCH_PAGE_SIZE);
+  if(!next.length) return;
+  grid.insertAdjacentHTML("beforeend", next.map(p=>renderPlayerCard(p)).join(""));
+  _searchModalRendered += next.length;
+}
+
+function handleSearchModalScroll(){
+  if(_searchModalRendered >= _searchModalPlayers.length) return;
+  const el = document.getElementById("searchModalGrid");
+  // dispara um pouco antes de chegar no fim de verdade (120px de folga)
+  if(el.scrollTop + el.clientHeight >= el.scrollHeight - 120){
+    renderSearchModalBatch();
+  }
+}
+
 function showBoxSearchModal(boxId){
   const box = getEffectiveBox(boxId);
   if(!box) return;
-  const players = getRemainingIds(boxId).map(getPlayer).filter(Boolean);
+  _searchModalPlayers = getRemainingIds(boxId).map(getPlayer).filter(Boolean);
+  _searchModalRendered = 0;
 
   document.getElementById("searchModalTitle").textContent = `Jogadores Disponíveis — ${box.name}`;
-  document.getElementById("searchModalCount").textContent = players.length;
-  document.getElementById("searchModalGrid").innerHTML = players.length
-    ? players.map(p=>renderPlayerCard(p)).join("")
-    : `<div class="empty-state"><div class="big">🔍</div>Essa Box já foi completada.</div>`;
+  document.getElementById("searchModalCount").textContent = _searchModalPlayers.length;
+
+  const grid = document.getElementById("searchModalGrid");
+  grid.scrollTop = 0;
+
+  if(!_searchModalPlayers.length){
+    grid.innerHTML = `<div class="empty-state"><div class="big">🔍</div>Essa Box já foi completada.</div>`;
+  } else {
+    grid.innerHTML = "";
+    renderSearchModalBatch();
+  }
 
   document.getElementById("boxSearchOverlay").classList.remove("hidden");
 }
@@ -273,6 +306,7 @@ document.getElementById("btnCloseSearch").addEventListener("click", closeBoxSear
 document.getElementById("boxSearchOverlay").addEventListener("click", (e)=>{
   if(e.target.id === "boxSearchOverlay") closeBoxSearchModal();
 });
+document.getElementById("searchModalGrid").addEventListener("scroll", handleSearchModalScroll);
 
 /* ---------------- Carrossel: setas de navegação ---------------- */
 function scrollBoxCarousel(dir, gridId){
