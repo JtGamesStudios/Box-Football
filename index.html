@@ -148,28 +148,32 @@
   <!-- ===================== MAIN ===================== -->
   <main class="main" id="mainContent">
 
-    <!-- HOME (aba "Match") -->
+    <!-- HOME (aba "Match") — grid 2x2 de atalhos, igual às outras abas -->
     <section class="screen" id="screen-home" data-title="Início">
-      <div class="hero-stadium">
-        <div class="hero-eyebrow">Boas-vindas de volta</div>
-        <h1 class="hero-title" id="homeGreeting">Bora montar o time dos sonhos.</h1>
-        <p class="hero-desc">Abra Boxes, colecione jogadores e monte a escalação perfeita. Sem partidas — só a emoção da contratação.</p>
-        <button class="btn btn-primary" data-nav="contratar">🎰 Ir para Contratar</button>
-      </div>
+      <h1 class="page-title">Match</h1>
+      <p class="page-sub">Acesso rápido às principais áreas do clube.</p>
+      <div class="menu-card-grid" id="homeGrid"></div>
 
-      <div class="quick-grid">
-        <div class="quick-card"><div class="num" id="homeGP">0</div><div class="lbl">GP disponível</div></div>
-        <div class="quick-card"><div class="num" id="homeCoins">0</div><div class="lbl">Moedas disponíveis</div></div>
-        <div class="quick-card"><div class="num" id="homePlayers">0</div><div class="lbl">Jogadores no clube</div></div>
-        <div class="quick-card"><div class="num" id="homeGifts">0</div><div class="lbl">Presentes pendentes</div></div>
-        <div class="quick-card"><div class="num" id="homeMissions">0</div><div class="lbl">Missões concluídas</div></div>
-        <div class="quick-card"><div class="num" id="homeStreak">0</div><div class="lbl">Dias seguidos logado</div></div>
-      </div>
-
-      <div class="card">
-        <h3 style="margin-top:0;font-family:var(--font-display);">Login diário</h3>
-        <p class="page-sub" style="margin-bottom:14px;">Entre todos os dias para acumular recompensas crescentes.</p>
-        <div id="dailyLoginRow" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+      <!-- Conteúdo antigo do dashboard: mantido oculto (não removido) porque
+           main.js ainda escreve valores aqui (homeGP, homeCoins, homePlayers,
+           homeGifts, homeMissions, homeStreak, homeGreeting, dailyLoginRow) e
+           os badges dos cards/ícones leem esses IDs como fonte. Removê-los do
+           DOM quebraria essa lógica sem tocar em main.js/state.js. -->
+      <div class="hidden" aria-hidden="true">
+        <div class="hero-stadium">
+          <div class="hero-eyebrow">Boas-vindas de volta</div>
+          <h1 class="hero-title" id="homeGreeting">Bora montar o time dos sonhos.</h1>
+          <p class="hero-desc">Abra Boxes, colecione jogadores e monte a escalação perfeita.</p>
+        </div>
+        <div class="quick-grid">
+          <div class="quick-card"><div class="num" id="homeGP">0</div><div class="lbl">GP disponível</div></div>
+          <div class="quick-card"><div class="num" id="homeCoins">0</div><div class="lbl">Moedas disponíveis</div></div>
+          <div class="quick-card"><div class="num" id="homePlayers">0</div><div class="lbl">Jogadores no clube</div></div>
+          <div class="quick-card"><div class="num" id="homeGifts">0</div><div class="lbl">Presentes pendentes</div></div>
+          <div class="quick-card"><div class="num" id="homeMissions">0</div><div class="lbl">Missões concluídas</div></div>
+          <div class="quick-card"><div class="num" id="homeStreak">0</div><div class="lbl">Dias seguidos logado</div></div>
+        </div>
+        <div id="dailyLoginRow"></div>
       </div>
     </section>
 
