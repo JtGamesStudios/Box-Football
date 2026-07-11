@@ -37,13 +37,14 @@ const TOP_ICONS = [
    Squad Management/My Team/Achievements/Practice).
    badgeSource: id de um elemento já existente na tela (ex: "homeMissions")
    cujo texto vira o número do badge — deixe null pra não mostrar badge. */
-/* Cards da aba "Match" (home) — atalhos rápidos pras 4 áreas mais usadas,
-   no mesmo padrão visual dos outros hubs (banner + ícone + título + sub). */
+/* Cards da aba "Match" (home) — réplica exata dos 4 cards da imagem de
+   referência (eFootball / Modo de evento / Jogo c/ amigo / Campanha).
+   nav:null = card decorativo, sem clique/navegação nenhuma. */
 const HOME_CARDS = [
-  { nav: "contratar", banner: "banner-gold",    icon: "🎰", title: "Contratar", sub: "Abra Boxes e contrate seu próximo reforço", badgeSource: null },
-  { nav: "boxes",      banner: "banner-boxdraw", icon: "📦", title: "Boxes",      sub: "Acompanhe o progresso de cada Box", badgeSource: null },
-  { nav: "clube",      banner: "banner-emerald", icon: "👥", title: "Clube",      sub: "Veja e organize seus jogadores contratados", badgeSource: null },
-  { nav: "missoes",    banner: "banner-crimson", icon: "🎯", title: "Missões",    sub: "Complete objetivos e ganhe recompensas", badgeSource: "homeMissions" },
+  { nav: null, banner: "banner-emerald", icon: "🎮", title: "eFootball",      sub: "Encare usuários e ganhe prêmios", badgeSource: null },
+  { nav: null, banner: "banner-violet",  icon: "🏆", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
+  { nav: null, banner: "banner-crimson", icon: "⚽", title: "Jogo c/ amigo",  sub: "", badgeSource: null },
+  { nav: null, banner: "banner-gold",    icon: "🛡️", title: "Campanha",      sub: "", badgeSource: null },
 ];
 const CLUBHOUSE_CARDS = [
   { nav: "clube",     banner: "banner-emerald", icon: "👥", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados", badgeSource: null },
@@ -154,17 +155,17 @@ function buildHubGrid(containerId, cards){
   wrap.innerHTML = "";
   cards.forEach(c=>{
     const btn = document.createElement("button");
-    btn.className = "menu-card";
-    btn.dataset.nav = c.nav;
+    btn.className = "menu-card" + (c.nav ? "" : " no-nav");
+    if(c.nav) btn.dataset.nav = c.nav;
     btn.innerHTML = `
-      <div class="menu-card-banner ${c.banner}" id="menuCardBanner-${c.nav}"></div>
+      <div class="menu-card-banner ${c.banner}" id="menuCardBanner-${c.nav || containerId + '-' + c.title}"></div>
       ${c.badgeSource ? `<span class="menu-card-badge hidden" data-hub-badge-for="${c.nav}">0</span>` : ""}
       <div class="menu-card-icon">${c.icon}</div>
       <div class="menu-card-body">
         <div class="menu-card-title">${c.title}</div>
-        <div class="menu-card-sub">${c.sub}</div>
+        ${c.sub ? `<div class="menu-card-sub">${c.sub}</div>` : ""}
       </div>`;
-    btn.onclick = ()=> showScreen(c.nav);
+    if(c.nav) btn.onclick = ()=> showScreen(c.nav);
     wrap.appendChild(btn);
   });
 }
