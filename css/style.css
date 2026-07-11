@@ -931,6 +931,11 @@ html:-ms-fullscreen .rotate-overlay{
     display:none;
   }
 }
+/* Botão "Continuar sem tela cheia" — faltava essa regra, então esse
+   botão nunca escondia o aviso de verdade (só marcava a classe). */
+html.rotate-dismissed .rotate-overlay{
+  display:none !important;
+}
 
 .rotate-card{
   display:flex; flex-direction:column; align-items:center; gap:16px;
