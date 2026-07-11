@@ -6,6 +6,39 @@
 <title>Box Clube — Simulador de Contratações</title>
 <link rel="stylesheet" href="css/style.css?v=2">
 <style>
+  /* ===== Cutscene (Destaque / Lendário) ===== */
+  .cutscene-overlay{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .cutscene-overlay.hidden{ display:none; }
+  .cutscene-video{
+    width:100vw;
+    height:100vh;
+    object-fit:cover;
+    background:#000;
+  }
+  .cutscene-skip{
+    position:absolute;
+    right:20px;
+    bottom:24px;
+    padding:10px 18px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.35);
+    background:rgba(0,0,0,.45);
+    color:#fff;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    backdrop-filter:blur(6px);
+  }
+  .cutscene-skip:hover{ background:rgba(0,0,0,.7); }
+
   /* ===== Tela de manutenção da splash ===== */
   .splash-maintenance{
     position:absolute;
@@ -354,6 +387,12 @@
     </section>
 
   </main>
+</div>
+
+<!-- ===================== CUTSCENE (Destaque / Lendário) ===================== -->
+<div class="cutscene-overlay hidden" id="cutsceneOverlay">
+  <video id="cutsceneVideo" class="cutscene-video" playsinline></video>
+  <button class="cutscene-skip" id="cutsceneSkipBtn">Pular ⏭</button>
 </div>
 
 <!-- ===================== BOX OPENING OVERLAY (inalterado) ===================== -->
