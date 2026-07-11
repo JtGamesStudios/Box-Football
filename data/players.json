@@ -4696,7 +4696,7 @@
     "id": "p541",
     "name": "M. Mandžukić",
     "overall": 90,
-    "club": "Celtic",
+    "club": "Juventus",
     "nationality": "Croacia",
     "nationalityFlag": "🇰🇷",
     "position": "AC",
@@ -4704,5 +4704,57 @@
     "rarityLabel": "Lendária",
     "image": "assets/players/M. MANDŽUKIĆ.png",
     "tier": "normal"
+  },
+     { 
+    "id": "p542",
+    "name": "C. Ronaldo",
+    "overall": 97,
+    "club": "Juventus",
+    "nationality": "Portugal",
+    "nationalityFlag": "🇰🇷",
+    "position": "AE",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/C. Ronaldo.png",
+    "tier": "normal"
+  },
+     { 
+    "id": "p543",
+    "name": "L. Messi",
+    "overall": 98,
+    "club": "Barcelona",
+    "nationality": "Argentina",
+    "nationalityFlag": "🇰🇷",
+    "position": "AD",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/L. Messi.png",
+    "tier": "normal"
+  },
+     { 
+    "id": "p544",
+    "name": "Neymar",
+    "overall": 97,
+    "club": "PSG",
+    "nationality": "Brazil",
+    "nationalityFlag": "🇰🇷",
+    "position": "AE",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/Neymar.png",
+    "tier": "normal"
+  },
+     { 
+    "id": "p545",
+    "name": "K. Miura",
+    "overall": 98,
+    "club": "Santos",
+    "nationality": "Japon",
+    "nationalityFlag": "🇰🇷",
+    "position": "LWF",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/K. Miura.png",
+    "tier": "iconic"
   }
 ]
