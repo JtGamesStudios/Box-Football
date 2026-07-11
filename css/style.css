@@ -473,15 +473,15 @@ html.hub-active .menu-card-body{
 .search-count{ font-size:13px; color:var(--text-muted); }
 .search-count strong{ color:var(--text); }
 .search-grid{
-  display:grid; grid-template-columns:repeat(auto-fill, minmax(110px,1fr)); gap:12px;
-  padding:20px 22px; overflow-y:auto;
+  display:grid; grid-template-columns:repeat(4, 1fr); align-items:start;
+  gap:12px; padding:20px 22px; overflow-y:auto;
 }
 .search-grid .p-card{ max-width:none; }
 .search-actions{ padding:14px 22px; border-top:1px solid var(--border); }
 
 @media (max-width: 480px){
   .search-header{ padding:14px 16px; }
-  .search-grid{ grid-template-columns:repeat(auto-fill, minmax(92px,1fr)); gap:8px; padding:14px 16px; }
+  .search-grid{ grid-template-columns:repeat(4, 1fr); gap:6px; padding:14px 16px; }
   .search-actions{ padding:12px 16px; }
 }
 
