@@ -1,10 +1,10 @@
 {
   "id": "box001",
-  "name": "Featured Players Eurocopa",
-  "date": "13/08/2020",
+  "name": "Iconic Moments - Arsenal",
+  "date": "",
   "description": "Featured Players - 13/08/2020",
   "banner": "assets/banners/file_00000000c76c720e909143e24f9a4c49.png",
   "active": true,
   "priceCoins": 100,
-  "players": ["P001", "P002", "P003", "P004", "P005", "P006", "P007", "P008", "P009", "P010"]
+  "players": [""]
 }
