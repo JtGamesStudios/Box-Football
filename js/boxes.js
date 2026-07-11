@@ -19,29 +19,6 @@ const CUTSCENE_BY_TIER = {
   iconic: "assets/videos/iconic-Moment-Opening-Animation.mp4",
 };
 
-// Cria (se ainda não existir) o botão de "ativar som" que fica sobre o vídeo.
-// Assim não é preciso mexer no HTML pra essa correção funcionar.
-function getCutsceneUnmuteBtn(overlay, video){
-  let btn = document.getElementById("cutsceneUnmuteBtn");
-  if(btn) return btn;
-  btn = document.createElement("button");
-  btn.id = "cutsceneUnmuteBtn";
-  btn.type = "button";
-  btn.textContent = "🔇 Ativar som";
-  btn.style.cssText = `
-    position:absolute; left:50%; bottom:64px; transform:translateX(-50%);
-    z-index:20; padding:10px 18px; border:none; border-radius:999px;
-    background:rgba(0,0,0,.65); color:#fff; font-size:14px; font-weight:600;
-    cursor:pointer; backdrop-filter:blur(4px); display:none;
-  `;
-  overlay.appendChild(btn);
-  btn.addEventListener("click", ()=>{
-    video.muted = false;
-    btn.style.display = "none";
-  });
-  return btn;
-}
-
 function playCutscene(tier, onDone){
   const src = CUTSCENE_BY_TIER[tier];
   if(!src){ onDone(); return; }
@@ -49,7 +26,6 @@ function playCutscene(tier, onDone){
   const overlay = document.getElementById("cutsceneOverlay");
   const video = document.getElementById("cutsceneVideo");
   const skipBtn = document.getElementById("cutsceneSkipBtn");
-  const unmuteBtn = getCutsceneUnmuteBtn(overlay, video);
 
   let finished = false;
   function finish(){
@@ -59,7 +35,6 @@ function playCutscene(tier, onDone){
     video.removeAttribute("src");
     video.load();
     overlay.classList.add("hidden");
-    unmuteBtn.style.display = "none";
     video.onended = null;
     skipBtn.onclick = null;
     onDone();
@@ -67,7 +42,6 @@ function playCutscene(tier, onDone){
 
   video.src = src;
   video.currentTime = 0;
-  video.playsInline = true; // evita fullscreen nativo automático no iOS
   overlay.classList.remove("hidden");
   video.onended = finish;
   skipBtn.onclick = finish;
@@ -75,25 +49,8 @@ function playCutscene(tier, onDone){
   // se o arquivo de vídeo não existir/der erro, não trava o fluxo do jogo
   video.onerror = finish;
 
-  // 1ª tentativa: com som (o clique em "Contratar" já foi o gesto do usuário,
-  // então às vezes o navegador ainda deixa passar dependendo do timing).
-  video.muted = false;
   const playPromise = video.play();
-
-  if(playPromise && playPromise.catch){
-    playPromise.catch(()=>{
-      // Bloqueado: autoplay com som negado. Autoplay MUDO nunca é bloqueado,
-      // então tocamos mudo e mostramos o botão pra o usuário ativar o som
-      // quando quiser (isso conta como novo gesto de usuário).
-      video.muted = true;
-      unmuteBtn.style.display = "block";
-      const retryPromise = video.play();
-      if(retryPromise && retryPromise.catch){
-        // só chega aqui se o problema for outro (arquivo/formato), não autoplay
-        retryPromise.catch(finish);
-      }
-    });
-  }
+  if(playPromise && playPromise.catch) playPromise.catch(finish);
 }
 
 function getOverride(boxId){ return STATE.adminOverrides[boxId] || {}; }
