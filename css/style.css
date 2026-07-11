@@ -604,6 +604,17 @@ html.hub-active .menu-card-body{
 .player-reveal-card{ opacity:0; transform:translateY(14px) scale(.96); animation:cardIn .5s ease 1.15s forwards; }
 @keyframes cardIn{ to{ opacity:1; transform:translateY(0) scale(1);} }
 
+/* Puxa a carta pra mais perto do texto/bola de cima — a bola some (scale
+   até 0) mas continua reservando o espaço dela no layout, o que deixava
+   um vão grande entre o "Novo reforço contratado!" e a carta. */
+#revealCardWrap{ margin-top:-18px; }
+@media (max-width: 480px){
+  #revealCardWrap{ margin-top:-14px; }
+}
+@media (max-height: 700px){
+  #revealCardWrap{ margin-top:-12px; }
+}
+
 .stage-actions{ margin-top:24px; display:flex; gap:10px; justify-content:center; }
 .stage-actions .btn{ min-width:150px; padding:13px 26px; font-size:14.5px; }
 .stage-actions .btn-primary{ box-shadow:0 6px 18px rgba(25,140,255,.45); }
