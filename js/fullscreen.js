@@ -94,6 +94,20 @@
 
     const skipBtn = document.getElementById("btnSkipRotate");
     if(skipBtn) skipBtn.addEventListener("click", dismissRotateOverlay);
+
+    // Botão flutuante — disponível em qualquer tela do app, não só
+    // no aviso inicial. Útil se o usuário saiu da tela cheia sem
+    // querer (ex: apertou "voltar" do navegador) e quer entrar de
+    // novo sem precisar recarregar a página.
+    const forceBtn = document.getElementById("btnForceFullscreen");
+    if(forceBtn){
+      forceBtn.addEventListener("click", ()=>{
+        if(typeof toast === "function"){
+          toast("Ativando tela cheia em modo paisagem...", "");
+        }
+        enterFullscreenLandscape();
+      });
+    }
   });
 })();
 
