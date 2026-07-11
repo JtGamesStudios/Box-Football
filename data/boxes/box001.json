@@ -6,7 +6,7 @@
   "banner": "assets/banners/file_00000000c76c720e909143e24f9a4c49.png",
   "active": true,
   "priceCoins": 100,
-  "players":  "p358",
+  "players":  ["p358",
     "p359",
     "p360",
     "p162",
