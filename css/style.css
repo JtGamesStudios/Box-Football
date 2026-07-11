@@ -206,46 +206,47 @@ button{ font-family:inherit; cursor:pointer; }
    IMPORTANTE: o ícone e o badge NÃO ficam dentro do banner (senão o
    overflow:hidden do banner corta metade do círculo) — eles são
    irmãos do banner, posicionados usando a mesma variável de altura. */
-.menu-card-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:14px; margin-top:4px; }
+.menu-card-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:clamp(14px,3.2vw,22px); margin-top:4px; }
 .menu-card{
-  --hub-banner-h: clamp(78px,20vw,120px);
-  background:transparent; border:none; border-radius:var(--radius-md);
+  --hub-banner-h: clamp(84px,21vw,128px);
+  background:transparent; border:none; border-radius:var(--radius-lg);
   overflow:visible; text-align:center; padding:0; display:flex; flex-direction:column;
   width:100%; position:relative;
   animation:fadeUp .4s ease both;
   transition:transform .18s ease, box-shadow .18s ease;
 }
-.menu-card:hover{ transform:translateY(-3px); }
+.menu-card:hover{ transform:translateY(-4px); }
 .menu-card-banner{
   height:var(--hub-banner-h); position:relative; overflow:hidden;
-  border-radius:var(--radius-md) var(--radius-md) 0 0;
+  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
   border:1px solid var(--border); border-bottom:none;
   background:linear-gradient(135deg, var(--brand), var(--brand-dim));
   background-size:cover; background-position:center; background-repeat:no-repeat;
   box-shadow:var(--shadow-card);
 }
 .menu-card-badge{
-  position:absolute; top:8px; right:8px; z-index:3; min-width:20px; height:20px; padding:0 5px;
+  position:absolute; top:9px; right:9px; z-index:3; min-width:22px; height:22px; padding:0 5px;
   border-radius:20px; background:var(--crimson); color:#fff;
-  font-family:var(--font-display); font-size:11px; font-weight:800; line-height:20px; text-align:center;
-  box-shadow:0 2px 6px rgba(0,0,0,.35);
+  font-family:var(--font-display); font-size:11.5px; font-weight:800; line-height:22px; text-align:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.4), 0 0 0 2px var(--surface);
 }
 .menu-card-icon{
   position:absolute; left:50%; top:var(--hub-banner-h); z-index:2; transform:translate(-50%, -50%);
-  width:clamp(38px,10vw,52px); height:clamp(38px,10vw,52px); border-radius:50%;
-  background:var(--surface); box-shadow:0 4px 10px rgba(0,0,0,0.22);
-  display:flex; align-items:center; justify-content:center; font-size:clamp(17px,4.5vw,22px);
+  width:clamp(42px,11vw,58px); height:clamp(42px,11vw,58px); border-radius:50%;
+  background:var(--surface); box-shadow:0 4px 12px rgba(0,0,0,0.26), 0 0 0 3px var(--surface);
+  display:flex; align-items:center; justify-content:center; font-size:clamp(18px,4.8vw,24px);
   color:var(--brand);
 }
 .menu-card-body{
-  padding:clamp(14px,5vw,20px) 10px 14px;
+  padding:clamp(16px,5.5vw,22px) 10px 15px;
   border:1px solid var(--border); border-top:none;
-  border-radius:0 0 var(--radius-md) var(--radius-md);
+  border-radius:0 0 var(--radius-lg) var(--radius-lg);
   background:var(--surface);
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
   flex:1;
 }
-.menu-card-title{ font-family:var(--font-display); font-weight:700; font-size:clamp(13px,3.6vw,15.5px); color:var(--brand); margin-bottom:2px; }
-.menu-card-sub{ font-size:clamp(10px,2.8vw,11.5px); color:var(--text-muted); line-height:1.25; }
+.menu-card-title{ font-family:var(--font-display); font-weight:700; font-size:clamp(13.5px,3.8vw,16px); color:var(--brand); margin-bottom:3px; letter-spacing:.1px; }
+.menu-card-sub{ font-size:clamp(10.5px,2.9vw,12px); color:var(--text-muted); line-height:1.3; }
 
 /* ============ Grid de menu travado na tela (sem scroll) ============
    As telas Club House / Contract / Extras usam essa grade 2x2 de
@@ -281,8 +282,8 @@ html.hub-active .menu-card{ height:100%; min-height:0; }
    em porcentagem (não em px fixo), então o ícone circular que fica
    sobre a base do banner também usa "top:60%" em vez da variável
    --hub-banner-h antiga (que só funcionava com altura em px). */
-html.hub-active .menu-card-banner{ flex:0 0 60%; height:auto; min-height:0; }
-html.hub-active .menu-card-icon{ top:60%; }
+html.hub-active .menu-card-banner{ flex:0 0 65%; height:auto; min-height:0; }
+html.hub-active .menu-card-icon{ top:65%; }
 html.hub-active .menu-card-body{
   flex:1 1 auto; min-height:0; overflow:hidden;
   display:flex; flex-direction:column; justify-content:center;
@@ -448,7 +449,7 @@ html.hub-active .menu-card-body{
 /* ============ Box opening (signature) ============ */
 .stage-overlay{
   position:fixed; inset:0; z-index:100; display:flex; align-items:flex-start; justify-content:center;
-  background:#0B1220 url('../assets/ui/roulette-stadium.png') center 30%/cover no-repeat;
+  background:#0B1220;
   /* Antes era "overflow:hidden", que cortava a carta/botões quando o
      conteúdo era mais alto que a tela (comum no mobile em pé).
      Agora permite rolar verticalmente sem cortar nada. */
@@ -457,16 +458,28 @@ html.hub-active .menu-card-body{
   -webkit-overflow-scrolling:touch;
   padding:28px 0 calc(28px + env(safe-area-inset-bottom, 0px));
 }
+/* Camada 1: o estádio, desfocado de verdade (filter:blur), igual à
+   referência. Fica em elemento próprio e ligeiramente maior que a
+   tela (scale) pra esconder a borda borrada que o blur cria nas
+   pontas. Nunca borra o card nem os botões, porque estes ficam em
+   .stage-inner, acima (z-index maior) e fora desta camada. */
 .stage-overlay::before{
-  content:""; position:absolute; inset:0;
+  content:""; position:absolute; inset:-20px; z-index:0;
+  background:#0B1220 url('../assets/ui/roulette-stadium.png') center 30%/cover no-repeat;
+  filter:blur(7px) brightness(.8);
+  transform:scale(1.06);
+}
+/* Camada 2: os gradientes de escurecimento/luz, por cima do blur */
+.stage-overlay::after{
+  content:""; position:absolute; inset:0; z-index:1;
   background:
-    linear-gradient(180deg, rgba(6,12,24,.55) 0%, rgba(6,12,24,.35) 45%, rgba(4,8,18,.85) 100%),
+    linear-gradient(180deg, rgba(6,12,24,.5) 0%, rgba(6,12,24,.3) 45%, rgba(4,8,18,.82) 100%),
     conic-gradient(from 200deg at 15% -10%, rgba(255,255,255,.14), transparent 30%),
     conic-gradient(from 20deg at 85% -10%, rgba(255,255,255,.12), transparent 30%),
     radial-gradient(ellipse at 50% 110%, rgba(25,140,255,.18), transparent 60%);
 }
 .beam{
-  position:absolute; top:-20%; width:140px; height:160%; background:linear-gradient(180deg, rgba(255,255,255,.16), transparent 70%);
+  position:absolute; top:-20%; z-index:1; width:140px; height:160%; background:linear-gradient(180deg, rgba(255,255,255,.16), transparent 70%);
   filter:blur(6px); transform-origin:top center; opacity:0;
 }
 .beam.sweep{ animation:beamSweep 1.6s ease-in-out; }
@@ -477,6 +490,18 @@ html.hub-active .menu-card-body{
   100%{ opacity:0; transform:rotate(35deg) translateX(40vw); }
 }
 .stage-inner{ position:relative; z-index:2; width:min(92vw, 480px); text-align:center; margin:auto 0; }
+
+/* Barra de topo dentro do reveal: moeda à esquerda, contador de
+   aquisições à direita — igual à tela de contratação do PES/eFootball. */
+.stage-topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:20px; padding:0 4px; color:#fff;
+}
+.stage-topbar .wallet-chip{ color:#fff; font-size:14px; }
+.stage-topbar .coin-icon{ width:22px; height:22px; }
+.stage-acquisitions{ font-size:12.5px; font-weight:600; color:#C7D2E3; }
+.stage-acquisitions strong{ color:#fff; }
+
 .stage-hint{ color:#9DAAC2; font-size:13px; margin-bottom:18px; letter-spacing:1px; text-transform:uppercase; }
 
 .ball-track{
@@ -540,7 +565,9 @@ html.hub-active .menu-card-body{
 .player-reveal-card{ opacity:0; transform:translateY(14px) scale(.96); animation:cardIn .5s ease 1.15s forwards; }
 @keyframes cardIn{ to{ opacity:1; transform:translateY(0) scale(1);} }
 
-.stage-actions{ margin-top:22px; display:flex; gap:10px; justify-content:center; }
+.stage-actions{ margin-top:24px; display:flex; gap:10px; justify-content:center; }
+.stage-actions .btn{ min-width:150px; padding:13px 26px; font-size:14.5px; }
+.stage-actions .btn-primary{ box-shadow:0 6px 18px rgba(25,140,255,.45); }
 
 /* ============ Player card — estilo "cartinha" (foto de corpo inteiro) ============ */
 .p-card{
