@@ -4678,5 +4678,31 @@
     "rarityLabel": "Lendária",
     "image": "assets/players/r. pirés.png",
     "tier": "iconic"
+  },
+    {
+    "id": "p540",
+    "name": "S. Nakamura",
+    "overall": 96,
+    "club": "Celtic",
+    "nationality": "Japan",
+    "nationalityFlag": "🇰🇷",
+    "position": "MO",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/S. nakamura.png",
+    "tier": "iconic"
+  },
+   { 
+    "id": "p541",
+    "name": "M. Mandžukić",
+    "overall": 90,
+    "club": "Celtic",
+    "nationality": "Croacia",
+    "nationalityFlag": "🇰🇷",
+    "position": "AC",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/M. Mandžukić.png",
+    "tier": "normal"
   }
 ]
