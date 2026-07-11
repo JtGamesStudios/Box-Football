@@ -1,10 +1,12 @@
 {
-  "id": "box002",
-  "name": "Featured Players Eurocopa",
-  "date": "20/08/2020",
-  "description": "Featured Players - 20/08/2020",
-  "banner": "assets/banners/featured_13082020.png",
+  "id": "box004",
+  "name": "Nakamura - Iconic Moments",
+  "date": "--/--/----",
+  "description": "Nakamura - Iconic Moments",
+  "banner": "assets/banners/banner-contratar-especial2.png",
   "active": true,
-  "priceCoins": 100,
-  "players": ["P011", "P012", "P013", "P014", "P015", "P016", "P017", "P018", "P019", "P020", "P021"]
+  "category": "boxdraw",
+  "priceGP": 125000,
+  "priceCoins": 0,
+  "players": [""]
 }
