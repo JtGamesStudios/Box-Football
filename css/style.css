@@ -93,50 +93,63 @@ button{ font-family:inherit; cursor:pointer; }
   background:rgba(255,255,255,0.94); backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
 }
-.wallet-inline{ display:flex; align-items:center; gap:14px; }
+.wallet-inline{ display:flex; align-items:center; gap:18px; }
 .wallet-chip{
-  display:flex; align-items:center; gap:7px; font-weight:700; font-size:14.5px; color:var(--text);
+  display:flex; align-items:center; gap:7px; font-weight:700; font-size:15px; color:var(--text);
+  font-family:var(--font-display);
 }
-.coin-icon{ width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:12px; }
-.coin-icon.gp{ background:radial-gradient(circle at 30% 30%, #FFF3CE, var(--gold)); color:#5A4200; }
-.coin-icon.coins{ background:radial-gradient(circle at 30% 30%, #E7F3FF, var(--brand)); color:#06264A; }
+.coin-icon{ width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+/* "G" — moeda principal (GP): badge circular azul, igual ao logo do eFootball */
+.coin-icon.gp{
+  background:radial-gradient(circle at 32% 28%, #4FADFF, var(--brand-dim));
+  color:#fff; font-family:var(--font-display); font-weight:800; font-size:12.5px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);
+}
+/* estrela — moeda secundária (Moedas): ícone sozinho, sem fundo, igual referência */
+.coin-icon.coins{
+  width:auto; height:auto; background:none; color:var(--gold);
+  font-size:19px; line-height:1;
+}
 
-.topicons{ display:flex; align-items:center; gap:18px; }
+.topicons{ display:flex; align-items:center; gap:20px; }
 .topicon-btn{
-  position:relative; background:none; border:none; font-size:20px; color:var(--brand);
-  display:flex; align-items:center; justify-content:center; width:30px; height:30px;
-  transition:transform .12s;
+  position:relative; background:none; border:none; font-size:20px; color:#8792A3;
+  display:flex; align-items:center; justify-content:center; width:26px; height:26px;
+  transition:transform .12s, color .15s;
 }
-.topicon-btn:hover{ transform:translateY(-1px); }
-.topicon-btn.active{ color:var(--brand-dim); }
-.topicon-btn[data-nav="loja"]{ color:var(--crimson); } /* carrinho vermelho, como na referência */
+.topicon-btn:hover{ transform:translateY(-1px); color:var(--brand); }
+.topicon-btn.active{ color:var(--brand); }
 .badge-dot{
-  position:absolute; top:-4px; right:-6px; min-width:16px; height:16px; padding:0 3px;
+  position:absolute; top:-6px; right:-8px; min-width:17px; height:17px; padding:0 4px;
   border-radius:20px; background:var(--crimson); color:#fff;
-  font-size:9.5px; font-weight:800; line-height:16px; text-align:center;
+  font-size:10px; font-weight:800; line-height:17px; text-align:center;
+  box-shadow:0 0 0 2px var(--surface);
 }
 
-/* --- Abas horizontais: Match / Club House / Contract / Extras --- */
+/* --- Abas horizontais: Match / Club House / Contract / Extras ---
+   Distribuídas em toda a largura, separadas por "|", sem sublinhado —
+   a aba ativa só fica em azul + negrito + um pouco maior, igual à
+   referência (eFootball/PES). --- */
 .menu-tabs{
   position:sticky; top:56px; z-index:25;
-  display:flex; align-items:center; justify-content:space-between; gap:8px;
-  padding:0 18px; background:var(--surface);
+  display:flex; align-items:center; justify-content:space-between; gap:6px;
+  padding:2px 18px; background:var(--surface);
   border-bottom:1px solid var(--border);
   overflow-x:auto;
 }
 .menu-tab-item{
   position:relative; background:none; border:none; white-space:nowrap;
-  padding:14px 6px 12px; font-size:14.5px; font-weight:600; color:var(--text-muted);
-  border-bottom:3px solid transparent;
+  padding:13px 4px; font-size:14.5px; font-weight:600; color:var(--text-dim);
+  transition:color .15s, font-size .15s;
 }
-.menu-tab-item.active{ color:var(--brand); border-bottom-color:var(--brand); }
+.menu-tab-item.active{ color:var(--brand); font-weight:800; font-size:15.5px; }
 .menu-tab-item .tab-dot{
-  position:absolute; top:10px; right:2px; width:7px; height:7px; border-radius:50%;
+  position:absolute; top:9px; right:-3px; width:7px; height:7px; border-radius:50%;
   background:var(--crimson);
 }
 .menu-tab-item .tab-dot.orange{ background:#F5A623; }
 /* Separador "|" entre as abas, igual ao eFootball */
-.tab-sep{ color:var(--border-strong); font-size:14px; font-weight:400; user-select:none; }
+.tab-sep{ color:var(--border); font-size:15px; font-weight:300; user-select:none; }
 
 /* ============ Main content ============ */
 .main{ flex:1; min-width:0; padding:26px 30px 60px; }
@@ -219,10 +232,10 @@ button{ font-family:inherit; cursor:pointer; }
 .menu-card-banner{
   height:var(--hub-banner-h); position:relative; overflow:hidden;
   border-radius:var(--radius-lg) var(--radius-lg) 0 0;
-  border:1px solid var(--border); border-bottom:none;
+  border:none;
   background:linear-gradient(135deg, var(--brand), var(--brand-dim));
   background-size:cover; background-position:center; background-repeat:no-repeat;
-  box-shadow:var(--shadow-card);
+  box-shadow:0 4px 14px rgba(0,0,0,.12);
 }
 .menu-card-badge{
   position:absolute; top:9px; right:9px; z-index:3; min-width:22px; height:22px; padding:0 5px;
@@ -232,21 +245,21 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .menu-card-icon{
   position:absolute; left:50%; top:var(--hub-banner-h); z-index:2; transform:translate(-50%, -50%);
-  width:clamp(42px,11vw,58px); height:clamp(42px,11vw,58px); border-radius:50%;
-  background:var(--surface); box-shadow:0 4px 12px rgba(0,0,0,0.26), 0 0 0 3px var(--surface);
-  display:flex; align-items:center; justify-content:center; font-size:clamp(18px,4.8vw,24px);
+  width:clamp(44px,12vw,60px); height:clamp(44px,12vw,60px); border-radius:50%;
+  background:var(--surface); box-shadow:0 4px 14px rgba(0,0,0,0.22), 0 0 0 4px var(--surface);
+  display:flex; align-items:center; justify-content:center; font-size:clamp(19px,5vw,25px);
   color:var(--brand);
 }
 .menu-card-body{
-  padding:clamp(16px,5.5vw,22px) 10px 15px;
-  border:1px solid var(--border); border-top:none;
+  padding:clamp(18px,6vw,24px) 10px 16px;
+  border:none;
   border-radius:0 0 var(--radius-lg) var(--radius-lg);
   background:var(--surface);
-  box-shadow:0 2px 6px rgba(0,0,0,.05);
+  box-shadow:var(--shadow-card);
   flex:1;
 }
 .menu-card-title{ font-family:var(--font-display); font-weight:700; font-size:clamp(13.5px,3.8vw,16px); color:var(--brand); margin-bottom:3px; letter-spacing:.1px; }
-.menu-card-sub{ font-size:clamp(10.5px,2.9vw,12px); color:var(--text-muted); line-height:1.3; }
+.menu-card-sub{ font-size:clamp(10.5px,2.9vw,12px); color:var(--text-muted); line-height:1.3; padding:0 4px; }
 
 /* ============ Grid de menu travado na tela (sem scroll) ============
    As telas Club House / Contract / Extras usam essa grade 2x2 de
