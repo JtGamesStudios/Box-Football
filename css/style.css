@@ -607,12 +607,12 @@ html.hub-active .menu-card-body{
 /* Puxa a carta pra mais perto do texto/bola de cima — a bola some (scale
    até 0) mas continua reservando o espaço dela no layout, o que deixava
    um vão grande entre o "Novo reforço contratado!" e a carta. */
-#revealCardWrap{ margin-top:-18px; }
+#revealCardWrap{ margin-top:-40px; }
 @media (max-width: 480px){
-  #revealCardWrap{ margin-top:-14px; }
+  #revealCardWrap{ margin-top:-40px; }
 }
 @media (max-height: 700px){
-  #revealCardWrap{ margin-top:-12px; }
+  #revealCardWrap{ margin-top:-40px; }
 }
 
 .stage-actions{ margin-top:24px; display:flex; gap:10px; justify-content:center; }
