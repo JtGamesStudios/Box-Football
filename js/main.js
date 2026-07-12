@@ -77,6 +77,7 @@ async function boot(){
   checkDailyLogin();
   refreshWalletUI();
   showScreen("home");
+  if(typeof maybeShowNovidades === "function") maybeShowNovidades();
 }
 
 document.addEventListener("DOMContentLoaded", boot);
