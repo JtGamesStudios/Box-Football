@@ -65,9 +65,17 @@ function renderPitch(squad){
     div.className = "pitch-slot" + (player?" filled":"") + (squad.captainSlot===slot.id?" captain":"");
     div.style.left = slot.x + "%";
     div.style.top = (100 - slot.y) + "%";
-    div.innerHTML = player
-      ? `<div class="slot-ovr">${player.overall}</div><div class="slot-role">${player.name.split(" ")[0]}</div>`
-      : `<div class="slot-role">${slot.role}</div>`;
+    if(player){
+      div.style.backgroundImage = `url('${player.image || "assets/players/default.png"}')`;
+      div.innerHTML = `
+        <div class="slot-badges">
+          <span class="slot-ovr">${player.overall}</span>
+          <span class="slot-pos">${player.position}</span>
+        </div>
+        <div class="slot-name-bar">${player.name.split(" ")[0]}</div>`;
+    } else {
+      div.innerHTML = `<div class="slot-role">${slot.role}</div>`;
+    }
     div.onclick = ()=> onSlotClick(squad, slot, player);
     pitch.appendChild(div);
   });
