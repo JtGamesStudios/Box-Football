@@ -1371,3 +1371,37 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 .matchsim-result-title.draw{ color:#9AA3B5; }
 .matchsim-result-title.loss{ color:var(--crimson); }
 .matchsim-result-score{ font-family:var(--font-display); font-weight:800; font-size:38px; margin-bottom:20px; }
+
+/* =========================================================
+   MODOS INDISPONÍVEIS — card escurecido com selo "Indisponível"
+   (usado enquanto só a Campanha está pronta pra jogar)
+   ========================================================= */
+.menu-card.locked{
+  cursor:not-allowed;
+  pointer-events:none; /* trava clique mesmo se algo tentar acionar */
+}
+.menu-card.locked:hover{ transform:none; }
+.menu-card.locked .menu-card-banner{
+  filter:grayscale(1) brightness(.42);
+}
+.menu-card.locked .menu-card-icon{
+  filter:grayscale(1) brightness(.7);
+  opacity:.6;
+}
+.menu-card.locked .menu-card-title,
+.menu-card.locked .menu-card-sub{
+  color:var(--text-dim);
+}
+.menu-card-lock{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+  background:rgba(10,12,18,.38);
+  border-radius:var(--radius-lg);
+  pointer-events:none;
+}
+.menu-card-lock-icon{ font-size:clamp(20px,5vw,26px); filter:drop-shadow(0 2px 4px rgba(0,0,0,.5)); }
+.menu-card-lock-label{
+  font-family:var(--font-display); font-weight:800; font-size:clamp(10.5px,2.8vw,12.5px);
+  color:#fff; letter-spacing:.3px; text-transform:uppercase;
+  background:rgba(0,0,0,.55); padding:3px 10px; border-radius:999px;
+}
