@@ -290,6 +290,23 @@ function playOpenAnimation(rarity, player, lightningStrike){
   const ITEM_W = ballW + gap;
   const trackWidth = track.clientWidth;
 
+  // Quantas bolas cabem, no mínimo, da posição atual até a borda direita
+  // da tela (+ uma margem de segurança generosa). Como a roleta agora
+  // ocupa a tela inteira (bem mais larga que antes), o buffer precisa ser
+  // calculado a partir da largura real — e com folga extra, pra nunca
+  // faltar bola nem por causa de arredondamento.
+  const VISIBLE_AHEAD = Math.ceil(trackWidth / ITEM_W) + 12;
+
+  function fillSequenceTo(minIndex){
+    while(sequence.length <= minIndex){
+      const r = RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)];
+      sequence.push(r);
+      const div = document.createElement("div");
+      div.className = "ball-item " + r;
+      strip.appendChild(div);
+    }
+  }
+
   // ---------------- GIRO LIVRE (contínuo e aleatório) ----------------
   // Continua girando pra sempre, sempre completando novas bolas aleatórias
   // um pouco à frente da posição visível, pra nunca faltar bola na tela
@@ -302,15 +319,10 @@ function playOpenAnimation(rarity, player, lightningStrike){
 
   function ensureBuffer(aheadCount){
     const currentIndex = Math.abs(posX) / ITEM_W;
-    while(sequence.length < currentIndex + aheadCount){
-      const r = RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)];
-      sequence.push(r);
-      const div = document.createElement("div");
-      div.className = "ball-item " + r;
-      strip.appendChild(div);
-    }
+    const need = Math.max(aheadCount, VISIBLE_AHEAD);
+    fillSequenceTo(Math.ceil(currentIndex + need));
   }
-  ensureBuffer(18);
+  ensureBuffer(VISIBLE_AHEAD);
 
   function freeSpinFrame(ts){
     if(!spinning) return;
@@ -319,7 +331,7 @@ function playOpenAnimation(rarity, player, lightningStrike){
     lastTs = ts;
     posX -= SPEED * dt;
     strip.style.transform = `translateX(${posX}px)`;
-    ensureBuffer(18);
+    ensureBuffer(VISIBLE_AHEAD);
     rafId = requestAnimationFrame(freeSpinFrame);
   }
   rafId = requestAnimationFrame(freeSpinFrame);
@@ -340,14 +352,10 @@ function playOpenAnimation(rarity, player, lightningStrike){
     const currentIndex = Math.abs(posX) / ITEM_W;
     const targetIndex = Math.ceil(currentIndex) + 14 + Math.floor(Math.random()*4);
 
-    ensureBuffer(targetIndex - Math.floor(currentIndex) + 2);
-    while(sequence.length <= targetIndex){
-      const r = RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)];
-      sequence.push(r);
-      const div = document.createElement("div");
-      div.className = "ball-item " + r;
-      strip.appendChild(div);
-    }
+    ensureBuffer(targetIndex - Math.floor(currentIndex) + VISIBLE_AHEAD);
+    // Preenchimento extra além do alvo — cobre a tela inteira à direita
+    // do ponto de parada com boa folga, mesmo em telas bem largas.
+    fillSequenceTo(targetIndex + VISIBLE_AHEAD + 10);
     sequence[targetIndex] = rarity;
     strip.children[targetIndex].className = "ball-item " + rarity;
 
