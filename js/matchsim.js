@@ -16,10 +16,38 @@
    ex: "marque 10 gols", "não sofra gol", "vença de virada" etc.
    ========================================================= */
 
+/* =========================================================
+   MATCH ENGINE — motor de simulação de partida (QTE), compartilhado
+   entre Campanha, Modo de Evento, Jogo c/ Amigo etc.
+
+   Qualquer tela que quiser "jogar uma partida" só precisa chamar:
+
+     startMatch({
+       competitionLabel,                    // ex: "Campanha — Divisão 1"
+       title, homeTeamName, awayTeamName,
+       homeLineup, awayLineup,              // opcional: [{number,name,pos}, ...]
+       playerStrength, opponentStrength,   // 0-100
+       totalChances,                        // nº de lances da partida
+       winCondition(score) => {result:"win"|"draw"|"loss"},  // opcional
+       onComplete(result)                   // decide o que fazer com o resultado
+     });
+
+   Antes da partida em si, mostra uma tela de pré-jogo (banner da
+   competição + escalação de cada lado, estilo transmissão de TV).
+   Se homeLineup/awayLineup não forem passados, usa um time genérico
+   de 11 jogadores como placeholder.
+
+   winCondition default = mais gols vence. Um evento pode sobrescrever,
+   ex: "marque 10 gols", "não sofra gol", "vença de virada" etc.
+   ========================================================= */
+
 const MATCH_DEFAULTS = {
+  competitionLabel: "Partida Amistosa",
   title: "Partida Amistosa",
   homeTeamName: "Meu Clube",
   awayTeamName: "CPU",
+  homeLineup: null,
+  awayLineup: null,
   playerStrength: 70,
   opponentStrength: 70,
   totalChances: 8,
@@ -39,6 +67,62 @@ function startMatch(userConfig){
     turnQueue: buildTurnQueue(cfg),
     pendingResult: null,
   };
+  showPreMatchLineup(cfg);
+}
+
+/* ---------- Tela de pré-jogo: banner + escalação de cada lado ---------- */
+function placeholderLineup(){
+  return Array.from({length:11}, (_,i)=>({ number:i+1, name:`Jogador ${i+1}`, pos:"-" }));
+}
+
+function renderLineupList(containerId, lineup){
+  const wrap = document.getElementById(containerId);
+  if(!wrap) return;
+  wrap.innerHTML = lineup.map(p=>`
+    <div class="prematch-row">
+      <span class="prematch-num">${p.number}</span>
+      <span class="prematch-name">${p.name}</span>
+      <span class="prematch-pos">${p.pos || ""}</span>
+    </div>`).join("");
+}
+
+function ensureLineupOverlay(){
+  if(document.getElementById("prematchOverlay")) return;
+  const div = document.createElement("div");
+  div.className = "prematch-overlay hidden";
+  div.id = "prematchOverlay";
+  div.innerHTML = `
+    <div class="prematch-inner">
+      <div class="prematch-comp-banner" id="prematchCompLabel">Partida</div>
+      <div class="prematch-vs-row">
+        <div class="prematch-team-name home" id="prematchHomeName">Meu Clube</div>
+        <div class="prematch-vs-badge">VS</div>
+        <div class="prematch-team-name away" id="prematchAwayName">CPU</div>
+      </div>
+      <div class="prematch-lineups">
+        <div class="prematch-lineup-list" id="prematchHomeList"></div>
+        <div class="prematch-lineup-list away" id="prematchAwayList"></div>
+      </div>
+      <button class="btn btn-primary prematch-continue-btn" id="prematchContinueBtn">Entrar em campo ›</button>
+    </div>`;
+  document.body.appendChild(div);
+}
+
+function showPreMatchLineup(cfg){
+  ensureLineupOverlay();
+  document.getElementById("prematchCompLabel").textContent = cfg.competitionLabel;
+  document.getElementById("prematchHomeName").textContent = cfg.homeTeamName;
+  document.getElementById("prematchAwayName").textContent = cfg.awayTeamName;
+  renderLineupList("prematchHomeList", cfg.homeLineup || placeholderLineup());
+  renderLineupList("prematchAwayList", cfg.awayLineup || placeholderLineup());
+  document.getElementById("prematchOverlay").classList.remove("hidden");
+  document.getElementById("prematchContinueBtn").onclick = ()=>{
+    document.getElementById("prematchOverlay").classList.add("hidden");
+    beginMatchEngine();
+  };
+}
+
+function beginMatchEngine(){
   ensureMatchOverlay();
   renderMatchHeader();
   document.getElementById("matchsimOverlay").classList.remove("hidden");
