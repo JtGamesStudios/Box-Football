@@ -398,8 +398,15 @@ function playOpenAnimation(rarity, player, lightningStrike){
     }, 2200);
   }
 
-  overlay.addEventListener("click", stopSpin);
-  overlay.addEventListener("touchstart", stopSpin, {passive:true});
+  // Registrado só no próximo "tick": se o clique que chamou essa animação
+  // veio de um botão que está dentro do próprio overlay (ex: "Contratar
+  // outro"), esse mesmo clique ainda estaria borbulhando pelo overlay —
+  // sem esse pequeno atraso, o listener pegava esse clique "de graça" e a
+  // roleta já nascia parada, sem girar de verdade.
+  setTimeout(()=>{
+    overlay.addEventListener("click", stopSpin);
+    overlay.addEventListener("touchstart", stopSpin, {passive:true});
+  }, 0);
 }
 
 /* Congela a roleta na posição atual, dá um flash + tremida na tela
