@@ -156,22 +156,80 @@ const CAMP_POS_ORDER = ["GOL","ZAG","LAT","VOL","MEI","PON","ATA"];
 
 /* Monta a escalação a partir do elenco ativo (Escalação). Se a pessoa
    ainda não montou um elenco, retorna null e o motor usa um time
-   genérico como fallback. */
+   genérico como fallback. Jogadores suspensos (2º cartão amarelo) são
+   automaticamente deixados de fora, com aviso. */
 function buildCampaignHomeLineup(){
   const squad = STATE.squads.find(s => s.id === STATE.activeSquadId);
   if(!squad || !squad.assignments) return null;
   const ids = Object.values(squad.assignments).filter(Boolean);
   if(!ids.length) return null;
-  const players = ids
+  let players = ids
     .map(id => STATE.ownedPlayers.find(p => p.id === id))
     .filter(Boolean);
   if(!players.length) return null;
+
+  const suspensos = players.filter(p => p.suspendedMatchesLeft > 0);
+  if(suspensos.length){
+    players = players.filter(p => !(p.suspendedMatchesLeft > 0));
+    toast(`Fora de combate por suspensão: ${suspensos.map(p=>p.name).join(", ")}.`, "");
+  }
+  if(!players.length) return null;
+
   players.sort((a,b) => CAMP_POS_ORDER.indexOf(a.pos) - CAMP_POS_ORDER.indexOf(b.pos));
   return players.map((p,i) => ({
     number: p.number || i + 1,
     name: p.name || "Jogador",
     pos: p.pos || "",
+    id: p.id,
+    ovr: p.overall ?? p.ovr ?? p.rating ?? null,
   }));
+}
+
+/* ---------- Consequências entre partidas: fadiga, cartões, lesão ---------- */
+function applyPostMatchPlayerEffects(result){
+  const squad = STATE.squads.find(s => s.id === STATE.activeSquadId);
+  const squadIds = squad && squad.assignments ? Object.values(squad.assignments).filter(Boolean) : [];
+  const usedIds = new Set(result.usedHomeIds || []);
+
+  // Quem jogou perde um pouco de condição física (fadiga acumulada)
+  squadIds.forEach(id=>{
+    const p = STATE.ownedPlayers.find(pl => pl.id === id);
+    if(!p) return;
+    if(p.condition == null) p.condition = 100;
+    if(usedIds.has(id)){
+      p.condition = Math.max(35, p.condition - (5 + Math.round(Math.random()*6)));
+    } else {
+      // quem ficou no banco/fora do time recupera um pouco
+      p.condition = Math.min(100, p.condition + 8);
+    }
+    // quem estava suspenso já cumpriu a rodada de suspensão
+    if(p.suspendedMatchesLeft > 0){
+      p.suspendedMatchesLeft = Math.max(0, p.suspendedMatchesLeft - 1);
+    }
+  });
+
+  // Cartões amarelos: acumular 2 gera suspensão na próxima partida
+  (result.cardEvents || []).forEach(evt=>{
+    if(!evt.playerId) return;
+    const p = STATE.ownedPlayers.find(pl => pl.id === evt.playerId);
+    if(!p) return;
+    p.yellowCards = (p.yellowCards || 0) + 1;
+    if(p.yellowCards >= 2){
+      p.yellowCards = 0;
+      p.suspendedMatchesLeft = 1;
+      toast(`${p.name} levou o 2º amarelo e cumpre suspensão na próxima partida.`, "");
+    }
+  });
+
+  // Lesões leves: penalizam a condição física por mais tempo
+  (result.injuryEvents || []).forEach(evt=>{
+    if(!evt.playerId) return;
+    const p = STATE.ownedPlayers.find(pl => pl.id === evt.playerId);
+    if(!p) return;
+    p.condition = Math.max(20, (p.condition ?? 100) - 25);
+  });
+
+  persist();
 }
 
 /* Sobrenomes genéricos só pra dar "cara de time" ao adversário —
@@ -218,6 +276,7 @@ function startCampaignMatch(){
     // sem winCondition custom = motor usa o padrão (mais gols vence)
     onComplete: (result) => {
       applyCampaignResult(result);
+      applyPostMatchPlayerEffects(result);
       renderCampaign();
       const msg = result.result === "win" ? "Vitória! Rating atualizado."
                 : result.result === "draw" ? "Empate. Rating atualizado."
