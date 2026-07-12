@@ -1483,3 +1483,73 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 @media (max-width: 380px){
   .matchsim-decision, .corner-grid{ flex-direction:column; }
 }
+
+/* =========================================================
+   MODO DE EVENTO — cards de evento (banner + progresso + marcos)
+   ========================================================= */
+.event-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
+  overflow:hidden; margin-bottom:18px; box-shadow:var(--shadow-card);
+}
+.event-banner{
+  position:relative; height:140px; background-size:cover; background-position:center;
+  display:flex; align-items:flex-end; padding:14px 16px;
+}
+.event-banner-shade{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.65)); }
+.event-banner-body{ position:relative; z-index:1; color:#fff; }
+.event-title{ font-family:var(--font-display); font-weight:800; font-size:20px; text-shadow:0 2px 6px rgba(0,0,0,.5); }
+.event-timeleft{ font-size:12px; opacity:.9; margin-top:2px; }
+.event-body{ padding:16px; }
+.event-desc{ margin:0 0 8px; color:var(--text-muted); font-size:13.5px; }
+.event-objective{ font-weight:700; font-size:13.5px; color:var(--text); }
+.event-milestones{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px; }
+.event-milestone{
+  position:relative; display:flex; flex-direction:column; align-items:center; gap:2px;
+  min-width:74px; padding:8px 10px; border-radius:10px; background:var(--surface-2);
+  border:1px solid var(--border); font-size:11px; color:var(--text-muted);
+}
+.event-milestone.done{ border-color:var(--turf); background:rgba(47,184,107,.1); color:var(--turf-dim); }
+.event-milestone-pts{ font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--text); }
+.event-milestone.done .event-milestone-pts{ color:var(--turf-dim); }
+.event-milestone-check{ position:absolute; top:4px; right:6px; color:var(--turf); font-weight:800; font-size:11px; }
+.event-actions{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; }
+.event-tickets{ font-size:12.5px; color:var(--text-muted); }
+
+/* =========================================================
+   NOVIDADES — popup "This week's pick up" (boxes + eventos ativos)
+   ========================================================= */
+.novidades-overlay{
+  position:fixed; inset:0; z-index:260; background:rgba(8,11,18,.6); backdrop-filter:blur(3px);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.novidades-overlay.hidden{ display:none; }
+.novidades-card{
+  width:min(94vw, 520px); max-height:82vh; overflow-y:auto; background:var(--surface);
+  border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-card-hover);
+}
+.novidades-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+.novidades-head h2{ font-family:var(--font-display); font-size:21px; font-weight:800; margin:0; color:var(--text); }
+.novidades-close{
+  border:none; background:var(--surface-2); color:var(--text); width:30px; height:30px; border-radius:50%;
+  font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.novidades-close:hover{ background:var(--surface-3); }
+.novidades-list{ display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+.novidades-item{
+  display:flex; align-items:center; gap:12px; width:100%; text-align:left; cursor:pointer;
+  border:1px solid var(--border); border-radius:14px; padding:8px; background:var(--surface-2);
+}
+.novidades-item:hover{ border-color:var(--brand); }
+.novidades-item-banner{
+  flex:0 0 auto; width:96px; height:56px; border-radius:10px; background-size:cover; background-position:center;
+  background-color:#1B2438;
+}
+.novidades-item-body{ flex:1; min-width:0; }
+.novidades-item-title{ font-weight:700; font-size:14px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.novidades-item-sub{ font-size:12px; color:var(--text-muted); }
+.novidades-item-arrow{ flex:0 0 auto; color:var(--text-dim); font-size:18px; }
+
+@media (max-width: 480px){
+  .novidades-item-banner{ width:76px; height:48px; }
+  .event-banner{ height:120px; }
+}
