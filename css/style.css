@@ -739,68 +739,57 @@ html.hub-active .menu-card-body{
 .lineup-wrap{ display:grid; grid-template-columns:1.3fr 1fr; gap:20px; }
 @media (max-width: 900px){ .lineup-wrap{ grid-template-columns:1fr; } }
 
-/* Gramado leve, estilo eFootball Light Mode */
+/* Gramado escuro, estilo eFootball (igual referência) */
 .pitch{
   position:relative; aspect-ratio:3/4; border-radius:var(--radius-lg); overflow:hidden;
   background:
-    repeating-linear-gradient(180deg, rgba(255,255,255,.5) 0 40px, rgba(255,255,255,0) 40px 80px),
-    linear-gradient(180deg, #CFEAD8, #B7DDC3 60%, #A6D4B4 100%);
-  border:1px solid var(--border);
+    radial-gradient(ellipse at center, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 55%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 2px, transparent 2px 34px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 2px, transparent 2px 34px),
+    radial-gradient(ellipse at center, #1E5B3A 0%, #123322 68%, #0A1D14 100%);
+  border:1px solid rgba(255,255,255,.08);
   box-shadow:var(--shadow-card);
 }
-.pitch-line{ position:absolute; border:2px solid rgba(255,255,255,.7); }
+.pitch-line{ position:absolute; border:2px solid rgba(255,255,255,.32); }
 
 /* Slot vazio: pontilhado, sem foto, só mostra a função (GO, ZC, VOL...) */
 .pitch-slot{
-  position:absolute; width:clamp(40px,10.5vw,56px); height:clamp(40px,10.5vw,56px); transform:translate(-50%,-50%);
-  border-radius:50%; border:2px dashed rgba(255,255,255,.8);
+  position:absolute; width:clamp(38px,10vw,54px); height:clamp(38px,10vw,54px); transform:translate(-50%,-50%);
+  border-radius:50%; border:2px dashed rgba(255,255,255,.55);
   display:flex; align-items:center; justify-content:center; flex-direction:column;
-  background:rgba(255,255,255,.5); font-size:10px; color:var(--text-muted); cursor:pointer;
-  transition:transform .15s, box-shadow .15s;
+  background:rgba(255,255,255,.08); font-size:10px; color:rgba(255,255,255,.75); cursor:pointer;
+  transition:transform .15s, box-shadow .15s, outline-color .15s;
+  touch-action:none; -webkit-user-select:none; user-select:none;
 }
 .pitch-slot:hover{ transform:translate(-50%,-50%) scale(1.05); border-color:var(--brand); z-index:5; }
+.pitch-slot .slot-role{ font-size:clamp(7px,2vw,8.5px); color:rgba(255,255,255,.8); }
 
-/* Slot preenchido: vira uma mini-carta com a foto do jogador,
-   badge de overall, badge de posição e barra com o nome — igual à
-   carta usada na coleção/boxes, só que em miniatura. */
+/* Slot preenchido: vira um avatar circular só com o rosto,
+   posição pequena acima e selo de overall embaixo — igual às
+   telas de escalação do eFootball/PES. Cor do contorno = raridade da carta. */
 .pitch-slot.filled{
-  width:clamp(44px,13vw,64px); height:clamp(58px,17vw,84px);
-  border-radius:9px;
-  border-style:solid;
-  border-color:#fff;
+  border-style:solid; border-color:#fff; border-width:3px;
   background-size:cover !important;
   background-position:center top !important;
   background-color:var(--brand-dim);
-  color:#fff;
-  justify-content:flex-end;
-  text-shadow:0 1px 4px rgba(0,0,0,0.5);
-  box-shadow:0 4px 10px rgba(25,140,255,0.35);
-  overflow:hidden;
+  overflow:visible;
+  box-shadow:0 4px 10px rgba(0,0,0,0.4);
 }
-/* sombreado embaixo pra nome/badges ficarem legíveis sobre a foto */
-.pitch-slot.filled::before{
-  content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.8) 100%);
-  pointer-events:none;
-}
-.pitch-slot .slot-role{ font-size:clamp(7px,2vw,8.5px); color:var(--text-muted); }
+.pitch-slot.filled.rarity-branca{ border-color:#B7C4D1; box-shadow:0 0 0 2px rgba(183,196,209,.3), 0 4px 10px rgba(0,0,0,.4); }
+.pitch-slot.filled.rarity-prata{ border-color:#C7CDD6; box-shadow:0 0 0 2px rgba(199,205,214,.3), 0 4px 10px rgba(0,0,0,.4); }
+.pitch-slot.filled.rarity-dourada{ border-color:var(--gold); box-shadow:0 0 10px rgba(255,201,60,.55), 0 4px 10px rgba(0,0,0,.4); }
+.pitch-slot.filled.rarity-preta{ border-color:var(--legend); box-shadow:0 0 10px rgba(124,77,255,.6), 0 4px 10px rgba(0,0,0,.4); }
 
-.slot-badges{
-  position:absolute; top:3px; left:0; right:0; z-index:1;
-  display:flex; justify-content:space-between; padding:0 3px;
+.slot-pos-label{
+  position:absolute; top:-15px; left:50%; transform:translateX(-50%);
+  font-size:clamp(8px,2vw,10px); font-weight:700; color:#EAF2FF; white-space:nowrap;
+  text-shadow:0 1px 3px rgba(0,0,0,.7);
 }
-.slot-ovr{
-  background:#0B0F1A; color:#fff; border-radius:4px; padding:1px 4px;
-  font-family:var(--font-display); font-size:clamp(9px,2.4vw,12px); font-weight:800; line-height:1.3;
-}
-.slot-pos{
-  background:var(--brand); color:#fff; border-radius:4px; padding:1px 4px;
-  font-size:clamp(7px,2vw,9px); font-weight:700; line-height:1.4;
-}
-.slot-name-bar{
-  position:relative; z-index:1; width:100%; text-align:center;
-  font-size:clamp(7px,1.9vw,9.5px); font-weight:700; color:#fff;
-  padding:2px 2px 4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+.slot-ovr-badge{
+  position:absolute; bottom:-9px; left:50%; transform:translateX(-50%);
+  background:#0B0F1A; color:#fff; font-family:var(--font-display); font-weight:800;
+  font-size:clamp(9px,2.2vw,12px); padding:1px 6px; border-radius:8px;
+  border:1.5px solid rgba(255,255,255,.85); box-shadow:0 2px 4px rgba(0,0,0,.4); line-height:1.3;
 }
 
 /* Detalhe "C" de capitão em dourado, como no jogo original */
@@ -812,6 +801,26 @@ html.hub-active .menu-card-body{
   box-shadow:0 2px 5px rgba(0,0,0,0.25);
 }
 
+/* alvo de drop em destaque enquanto se arrasta um jogador por cima */
+.pitch-slot.drop-hover{
+  transform:translate(-50%,-50%) scale(1.14);
+  outline:3px solid var(--turf); outline-offset:3px; z-index:6;
+}
+
+/* "fantasma" que segue o dedo/mouse durante o arraste */
+.drag-ghost{
+  position:fixed; z-index:9999; width:54px; height:54px; border-radius:50%;
+  background-size:cover; background-position:center top; background-color:var(--brand-dim);
+  pointer-events:none; transform:translate(-50%,-50%) scale(1.15);
+  border:3px solid #fff; box-shadow:0 8px 20px rgba(0,0,0,.55);
+}
+.drag-ghost-ovr{
+  position:absolute; bottom:-9px; left:50%; transform:translateX(-50%);
+  background:#0B0F1A; color:#fff; font-family:var(--font-display); font-weight:800;
+  font-size:11px; padding:1px 6px; border-radius:8px; border:1.5px solid #fff;
+}
+body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
+
 .bench-list{ display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; }
 .bench-item{
   display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:10px;
@@ -819,7 +828,19 @@ html.hub-active .menu-card-body{
   transition:border-color .15s, box-shadow .15s;
 }
 .bench-item:hover{ border-color:var(--brand); box-shadow:0 2px 8px rgba(25,140,255,0.15); }
-.bench-item .mini-avatar{ width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-family:var(--font-display); background:var(--surface-2); }
+.bench-item .mini-avatar{
+  width:32px; height:32px; border-radius:50%; flex:none;
+  background-size:cover; background-position:center top; background-color:var(--surface-2);
+  border:2px solid var(--border); touch-action:none; -webkit-user-select:none; user-select:none;
+}
+.bench-item .mini-avatar.rarity-branca{ border-color:#B7C4D1; }
+.bench-item .mini-avatar.rarity-prata{ border-color:#C7CDD6; }
+.bench-item .mini-avatar.rarity-dourada{ border-color:var(--gold); }
+.bench-item .mini-avatar.rarity-preta{ border-color:var(--legend); }
+.bench-item .bench-pos{
+  font-size:10px; font-weight:700; color:var(--brand); background:var(--surface-2);
+  padding:2px 6px; border-radius:6px; flex:none;
+}
 .team-stats{ display:flex; gap:14px; margin-top:14px; }
 .team-stat{ flex:1; text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:10px; }
 .team-stat .num{ font-family:var(--font-display); font-size:clamp(18px,4.5vw,22px); font-weight:800; color:var(--brand); }
