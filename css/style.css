@@ -1405,3 +1405,62 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   color:#fff; letter-spacing:.3px; text-transform:uppercase;
   background:rgba(0,0,0,.55); padding:3px 10px; border-radius:999px;
 }
+
+/* =========================================================
+   PRÉ-JOGO — banner + escalação de cada lado, antes de entrar
+   na partida (estilo transmissão: nome do time + lista de jogadores
+   de cada lado, igual à referência de TV/streaming).
+   ========================================================= */
+.prematch-overlay{
+  position:fixed; inset:0; z-index:290; background:#0B0F17;
+  display:flex; align-items:center; justify-content:center; padding:18px;
+}
+.prematch-overlay.hidden{ display:none; }
+.prematch-inner{
+  width:min(96vw, 620px); max-height:92vh; overflow-y:auto;
+  background:radial-gradient(circle at 50% 0%, #1B2030, #0B0F17 70%);
+  border-radius:var(--radius-lg); padding:22px 20px 24px; color:#fff;
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
+}
+.prematch-comp-banner{
+  text-align:center; font-family:var(--font-display); font-weight:800;
+  font-size:13px; letter-spacing:1.2px; text-transform:uppercase; color:var(--gold);
+  margin-bottom:16px;
+}
+.prematch-vs-row{
+  display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:20px;
+}
+.prematch-team-name{
+  flex:1; font-family:var(--font-display); font-weight:800; font-size:clamp(15px,4vw,19px);
+  text-align:center; line-height:1.2;
+}
+.prematch-team-name.home{ text-align:right; }
+.prematch-team-name.away{ text-align:left; }
+.prematch-vs-badge{
+  flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:var(--brand);
+  display:flex; align-items:center; justify-content:center; font-family:var(--font-display);
+  font-weight:800; font-size:12px;
+}
+.prematch-lineups{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px; }
+.prematch-lineup-list{ display:flex; flex-direction:column; gap:2px; }
+.prematch-row{
+  display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:8px;
+  font-size:12.5px;
+}
+.prematch-lineup-list:not(.away) .prematch-row:nth-child(odd){ background:rgba(255,255,255,.04); }
+.prematch-lineup-list.away .prematch-row:nth-child(odd){ background:rgba(255,255,255,.04); }
+.prematch-lineup-list.away .prematch-row{ flex-direction:row-reverse; text-align:right; }
+.prematch-num{
+  flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:#1B2030;
+  color:var(--gold); font-family:var(--font-display); font-weight:800; font-size:10.5px;
+  display:flex; align-items:center; justify-content:center;
+}
+.prematch-name{ flex:1; font-weight:600; color:#EDEFF3; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.prematch-pos{ flex:0 0 auto; font-size:10.5px; color:#8A93A3; font-weight:700; }
+.prematch-continue-btn{ width:100%; }
+
+@media (max-width: 520px){
+  .prematch-lineups{ gap:8px; }
+  .prematch-row{ padding:6px 6px; font-size:11.5px; }
+  .prematch-name{ max-width:90px; }
+}
