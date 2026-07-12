@@ -149,6 +149,50 @@ function cycleCampDifficulty(){
 }
 
 /* ---------- Iniciar partida (config PADRÃO do motor compartilhado) ---------- */
+
+/* Ordem de exibição por posição, pra escalação sair organizada
+   (goleiro no topo, depois defesa, meio, ataque) igual ao print. */
+const CAMP_POS_ORDER = ["GOL","ZAG","LAT","VOL","MEI","PON","ATA"];
+
+/* Monta a escalação a partir do elenco ativo (Escalação). Se a pessoa
+   ainda não montou um elenco, retorna null e o motor usa um time
+   genérico como fallback. */
+function buildCampaignHomeLineup(){
+  const squad = STATE.squads.find(s => s.id === STATE.activeSquadId);
+  if(!squad || !squad.assignments) return null;
+  const ids = Object.values(squad.assignments).filter(Boolean);
+  if(!ids.length) return null;
+  const players = ids
+    .map(id => STATE.ownedPlayers.find(p => p.id === id))
+    .filter(Boolean);
+  if(!players.length) return null;
+  players.sort((a,b) => CAMP_POS_ORDER.indexOf(a.pos) - CAMP_POS_ORDER.indexOf(b.pos));
+  return players.map((p,i) => ({
+    number: p.number || i + 1,
+    name: p.name || "Jogador",
+    pos: p.pos || "",
+  }));
+}
+
+/* Sobrenomes genéricos só pra dar "cara de time" ao adversário —
+   não são jogadores reais, é só flavor visual da tela de pré-jogo. */
+const CPU_SURNAMES = [
+  "Silva","Souza","Oliveira","Pereira","Costa","Rodrigues","Almeida",
+  "Nascimento","Lima","Araújo","Ribeiro","Carvalho","Gomes","Martins",
+  "Rocha","Dias","Monteiro","Cardoso","Teixeira","Correia","Barros",
+  "Freitas","Moraes","Pinto",
+];
+const CPU_POS_ORDER = ["GOL","ZAG","ZAG","LAT","LAT","VOL","VOL","MEI","PON","PON","ATA"];
+
+function generateOpponentLineup(){
+  const shuffled = [...CPU_SURNAMES].sort(() => Math.random() - 0.5);
+  return CPU_POS_ORDER.map((pos,i) => ({
+    number: i + 1,
+    name: shuffled[i % shuffled.length],
+    pos,
+  }));
+}
+
 function startCampaignMatch(){
   const c = STATE.campaign;
   const tier = getDivisionTier(c.rating);
@@ -158,10 +202,16 @@ function startCampaignMatch(){
   const variance = diff.variance + Math.round((Math.random() * 16) - 8);
   const opponentStrength = Math.min(99, Math.max(30, playerStrength + variance));
 
+  const homeLineup = buildCampaignHomeLineup();
+  if(!homeLineup) toast("Você ainda não montou uma escalação — usando time genérico. Ajuste em Game Plan.", "");
+
   startMatch({
+    competitionLabel: `Campanha — ${tier.name}`,
     title: `Campanha — ${tier.name}`,
     homeTeamName: "Meu Clube",
     awayTeamName: "Adversário Online",
+    homeLineup,
+    awayLineup: generateOpponentLineup(),
     playerStrength,
     opponentStrength,
     totalChances: 8,
