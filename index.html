@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Box Clube — Simulador de Contratações</title>
+<title>Box Clube</title>
 <link rel="stylesheet" href="css/style.css?v=2">
 <style>
   /* ===== Cutscene (Destaque / Lendário) ===== */
@@ -207,6 +207,77 @@
           <div class="quick-card"><div class="num" id="homeStreak">0</div><div class="lbl">Dias seguidos logado</div></div>
         </div>
         <div id="dailyLoginRow"></div>
+      </div>
+    </section>
+
+    <!-- CAMPANHA (Divisão / Rating, estilo eFootball) -->
+    <section class="screen" id="screen-campanha" data-title="Campanha">
+      <h1 class="page-title">Campanha</h1>
+      <p class="page-sub">Suba de divisão vencendo partidas contra o CPU.</p>
+
+      <div class="campaign-wrap">
+        <div class="campaign-side">
+          <button class="campaign-side-card" id="campGamePlanBtn">
+            <span class="campaign-side-icon">📋</span>
+            <span class="campaign-side-title">Game Plan</span>
+          </button>
+          <button class="campaign-side-card" id="campMatchHistoryBtn">
+            <span class="campaign-side-icon">📊</span>
+            <span class="campaign-side-title">Match History</span>
+          </button>
+          <button class="campaign-side-card" id="campMatchmakingBtn">
+            <span class="campaign-side-icon">⚙️</span>
+            <span class="campaign-side-title">Matchmaking Settings</span>
+          </button>
+
+          <div class="camp-history-wrap" id="campHistoryWrap">
+            <div class="camp-history-list" id="campHistoryList"></div>
+          </div>
+        </div>
+
+        <div class="campaign-panel">
+          <div class="campaign-panel-head">
+            <div class="campaign-division-badge" id="campDivisionBadge">1</div>
+            <div>
+              <div class="campaign-division-name" id="campDivisionName">Divisão 1</div>
+              <div class="campaign-phase" id="campPhaseLabel">Fase: -</div>
+            </div>
+          </div>
+
+          <div class="campaign-stats-row">
+            <div class="campaign-stat">
+              <span class="campaign-stat-icon">📈</span>
+              <div>
+                <div class="lbl">Rating</div>
+                <div class="val" id="campRating">0</div>
+              </div>
+            </div>
+            <div class="campaign-stat">
+              <span class="campaign-stat-icon">👑</span>
+              <div>
+                <div class="lbl">Ranking</div>
+                <div class="val" id="campRanking">0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="campaign-wdl-row">
+            <div class="campaign-wdl win"><span>Wins</span><span class="num" id="campWins">0</span></div>
+            <div class="campaign-wdl draw"><span>Draws</span><span class="num" id="campDraws">0</span></div>
+            <div class="campaign-wdl loss"><span>Losses</span><span class="num" id="campLosses">0</span></div>
+          </div>
+
+          <div class="campaign-winrate">
+            <span>% Win Rate</span>
+            <strong id="campWinRate">0%</strong>
+          </div>
+
+          <div class="campaign-actions">
+            <button class="btn" id="campDetailsBtn">Details</button>
+            <button class="btn" id="campRewardsBtn">Rewards</button>
+            <button class="btn btn-primary" id="campToMatchBtn">To Match ›</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -459,6 +530,25 @@
 <script src="js/state.js?v=2"></script>
 <script src="js/data.js?v=2"></script>
 <script src="js/nav.js?v=2"></script>
+<script src="js/matchsim.js?v=1"></script>
+<script src="js/campaign.js?v=1"></script>
+<script>
+  // liga os botões da tela de Campanha (ids fixos, sem depender de main.js)
+  document.addEventListener("DOMContentLoaded", ()=>{
+    const on = (id, fn) => { const el = document.getElementById(id); if(el) el.onclick = fn; };
+    on("campToMatchBtn", startCampaignMatch);
+    on("campGamePlanBtn", ()=> showScreen("escalacao"));
+    on("campMatchHistoryBtn", toggleCampHistory);
+    on("campMatchmakingBtn", cycleCampDifficulty);
+    on("campDetailsBtn", ()=> toast("Divisões: 5 → 4 → 3 → 2 → 1 → Top Division, por faixa de Rating.", ""));
+    on("campRewardsBtn", async ()=>{
+      await ensureDivisionsData();
+      const tier = getDivisionTier(STATE.campaign.rating);
+      const r = DIVISIONS_DATA.seasonRewards[tier.id];
+      toast(`Recompensa da ${tier.name} ao fim da fase: ${r.gp.toLocaleString("pt-BR")} GP + ${r.coins} Moedas.`, "success");
+    });
+  });
+</script>
 <script src="js/fullscreen.js?v=2"></script>
 <script src="js/boxes.js?v=2"></script>
 <script src="js/club.js?v=2"></script>
