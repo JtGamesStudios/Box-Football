@@ -44,7 +44,7 @@ const HOME_CARDS = [
   { nav: null, banner: "banner-home-efootball", icon: "🎮", title: "eFootball",      sub: "Encare usuários e ganhe prêmios", badgeSource: null },
   { nav: null, banner: "banner-home-evento",    icon: "🏆", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
   { nav: null, banner: "banner-home-amigo",     icon: "⚽", title: "Jogo c/ amigo",  sub: "", badgeSource: null },
-  { nav: null, banner: "banner-home-campanha",  icon: "🛡️", title: "Campanha",      sub: "", badgeSource: null },
+  { nav: "campanha", banner: "banner-home-campanha",  icon: "🛡️", title: "Campanha",      sub: "", badgeSource: null },
 ];
 const CLUBHOUSE_CARDS = [
   { nav: "clube",     banner: "banner-club-meuclube",  icon: "👥", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados", badgeSource: null },
@@ -71,6 +71,7 @@ const EXTRAS_CARDS = [
    a aba certa e para o botão "‹ Voltar" saber para onde retornar. */
 const SCREEN_PARENT_TAB = {
   home: "home",
+  campanha: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
   contract: "contract", contratar: "contract", boxes: "contract", loja: "contract",
   boxdraw: "contratar", especial: "contratar",
@@ -242,6 +243,7 @@ function showScreen(id){
   if(id==="loja") renderStore();
   if(id==="config") renderAdminPanel();
   if(id==="home") renderHome();
+  if(id==="campanha") renderCampaign();
 
   syncTopBadges();
 
