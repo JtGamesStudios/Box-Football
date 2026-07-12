@@ -76,7 +76,6 @@ async function boot(){
   wireSettings();
   checkDailyLogin();
   refreshWalletUI();
-  initMusic();
   showScreen("home");
 }
 
