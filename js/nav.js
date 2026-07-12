@@ -36,14 +36,16 @@ const TOP_ICONS = [
    numérico opcional), no padrão exato do PES (Agent/Scout/Auction/Manager,
    Squad Management/My Team/Achievements/Practice).
    badgeSource: id de um elemento já existente na tela (ex: "homeMissions")
-   cujo texto vira o número do badge — deixe null pra não mostrar badge. */
+   cujo texto vira o número do badge — deixe null pra não mostrar badge.
+   locked: true = card fica escurecido, com selo "Indisponível" e sem clique
+   (usado enquanto só a Campanha está pronta pra jogar). */
 /* Cards da aba "Match" (home) — réplica exata dos 4 cards da imagem de
    referência (eFootball / Modo de evento / Jogo c/ amigo / Campanha).
    nav:null = card decorativo, sem clique/navegação nenhuma. */
 const HOME_CARDS = [
-  { nav: null, banner: "banner-home-efootball", icon: "🎮", title: "eFootball",      sub: "Encare usuários e ganhe prêmios", badgeSource: null },
-  { nav: null, banner: "banner-home-evento",    icon: "🏆", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
-  { nav: null, banner: "banner-home-amigo",     icon: "⚽", title: "Jogo c/ amigo",  sub: "", badgeSource: null },
+  { nav: null, banner: "banner-home-efootball", icon: "🎮", title: "eFootball",      sub: "Encare usuários e ganhe prêmios", badgeSource: null, locked: true },
+  { nav: null, banner: "banner-home-evento",    icon: "🏆", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null, locked: true },
+  { nav: null, banner: "banner-home-amigo",     icon: "⚽", title: "Jogo c/ amigo",  sub: "", badgeSource: null, locked: true },
   { nav: "campanha", banner: "banner-home-campanha",  icon: "🛡️", title: "Campanha",      sub: "", badgeSource: null },
 ];
 const CLUBHOUSE_CARDS = [
@@ -156,7 +158,9 @@ function buildHubGrid(containerId, cards){
   wrap.innerHTML = "";
   cards.forEach(c=>{
     const btn = document.createElement("button");
-    btn.className = "menu-card" + (c.nav ? "" : " no-nav");
+    const isLocked = !!c.locked;
+    btn.className = "menu-card" + (c.nav ? "" : " no-nav") + (isLocked ? " locked" : "");
+    if(isLocked) btn.disabled = true;
     if(c.nav) btn.dataset.nav = c.nav;
     btn.innerHTML = `
       <div class="menu-card-banner ${c.banner}" id="menuCardBanner-${c.nav || containerId + '-' + c.title}"></div>
@@ -165,8 +169,9 @@ function buildHubGrid(containerId, cards){
       <div class="menu-card-body">
         <div class="menu-card-title">${c.title}</div>
         ${c.sub ? `<div class="menu-card-sub">${c.sub}</div>` : ""}
-      </div>`;
-    if(c.nav) btn.onclick = ()=> showScreen(c.nav);
+      </div>
+      ${isLocked ? `<div class="menu-card-lock"><span class="menu-card-lock-icon">🔒</span><span class="menu-card-lock-label">Indisponível</span></div>` : ""}`;
+    if(c.nav && !isLocked) btn.onclick = ()=> showScreen(c.nav);
     wrap.appendChild(btn);
   });
 }
