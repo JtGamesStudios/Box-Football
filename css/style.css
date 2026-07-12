@@ -552,23 +552,15 @@ html.hub-active .menu-card-body{
 .stage-acquisitions strong{ color:#fff; }
 
 .stage-hint{ color:#9DAAC2; font-size:13px; margin-bottom:18px; letter-spacing:1px; text-transform:uppercase; }
+.stage-hint.tap-pulse{ animation:tapHintPulse 1.1s ease-in-out infinite; }
+@keyframes tapHintPulse{ 0%,100%{ opacity:.6; } 50%{ opacity:1; } }
 
 .ball-track{
   position:relative; height:180px; display:flex; align-items:center; overflow:hidden;
 }
-/* Antes usava "mask-image" pra desbotar as bordas. Combinado com a animação
-   de transform na .ball-strip, isso causava um bug de composição em GPUs
-   de celular (Android Chrome/WebView, principalmente): o navegador recalcula
-   a máscara a cada frame do giro e, no meio da animação, "esquece" de
-   redesenhar algumas bolas — por isso sumiam de forma aparentemente aleatória.
-   Substituído por um gradiente sobreposto, que cria o mesmo efeito visual
-   sem depender de mask + transform ao mesmo tempo. */
-.ball-track::before,
-.ball-track::after{
-  content:""; position:absolute; top:0; bottom:0; width:70px; z-index:3; pointer-events:none;
-}
-.ball-track::before{ left:0;  background:linear-gradient(90deg,  #0B1220 0%, rgba(11,18,32,0) 100%); }
-.ball-track::after { right:0; background:linear-gradient(270deg, #0B1220 0%, rgba(11,18,32,0) 100%); }
+/* Removido o gradiente que cobria as bordas da faixa: ele criava uma
+   "linha" onde as bolas somem/aparecem enquanto giram. Agora a roleta
+   fica cheia, com todas as bolas visíveis o tempo todo. */
 
 .ball-strip{
   display:flex; gap:26px; position:absolute; left:0; will-change:transform;
@@ -594,9 +586,12 @@ html.hub-active .menu-card-body{
 .ball-item.branca{  background-image:url('../assets/balls/ball-branca.png');  box-shadow:0 0 12px rgba(255,255,255,.4); }
 
 .selector-frame{
-  position:absolute; left:50%; top:0; bottom:0; width:112px; transform:translateX(-50%);
-  border-left:2px solid var(--brand); border-right:2px solid var(--brand);
-  box-shadow:0 0 20px rgba(25,140,255,.35) inset;
+  position:absolute; left:50%; top:50%; width:112px; height:112px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:3px solid var(--brand);
+  box-shadow:0 0 18px rgba(25,140,255,.55), inset 0 0 16px rgba(25,140,255,.4);
+  pointer-events:none;
 }
 
 .reveal-ball{
@@ -1192,7 +1187,7 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   .stage-inner{ width:80vw; }
   .ball-track{ height:110px; }
   .ball-item{ width:72px; height:72px; }
-  .selector-frame{ width:88px; }
+  .selector-frame{ width:88px; height:88px; }
   .reveal-ball{ width:88px; height:88px; margin-bottom:12px; }
 }
 
@@ -1204,7 +1199,7 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   .stage-hint{ margin-bottom:10px; }
   .ball-track{ height:120px; }
   .ball-item{ width:78px; height:78px; }
-  .selector-frame{ width:94px; }
+  .selector-frame{ width:94px; height:94px; }
   .reveal-ball{ width:96px; height:96px; margin-bottom:14px; }
   .p-card{ max-width:190px; }
   .stage-actions{ margin-top:14px; }
