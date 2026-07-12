@@ -84,6 +84,10 @@ const SCREEN_PARENT_TAB = {
 const HUB_SCREENS = ["home", "clubhouse", "contract", "extras", "contratar"];
 
 let currentScreen = "home";
+/* Pilha de "de onde a pessoa veio" — o botão "‹ Voltar" usa isso pra
+   voltar pra tela REAL anterior (ex: Campanha → Escalação → Voltar
+   → Campanha de novo), em vez de sempre cair na aba-pai fixa. */
+let screenHistory = [];
 
 function buildNav(){
   buildTopTabs();
@@ -188,7 +192,10 @@ function updateBackButton(id){
   const back = document.createElement("button");
   back.className = "btn screen-back-btn";
   back.innerHTML = "‹ Voltar";
-  back.onclick = ()=> showScreen(parentTab);
+  back.onclick = ()=>{
+    const prev = screenHistory.pop();
+    showScreen(prev || parentTab, { isBack:true });
+  };
   target.prepend(back);
 }
 
@@ -218,7 +225,15 @@ function syncTopBadges(){
   });
 }
 
-function showScreen(id){
+function showScreen(id, opts){
+  opts = opts || {};
+  // só empilha quando é navegação "pra frente" (clique em card/aba/ícone) e
+  // realmente troca de tela; o botão Voltar chama com isBack:true pra não
+  // reempilhar o caminho de volta
+  if(!opts.isBack && id !== currentScreen){
+    screenHistory.push(currentScreen);
+    if(screenHistory.length > 25) screenHistory.shift();
+  }
   currentScreen = id;
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   const target = document.getElementById("screen-" + id);
