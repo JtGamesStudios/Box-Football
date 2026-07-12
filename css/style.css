@@ -614,6 +614,42 @@ html.hub-active .menu-card-body{
 .player-reveal-card{ opacity:0; transform:translateY(14px) scale(.96); animation:cardIn .5s ease 1.15s forwards; }
 @keyframes cardIn{ to{ opacity:1; transform:translateY(0) scale(1);} }
 
+/* ============ Raio (bola preta garantida — só Box de GP) ============ */
+.lightning-flash{
+  position:fixed; inset:0; z-index:150; pointer-events:none;
+  background:radial-gradient(circle at 50% 40%, rgba(255,255,255,.95), rgba(124,77,255,.55) 40%, transparent 75%);
+  animation:lightningFlash .55s ease-out;
+}
+@keyframes lightningFlash{
+  0%{ opacity:0; }
+  10%{ opacity:1; }
+  30%{ opacity:.2; }
+  45%{ opacity:.85; }
+  100%{ opacity:0; }
+}
+.lightning-bolt{
+  position:fixed; top:50%; left:50%; z-index:151; pointer-events:none;
+  font-size:min(22vw, 120px); line-height:1;
+  filter:drop-shadow(0 0 30px rgba(124,77,255,.9)) drop-shadow(0 0 60px rgba(124,77,255,.6));
+  animation:boltPop .65s ease-out forwards;
+}
+@keyframes boltPop{
+  0%{ opacity:0; transform:translate(-50%,-58%) scale(.4) rotate(-8deg); }
+  25%{ opacity:1; transform:translate(-50%,-58%) scale(1.15) rotate(4deg); }
+  55%{ opacity:1; transform:translate(-50%,-58%) scale(1) rotate(0deg); }
+  100%{ opacity:0; transform:translate(-50%,-64%) scale(.9); }
+}
+@keyframes stageShake{
+  0%,100%{ transform:translateX(0); }
+  20%{ transform:translateX(-9px); }
+  40%{ transform:translateX(8px); }
+  60%{ transform:translateX(-6px); }
+  80%{ transform:translateX(5px); }
+}
+.stage-inner.shake{ animation:stageShake .4s ease; }
+.stage-hint.lightning-hint{ color:#C9B7FF; text-shadow:0 0 12px rgba(124,77,255,.8); }
+.reveal-ball.glow-preta.lightning{ box-shadow:0 0 70px rgba(124,77,255,.9); }
+
 /* Puxa a carta pra mais perto do texto/bola de cima — a bola some (scale
    até 0) mas continua reservando o espaço dela no layout, o que deixava
    um vão grande entre o "Novo reforço contratado!" e a carta. */
