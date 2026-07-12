@@ -62,23 +62,132 @@ function renderPitch(squad){
     const playerId = squad.assignments[slot.id];
     const player = playerId ? getOwnedPlayerById(playerId) : null;
     const div = document.createElement("div");
-    div.className = "pitch-slot" + (player?" filled":"") + (squad.captainSlot===slot.id?" captain":"");
+    div.className = "pitch-slot"
+      + (player ? ` filled${player.rarity ? " rarity-"+player.rarity : ""}` : "")
+      + (squad.captainSlot===slot.id ? " captain" : "");
     div.style.left = slot.x + "%";
     div.style.top = (100 - slot.y) + "%";
+    div.dataset.slotId = slot.id;
     if(player){
       div.style.backgroundImage = `url('${player.image || "assets/players/default.png"}')`;
       div.innerHTML = `
-        <div class="slot-badges">
-          <span class="slot-ovr">${player.overall}</span>
-          <span class="slot-pos">${player.position}</span>
-        </div>
-        <div class="slot-name-bar">${player.name.split(" ")[0]}</div>`;
+        <span class="slot-pos-label">${player.position}</span>
+        <span class="slot-ovr-badge">${player.overall}</span>`;
     } else {
       div.innerHTML = `<div class="slot-role">${slot.role}</div>`;
     }
-    div.onclick = ()=> onSlotClick(squad, slot, player);
+    makeDraggable(div, {
+      type: "slot",
+      id: slot.id,
+      squad,
+      getPlayer: ()=> player,
+      onTap: ()=> onSlotClick(squad, slot, player),
+    });
     pitch.appendChild(div);
   });
+}
+
+/* ---------------- ARRASTAR E SOLTAR (mouse + toque) ----------------
+   Funciona por cima do clique normal: se o ponteiro se mover além de
+   um pequeno limiar, vira arraste; se não, dispara o onTap (o clique
+   de sempre). Assim continua dando pra selecionar/tocar normalmente
+   e também dá pra arrastar o jogador até a posição certa no campo. */
+const DRAG_THRESHOLD = 6;
+let _drag = null; // { type:'bench'|'slot', id, squad, ghost }
+
+function makeDraggable(el, { type, id, squad, getPlayer, onTap }){
+  el.addEventListener("pointerdown", (e)=>{
+    if(e.button !== undefined && e.button !== 0) return;
+    const startX = e.clientX, startY = e.clientY;
+    let active = false, moved = false;
+
+    function onMove(ev){
+      if(!active){
+        if(Math.abs(ev.clientX-startX) > DRAG_THRESHOLD || Math.abs(ev.clientY-startY) > DRAG_THRESHOLD){
+          moved = true;
+          const player = getPlayer();
+          if(player){
+            active = true;
+            beginDrag(type, id, squad, player, ev);
+          }
+        }
+        return;
+      }
+      ev.preventDefault();
+      updateDragGhostPos(ev);
+      updateDragHover(ev);
+    }
+    function onUp(ev){
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerup", onUp);
+      if(active) endDrag(ev);
+      else if(!moved && onTap) onTap();
+    }
+    document.addEventListener("pointermove", onMove);
+    document.addEventListener("pointerup", onUp);
+  });
+}
+
+function createGhost(player, x, y){
+  const g = document.createElement("div");
+  g.className = "drag-ghost";
+  g.style.backgroundImage = `url('${(player && player.image) || "assets/players/default.png"}')`;
+  g.style.left = x + "px";
+  g.style.top = y + "px";
+  g.innerHTML = `<span class="drag-ghost-ovr">${player ? player.overall : ""}</span>`;
+  document.body.appendChild(g);
+  return g;
+}
+
+function beginDrag(type, sourceId, squad, player, evt){
+  _drag = { type, sourceId, squad, ghost: createGhost(player, evt.clientX, evt.clientY) };
+  document.body.classList.add("dragging-cards");
+}
+
+function updateDragGhostPos(evt){
+  if(_drag && _drag.ghost){
+    _drag.ghost.style.left = evt.clientX + "px";
+    _drag.ghost.style.top = evt.clientY + "px";
+  }
+}
+
+function updateDragHover(evt){
+  document.querySelectorAll(".pitch-slot.drop-hover").forEach(el=>el.classList.remove("drop-hover"));
+  const el = document.elementFromPoint(evt.clientX, evt.clientY);
+  const slotEl = el && el.closest(".pitch-slot");
+  if(slotEl) slotEl.classList.add("drop-hover");
+}
+
+function endDrag(evt){
+  if(!_drag) return;
+  const { type, sourceId, squad, ghost } = _drag;
+  const el = document.elementFromPoint(evt.clientX, evt.clientY);
+  const slotEl = el && el.closest(".pitch-slot");
+  const benchZone = el && el.closest("#benchList");
+
+  if(slotEl && slotEl.dataset.slotId){
+    const targetId = slotEl.dataset.slotId;
+    if(type === "bench"){
+      Object.keys(squad.assignments).forEach(k=>{ if(squad.assignments[k]===sourceId) delete squad.assignments[k]; });
+      squad.assignments[targetId] = sourceId;
+      persist();
+    } else if(type === "slot" && targetId !== sourceId){
+      const fromPlayer = squad.assignments[sourceId];
+      const toPlayer = squad.assignments[targetId];
+      if(toPlayer) squad.assignments[sourceId] = toPlayer; else delete squad.assignments[sourceId];
+      squad.assignments[targetId] = fromPlayer;
+      persist();
+    }
+  } else if(type === "slot" && benchZone){
+    delete squad.assignments[sourceId];
+    persist();
+  }
+
+  document.querySelectorAll(".pitch-slot.drop-hover").forEach(el=>el.classList.remove("drop-hover"));
+  ghost.remove();
+  document.body.classList.remove("dragging-cards");
+  _drag = null;
+  renderEscalacao();
 }
 
 function getOwnedPlayerById(id){
@@ -118,13 +227,26 @@ function renderBench(squad){
     .map(p=>{
       const isSelected = selectedBenchPlayerId===p.id;
       const isAssigned = assignedIds.has(p.id);
-      return `<div class="bench-item" style="${isSelected?'border-color:var(--turf);':''} ${isAssigned?'opacity:.55;':''}" onclick="selectBenchPlayer('${p.id}')">
-        <span class="mini-avatar" style="background:linear-gradient(135deg,#444,#222);">${p.position}</span>
+      return `<div class="bench-item" data-player-id="${p.id}" style="${isSelected?'border-color:var(--turf);':''} ${isAssigned?'opacity:.55;':''}">
+        <span class="mini-avatar ${p.rarity?'rarity-'+p.rarity:''}" style="background-image:url('${p.image || "assets/players/default.png"}')"></span>
+        <span class="bench-pos">${p.position}</span>
         <span style="flex:1;">${p.name}</span>
         <span style="color:var(--text-muted);">${p.overall}</span>
         ${isAssigned? '<span style="font-size:10px;color:var(--turf);">EM CAMPO</span>':''}
       </div>`;
     }).join("");
+
+  list.querySelectorAll(".bench-item").forEach(el=>{
+    const playerId = el.dataset.playerId;
+    const player = STATE.ownedPlayers.find(p=>p.id===playerId);
+    makeDraggable(el, {
+      type: "bench",
+      id: playerId,
+      squad,
+      getPlayer: ()=> player,
+      onTap: ()=> selectBenchPlayer(playerId),
+    });
+  });
 }
 
 function selectBenchPlayer(id){
