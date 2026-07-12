@@ -281,6 +281,13 @@
       </div>
     </section>
 
+    <!-- MODO DE EVENTO — desafios temporários contra o COM, motor compartilhado -->
+    <section class="screen" id="screen-evento" data-title="Modo de evento">
+      <h1 class="page-title">Modo de evento</h1>
+      <p class="page-sub">Cumpra o objetivo especial de cada evento e ganhe prêmios na Caixa de Presentes.</p>
+      <div id="eventoList"></div>
+    </section>
+
     <!-- CLUB HOUSE (hub) -->
     <section class="screen" id="screen-clubhouse" data-title="Club House">
       <h1 class="page-title">Club House</h1>
@@ -523,6 +530,18 @@
   🖥️
 </button>
 
+<!-- ===================== NOVIDADES: boxes/eventos ativos, estilo "This week's pick up" ===================== -->
+<div class="novidades-overlay hidden" id="novidadesOverlay">
+  <div class="novidades-card">
+    <div class="novidades-head">
+      <h2>Novidades</h2>
+      <button class="novidades-close" id="novidadesCloseBtn" aria-label="Fechar">✕</button>
+    </div>
+    <p class="page-sub" style="margin:0 0 4px;">Confira o que está rolando essa semana no Box Clube.</p>
+    <div class="novidades-list" id="novidadesList"></div>
+  </div>
+</div>
+
 <!-- ===================== TOASTS (inalterado) ===================== -->
 <div class="toast-wrap" id="toastWrap"></div>
 
@@ -532,6 +551,7 @@
 <script src="js/nav.js?v=2"></script>
 <script src="js/matchsim.js?v=1"></script>
 <script src="js/campaign.js?v=1"></script>
+<script src="js/events.js?v=1"></script>
 <script>
   // liga os botões da tela de Campanha (ids fixos, sem depender de main.js)
   document.addEventListener("DOMContentLoaded", ()=>{
@@ -557,6 +577,7 @@
 <script src="js/gifts.js?v=2"></script>
 <script src="js/store.js?v=2"></script>
 <script src="js/admin.js?v=2"></script>
+<script src="js/novidades.js?v=1"></script>
 <script src="js/music.js?v=1"></script>
 <script src="js/main.js"></script>
 </body>
