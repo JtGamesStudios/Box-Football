@@ -253,22 +253,26 @@ function playOpenAnimation(rarity, player, lightningStrike){
   const revealBall = document.getElementById("revealBall");
   const revealCardWrap = document.getElementById("revealCardWrap");
   const btnAnother = document.getElementById("btnOpenAnother");
+  const track = strip.parentElement; // .ball-track
 
   overlay.classList.remove("hidden");
   spinWrap.classList.remove("hidden");
   revealWrap.classList.add("hidden");
   actions.classList.add("hidden");
-  hint.textContent = "Abrindo Box...";
+  hint.classList.remove("lightning-hint");
+  hint.textContent = "Toque na tela para parar";
+  hint.classList.add("tap-pulse");
   revealCardWrap.innerHTML = "";
   document.getElementById("beam1").classList.add("sweep");
   document.getElementById("beam2").classList.add("sweep");
   pauseMusic(); // música para assim que a roleta começa a girar
 
-  // monta sequência de bolas: aleatórias + a vencedora no índice alvo
-  const targetIndex = 34;
+  // Sequência inicial: só bolas aleatórias. A bola vencedora (já sorteada
+  // lá em cima, em startBoxOpen) só entra na faixa quando o usuário tocar
+  // na tela — até lá a roleta gira livre e aleatória, sem parar sozinha.
   const sequence = [];
-  for(let i=0;i<40;i++){
-    sequence.push(i===targetIndex ? rarity : RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)]);
+  for(let i=0;i<24;i++){
+    sequence.push(RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)]);
   }
   strip.innerHTML = sequence.map(r=>`<div class="ball-item ${r}"></div>`).join("");
   strip.style.transition = "none";
@@ -284,49 +288,118 @@ function playOpenAnimation(rarity, player, lightningStrike){
   const ballW = firstBall ? firstBall.getBoundingClientRect().width : 96;
   const gap = parseFloat(getComputedStyle(strip).columnGap || getComputedStyle(strip).gap) || 26;
   const ITEM_W = ballW + gap;
+  const trackWidth = track.clientWidth;
 
-  const trackWidth = strip.parentElement.clientWidth;
-  const offset = (targetIndex * ITEM_W) + (ballW/2) - (trackWidth/2);
+  // ---------------- GIRO LIVRE (contínuo e aleatório) ----------------
+  // Continua girando pra sempre, sempre completando novas bolas aleatórias
+  // um pouco à frente da posição visível, pra nunca faltar bola na tela
+  // (nunca "sumir" nada). Só para quando o usuário tocar/clicar na tela.
+  let posX = 0;
+  const SPEED = ITEM_W * 3.2; // px/s do giro livre
+  let lastTs = null;
+  let spinning = true;
+  let rafId = null;
 
-  requestAnimationFrame(()=>{
-    strip.style.transition = "transform 2.4s cubic-bezier(.11,.79,.16,1)";
-    strip.style.transform = `translateX(-${offset}px)`;
-  });
-
-  if(lightningStrike){
-    setTimeout(()=> triggerLightningStrikeEffect(strip, sequence.length, offset), 900);
+  function ensureBuffer(aheadCount){
+    const currentIndex = Math.abs(posX) / ITEM_W;
+    while(sequence.length < currentIndex + aheadCount){
+      const r = RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)];
+      sequence.push(r);
+      const div = document.createElement("div");
+      div.className = "ball-item " + r;
+      strip.appendChild(div);
+    }
   }
+  ensureBuffer(18);
 
-  setTimeout(()=>{
-    spinWrap.classList.add("hidden");
-    revealWrap.classList.remove("hidden");
-    revealBall.className = "reveal-ball glow-" + rarity + (lightningStrike ? " lightning" : "");
-    hint.classList.remove("lightning-hint");
-    hint.textContent = "Revelando jogador...";
-    if(STATE.settings.vibration && navigator.vibrate) navigator.vibrate([40,30,60]);
+  function freeSpinFrame(ts){
+    if(!spinning) return;
+    if(lastTs === null) lastTs = ts;
+    const dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+    posX -= SPEED * dt;
+    strip.style.transform = `translateX(${posX}px)`;
+    ensureBuffer(18);
+    rafId = requestAnimationFrame(freeSpinFrame);
+  }
+  rafId = requestAnimationFrame(freeSpinFrame);
 
-    function showPlayerCard(){
-      revealCardWrap.innerHTML = renderPlayerCard(player);
-      hint.textContent = "Novo reforço contratado!";
-      actions.classList.remove("hidden");
-      const remaining = getRemainingIds(_pendingOpen.boxId);
-      btnAnother.classList.toggle("hidden", remaining.length===0);
-      refreshWalletUI();
+  function stopSpin(){
+    if(!spinning) return;
+    spinning = false;
+    cancelAnimationFrame(rafId);
+    overlay.removeEventListener("click", stopSpin);
+    overlay.removeEventListener("touchstart", stopSpin);
+
+    if(STATE.settings.vibration && navigator.vibrate) navigator.vibrate(20);
+    hint.classList.remove("tap-pulse");
+    hint.textContent = "Abrindo Box...";
+
+    // Escolhe o alvo alguns "giros" à frente da posição atual, pra dar
+    // tempo de desacelerar até parar exatamente na bola vencedora.
+    const currentIndex = Math.abs(posX) / ITEM_W;
+    const targetIndex = Math.ceil(currentIndex) + 14 + Math.floor(Math.random()*4);
+
+    ensureBuffer(targetIndex - Math.floor(currentIndex) + 2);
+    while(sequence.length <= targetIndex){
+      const r = RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)];
+      sequence.push(r);
+      const div = document.createElement("div");
+      div.className = "ball-item " + r;
+      strip.appendChild(div);
+    }
+    sequence[targetIndex] = rarity;
+    strip.children[targetIndex].className = "ball-item " + rarity;
+
+    const offset = (targetIndex * ITEM_W) + (ballW/2) - (trackWidth/2);
+
+    strip.style.transition = "none";
+    strip.style.transform = `translateX(${posX}px)`;
+    void strip.offsetWidth;
+
+    requestAnimationFrame(()=>{
+      strip.style.transition = "transform 2.1s cubic-bezier(.11,.79,.16,1)";
+      strip.style.transform = `translateX(-${offset}px)`;
+    });
+
+    if(lightningStrike){
+      setTimeout(()=> triggerLightningStrikeEffect(strip, sequence.length, offset), 700);
     }
 
-    // Bola preta + jogador com tier que tem cutscene cadastrada (destaque,
-    // lendario, iconic, ou qualquer tier novo que vocês adicionarem depois
-    // em CUTSCENE_BY_TIER) -> toca a cutscene certa antes da carta.
-    const wantsCutscene = rarity === "preta" && !!CUTSCENE_BY_TIER[player.tier];
-
     setTimeout(()=>{
-      if(wantsCutscene){
-        playCutscene(player.tier, showPlayerCard);
-      } else {
-        showPlayerCard();
+      spinWrap.classList.add("hidden");
+      revealWrap.classList.remove("hidden");
+      revealBall.className = "reveal-ball glow-" + rarity + (lightningStrike ? " lightning" : "");
+      hint.classList.remove("lightning-hint");
+      hint.textContent = "Revelando jogador...";
+      if(STATE.settings.vibration && navigator.vibrate) navigator.vibrate([40,30,60]);
+
+      function showPlayerCard(){
+        revealCardWrap.innerHTML = renderPlayerCard(player);
+        hint.textContent = "Novo reforço contratado!";
+        actions.classList.remove("hidden");
+        const remaining = getRemainingIds(_pendingOpen.boxId);
+        btnAnother.classList.toggle("hidden", remaining.length===0);
+        refreshWalletUI();
       }
-    }, 900);
-  }, 2500);
+
+      // Bola preta + jogador com tier que tem cutscene cadastrada (destaque,
+      // lendario, iconic, ou qualquer tier novo que vocês adicionarem depois
+      // em CUTSCENE_BY_TIER) -> toca a cutscene certa antes da carta.
+      const wantsCutscene = rarity === "preta" && !!CUTSCENE_BY_TIER[player.tier];
+
+      setTimeout(()=>{
+        if(wantsCutscene){
+          playCutscene(player.tier, showPlayerCard);
+        } else {
+          showPlayerCard();
+        }
+      }, 900);
+    }, 2200);
+  }
+
+  overlay.addEventListener("click", stopSpin);
+  overlay.addEventListener("touchstart", stopSpin, {passive:true});
 }
 
 /* Congela a roleta na posição atual, dá um flash + tremida na tela
