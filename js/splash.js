@@ -27,7 +27,7 @@
   // precisa repetir o link nas próximas vezes — até apagar os dados
   // do site ou trocar de dispositivo/navegador.
   // ---------------------------------------------------------------
-  const BYPASS_KEY = "efootball";
+  const BYPASS_KEY = "pes2021mobile";
   const BYPASS_STORAGE_FLAG = "boxclube_bypass_maintenance";
 
   function hasBypass() {
