@@ -100,6 +100,10 @@
         return;
       }
       overlay.classList.add("fade-out");
+      // música de fundo só começa aqui, saindo da splash pro menu —
+      // e de quebra aproveita esse toque como o "gesto do usuário"
+      // que os navegadores exigem pra liberar áudio com autoplay.
+      if (typeof initMusic === "function") initMusic();
       setTimeout(() => {
         overlay.classList.add("hidden");
       }, FADE_OUT_DURATION);
