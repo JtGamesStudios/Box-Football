@@ -5,6 +5,19 @@ const RARITY_ORDER = ["preta","dourada","prata","branca"];
 const RARITY_LABEL = { preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
 const RARITY_WEIGHT_BASE = { preta:1, dourada:3, prata:8, branca:14 }; // peso "natural" de cada bola quando sorteando visual
 
+/* ---------------- RAIO (bola preta garantida) ----------------
+   Igual ao PES Mobile: só nas Boxes de GP (category:"boxdraw"),
+   de vez em quando (não é raro) a roleta inteira vira bola preta
+   do nada e garante o jogador Lendário. Só pode acontecer se a
+   Box ainda tiver pelo menos 1 jogador de bola preta disponível. */
+const LIGHTNING_STRIKE_CHANCE = 0.08; // 8% por abertura
+
+function rollLightningStrike(box, byRarity){
+  if(box.category !== "boxdraw") return false;
+  if(!byRarity.preta || byRarity.preta.length === 0) return false;
+  return Math.random() < LIGHTNING_STRIKE_CHANCE;
+}
+
 /* ---------------- CUTSCENES (bola preta: Destaque x Lendário x Iconic) ----------------
    Cada jogador tem um campo "tier" em players.json: "destaque" | "lendario" |
    "iconic" | "normal" (ou qualquer outro tier que vocês criarem no futuro).
@@ -189,12 +202,22 @@ function startBoxOpen(boxId, method){
   if(!spendCurrency(price.gp, price.coins)) { toast("Saldo insuficiente.", ""); return; }
 
   const byR = getRemainingByRarity(boxId);
-  // sorteio ponderado pela quantidade restante de cada raridade
-  const pool = [];
-  RARITY_ORDER.forEach(r=>{ for(let i=0;i<byR[r].length;i++) pool.push(r); });
-  const chosenRarity = pool[Math.floor(Math.random()*pool.length)];
-  const candidates = byR[chosenRarity];
-  const chosenPlayer = candidates[Math.floor(Math.random()*candidates.length)];
+  // Chance de "raio": vira a roleta toda bola preta e garante o Lendário
+  // (só em Box de GP, e só se sobrar bola preta pra sortear).
+  const lightningStrike = rollLightningStrike(box, byR);
+
+  let chosenRarity, chosenPlayer;
+  if(lightningStrike){
+    chosenRarity = "preta";
+    chosenPlayer = byR.preta[Math.floor(Math.random()*byR.preta.length)];
+  } else {
+    // sorteio ponderado pela quantidade restante de cada raridade
+    const pool = [];
+    RARITY_ORDER.forEach(r=>{ for(let i=0;i<byR[r].length;i++) pool.push(r); });
+    chosenRarity = pool[Math.floor(Math.random()*pool.length)];
+    const candidates = byR[chosenRarity];
+    chosenPlayer = candidates[Math.floor(Math.random()*candidates.length)];
+  }
 
   // remove da box, entrega ao clube
   STATE.boxRemoved[boxId] = STATE.boxRemoved[boxId] || [];
@@ -217,10 +240,10 @@ function startBoxOpen(boxId, method){
   }
 
   _pendingOpen = { boxId, method };
-  playOpenAnimation(chosenRarity, chosenPlayer);
+  playOpenAnimation(chosenRarity, chosenPlayer, lightningStrike);
 }
 
-function playOpenAnimation(rarity, player){
+function playOpenAnimation(rarity, player, lightningStrike){
   const overlay = document.getElementById("stageOverlay");
   const spinWrap = document.getElementById("stageSpinWrap");
   const revealWrap = document.getElementById("stageRevealWrap");
@@ -269,10 +292,15 @@ function playOpenAnimation(rarity, player){
     strip.style.transform = `translateX(-${offset}px)`;
   });
 
+  if(lightningStrike){
+    setTimeout(()=> triggerLightningStrikeEffect(strip, sequence.length, offset), 900);
+  }
+
   setTimeout(()=>{
     spinWrap.classList.add("hidden");
     revealWrap.classList.remove("hidden");
-    revealBall.className = "reveal-ball glow-" + rarity;
+    revealBall.className = "reveal-ball glow-" + rarity + (lightningStrike ? " lightning" : "");
+    hint.classList.remove("lightning-hint");
     hint.textContent = "Revelando jogador...";
     if(STATE.settings.vibration && navigator.vibrate) navigator.vibrate([40,30,60]);
 
@@ -298,6 +326,45 @@ function playOpenAnimation(rarity, player){
       }
     }, 900);
   }, 2500);
+}
+
+/* Congela a roleta na posição atual, dá um flash + tremida na tela
+   e troca todas as bolas visíveis por bola preta, retomando o giro
+   até o mesmo alvo (que já é preta, garantido pelo sorteio). */
+function triggerLightningStrikeEffect(strip, ballCount, offset){
+  const computed = getComputedStyle(strip).transform;
+  strip.style.transition = "none";
+  strip.style.transform = computed;
+  void strip.offsetWidth;
+
+  const stageInner = document.querySelector(".stage-inner");
+  const flash = document.createElement("div");
+  flash.className = "lightning-flash";
+  const bolt = document.createElement("div");
+  bolt.className = "lightning-bolt";
+  bolt.textContent = "⚡";
+  document.body.appendChild(flash);
+  document.body.appendChild(bolt);
+  if(stageInner) stageInner.classList.add("shake");
+  if(STATE.settings.vibration && navigator.vibrate) navigator.vibrate([15,40,15,40,150]);
+  setTimeout(()=>{
+    flash.remove();
+    bolt.remove();
+    if(stageInner) stageInner.classList.remove("shake");
+  }, 650);
+
+  const hint = document.getElementById("stageHint");
+  if(hint){
+    hint.textContent = "⚡ RAIO! Bola Preta garantida!";
+    hint.classList.add("lightning-hint");
+  }
+
+  strip.innerHTML = Array.from({length: ballCount}).map(()=>`<div class="ball-item preta"></div>`).join("");
+
+  requestAnimationFrame(()=>{
+    strip.style.transition = "transform 1.1s cubic-bezier(.11,.79,.16,1)";
+    strip.style.transform = `translateX(-${offset}px)`;
+  });
 }
 
 function renderPlayerCard(p){
