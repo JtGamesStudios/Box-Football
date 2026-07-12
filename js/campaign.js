@@ -154,6 +154,27 @@ function cycleCampDifficulty(){
    (goleiro no topo, depois defesa, meio, ataque) igual ao print. */
 const CAMP_POS_ORDER = ["GOL","ZAG","LAT","VOL","MEI","PON","ATA"];
 
+/* O players.json guarda a posição em `position`, com as siglas estilo
+   eFootball (GK, CB, RB, DMF, CMF, AMF, RMF, LMF, CF, SS...) — mais
+   umas siglas customizadas usadas só nos jogadores "iconic" (SA, MO,
+   AC, AE, AD, LWF). Esse mapa traduz qualquer uma delas pro bucket
+   interno que a Campanha e o motor de partida já usam. Códigos novos
+   e desconhecidos caem em "MEI" por padrão, pra nunca quebrar. */
+const POSITION_BUCKET_MAP = {
+  GK: "GOL",
+  CB: "ZAG",
+  RB: "LAT", LB: "LAT", RWB: "LAT", LWB: "LAT",
+  DMF: "VOL",
+  CMF: "MEI", AMF: "MEI", MO: "MEI",
+  RMF: "PON", LMF: "PON", RWF: "PON", LWF: "PON", AE: "PON", AD: "PON",
+  CF: "ATA", SS: "ATA", SA: "ATA", AC: "ATA",
+};
+
+function normalizePlayerPos(position){
+  if(!position) return "MEI";
+  return POSITION_BUCKET_MAP[String(position).toUpperCase().trim()] || "MEI";
+}
+
 /* Monta a escalação a partir do elenco ativo (Escalação). Se a pessoa
    ainda não montou um elenco, retorna null e o motor usa um time
    genérico como fallback. Jogadores suspensos (2º cartão amarelo) são
@@ -175,11 +196,11 @@ function buildCampaignHomeLineup(){
   }
   if(!players.length) return null;
 
-  players.sort((a,b) => CAMP_POS_ORDER.indexOf(a.pos) - CAMP_POS_ORDER.indexOf(b.pos));
+  players.sort((a,b) => CAMP_POS_ORDER.indexOf(normalizePlayerPos(a.position)) - CAMP_POS_ORDER.indexOf(normalizePlayerPos(b.position)));
   return players.map((p,i) => ({
     number: p.number || i + 1,
     name: p.name || "Jogador",
-    pos: p.pos || "",
+    pos: normalizePlayerPos(p.position),
     id: p.id,
     ovr: p.overall ?? p.ovr ?? p.rating ?? null,
   }));
