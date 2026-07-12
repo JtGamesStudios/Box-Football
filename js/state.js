@@ -29,6 +29,15 @@ function defaultState(){
       difficulty: "normal",     // fácil | normal | difícil (Matchmaking Settings)
       matchHistory: [],         // [{date, score, result, ratingDelta}]
     },
+    events: {                   // Modo de Evento — progresso por evento ativo
+      points: {},                // { eventId: number }
+      claimedMilestones: {},     // { eventId: [pointsThreshold, ...] }
+      attemptsToday: {},         // { eventId: { date: "YYYY-M-D", used: number } }
+      history: {},               // { eventId: [{date, score, result}, ...] }
+    },
+    seenContent: {               // controla o popup "Novidades" (boxes/eventos ativos)
+      signature: null,
+    },
     stats: {
       boxesOpened: 0,
       ballCounts: { branca: 0, prata: 0, dourada: 0, preta: 0 },
