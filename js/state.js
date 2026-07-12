@@ -20,6 +20,15 @@ function defaultState(){
     squads: [],                 // [{id,name, formationId, coachId, captainSlot, assignments:{slotId:playerId}}]
     activeSquadId: null,
     settings: { sound: true, vibration: true, reducedMotion: false },
+    campaign: {                 // Modo Campanha (Divisão/Rating, tela estilo eFootball)
+      rating: 1000,
+      wins: 0,
+      draws: 0,
+      losses: 0,
+      phaseStart: Date.now(),
+      difficulty: "normal",     // fácil | normal | difícil (Matchmaking Settings)
+      matchHistory: [],         // [{date, score, result, ratingDelta}]
+    },
     stats: {
       boxesOpened: 0,
       ballCounts: { branca: 0, prata: 0, dourada: 0, preta: 0 },
