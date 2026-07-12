@@ -28,13 +28,16 @@ function renderHome(){
 
 function wireSettings(){
   const sSound = document.getElementById("toggleSound");
+  const sMusic = document.getElementById("toggleMusic");
   const sVib = document.getElementById("toggleVibration");
   const sMotion = document.getElementById("toggleReducedMotion");
   sSound.checked = STATE.settings.sound;
+  sMusic.checked = STATE.settings.music;
   sVib.checked = STATE.settings.vibration;
   sMotion.checked = STATE.settings.reducedMotion;
 
   sSound.onchange = ()=>{ STATE.settings.sound = sSound.checked; persist(); };
+  sMusic.onchange = ()=>{ setMusicEnabled(sMusic.checked); };
   sVib.onchange = ()=>{ STATE.settings.vibration = sVib.checked; persist(); };
   sMotion.onchange = ()=>{
     STATE.settings.reducedMotion = sMotion.checked;
@@ -73,6 +76,7 @@ async function boot(){
   wireSettings();
   checkDailyLogin();
   refreshWalletUI();
+  initMusic();
   showScreen("home");
 }
 
