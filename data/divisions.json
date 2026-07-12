@@ -2,18 +2,18 @@
   "phaseLengthDays": 35,
   "tiers": [
     { "id": "div5", "name": "Divisão 5",   "shortLabel": "5",   "minRating": 0,    "maxRating": 799,    "color": "#8FB7D9" },
-    { "id": "div4", "name": "Divisão 4",   "shortLabel": "4",   "minRating": 800,  "maxRating": 1199,   "color": "#B9C2CE" },
-    { "id": "div3", "name": "Divisão 3",   "shortLabel": "3",   "minRating": 1200, "maxRating": 1599,   "color": "#C89A1F" },
-    { "id": "div2", "name": "Divisão 2",   "shortLabel": "2",   "minRating": 1600, "maxRating": 1799,   "color": "#7C4DFF" },
-    { "id": "div1", "name": "Divisão 1",   "shortLabel": "1",   "minRating": 1800, "maxRating": 2199,   "color": "#E63950" },
-    { "id": "top",  "name": "Top Division","shortLabel": "TOP", "minRating": 2200, "maxRating": 999999, "color": "#FFC93C" }
+    { "id": "div4", "name": "Divisão 4",   "shortLabel": "4",   "minRating": 800,  "maxRating": 1099,   "color": "#B9C2CE" },
+    { "id": "div3", "name": "Divisão 3",   "shortLabel": "3",   "minRating": 1100, "maxRating": 1199,   "color": "#C89A1F" },
+    { "id": "div2", "name": "Divisão 2",   "shortLabel": "2",   "minRating": 1200, "maxRating": 1499,   "color": "#7C4DFF" },
+    { "id": "div1", "name": "Divisão 1",   "shortLabel": "1",   "minRating": 1500, "maxRating": 1799,   "color": "#E63950" },
+    { "id": "top",  "name": "Top Division","shortLabel": "TOP", "minRating": 1800, "maxRating": 999999, "color": "#FFC93C" }
   ],
   "seasonRewards": {
     "div5": { "gp": 5000,  "coins": 5 },
-    "div4": { "gp": 8000,  "coins": 8 },
-    "div3": { "gp": 12000, "coins": 12 },
-    "div2": { "gp": 18000, "coins": 18 },
-    "div1": { "gp": 25000, "coins": 25 },
-    "top":  { "gp": 40000, "coins": 40 }
+    "div4": { "gp": 8000,  "coins": 10 },
+    "div3": { "gp": 12000, "coins": 30 },
+    "div2": { "gp": 18000, "coins": 50 },
+    "div1": { "gp": 25000, "coins": 100 },
+    "top":  { "gp": 40000, "coins": 250 }
   }
 }
