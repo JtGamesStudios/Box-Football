@@ -262,6 +262,7 @@ function playOpenAnimation(rarity, player, lightningStrike){
   revealCardWrap.innerHTML = "";
   document.getElementById("beam1").classList.add("sweep");
   document.getElementById("beam2").classList.add("sweep");
+  pauseMusic(); // música para assim que a roleta começa a girar
 
   // monta sequência de bolas: aleatórias + a vencedora no índice alvo
   const targetIndex = 34;
@@ -464,6 +465,7 @@ document.getElementById("btnCloseStage").addEventListener("click", ()=>{
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
   renderHome();
+  resumeMusicWithNextTrack(); // sai da Box -> toca outra faixa da playlist
 });
 document.getElementById("btnOpenAnother").addEventListener("click", ()=>{
   if(_pendingOpen) startBoxOpen(_pendingOpen.boxId, _pendingOpen.method);
