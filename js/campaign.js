@@ -253,8 +253,8 @@ function applyPostMatchPlayerEffects(result){
   persist();
 }
 
-/* Sobrenomes genéricos só pra dar "cara de time" ao adversário —
-   não são jogadores reais, é só flavor visual da tela de pré-jogo. */
+/* Sobrenomes genéricos — usados só como fallback caso o players.json
+   ainda não tenha carregado (GAME_DATA.players vazio). */
 const CPU_SURNAMES = [
   "Silva","Souza","Oliveira","Pereira","Costa","Rodrigues","Almeida",
   "Nascimento","Lima","Araújo","Ribeiro","Carvalho","Gomes","Martins",
@@ -263,13 +263,78 @@ const CPU_SURNAMES = [
 ];
 const CPU_POS_ORDER = ["GOL","ZAG","ZAG","LAT","LAT","VOL","VOL","MEI","PON","PON","ATA"];
 
-function generateOpponentLineup(){
+/* Inverte o POSITION_BUCKET_MAP (definido mais acima): de cada bucket
+   interno (GOL/ZAG/...) pra lista de siglas reais do players.json que
+   pertencem a ele. Assim dá pra sortear um GK de verdade pro "GOL",
+   um CB pro "ZAG" etc. */
+const BUCKET_TO_POSITIONS = Object.entries(POSITION_BUCKET_MAP).reduce((acc, [code, bucket])=>{
+  (acc[bucket] = acc[bucket] || []).push(code);
+  return acc;
+}, {});
+
+/* Converte a força do adversário (escala 0-99 usada no motor de
+   partida) pro overall aproximado dos jogadores no players.json
+   (escala ~55-101). Divisões mais altas => adversário sorteia
+   jogadores de overall mais alto; divisões baixas => elenco mais fraco. */
+function targetOverallForStrength(strength){
+  return clamp(Math.round(55 + (strength - 30) * (101 - 55) / (99 - 30)), 55, 101);
+}
+
+/* Escolhe, dentro de um grupo de jogadores, um com overall próximo do
+   alvo (sorteando entre os mais próximos, pra não repetir sempre o
+   mesmo craque quando várias posições miram overalls parecidos). */
+function pickPlayerNearOverall(pool, targetOverall, usedIds){
+  let candidates = pool.filter(p => !usedIds.has(p.id));
+  if(!candidates.length) candidates = pool;
+  if(!candidates.length) return null;
+  candidates = [...candidates].sort((a,b)=>
+    Math.abs((a.overall ?? 70) - targetOverall) - Math.abs((b.overall ?? 70) - targetOverall));
+  const top = candidates.slice(0, Math.min(6, candidates.length));
+  const pick = top[Math.floor(Math.random() * top.length)];
+  usedIds.add(pick.id);
+  return pick;
+}
+
+/* Fallback só pra quando não há players.json carregado ainda. */
+function generateOpponentLineupFallback(){
   const shuffled = [...CPU_SURNAMES].sort(() => Math.random() - 0.5);
   return CPU_POS_ORDER.map((pos,i) => ({
     number: i + 1,
     name: shuffled[i % shuffled.length],
     pos,
   }));
+}
+
+/* Monta a escalação do adversário sorteando jogadores REAIS do
+   players.json (via GAME_DATA.players), respeitando a posição de
+   cada vaga e mirando um overall coerente com a força do adversário
+   daquela partida — assim, times fracos não têm zagueiro de 98 e
+   times fortes não têm atacante de 65. */
+function generateOpponentLineup(opponentStrength){
+  const pool = (typeof GAME_DATA !== "undefined" && GAME_DATA.players && GAME_DATA.players.length)
+    ? GAME_DATA.players
+    : null;
+  if(!pool) return generateOpponentLineupFallback();
+
+  const targetOverall = targetOverallForStrength(opponentStrength ?? 60);
+  const usedIds = new Set();
+
+  return CPU_POS_ORDER.map((bucket, i) => {
+    const codes = BUCKET_TO_POSITIONS[bucket] || [];
+    const bucketPool = pool.filter(p => codes.includes(String(p.position || "").toUpperCase().trim()));
+    const player = pickPlayerNearOverall(bucketPool.length ? bucketPool : pool, targetOverall, usedIds);
+    if(!player){
+      return { number: i + 1, name: CPU_SURNAMES[i % CPU_SURNAMES.length], pos: bucket };
+    }
+    return {
+      number: i + 1,
+      name: player.name,
+      pos: bucket,
+      id: player.id,
+      ovr: player.overall,
+      club: player.club,
+    };
+  });
 }
 
 function startCampaignMatch(){
@@ -290,7 +355,7 @@ function startCampaignMatch(){
     homeTeamName: "Meu Clube",
     awayTeamName: "Adversário Online",
     homeLineup,
-    awayLineup: generateOpponentLineup(),
+    awayLineup: generateOpponentLineup(opponentStrength),
     playerStrength,
     opponentStrength,
     totalChances: 8,
