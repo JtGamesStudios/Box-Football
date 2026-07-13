@@ -4,7 +4,7 @@
   "date": "--/--/----",
   "description": "Nakamura - Iconic Moments",
   "banner": "assets/banners/banner-contratar-especial2.png",
-  "active": true,
+  "active": false,
   "category": "boxdraw",
   "priceGP": 125000,
   "priceCoins": 0,
