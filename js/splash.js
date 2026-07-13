@@ -28,7 +28,7 @@
   // do site ou trocar de dispositivo/navegador.
   // ---------------------------------------------------------------
   const BYPASS_KEY = "pes2021mobile";
-  const BYPASS_STORAGE_FLAG = "boxclube_bypass_maintenance_v3";
+  const BYPASS_STORAGE_FLAG = "boxclube_bypass_maintenance_v4";
 
   function hasBypass() {
     try {
