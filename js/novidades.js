@@ -1,11 +1,32 @@
 /* =========================================================
    NOVIDADES — popup estilo "This week's pick up" do eFootball.
-   Mostra, empilhados, todos os Boxes ativos e todos os Eventos
-   ativos (banner + nome), pegando as imagens que já existem em
-   data/boxes/*.json e data/events.json. Aparece só uma vez; volta
-   a aparecer quando surgir conteúdo NOVO (uma Box ou Evento com
-   id que a pessoa ainda não viu).
+   Mostra, empilhados, todos os Boxes ativos, todos os Eventos
+   ativos e todos os CÓDIGOS DE RESGATE anunciados (banner + nome),
+   pegando as imagens que já existem em data/boxes/*.json,
+   data/events.json e data/coupons.json. Aparece só uma vez; volta
+   a aparecer quando surgir conteúdo NOVO (uma Box, Evento ou
+   código com id que a pessoa ainda não viu).
+
+   Pra anunciar um código de resgate aqui dentro, no
+   data/coupons.json basta adicionar:
+     "announce": true,           // liga o aviso
+     "announceTitle": "...",     // opcional, título mostrado no popup
+     "banner": "assets/banners/seu-banner.png"  // opcional, imagem do card
+   O aviso some sozinho pra cada jogador assim que ele resgatar
+   aquele código (ou se o código for só pra outro ID, ou expirar).
    ========================================================= */
+
+function getAnnouncedCoupons(){
+  const myId = typeof getPlayerId === "function" ? getPlayerId() : null;
+  return (GAME_DATA.coupons || []).filter(c=>{
+    if(!c.announce) return false;
+    if(c.expiresAt && Date.now() > new Date(c.expiresAt).getTime()) return false;
+    if(c.targetId && myId && String(c.targetId).trim().toUpperCase() !== myId.toUpperCase()) return false;
+    const code = String(c.code || "").trim().toUpperCase();
+    if(STATE && STATE.redeemedCodes && STATE.redeemedCodes.includes(code)) return false;
+    return true;
+  });
+}
 
 function computeContentSignature(){
   const boxIds = GAME_DATA.boxesRaw
@@ -14,7 +35,8 @@ function computeContentSignature(){
     .map(b => b.id)
     .sort();
   const eventIds = getActiveEvents().map(e => e.id).sort();
-  return JSON.stringify({ boxes: boxIds, events: eventIds });
+  const couponCodes = getAnnouncedCoupons().map(c => String(c.code).toUpperCase()).sort();
+  return JSON.stringify({ boxes: boxIds, events: eventIds, coupons: couponCodes });
 }
 
 function buildNovidadesItems(){
@@ -41,6 +63,17 @@ function buildNovidadesItems(){
     });
   });
 
+  getAnnouncedCoupons().forEach(c=>{
+    const code = String(c.code || "").trim().toUpperCase();
+    items.push({
+      banner: c.banner || "",
+      title: c.announceTitle || c.title || "Novo código de presente disponível!",
+      sub: `Código: <strong>${code}</strong> — resgate em Configurações`,
+      nav: "config",
+      couponCode: code,
+    });
+  });
+
   return items;
 }
 
@@ -53,7 +86,7 @@ function renderNovidadesList(){
     return;
   }
   wrap.innerHTML = items.map(it => `
-    <button class="novidades-item" data-nav="${it.nav}">
+    <button class="novidades-item" data-nav="${it.nav}" ${it.couponCode ? `data-coupon="${it.couponCode}"` : ""}>
       <div class="novidades-item-banner" style="background-image:url('${it.banner}')"></div>
       <div class="novidades-item-body">
         <div class="novidades-item-title">${it.title}</div>
@@ -81,8 +114,13 @@ function maybeShowNovidades(){
 
   overlay.querySelectorAll("[data-nav]").forEach(btn=>{
     btn.onclick = ()=>{
+      const couponCode = btn.dataset.coupon;
       closeNovidades();
       showScreen(btn.dataset.nav);
+      if(couponCode){
+        const input = document.getElementById("couponCodeInput");
+        if(input) input.value = couponCode;
+      }
     };
   });
 }
