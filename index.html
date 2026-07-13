@@ -118,6 +118,7 @@
 
   <div class="splash-content">
     <div class="splash-logo"></div>
+    <div class="splash-id" id="splashPlayerId"></div>
     <div class="splash-tap-hint" id="splashTapHint">Toque para começar</div>
   </div>
 
@@ -434,10 +435,18 @@
       <div class="quick-grid" id="storeGrid"></div>
     </section>
 
-    <!-- CONFIGURAÇÕES / ADMIN (inalterada) -->
+    <!-- CONFIGURAÇÕES / PERFIL -->
     <section class="screen" id="screen-config" data-title="Configurações">
       <h1 class="page-title">Configurações</h1>
-      <p class="page-sub">Preferências e painel administrativo das Boxes.</p>
+      <p class="page-sub">Preferências, seu ID e resgate de códigos.</p>
+
+      <div class="settings-row" style="margin-bottom:18px;">
+        <span>Seu ID</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="player-id-badge" id="configPlayerId">----</span>
+          <button class="btn btn-sm btn-primary" onclick="copyPlayerId()">Copiar</button>
+        </div>
+      </div>
 
       <div class="settings-list">
         <div class="settings-row">
@@ -459,13 +468,15 @@
       </div>
 
       <div style="display:flex; gap:10px; margin:18px 0; flex-wrap:wrap;">
-        <button class="btn btn-gold btn-sm" id="btnAddDebugCurrency">+50.000 GP / +500 Moedas (debug)</button>
         <button class="btn btn-danger btn-sm" id="btnResetSave">Apagar progresso salvo</button>
       </div>
 
-      <h2 class="page-title" style="font-size:20px;margin-top:30px;">Painel Administrativo — Boxes</h2>
-      <p class="page-sub">Ative, desative e edite Boxes sem tocar no código. Alterações ficam salvas neste navegador.</p>
-      <div id="adminBoxList"></div>
+      <h2 class="page-title" style="font-size:20px;margin-top:30px;">Resgatar código</h2>
+      <p class="page-sub">Tem um código de presente? Digite abaixo para resgatar GP e Moedas.</p>
+      <div class="redeem-row">
+        <input type="text" id="couponCodeInput" class="redeem-input" placeholder="Digite seu código" maxlength="40" autocapitalize="characters">
+        <button class="btn btn-primary btn-sm" id="btnRedeemCoupon">Resgatar</button>
+      </div>
     </section>
 
   </main>
@@ -545,6 +556,7 @@
 <!-- ===================== TOASTS (inalterado) ===================== -->
 <div class="toast-wrap" id="toastWrap"></div>
 
+<script src="js/playerid.js?v=1"></script>
 <script src="js/splash.js?v=1"></script>
 <script src="js/state.js?v=2"></script>
 <script src="js/data.js?v=2"></script>
@@ -577,7 +589,7 @@
 <script src="js/missions.js?v=2"></script>
 <script src="js/gifts.js?v=2"></script>
 <script src="js/store.js?v=2"></script>
-<script src="js/admin.js?v=2"></script>
+<script src="js/coupons.js?v=1"></script>
 <script src="js/novidades.js?v=1"></script>
 <script src="js/music.js?v=1"></script>
 <script src="js/main.js"></script>
