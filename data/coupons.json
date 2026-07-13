@@ -6,6 +6,9 @@
     "gp": 5000,
     "coins": 100,
     "targetId": null,
-    "expiresAt": null
+    "expiresAt": null,
+    "announce": true,
+    "announceTitle": "Presente de boas-vindas disponível!",
+    "banner": ""
   }
 ]
