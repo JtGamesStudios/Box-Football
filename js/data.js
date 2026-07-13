@@ -12,6 +12,7 @@ const GAME_DATA = {
   missions: [],
   events: {},
   store: [],
+  coupons: [],   // carregado por loadCoupons() em coupons.js (data/coupons.json)
 };
 
 async function fetchJSON(path){
