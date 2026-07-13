@@ -17,6 +17,7 @@ function defaultState(){
     adminOverrides: {},         // { boxId: {name, description, banner, priceGP, priceCoins, active, extraPlayerIds:[]} }
     missionsProgress: {},       // { missionId: { progress, claimed } }
     gifts: [],                  // [{id, title, desc, gp, coins, claimed, createdAt}]
+    redeemedCodes: [],          // [ "CODIGO1", "CODIGO2", ... ] — cupons já resgatados por este ID
     squads: [],                 // [{id,name, formationId, coachId, captainSlot, assignments:{slotId:playerId}}]
     activeSquadId: null,
     settings: { sound: true, vibration: true, reducedMotion: false },
