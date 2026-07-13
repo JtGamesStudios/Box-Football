@@ -1486,34 +1486,50 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 
 /* =========================================================
    MODO DE EVENTO — cards de evento (banner + progresso + marcos)
+   Grid lado a lado (2 colunas no desktop, 1 no mobile estreito),
+   cards mais compactos.
    ========================================================= */
+#eventoList{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:14px;
+}
+#eventoList .empty-state{ grid-column:1/-1; }
 .event-card{
-  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
-  overflow:hidden; margin-bottom:18px; box-shadow:var(--shadow-card);
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+  overflow:hidden; box-shadow:var(--shadow-card); display:flex; flex-direction:column;
 }
 .event-banner{
-  position:relative; height:140px; background-size:cover; background-position:center;
-  display:flex; align-items:flex-end; padding:14px 16px;
+  position:relative; height:92px; background-size:cover; background-position:center;
+  display:flex; align-items:flex-end; padding:9px 10px;
 }
-.event-banner-shade{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.65)); }
+.event-banner-shade{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.68)); }
 .event-banner-body{ position:relative; z-index:1; color:#fff; }
-.event-title{ font-family:var(--font-display); font-weight:800; font-size:20px; text-shadow:0 2px 6px rgba(0,0,0,.5); }
-.event-timeleft{ font-size:12px; opacity:.9; margin-top:2px; }
-.event-body{ padding:16px; }
-.event-desc{ margin:0 0 8px; color:var(--text-muted); font-size:13.5px; }
-.event-objective{ font-weight:700; font-size:13.5px; color:var(--text); }
-.event-milestones{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px; }
+.event-title{ font-family:var(--font-display); font-weight:800; font-size:15px; line-height:1.2; text-shadow:0 2px 6px rgba(0,0,0,.5); }
+.event-timeleft{ font-size:10.5px; opacity:.9; margin-top:1px; }
+.event-body{ padding:11px 12px 12px; flex:1; display:flex; flex-direction:column; }
+.event-desc{ margin:0 0 6px; color:var(--text-muted); font-size:12px; line-height:1.4; }
+.event-objective{ font-weight:700; font-size:12px; color:var(--text); }
+.event-milestones{ display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 2px; }
 .event-milestone{
-  position:relative; display:flex; flex-direction:column; align-items:center; gap:2px;
-  min-width:74px; padding:8px 10px; border-radius:10px; background:var(--surface-2);
-  border:1px solid var(--border); font-size:11px; color:var(--text-muted);
+  position:relative; display:flex; flex-direction:column; align-items:center; gap:1px;
+  min-width:56px; padding:5px 7px; border-radius:8px; background:var(--surface-2);
+  border:1px solid var(--border); font-size:9.5px; color:var(--text-muted);
 }
 .event-milestone.done{ border-color:var(--turf); background:rgba(47,184,107,.1); color:var(--turf-dim); }
-.event-milestone-pts{ font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--text); }
+.event-milestone-pts{ font-family:var(--font-display); font-weight:800; font-size:13px; color:var(--text); }
 .event-milestone.done .event-milestone-pts{ color:var(--turf-dim); }
-.event-milestone-check{ position:absolute; top:4px; right:6px; color:var(--turf); font-weight:800; font-size:11px; }
-.event-actions{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; }
-.event-tickets{ font-size:12.5px; color:var(--text-muted); }
+.event-milestone-check{ position:absolute; top:3px; right:5px; color:var(--turf); font-weight:800; font-size:10px; }
+.event-actions{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; padding-top:10px; }
+.event-tickets{ font-size:11px; color:var(--text-muted); }
+.event-actions .btn{ padding:8px 14px; font-size:12.5px; }
+
+@media (max-width: 420px){
+  #eventoList{ grid-template-columns:1fr 1fr; gap:10px; }
+  .event-banner{ height:78px; }
+  .event-title{ font-size:13px; }
+  .event-body{ padding:9px 9px 10px; }
+  .event-actions{ flex-direction:column; align-items:stretch; gap:6px; }
+  .event-actions .btn{ width:100%; }
+}
 
 /* =========================================================
    NOVIDADES — popup "This week's pick up" (boxes + eventos ativos)
