@@ -4,7 +4,7 @@
   "date": "",
   "description": "Featured Players - 13/08/2020",
   "banner": "assets/banners/file_00000000c76c720e909143e24f9a4c49.png",
-  "active": true,
+  "active": false,
   "priceCoins": 100,
   "players":  ["p358",
     "p359",
