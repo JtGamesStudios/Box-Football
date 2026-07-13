@@ -42,6 +42,17 @@ function computeContentSignature(){
 function buildNovidadesItems(){
   const items = [];
 
+  getAnnouncedCoupons().forEach(c=>{
+    const code = String(c.code || "").trim().toUpperCase();
+    items.push({
+      banner: c.banner || "",
+      title: c.announceTitle || c.title || "Novo código de presente disponível!",
+      sub: `Código: <strong>${code}</strong> — resgate em Configurações`,
+      nav: "config",
+      couponCode: code,
+    });
+  });
+
   GAME_DATA.boxesRaw
     .map(b => getEffectiveBox(b.id))
     .filter(b => b && b.active)
@@ -60,17 +71,6 @@ function buildNovidadesItems(){
       title: evt.title,
       sub: "Ganhe prêmios em jogos contra o COM",
       nav: "evento",
-    });
-  });
-
-  getAnnouncedCoupons().forEach(c=>{
-    const code = String(c.code || "").trim().toUpperCase();
-    items.push({
-      banner: c.banner || "",
-      title: c.announceTitle || c.title || "Novo código de presente disponível!",
-      sub: `Código: <strong>${code}</strong> — resgate em Configurações`,
-      nav: "config",
-      couponCode: code,
     });
   });
 
