@@ -11,7 +11,7 @@
   "activeEvents": [
     {
       "id": "evt_muralha",
-      "title": "Muralha de Aço",
+      "title": "Muralha de Aço - Coins Rewards",
       "description": "Vença partidas contra o COM sem sofrer gols.",
       "banner": "assets/banners/banner-home-evento1.jpg",
       "active": true,
@@ -23,10 +23,30 @@
       "opponentStrength": 62,
       "totalChances": 8,
       "milestones": [
-        { "points": 1, "rewardGP": 1000, "rewardCoins": 0 },
+        { "points": 1, "rewardGP": 1000, "rewardCoins": 50 },
         { "points": 3, "rewardGP": 0,    "rewardCoins": 60 },
-        { "points": 5, "rewardGP": 4000, "rewardCoins": 0 },
-        { "points": 8, "rewardGP": 0,    "rewardCoins": 150 }
+        { "points": 5, "rewardGP": 4000, "rewardCoins": 100 },
+        { "points": 8, "rewardGP": 100000,    "rewardCoins": 950 }
+      ]
+    },
+        {
+      "id": "evt_muralha2",
+      "title": "Muralha de Aço - GP Rewards",
+      "description": "Vença partidas contra o COM sem sofrer gols.",
+      "banner": "assets/banners/banner-home-evento1.jpg",
+      "active": true,
+      "start": "2026-07-12T00:00:00",
+      "end": "2026-07-20T23:59:59",
+      "mode": "cleanSheet",
+      "goalTarget": null,
+      "dailyAttempts": 6,
+      "opponentStrength": 62,
+      "totalChances": 8,
+      "milestones": [
+        { "points": 1, "rewardGP": 1000, "rewardCoins": 10 },
+        { "points": 3, "rewardGP": 5000,    "rewardCoins": 10 },
+        { "points": 5, "rewardGP": 4000, "rewardCoins": 10 },
+        { "points": 8, "rewardGP": 25000,    "rewardCoins": 20 }
       ]
     },
     {
@@ -46,7 +66,7 @@
       "milestones": [
         { "points": 1, "rewardGP": 1500, "rewardCoins": 0 },
         { "points": 3, "rewardGP": 0,    "rewardCoins": 80 },
-        { "points": 5, "rewardGP": 5000, "rewardCoins": 150 }
+        { "points": 5, "rewardGP": 5000, "rewardCoins": 100 }
       ]
     }
   ]
