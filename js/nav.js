@@ -103,19 +103,42 @@ function buildNav(){
 
 /* Os cards "Box Draw" e "Especial" usam como imagem o banner da
    primeira Box ativa de cada categoria (ordem de data/boxes/index.json).
-   Se nenhuma box ativa existir na categoria, mantém o banner CSS padrão. */
+   Se nenhuma box ativa existir na categoria, o card fica travado
+   (sem clique) e sem foto — só um cinza liso, igual aos outros
+   modos "Indisponível". */
 function updateContratarCardBanners(){
   if(!window.GAME_DATA || !GAME_DATA.boxesRaw || !GAME_DATA.boxesRaw.length) return;
   ["boxdraw","especial"].forEach(cat=>{
     const el = document.getElementById(`menuCardBanner-${cat}`);
     if(!el) return;
+    const card = el.closest(".menu-card");
     const first = GAME_DATA.boxesRaw
       .map(b=>getEffectiveBox(b.id))
       .find(b=>b.active && b.category===cat);
+
     if(first && first.banner){
       el.style.backgroundImage = `url('${first.banner}')`;
+      el.style.backgroundColor = "";
       el.style.backgroundSize = "cover";
       el.style.backgroundPosition = "center";
+      if(card){
+        card.classList.remove("locked");
+        card.disabled = false;
+        card.onclick = ()=> showScreen(cat);
+        const lock = card.querySelector(".menu-card-lock");
+        if(lock) lock.remove();
+      }
+    } else {
+      el.style.backgroundImage = "none";
+      el.style.backgroundColor = "#6B7280";
+      if(card){
+        card.classList.add("locked");
+        card.disabled = true;
+        card.onclick = null;
+        if(!card.querySelector(".menu-card-lock")){
+          card.insertAdjacentHTML("beforeend", `<div class="menu-card-lock"><span class="menu-card-lock-icon">🔒</span><span class="menu-card-lock-label">Indisponível</span></div>`);
+        }
+      }
     }
   });
 }
