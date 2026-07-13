@@ -9,6 +9,6 @@
     "expiresAt": null,
     "announce": true,
     "announceTitle": "Presente de boas-vindas disponível!",
-    "banner": ""
+    "banner": "assets/banners/meu-cupom.png"
   }
 ]
