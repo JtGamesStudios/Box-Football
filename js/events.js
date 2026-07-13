@@ -123,7 +123,7 @@ function startEventMatch(eventId){
       ? Math.round(homeLineup.reduce((s,p)=> s + (p.ovr || 65), 0) / homeLineup.length)
       : 65));
 
-  startMatch({
+  const matchCfg = {
     competitionLabel: `Modo de Evento — ${evt.title}`,
     title: evt.title,
     homeTeamName: "Meu Clube",
@@ -155,7 +155,15 @@ function startEventMatch(eventId){
       toast(success ? "Objetivo do evento cumprido! Ponto de evento conquistado." : "Não foi dessa vez — tente novamente.", success ? "success" : "");
       renderEventoScreen();
     }
-  });
+  };
+
+  // Eventos podem marcar "engine":"arcade" em data/events.json para usar o
+  // Modo Arcade (js/arcade.js) em vez do motor de QTE padrão (matchsim.js).
+  if(evt.engine === "arcade" && typeof startArcadeMatch === "function"){
+    startArcadeMatch(matchCfg);
+  } else {
+    startMatch(matchCfg);
+  }
 }
 
 /* ---------- tela ---------- */
