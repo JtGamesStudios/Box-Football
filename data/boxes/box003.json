@@ -1,10 +1,10 @@
 {
   "id": "box003",
-  "name": "Featured Players Eurocopa",
+  "name": "Club Selection - PSG",
   "date": "27/08/2020",
   "description": "Featured Players - 27/08/2020",
-  "banner": "assets/banners/featured_20082020.png",
+  "banner": "assets/banners/psgclubselection.jpg",
   "active": true,
   "priceCoins": 100,
-  "players": ["P022", "P023", "P024", "P025", "P026", "P027", "P028", "P029", "P030", "P031", "P032"]
+  "players": ["P55'", "P550", "P552"]
 }
