@@ -982,8 +982,8 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
   text-shadow:0 4px 16px rgba(0,0,0,.5);
 }
 .splash-id{
-  font-size:12.5px; letter-spacing:1px; color:rgba(255,255,255,.75);
-  background:rgba(0,0,0,.35); padding:6px 14px; border-radius:20px;
+  font-size:12.5px; letter-spacing:1px; color:rgba(255,255,255,.9);
+  background:#05070c; padding:6px 14px; border-radius:20px;
   border:1px solid rgba(255,255,255,.25);
 }
 .splash-tap-hint{
