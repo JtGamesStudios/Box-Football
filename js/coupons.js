@@ -13,7 +13,13 @@
      "coins": 100,               // opcional
      "targetId": null,           // opcional: se preenchido (ex: "AB12-CD34"),
                                   // só o jogador com esse ID consegue resgatar
-     "expiresAt": null           // opcional: data ISO, ex "2026-12-31"
+     "expiresAt": null,          // opcional: data ISO, ex "2026-12-31"
+     "announce": false,          // opcional: true = mostra um aviso automático
+                                  // no popup de Novidades, assim que o jogador
+                                  // abrir o jogo (some sozinho após resgatar)
+     "announceTitle": "",        // opcional: título do aviso (padrão: usa "title")
+     "banner": ""                // opcional: caminho de imagem pro card do aviso
+                                  // (ex: "assets/banners/seu-banner.png")
    }
 
    Cada ID de jogador só consegue resgatar um código específico
