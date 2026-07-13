@@ -46,6 +46,13 @@
   const overlay = document.getElementById("splashOverlay");
   if (!overlay) return;
 
+  // Mostra o ID único deste navegador já na tela inicial — necessário
+  // pra resgatar códigos/presentes (e, no futuro, adicionar amigos).
+  const idEl = document.getElementById("splashPlayerId");
+  if (idEl && typeof getPlayerId === "function") {
+    idEl.textContent = "Seu ID: " + getPlayerId();
+  }
+
   const slides = Array.from(document.querySelectorAll(".splash-slide"));
   const tapHint = document.getElementById("splashTapHint");
   const loadingWrap = document.getElementById("splashLoading");
