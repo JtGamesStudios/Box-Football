@@ -900,7 +900,7 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
 .mission-prog-txt{ font-size:11.5px; color:var(--text-muted); margin-top:4px; }
 .mission-reward{ font-size:12.5px; font-weight:700; text-align:right; white-space:nowrap; color:var(--brand); }
 
-/* ============ Settings / Admin ============ */
+/* ============ Settings / Perfil ============ */
 .settings-list{ display:flex; flex-direction:column; gap:10px; max-width:520px; }
 .settings-row{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow-card); }
 .switch{ position:relative; width:44px; height:24px; }
@@ -910,13 +910,19 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
 .switch input:checked + .slider{ background:var(--brand); }
 .switch input:checked + .slider::before{ transform:translateX(20px); }
 
-.admin-box-row{ display:flex; align-items:center; gap:12px; padding:12px; border:1px solid var(--border); border-radius:12px; background:var(--surface); margin-bottom:10px; flex-wrap:wrap; }
-.admin-form{ display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:10px; margin-top:12px; }
-.admin-form label{ font-size:11.5px; color:var(--text-muted); display:block; margin-bottom:4px; }
-.admin-form input, .admin-form textarea, .admin-form select{
-  width:100%; background:var(--surface-2); border:1px solid var(--border); color:var(--text);
-  padding:8px 10px; border-radius:8px; font-size:13px; font-family:inherit;
+.player-id-badge{
+  font-family:var(--font-display); font-weight:700; letter-spacing:1px;
+  background:var(--surface-2); border:1px solid var(--border-strong); color:var(--gold);
+  padding:6px 12px; border-radius:8px; font-size:13px;
 }
+
+.redeem-row{ display:flex; gap:10px; max-width:420px; flex-wrap:wrap; }
+.redeem-input{
+  flex:1; min-width:180px; background:var(--surface-2); border:1px solid var(--border); color:var(--text);
+  padding:10px 14px; border-radius:10px; font-size:14px; font-family:inherit; letter-spacing:1px;
+  text-transform:uppercase;
+}
+.redeem-input::placeholder{ text-transform:none; letter-spacing:normal; }
 
 /* ============ Toast ============ */
 .toast-wrap{ position:fixed; top:16px; right:16px; z-index:200; display:flex; flex-direction:column; gap:8px; }
@@ -930,6 +936,7 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
 @keyframes toastIn{ from{ opacity:0; transform:translateX(30px);} to{ opacity:1; transform:translateX(0);} }
 .toast.success{ border-color:var(--turf); }
 .toast.gold{ border-color:var(--gold); }
+.toast.danger{ border-color:var(--crimson); }
 
 /* ============ Splash screen (carrossel inicial) ============
    Fica por cima do menu, mas ABAIXO do aviso de girar/tela cheia
@@ -973,6 +980,11 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
   font-family:var(--font-display); font-weight:800;
   font-size:clamp(28px,7vw,48px); letter-spacing:.5px;
   text-shadow:0 4px 16px rgba(0,0,0,.5);
+}
+.splash-id{
+  font-size:12.5px; letter-spacing:1px; color:rgba(255,255,255,.75);
+  background:rgba(0,0,0,.35); padding:6px 14px; border-radius:20px;
+  border:1px solid rgba(255,255,255,.25);
 }
 .splash-tap-hint{
   font-size:14px; letter-spacing:2px; text-transform:uppercase;
