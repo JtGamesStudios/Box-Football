@@ -66,7 +66,7 @@ const CONTRATAR_CARDS = [
 ];
 const EXTRAS_CARDS = [
   { nav: "presentes", banner: "banner-extras-presentes", icon: "🎁", title: "Caixa de Presentes", sub: "Resgate recompensas de missões e eventos", badgeSource: "homeGifts" },
-  { nav: "config",     banner: "banner-extras-config",    icon: "⚙",  title: "Configurações",       sub: "Preferências e painel administrativo", badgeSource: null },
+  { nav: "config",     banner: "banner-extras-config",    icon: "⚙",  title: "Configurações",       sub: "Preferências, seu ID e resgate de código", badgeSource: null },
 ];
 
 /* Cada tela "filha" pertence a uma aba do topo — usado para destacar
@@ -262,7 +262,7 @@ function showScreen(id, opts){
   if(id==="presentes") renderGifts();
   if(id==="missoes") renderMissions();
   if(id==="loja") renderStore();
-  if(id==="config") renderAdminPanel();
+  if(id==="config") renderConfigScreen();
   if(id==="home") renderHome();
   if(id==="campanha") renderCampaign();
   if(id==="evento") renderEventoScreen();
