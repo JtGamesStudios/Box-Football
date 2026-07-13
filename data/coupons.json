@@ -1,13 +1,13 @@
 [
   {
-    "code": "BEMVINDO10",
+    "code": "BEMVINDO100",
     "title": "Presente de boas-vindas",
     "desc": "Obrigado por jogar Box Clube!",
     "gp": 5000,
     "coins": 100,
     "targetId": null,
     "expiresAt": null,
-    "announce": true,
+    "announce": false,
     "announceTitle": "Presente de boas-vindas disponível!",
     "banner": "assets/banners/meu-cupom.png"
   }
