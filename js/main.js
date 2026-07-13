@@ -26,6 +26,11 @@ function renderHome(){
   }).join("");
 }
 
+function renderConfigScreen(){
+  const el = document.getElementById("configPlayerId");
+  if(el) el.textContent = getPlayerId();
+}
+
 function wireSettings(){
   const sSound = document.getElementById("toggleSound");
   const sMusic = document.getElementById("toggleMusic");
@@ -45,10 +50,6 @@ function wireSettings(){
     persist();
   };
 
-  document.getElementById("btnAddDebugCurrency").addEventListener("click", ()=>{
-    grantCurrency(50000, 500);
-    toast("Moedas de debug adicionadas.", "success");
-  });
   document.getElementById("btnResetSave").addEventListener("click", ()=>{
     if(!confirm("Isso vai apagar TODO o seu progresso salvo. Tem certeza?")) return;
     localStorage.removeItem(SAVE_KEY);
@@ -60,6 +61,7 @@ async function boot(){
   loadState();
   try{
     await loadGameData();
+    await loadCoupons();
   }catch(e){
     console.error(e);
     document.getElementById("mainContent").innerHTML = `
@@ -74,6 +76,7 @@ async function boot(){
 
   buildNav();
   wireSettings();
+  wireCouponRedeem();
   checkDailyLogin();
   refreshWalletUI();
   showScreen("home");
