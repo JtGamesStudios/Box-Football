@@ -81,8 +81,6 @@ async function boot(){
   refreshWalletUI();
   showScreen("home");
   if(typeof maybeShowNovidades === "function") maybeShowNovidades();
-  if(typeof maybeShowUsernamePopup === "function") maybeShowUsernamePopup();
-  if(typeof pushProfileToFirestore === "function") pushProfileToFirestore();
 }
 
 document.addEventListener("DOMContentLoaded", boot);
