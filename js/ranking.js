@@ -305,15 +305,22 @@ async function fetchMyRankPosition(myRating) {
   }
 }
 
+const MEDALS = { 1: "🥇", 2: "🥈", 3: "🥉" };
+
 function leaderboardRowHtml(entry, position, isMe) {
-  return `<div class="leaderboard-row${isMe ? " me" : ""}">
-    <span class="leaderboard-pos">#${position}</span>
+  const medalClass = MEDALS[position] ? ` medal-${position}` : "";
+  const posHtml = MEDALS[position]
+    ? `<span class="leaderboard-pos leaderboard-medal">${MEDALS[position]}</span>`
+    : `<span class="leaderboard-pos">#${position}</span>`;
+
+  return `<div class="leaderboard-row${medalClass}${isMe ? " me" : ""}">
+    ${posHtml}
     <span class="leaderboard-avatar-wrap">
       <img class="leaderboard-avatar" src="${avatarUrl(entry.avatar)}" alt="" onerror="this.style.opacity=0">
       <span class="leaderboard-flag-badge">${entry.nationalityFlag || "🏳️"}</span>
     </span>
     <span class="leaderboard-name">${entry.username || "?"}</span>
-    <span class="leaderboard-rating">${(entry.rating || 0).toLocaleString("pt-BR")}</span>
+    <span class="leaderboard-rating"><span class="leaderboard-coin">🪙</span>${(entry.rating || 0).toLocaleString("pt-BR")}</span>
   </div>`;
 }
 
