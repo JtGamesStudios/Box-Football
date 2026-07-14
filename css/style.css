@@ -1344,7 +1344,6 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:10px;
   font-size:13px; color:#fff;
 }
-.leaderboard-row.me{ background:rgba(25,140,255,.18); border-color:var(--brand); }
 .leaderboard-pos{ width:34px; flex:0 0 auto; color:#9AA3B5; font-weight:700; font-size:12px; }
 .leaderboard-flag{ flex:0 0 auto; font-size:16px; }
 
@@ -1372,6 +1371,36 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 .leaderboard-name{ flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:600; }
 .leaderboard-rating{ flex:0 0 auto; font-family:var(--font-display); font-weight:800; color:var(--turf); }
 .leaderboard-sep{ text-align:center; color:#5A6274; font-size:12px; padding:2px 0; }
+
+/* Pódio (top 3) — ouro / prata / bronze, estilo eFootball */
+.leaderboard-pos.leaderboard-medal{ font-size:20px; width:34px; text-align:center; }
+.leaderboard-coin{ margin-right:3px; font-size:12px; }
+
+.leaderboard-row.medal-1{
+  background:linear-gradient(90deg, rgba(255,199,0,.16), rgba(255,255,255,.04) 60%);
+  border-color:rgba(255,199,0,.45);
+  box-shadow:0 0 0 1px rgba(255,199,0,.15), 0 4px 14px rgba(255,199,0,.08);
+}
+.leaderboard-row.medal-1 .leaderboard-rating{ color:#FFC700; }
+.leaderboard-row.medal-1 .leaderboard-avatar{ border-color:#FFC700; }
+
+.leaderboard-row.medal-2{
+  background:linear-gradient(90deg, rgba(196,206,220,.14), rgba(255,255,255,.04) 60%);
+  border-color:rgba(196,206,220,.4);
+}
+.leaderboard-row.medal-2 .leaderboard-rating{ color:#C4CEDC; }
+.leaderboard-row.medal-2 .leaderboard-avatar{ border-color:#C4CEDC; }
+
+.leaderboard-row.medal-3{
+  background:linear-gradient(90deg, rgba(205,127,50,.16), rgba(255,255,255,.04) 60%);
+  border-color:rgba(205,127,50,.4);
+}
+.leaderboard-row.medal-3 .leaderboard-rating{ color:#CD7F32; }
+.leaderboard-row.medal-3 .leaderboard-avatar{ border-color:#CD7F32; }
+
+/* "me" continua podendo se sobrepor ao pódio — o azul de "você" ganha
+   prioridade visual mesmo se você estiver no top 3. */
+.leaderboard-row.me{ background:rgba(25,140,255,.18); border-color:var(--brand); }
 
 /* --- Tela própria "Ranking Global" (ícone do topo ou botão "Ver tudo") ---
    Usa o mesmo painel escuro do card de Campanha (#12151C), já que as
