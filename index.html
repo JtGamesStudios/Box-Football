@@ -653,14 +653,6 @@
     });
   });
 </script>
-<script>
-  // RANKING: mostra o popup de cadastro (se ainda não tiver nome) e já
-  // carrega o mini-ranking da Campanha assim que o app inicia.
-  document.addEventListener("DOMContentLoaded", () => {
-    if (typeof maybeShowUsernamePopup === "function") maybeShowUsernamePopup();
-    if (typeof renderCampaignLeaderboard === "function") renderCampaignLeaderboard();
-  });
-</script>
 <script src="js/fullscreen.js?v=2"></script>
 <script src="js/boxes.js?v=2"></script>
 <script src="js/club.js?v=2"></script>
@@ -674,7 +666,22 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-<script src="js/ranking.js?v=4"></script>
+<script src="js/ranking.js?v=5"></script>
+<script>
+  // RANKING: mostra o popup de cadastro (se ainda não tiver nome) e já
+  // carrega o mini-ranking da Campanha assim que o app inicia.
+  // Espera o STATE (state.js) terminar de montar antes de chamar — ele
+  // inicializa de forma assíncrona, então não está pronto exatamente
+  // no DOMContentLoaded. Precisa vir DEPOIS de js/ranking.js (é quem
+  // define whenStateReady/maybeShowUsernamePopup/renderCampaignLeaderboard).
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof whenStateReady !== "function") return;
+    whenStateReady(() => {
+      if (typeof maybeShowUsernamePopup === "function") maybeShowUsernamePopup();
+      if (typeof renderCampaignLeaderboard === "function") renderCampaignLeaderboard();
+    });
+  });
+</script>
 <script src="js/main.js"></script>
 <script>
   // Registra o service worker para permitir "Instalar app" (PWA)
