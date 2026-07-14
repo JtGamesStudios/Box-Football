@@ -21,6 +21,12 @@ function defaultState(){
     squads: [],                 // [{id,name, formationId, coachId, captainSlot, assignments:{slotId:playerId}}]
     activeSquadId: null,
     settings: { sound: true, vibration: true, reducedMotion: false },
+    profile: {                  // Nome de usuário + nacionalidade p/ ranking global
+      username: null,
+      nationality: null,
+      nationalityFlag: null,
+      registeredAt: null,
+    },
     campaign: {                 // Modo Campanha (Divisão/Rating, tela estilo eFootball)
       rating: 1000,
       wins: 0,

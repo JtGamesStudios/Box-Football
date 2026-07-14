@@ -16,6 +16,7 @@
    ========================================================= */
 
 const RANKING_ENABLED = true; // liga/desliga toda a feature rapidamente
+const RANKING_FULL_PAGE_SIZE = 200; // quantas linhas a tela "Ranking Global" carrega de uma vez
 
 const firebaseConfig = {
   apiKey: "AIzaSyBWYJL7CaE_F54-p7xU4AQW7SkjlzcixLY",
@@ -215,18 +216,41 @@ function syncRankingToFirebase() {
 
 /* ---------- Leaderboard ---------- */
 
-/** Busca todos os documentos de players e devolve ordenados por rating.
- *  Pra fase de testes (algumas centenas de registros) isso é simples e
- *  barato. Se a base crescer muito no futuro, troque por uma consulta
- *  paginada (orderBy + limit + startAfter) em vez de trazer tudo. */
-async function fetchLeaderboard() {
+/** Busca os melhores documentos de `players`, ordenados por rating.
+ *  Com milhares de registros (bots + jogadores reais) não faz sentido
+ *  baixar a coleção inteira toda vez — por padrão essa função já limita
+ *  a consulta no próprio Firestore (orderBy + limit), então só paga o
+ *  custo/latência das linhas que realmente vão aparecer na tela.
+ *  Passe `null` em limitCount só se realmente precisar de tudo. */
+async function fetchLeaderboard(limitCount = RANKING_FULL_PAGE_SIZE) {
   const ready = await initRanking();
   if (!ready) return null;
   try {
-    const snap = await _rankingDb.collection("players").orderBy("rating", "desc").get();
+    let q = _rankingDb.collection("players").orderBy("rating", "desc");
+    if (limitCount) q = q.limit(limitCount);
+    const snap = await q.get();
     return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
   } catch (err) {
     rankingLog("Falha ao buscar leaderboard:", err.message);
+    return null;
+  }
+}
+
+/** Descobre a posição exata do jogador no ranking usando uma consulta de
+ *  agregação (count()) — conta quantos registros têm rating MAIOR que o
+ *  dele, sem precisar baixar a coleção inteira. Retorna null se a
+ *  agregação falhar (SDK antigo, sem internet etc), pra quem chamar poder
+ *  cair num plano B (ex: só mostrar "fora do Top 200"). */
+async function fetchMyRankPosition(myRating) {
+  const ready = await initRanking();
+  if (!ready) return null;
+  try {
+    const q = _rankingDb.collection("players").where("rating", ">", myRating);
+    if (typeof q.count !== "function") return null; // SDK sem suporte a agregação
+    const snap = await q.count().get();
+    return (snap.data().count || 0) + 1;
+  } catch (err) {
+    rankingLog("Falha ao calcular posição exata:", err.message);
     return null;
   }
 }
@@ -242,14 +266,15 @@ function leaderboardRowHtml(entry, position, isMe) {
 
 /** Renderiza o bloco de ranking dentro da tela de Campanha.
  *  Mostra o Top 10 e, se o jogador não estiver nele, mostra a posição
- *  dele "grudada" embaixo. */
+ *  dele "grudada" embaixo (a posição exata vem de uma consulta de
+ *  agregação, então funciona mesmo com milhares de registros). */
 async function renderCampaignLeaderboard() {
   const wrap = document.getElementById("campLeaderboardList");
   if (!wrap) return;
 
   wrap.innerHTML = `<p class="page-sub" style="margin:0;">Carregando ranking...</p>`;
 
-  const list = await fetchLeaderboard();
+  const list = await fetchLeaderboard(50); // top 50 é suficiente pra achar o jogador na maioria dos casos
   if (!list) {
     wrap.innerHTML = `<p class="page-sub" style="margin:0;">Ranking indisponível no momento (sem conexão).</p>`;
     return;
@@ -266,12 +291,81 @@ async function renderCampaignLeaderboard() {
   if (myIndex >= 10) {
     html += `<div class="leaderboard-sep">···</div>`;
     html += leaderboardRowHtml(list[myIndex], myIndex + 1, true);
+  } else if (myIndex === -1 && STATE.profile && STATE.profile.username) {
+    // Não apareceu nem no top 50 — pergunta a posição exata via count().
+    const rating = STATE.campaign.rating;
+    const myPos = await fetchMyRankPosition(rating);
+    if (myPos) {
+      const meEntry = {
+        username: STATE.profile.username,
+        nationalityFlag: STATE.profile.nationalityFlag,
+        rating,
+      };
+      html += `<div class="leaderboard-sep">···</div>`;
+      html += leaderboardRowHtml(meEntry, myPos, true);
+    }
   }
 
   wrap.innerHTML = html;
 }
 
+/* ---------- Tela própria "Ranking Global" (fora/dentro da Campanha) ---------- */
+
+/** Renderiza a tela cheia do Ranking Global: Top N completo (bots +
+ *  jogadores reais misturados, ordenados só por rating) e, fixo acima
+ *  da lista, um cartão com a posição exata do próprio jogador. */
+async function renderRankingScreen() {
+  const listWrap = document.getElementById("rankingFullList");
+  const meWrap = document.getElementById("rankingMeCard");
+  if (!listWrap || !meWrap) return;
+
+  listWrap.innerHTML = `<p class="page-sub" style="margin:0;">Carregando ranking...</p>`;
+  meWrap.innerHTML = `<p class="page-sub" style="margin:0;">Carregando sua posição...</p>`;
+
+  const list = await fetchLeaderboard(RANKING_FULL_PAGE_SIZE);
+  if (!list) {
+    listWrap.innerHTML = `<p class="page-sub" style="margin:0;">Ranking indisponível no momento (sem conexão).</p>`;
+    meWrap.innerHTML = "";
+    return;
+  }
+  if (!list.length) {
+    listWrap.innerHTML = `<p class="page-sub" style="margin:0;">Ainda não há ninguém no ranking.</p>`;
+    meWrap.innerHTML = "";
+    return;
+  }
+
+  listWrap.innerHTML = list.map((e, i) => leaderboardRowHtml(e, i + 1, e.id === _rankingUid)).join("");
+
+  // Cartão "Você" — só aparece se o jogador já tiver nome cadastrado.
+  if (!STATE.profile || !STATE.profile.username) {
+    meWrap.innerHTML = `<p class="page-sub" style="margin:0;">Cadastre seu nome de usuário na Campanha pra aparecer no ranking.</p>`;
+    return;
+  }
+
+  const myIndex = list.findIndex((e) => e.id === _rankingUid);
+  if (myIndex >= 0) {
+    meWrap.innerHTML =
+      `<div class="ranking-me-label">Sua posição</div>` +
+      leaderboardRowHtml(list[myIndex], myIndex + 1, true);
+    return;
+  }
+
+  const rating = STATE.campaign.rating;
+  const myPos = await fetchMyRankPosition(rating);
+  const meEntry = {
+    username: STATE.profile.username,
+    nationalityFlag: STATE.profile.nationalityFlag,
+    rating,
+  };
+  meWrap.innerHTML =
+    `<div class="ranking-me-label">Sua posição</div>` +
+    leaderboardRowHtml(meEntry, myPos || "?", true);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("usernameConfirmBtn");
   if (btn) btn.onclick = confirmUsername;
+
+  const fullBtn = document.getElementById("campLeaderboardFullBtn");
+  if (fullBtn) fullBtn.onclick = () => showScreen("ranking");
 });

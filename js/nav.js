@@ -23,9 +23,13 @@ const ICON_SVG = {
   gift: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20 7h-2.2c.1-.3.2-.6.2-1a2.5 2.5 0 0 0-4.6-1.4L12 6.1l-1.4-1.5A2.5 2.5 0 0 0 6 6c0 .4.1.7.2 1H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM9 6a.9.9 0 0 1 .9-.9c.3 0 .5.1.7.3L12 7l1.4-1.6c.2-.2.4-.3.7-.3A.9.9 0 0 1 15 6c0 .5-.4 1-.9 1H9.9c-.5 0-.9-.5-.9-1zM4 13v7a1 1 0 0 0 1 1h6v-8H4zm9 8h6a1 1 0 0 0 1-1v-7h-7v8z"/></svg>`,
   mail: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>`,
   cart: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.2 14h9.6c.8 0 1.5-.5 1.8-1.2l3.1-6.8H5.2L4.3 4H1v2h2l3.6 7.6-1.3 2.4c-.6 1.1.2 2.5 1.5 2.5h13v-2H7l1.1-2z"/></svg>`,
+  trophy: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18 3h3a1 1 0 0 1 1 1v2c0 2.4-1.7 4.4-4 4.9-.6 1.6-1.9 2.9-3.5 3.6V17H16a1 1 0 0 1 1 1v1H7v-1a1 1 0 0 1 1-1h2.5v-2.5c-1.6-.7-2.9-2-3.5-3.6C4.7 10.4 3 8.4 3 6V4a1 1 0 0 1 1-1h3V2h11v1zM6 5H5v1c0 1.1.6 2.1 1.6 2.6C6.2 7.8 6 6.9 6 6zm12 0v1c0 .9-.2 1.8-.6 2.6C18.4 8.1 19 7.1 19 6V5zM7 4v5.5c0 2.5 2 4.5 5 4.5s5-2 5-4.5V4z"/></svg>`,
 };
 
+/* O ícone do Ranking Global fica sempre visível no topo (fora ou dentro
+   da Campanha), pra dar acesso rápido à área própria do ranking. */
 const TOP_ICONS = [
+  { iconKey: "trophy", nav: "ranking",  title: "Ranking Global",        badgeSource: null },
   { iconKey: "user", nav: "config",    title: "Perfil / Configurações", badgeSource: null },
   { iconKey: "gift", nav: "presentes", title: "Caixa de Presentes",     badgeSource: "homeGifts" },
   { iconKey: "mail", nav: "missoes",   title: "Mensagens / Missões",    badgeSource: null },
@@ -74,6 +78,7 @@ const EXTRAS_CARDS = [
 const SCREEN_PARENT_TAB = {
   home: "home",
   campanha: "home",
+  ranking: "home",
   evento: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
   contract: "contract", contratar: "contract", boxes: "contract", loja: "contract",
@@ -288,6 +293,7 @@ function showScreen(id, opts){
   if(id==="config") renderConfigScreen();
   if(id==="home") renderHome();
   if(id==="campanha") renderCampaign();
+  if(id==="ranking") renderRankingScreen();
   if(id==="evento") renderEventoScreen();
 
   syncTopBadges();

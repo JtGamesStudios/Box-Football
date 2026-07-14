@@ -75,6 +75,7 @@ async function renderCampaign(){
   setText("campWinRate", winRate + "%");
 
   renderCampaignHistory();
+  if (typeof renderCampaignLeaderboard === "function") renderCampaignLeaderboard();
 }
 
 /* ---------- ELO simplificado ---------- */
@@ -102,6 +103,7 @@ function applyCampaignResult(result){
   });
   c.matchHistory = c.matchHistory.slice(0, 30);
   persist();
+  if (typeof syncRankingToFirebase === "function") syncRankingToFirebase();
 }
 
 function renderCampaignHistory(){
