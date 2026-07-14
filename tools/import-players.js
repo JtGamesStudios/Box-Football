@@ -151,8 +151,12 @@ function makeIdGenerator(existingPlayers) {
   };
 }
 
-function duplicateKey(name, club) {
-  return normalizeKey(name) + "|" + normalizeKey(club);
+// Duas cartas só são consideradas duplicadas se tiverem o mesmo nome, clube
+// E overall. Isso permite cadastrar várias versões do mesmo jogador
+// (ex: Neymar 88 e Neymar 95 como cartas diferentes), mas ainda bloqueia
+// reimportar a mesma carta duas vezes por engano.
+function duplicateKey(name, club, overall) {
+  return normalizeKey(name) + "|" + normalizeKey(club) + "|" + overall;
 }
 
 async function downloadImage(url, destPath) {
@@ -199,7 +203,9 @@ async function main() {
   const rarityTable = readJson(RARITY_TABLE, {});
   const players = readJson(PLAYERS_JSON, []);
 
-  const existingKeys = new Set(players.map((p) => duplicateKey(p.name, p.club)));
+  const existingKeys = new Set(
+    players.map((p) => duplicateKey(p.name, p.club, p.overall))
+  );
   const nextId = makeIdGenerator(players);
 
   fs.mkdirSync(PLAYERS_ASSETS_DIR, { recursive: true });
@@ -257,11 +263,15 @@ async function main() {
       continue;
     }
 
-    // --- checagem de duplicado (nome + clube) ---
-    const key = duplicateKey(nome, clube);
+    // --- checagem de duplicado (nome + clube + overall) ---
+    // Mesmo nome+clube com overall diferente é tratado como uma carta nova
+    // (ex: outra versão do mesmo jogador), não como duplicado.
+    const key = duplicateKey(nome, clube, overall);
     if (existingKeys.has(key)) {
-      const dupe = players.find((p) => duplicateKey(p.name, p.club) === key);
-      console.warn(`⚠ linha ${line}: "${nome}" já existe como ${dupe ? dupe.id : "?"}, pulando duplicado`);
+      const dupe = players.find(
+        (p) => duplicateKey(p.name, p.club, p.overall) === key
+      );
+      console.warn(`⚠ linha ${line}: "${nome}" (overall ${overall}) já existe como ${dupe ? dupe.id : "?"}, pulando duplicado`);
       skipped.push({ line, motivo: "duplicado" });
       continue;
     }
@@ -305,7 +315,7 @@ async function main() {
     };
 
     newPlayers.push(player);
-    existingKeys.add(key); // evita duplicado dentro do mesmo CSV também
+    existingKeys.add(key); // evita duplicado (mesma carta) dentro do mesmo CSV também
 
     if (!idsByBox.has(boxId)) idsByBox.set(boxId, []);
     idsByBox.get(boxId).push(id);
