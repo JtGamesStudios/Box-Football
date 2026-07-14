@@ -282,6 +282,12 @@
               </div>
             </div>
           </div>
+          <div class="camp-leaderboard-wrap">
+            <h3 class="camp-leaderboard-title">Ranking Global</h3>
+            <div class="leaderboard-list" id="campLeaderboardList">
+              <p class="page-sub" style="margin:0;">Carregando ranking...</p>
+            </div>
+          </div>
 
           <div class="campaign-wdl-row">
             <div class="campaign-wdl win"><span>Wins</span><span class="num" id="campWins">0</span></div>
@@ -562,6 +568,22 @@
   🖥️
 </button>
 
+<!-- ===================== CADASTRO: nome de usuário + nacionalidade (ranking global) ===================== -->
+<div class="novidades-overlay hidden" id="usernameOverlay">
+  <div class="novidades-card">
+    <div class="novidades-head">
+      <h2>Escolha seu nome de jogador</h2>
+    </div>
+    <p class="page-sub" style="margin:0 0 10px;">Esse nome vai aparecer no Ranking Global da Divisão.</p>
+    <div class="username-form">
+      <input type="text" id="usernameInput" class="username-input" placeholder="Nome de usuário" maxlength="16" autocomplete="off" />
+      <select id="nationalitySelect" class="username-input"></select>
+      <p class="page-sub" id="usernameError" style="display:none;"></p>
+      <button class="btn btn-primary" id="usernameConfirmBtn" style="width:100%;">Confirmar</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===================== NOVIDADES: boxes/eventos ativos, estilo "This week's pick up" ===================== -->
 <div class="novidades-overlay hidden" id="novidadesOverlay">
   <div class="novidades-card">
@@ -577,6 +599,10 @@
 <!-- ===================== TOASTS (inalterado) ===================== -->
 <div class="toast-wrap" id="toastWrap"></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="js/ranking.js?v=1"></script>
 <script src="js/playerid.js?v=1"></script>
 <script src="js/splash.js?v=1"></script>
 <script src="js/state.js?v=2"></script>

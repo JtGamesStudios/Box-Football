@@ -1,0 +1,24 @@
+rules_version = '2';
+
+// Regras do Firestore para a coleção "players" (Ranking Global).
+//
+// Como colar isso no Firebase:
+//   Console do Firebase > Firestore Database > aba "Regras" > cola isto
+//   por cima do que já tiver lá > "Publicar".
+//
+// Lógica:
+// - Qualquer pessoa pode LER a lista de jogadores (o ranking é público).
+// - Só é possível CRIAR ou ATUALIZAR o próprio documento — o ID do
+//   documento tem que ser igual ao UID da autenticação anônima de quem
+//   está fazendo a escrita (isso é garantido pelo app, em js/ranking.js).
+// - Ninguém consegue apagar documentos pelo app (só via Firebase Admin,
+//   usado no script tools/seed-fake-ranking.js pros bots).
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /players/{docId} {
+      allow read: if true;
+      allow create, update: if request.auth != null && request.auth.uid == docId;
+      allow delete: if false;
+    }
+  }
+}
