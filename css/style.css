@@ -1327,6 +1327,24 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 .campaign-wdl.draw{ background:#9AA3B5; color:#12151C; }
 .campaign-wdl.loss{ background:var(--crimson); color:#fff; }
 
+.camp-leaderboard-wrap{ margin-bottom:18px; }
+.camp-leaderboard-title{
+  font-family:var(--font-display); font-size:13px; font-weight:800; letter-spacing:.03em;
+  text-transform:uppercase; color:#9AA3B5; margin:0 0 10px;
+}
+.leaderboard-list{ display:flex; flex-direction:column; gap:6px; max-height:260px; overflow-y:auto; }
+.leaderboard-row{
+  display:flex; align-items:center; gap:10px; padding:8px 10px;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:10px;
+  font-size:13px; color:#fff;
+}
+.leaderboard-row.me{ background:rgba(25,140,255,.18); border-color:var(--brand); }
+.leaderboard-pos{ width:34px; flex:0 0 auto; color:#9AA3B5; font-weight:700; font-size:12px; }
+.leaderboard-flag{ flex:0 0 auto; font-size:16px; }
+.leaderboard-name{ flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:600; }
+.leaderboard-rating{ flex:0 0 auto; font-family:var(--font-display); font-weight:800; color:var(--turf); }
+.leaderboard-sep{ text-align:center; color:#5A6274; font-size:12px; padding:2px 0; }
+
 .campaign-winrate{
   display:flex; justify-content:space-between; align-items:center;
   border-top:1px solid #262C3D; padding-top:14px; font-size:14px; color:#D6DAE3;
@@ -1563,6 +1581,13 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 }
 .novidades-close:hover{ background:var(--surface-3); }
 .novidades-list{ display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+.username-form{ display:flex; flex-direction:column; gap:10px; margin-top:6px; }
+.username-input{
+  width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--border);
+  background:var(--surface-2); color:var(--text); font-size:14px; font-family:inherit;
+}
+.username-input:focus{ outline:none; border-color:var(--brand); }
+#usernameError{ color:var(--crimson); margin:0; font-size:12.5px; }
 .novidades-item{
   display:flex; align-items:center; gap:12px; width:100%; text-align:left; cursor:pointer;
   border:1px solid var(--border); border-radius:14px; padding:8px; background:var(--surface-2);
