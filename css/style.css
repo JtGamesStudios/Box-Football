@@ -1328,10 +1328,16 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 .campaign-wdl.loss{ background:var(--crimson); color:#fff; }
 
 .camp-leaderboard-wrap{ margin-bottom:18px; }
+.camp-leaderboard-headrow{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 10px; }
 .camp-leaderboard-title{
   font-family:var(--font-display); font-size:13px; font-weight:800; letter-spacing:.03em;
-  text-transform:uppercase; color:#9AA3B5; margin:0 0 10px;
+  text-transform:uppercase; color:#9AA3B5; margin:0;
 }
+.camp-leaderboard-viewall{
+  background:none; border:none; color:var(--brand); font-weight:700; font-size:12.5px;
+  padding:2px 0; cursor:pointer; white-space:nowrap;
+}
+.camp-leaderboard-viewall:hover{ text-decoration:underline; }
 .leaderboard-list{ display:flex; flex-direction:column; gap:6px; max-height:260px; overflow-y:auto; }
 .leaderboard-row{
   display:flex; align-items:center; gap:10px; padding:8px 10px;
@@ -1344,6 +1350,25 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 .leaderboard-name{ flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:600; }
 .leaderboard-rating{ flex:0 0 auto; font-family:var(--font-display); font-weight:800; color:var(--turf); }
 .leaderboard-sep{ text-align:center; color:#5A6274; font-size:12px; padding:2px 0; }
+
+/* --- Tela própria "Ranking Global" (ícone do topo ou botão "Ver tudo") ---
+   Usa o mesmo painel escuro do card de Campanha (#12151C), já que as
+   linhas do leaderboard (.leaderboard-row) têm texto branco. */
+.ranking-page-wrap{ display:flex; flex-direction:column; gap:14px; max-width:520px; }
+.ranking-me-card{
+  position:sticky; top:0; z-index:2; padding:12px 14px;
+  background:#12151C; border-radius:var(--radius-lg); box-shadow:var(--shadow-card);
+}
+.ranking-me-label{
+  font-family:var(--font-display); font-size:11px; font-weight:800; letter-spacing:.03em;
+  text-transform:uppercase; color:#9AA3B5; margin:0 0 8px;
+}
+.ranking-full-list{
+  display:flex; flex-direction:column; gap:6px; padding:14px;
+  background:#12151C; border-radius:var(--radius-lg); box-shadow:var(--shadow-card);
+}
+.ranking-full-list .leaderboard-row{ font-size:14px; padding:10px 12px; }
+.ranking-full-list > p.page-sub, .ranking-me-card > p.page-sub{ color:#9AA3B5; margin:0; }
 
 .campaign-winrate{
   display:flex; justify-content:space-between; align-items:center;
