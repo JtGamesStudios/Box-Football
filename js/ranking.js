@@ -458,6 +458,11 @@ function renderSettingsAvatarPicker() {
     persist();
     if (STATE.profile.username) await pushProfileToFirestore(); // já cadastrado: sincroniza na hora
     if (typeof toast === "function") toast("Avatar atualizado!", "success");
+    // Já atualiza os rankings visíveis, sem esperar o jogador sair e voltar pra tela.
+    if (typeof renderCampaignLeaderboard === "function") renderCampaignLeaderboard();
+    if (document.getElementById("rankingFullList") && typeof renderRankingScreen === "function") {
+      renderRankingScreen();
+    }
   });
 }
 
@@ -466,7 +471,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btn) btn.onclick = confirmUsername;
 
   const fullBtn = document.getElementById("campLeaderboardFullBtn");
-  if (fullBtn) fullBtn.onclick = () => showScreen("ranking");
+  if (fullBtn) fullBtn.onclick = () => {
+    showScreen("ranking");
+    if (typeof renderRankingScreen === "function") renderRankingScreen(); // busca os dados na hora que a tela abre
+  };
 
   whenStateReady(() => renderSettingsAvatarPicker());
 });
