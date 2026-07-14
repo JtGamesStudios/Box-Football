@@ -18,6 +18,45 @@
 const RANKING_ENABLED = true; // liga/desliga toda a feature rapidamente
 const RANKING_FULL_PAGE_SIZE = 200; // quantas linhas a tela "Ranking Global" carrega de uma vez
 
+/* ---------- Avatar de perfil (5 opções fixas, ilustrativas) ----------
+   As imagens ficam em assets/avatars/avatar1.png ... avatar5.png — troque
+   pelos seus arquivos. Se um perfil (bot antigo, por ex.) não tiver a
+   propriedade `avatar`, cai no avatar1 como padrão. */
+const AVATAR_COUNT = 5;
+const AVATAR_BASE_PATH = "assets/avatars/";
+
+function avatarUrl(n) {
+  const num = Number(n) >= 1 && Number(n) <= AVATAR_COUNT ? Number(n) : 1;
+  return `${AVATAR_BASE_PATH}avatar${num}.png`;
+}
+
+/** Gera o HTML dos 5 círculos de avatar pra um seletor, marcando o
+ *  `selected` com a classe .selected. */
+function avatarPickerHtml(selected) {
+  let html = "";
+  for (let i = 1; i <= AVATAR_COUNT; i++) {
+    html += `<button type="button" class="avatar-option${i === selected ? " selected" : ""}" data-avatar="${i}">
+      <img src="${avatarUrl(i)}" alt="Avatar ${i}" onerror="this.style.opacity=0">
+    </button>`;
+  }
+  return html;
+}
+
+/** Liga o clique nos botões de um seletor de avatar (delegação de evento).
+ *  onPick(n) é chamado com o número escolhido (1 a 5). */
+function wireAvatarPicker(containerEl, onPick) {
+  if (!containerEl || containerEl.dataset.wired) return;
+  containerEl.dataset.wired = "1";
+  containerEl.addEventListener("click", (ev) => {
+    const btn = ev.target.closest(".avatar-option");
+    if (!btn || !containerEl.contains(btn)) return;
+    const n = Number(btn.dataset.avatar);
+    containerEl.querySelectorAll(".avatar-option").forEach((b) => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    onPick(n);
+  });
+}
+
 const firebaseConfig = {
   apiKey: "AIzaSyBWYJL7CaE_F54-p7xU4AQW7SkjlzcixLY",
   authDomain: "box-football-2021.firebaseapp.com",
@@ -102,6 +141,8 @@ function setUsernameError(msg) {
   }
 }
 
+let _signupSelectedAvatar = 1; // avatar escolhido no popup de cadastro (antes de existir STATE.profile)
+
 /** Mostra o popup de cadastro se o jogador ainda não tem username salvo. */
 async function maybeShowUsernamePopup() {
   if (!RANKING_ENABLED) return;
@@ -111,6 +152,13 @@ async function maybeShowUsernamePopup() {
   if (!overlay) return;
 
   await populateNationalitySelect();
+
+  const avatarWrap = document.getElementById("usernameAvatarPicker");
+  if (avatarWrap) {
+    avatarWrap.innerHTML = avatarPickerHtml(_signupSelectedAvatar);
+    wireAvatarPicker(avatarWrap, (n) => { _signupSelectedAvatar = n; });
+  }
+
   overlay.classList.remove("hidden");
 }
 
@@ -158,6 +206,7 @@ async function confirmUsername() {
       username,
       nationality,
       nationalityFlag: paises[nationality] || "🏳️",
+      avatar: _signupSelectedAvatar,
       registeredAt: Date.now(),
     };
     persist();
@@ -191,6 +240,7 @@ async function pushProfileToFirestore() {
         usernameLower: STATE.profile.username.toLowerCase(),
         nationality: STATE.profile.nationality,
         nationalityFlag: STATE.profile.nationalityFlag,
+        avatar: STATE.profile.avatar || 1,
         rating: c.rating,
         wins: c.wins,
         draws: c.draws,
@@ -258,7 +308,10 @@ async function fetchMyRankPosition(myRating) {
 function leaderboardRowHtml(entry, position, isMe) {
   return `<div class="leaderboard-row${isMe ? " me" : ""}">
     <span class="leaderboard-pos">#${position}</span>
-    <span class="leaderboard-flag">${entry.nationalityFlag || "🏳️"}</span>
+    <span class="leaderboard-avatar-wrap">
+      <img class="leaderboard-avatar" src="${avatarUrl(entry.avatar)}" alt="" onerror="this.style.opacity=0">
+      <span class="leaderboard-flag-badge">${entry.nationalityFlag || "🏳️"}</span>
+    </span>
     <span class="leaderboard-name">${entry.username || "?"}</span>
     <span class="leaderboard-rating">${(entry.rating || 0).toLocaleString("pt-BR")}</span>
   </div>`;
@@ -362,10 +415,31 @@ async function renderRankingScreen() {
     leaderboardRowHtml(meEntry, myPos || "?", true);
 }
 
+/* ---------- Trocar avatar em Configurações (depois de já cadastrado) ---------- */
+
+/** Desenha o seletor de avatar da tela de Configurações, já com o avatar
+ *  atual do jogador marcado. Chame de novo sempre que a tela de
+ *  Configurações for aberta (o avatar pode ter mudado noutro dispositivo). */
+function renderSettingsAvatarPicker() {
+  const wrap = document.getElementById("settingsAvatarPicker");
+  if (!wrap) return;
+  const current = (STATE.profile && STATE.profile.avatar) || 1;
+  wrap.innerHTML = avatarPickerHtml(current);
+  wireAvatarPicker(wrap, async (n) => {
+    STATE.profile = STATE.profile || {};
+    STATE.profile.avatar = n;
+    persist();
+    if (STATE.profile.username) await pushProfileToFirestore(); // já cadastrado: sincroniza na hora
+    if (typeof toast === "function") toast("Avatar atualizado!", "success");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("usernameConfirmBtn");
   if (btn) btn.onclick = confirmUsername;
 
   const fullBtn = document.getElementById("campLeaderboardFullBtn");
   if (fullBtn) fullBtn.onclick = () => showScreen("ranking");
+
+  renderSettingsAvatarPicker();
 });
