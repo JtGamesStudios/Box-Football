@@ -3,10 +3,19 @@
  * tools/seed-fake-ranking.js
  *
  * Popula a coleção `players` do Firestore com um lote de perfis
- * fictícios (bots), espalhados por vários países e com uma distribuição
- * de rating realista (mais gente no meio da tabela, poucos no topo).
- * Serve pra fase de testes, quando ainda não tem gente suficiente
- * jogando pra o Ranking Global não parecer vazio.
+ * fictícios (bots: isBot=true), espalhados por vários países e com uma
+ * distribuição de rating realista (mais gente no meio da tabela, poucos
+ * no topo). Serve pra o Ranking Global não parecer vazio, mesmo antes de
+ * ter muita gente de verdade jogando.
+ *
+ * Os bots convivem no MESMO ranking com os jogadores reais (isBot=false,
+ * criados automaticamente quando alguém cadastra o nome de usuário na
+ * Campanha — ver js/ranking.js) — a ordenação é só por rating, sem
+ * distinção visual entre bot e jogador real na lista.
+ *
+ * Por padrão cria 3000 bots (dá pra rodar de novo passando outro número
+ * como 2º argumento, ex: `node tools/seed-fake-ranking.js chave.json 5000`
+ * pra ir além de 3000, ou um número menor só pra testar rápido).
  *
  * Roda UMA VEZ (ou toda vez que quiser adicionar mais bots — ele não
  * duplica quem já existe, usa o mesmo nome como ID do documento).
@@ -99,7 +108,7 @@ function gerarRatingRealista() {
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
-const QTD_BOTS = parseInt(process.argv[3], 10) || 250;
+const QTD_BOTS = parseInt(process.argv[3], 10) || 3000;
 
 async function main() {
   const usados = new Set();
