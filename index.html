@@ -25,7 +25,7 @@
 <meta name="twitter:description" content="Monte seu time, abra boxes e suba de divisão no PES 2021 Mobile — o clube de futebol na palma da sua mão.">
 <meta name="twitter:image" content="https://assetsio.gnwcdn.com/pes_2021_cover_crop_1.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp">
 
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
 <style>
   /* ===== Cutscene (Destaque / Lendário) ===== */
   .cutscene-overlay{
@@ -495,6 +495,10 @@
         </div>
       </div>
 
+      <h2 class="page-title" style="font-size:20px;margin-top:24px;">Seu perfil no Ranking</h2>
+      <p class="page-sub">Esse avatar aparece pra todo mundo no Ranking Global, junto com sua bandeira e nome.</p>
+      <div class="avatar-picker" id="settingsAvatarPicker"></div>
+
       <div class="settings-list">
         <div class="settings-row">
           <span>Sons e efeitos</span>
@@ -612,6 +616,8 @@
       <select id="nationalitySelect" class="username-input">
         <option value="">Selecione seu país</option>
       </select>
+      <p class="page-sub" style="margin:2px 0 0;">Escolha seu avatar:</p>
+      <div class="avatar-picker" id="usernameAvatarPicker"></div>
       <p id="usernameError" class="hidden"></p>
       <button class="btn btn-primary" id="usernameConfirmBtn">Confirmar</button>
     </div>
@@ -668,7 +674,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-<script src="js/ranking.js?v=2"></script>
+<script src="js/ranking.js?v=3"></script>
 <script src="js/main.js"></script>
 <script>
   // Registra o service worker para permitir "Instalar app" (PWA)
