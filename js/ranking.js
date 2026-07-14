@@ -75,6 +75,23 @@ function rankingLog(...args) {
   console.log("[ranking]", ...args);
 }
 
+/** state.js monta o objeto STATE de forma assíncrona (só fica pronto
+ *  depois do DOMContentLoaded, não durante) — então tudo que depende de
+ *  STATE.profile/STATE.campaign precisa esperar ele existir de verdade,
+ *  senão quebra com "Cannot read properties of null". Fica tentando de
+ *  100 em 100ms por até ~8s antes de desistir. */
+function whenStateReady(callback, retriesLeft = 80) {
+  if (typeof STATE !== "undefined" && STATE) {
+    callback();
+    return;
+  }
+  if (retriesLeft <= 0) {
+    rankingLog("STATE nunca ficou pronto — ranking não inicializou.");
+    return;
+  }
+  setTimeout(() => whenStateReady(callback, retriesLeft - 1), 100);
+}
+
 /** Inicializa Firebase + login anônimo. Nunca lança erro pra fora —
  *  se algo falhar, o ranking simplesmente fica indisponível. */
 function initRanking() {
@@ -146,6 +163,7 @@ let _signupSelectedAvatar = 1; // avatar escolhido no popup de cadastro (antes d
 /** Mostra o popup de cadastro se o jogador ainda não tem username salvo. */
 async function maybeShowUsernamePopup() {
   if (!RANKING_ENABLED) return;
+  if (!STATE) return; // STATE ainda não montou — quem chamou deve usar whenStateReady()
   if (STATE.profile && STATE.profile.username) return; // já cadastrado
 
   const overlay = document.getElementById("usernameOverlay");
@@ -331,6 +349,7 @@ function leaderboardRowHtml(entry, position, isMe) {
 async function renderCampaignLeaderboard() {
   const wrap = document.getElementById("campLeaderboardList");
   if (!wrap) return;
+  if (!STATE) return; // STATE ainda não montou — quem chamou deve usar whenStateReady()
 
   wrap.innerHTML = `<p class="page-sub" style="margin:0;">Carregando ranking...</p>`;
 
@@ -430,6 +449,7 @@ async function renderRankingScreen() {
 function renderSettingsAvatarPicker() {
   const wrap = document.getElementById("settingsAvatarPicker");
   if (!wrap) return;
+  if (!STATE) return; // STATE ainda não montou — quem chamou deve usar whenStateReady()
   const current = (STATE.profile && STATE.profile.avatar) || 1;
   wrap.innerHTML = avatarPickerHtml(current);
   wireAvatarPicker(wrap, async (n) => {
@@ -448,5 +468,5 @@ document.addEventListener("DOMContentLoaded", () => {
   const fullBtn = document.getElementById("campLeaderboardFullBtn");
   if (fullBtn) fullBtn.onclick = () => showScreen("ranking");
 
-  renderSettingsAvatarPicker();
+  whenStateReady(() => renderSettingsAvatarPicker());
 });
