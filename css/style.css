@@ -1717,48 +1717,50 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 
 /* =========================================================
    LOGIN BONUS — popup diário no estilo "card de evento" do
-   eFootball: banner ocupando o card inteiro, gradiente escuro
-   por trás do texto, dias sobrepostos à imagem, botão pill.
+   eFootball: banner ocupando o card inteiro (proporção baixa e
+   larga, igual ao card de referência), gradiente escuro por trás
+   do texto, dias sobrepostos à imagem, botão pill.
    ========================================================= */
+#dailyLoginOverlay{ padding:10px; }
 .wc-login-card{
-  position:relative; width:min(94vw, 460px); max-height:88vh; overflow:hidden;
+  position:relative; width:min(97vw, 560px); aspect-ratio:2.1 / 1; overflow:hidden;
   border-radius:var(--radius-lg); box-shadow:var(--shadow-card-hover);
   background:#0B1220 center/cover no-repeat;
-  display:flex; align-items:flex-end; min-height:460px;
+  display:flex; align-items:flex-end;
 }
 .wc-login-overlay{
   position:absolute; inset:0;
   background:
-    linear-gradient(100deg, rgba(8,10,18,.94) 0%, rgba(8,10,18,.86) 32%, rgba(8,10,18,.35) 62%, rgba(8,10,18,.12) 100%),
-    linear-gradient(0deg, rgba(8,10,18,.9) 0%, rgba(8,10,18,.15) 45%, rgba(8,10,18,0) 65%);
+    linear-gradient(100deg, rgba(8,10,18,.94) 0%, rgba(8,10,18,.86) 30%, rgba(8,10,18,.32) 60%, rgba(8,10,18,.1) 100%),
+    linear-gradient(0deg, rgba(8,10,18,.85) 0%, rgba(8,10,18,.1) 55%, rgba(8,10,18,0) 70%);
 }
 .wc-login-close{
-  position:absolute; top:14px; right:14px; z-index:2; border:none; width:30px; height:30px; border-radius:50%;
-  background:rgba(255,255,255,0.14); color:#fff; font-size:13px; cursor:pointer;
+  position:absolute; top:10px; right:10px; z-index:2; border:none; width:24px; height:24px; border-radius:50%;
+  background:rgba(255,255,255,0.14); color:#fff; font-size:11px; cursor:pointer;
   display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px);
 }
 .wc-login-close:hover{ background:rgba(255,255,255,0.24); }
-.wc-login-content{ position:relative; z-index:1; padding:22px 20px 24px; width:100%; }
-.wc-login-eyebrow{ font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:#FFD8A8; font-weight:700; margin-bottom:4px; }
-.wc-login-title{ font-family:var(--font-display); font-size:clamp(19px,6vw,25px); font-weight:800; color:#fff; margin:0 0 6px; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,.5); }
-.wc-login-sub{ font-size:12.5px; color:rgba(255,255,255,0.75); margin:0 0 16px; max-width:340px; }
-.wc-login-label{ font-size:12px; font-weight:700; color:rgba(255,255,255,0.9); margin-bottom:8px; }
+.wc-login-content{ position:relative; z-index:1; padding:12px 14px 14px; width:100%; }
+.wc-login-eyebrow{ font-size:9.5px; letter-spacing:1.2px; text-transform:uppercase; color:#FFD8A8; font-weight:700; margin-bottom:2px; }
+.wc-login-title{ font-family:var(--font-display); font-size:clamp(14px,4.2vw,18px); font-weight:800; color:#fff; margin:0 0 3px; line-height:1.15; text-shadow:0 2px 8px rgba(0,0,0,.5); }
+.wc-login-sub{ font-size:10.5px; color:rgba(255,255,255,0.75); margin:0 0 8px; max-width:340px; }
+.wc-login-label{ font-size:10px; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom:5px; }
 .wc-login-days{
-  display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:18px;
+  display:flex; gap:6px; overflow-x:auto; padding-bottom:2px; margin-bottom:10px;
   scrollbar-width:none;
 }
 .wc-login-days::-webkit-scrollbar{ display:none; }
 .wc-login-day{
-  flex:0 0 auto; width:64px; display:flex; flex-direction:column; align-items:center; gap:5px;
-  padding:10px 6px; border-radius:14px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.14);
+  flex:0 0 auto; width:46px; display:flex; flex-direction:column; align-items:center; gap:2px;
+  padding:6px 4px; border-radius:10px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.14);
   backdrop-filter:blur(3px);
 }
-.wc-login-day-num{ font-size:10px; font-weight:700; color:rgba(255,255,255,0.65); text-transform:uppercase; }
+.wc-login-day-num{ font-size:8px; font-weight:700; color:rgba(255,255,255,0.65); text-transform:uppercase; }
 .wc-login-day-circle{
-  width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  font-size:15px; background:rgba(255,255,255,0.12);
+  width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:10px; background:rgba(255,255,255,0.12);
 }
-.wc-login-day-prize{ font-size:9.5px; font-weight:700; color:#fff; text-align:center; line-height:1.25; }
+.wc-login-day-prize{ font-size:7.5px; font-weight:700; color:#fff; text-align:center; line-height:1.2; }
 .wc-login-day.done{ opacity:.55; }
 .wc-login-day.today{
   background:rgba(255,201,60,0.18); border-color:var(--gold);
@@ -1769,7 +1771,7 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 .wc-login-day.today .wc-login-day-num{ color:var(--gold); }
 .wc-login-day.locked{ opacity:.5; }
 .wc-login-btn{
-  width:100%; border:none; border-radius:999px; padding:14px; font-size:15px; font-weight:700;
+  width:100%; border:none; border-radius:999px; padding:9px; font-size:12.5px; font-weight:700;
   background:#fff; color:#141824; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.35);
   transition:transform .15s ease, box-shadow .15s ease;
 }
@@ -1779,7 +1781,7 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   50%{ box-shadow:0 0 0 5px rgba(255,201,60,0.14); }
 }
 @media (max-width:480px){
-  .wc-login-card{ min-height:420px; }
+  .wc-login-card{ aspect-ratio:1.7 / 1; }
 }
 
 /* =========================================================
