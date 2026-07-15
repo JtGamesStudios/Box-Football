@@ -2,6 +2,16 @@
    MATCH ENGINE — motor de simulação de partida (QTE), compartilhado
    entre Campanha, Modo de Evento, Jogo c/ Amigo etc.
 
+   Filosofia (v2): o resultado deve depender principalmente da SUA
+   habilidade no toque/timing, não do overall do time. Força/OVR
+   entram só como pequenos modificadores (poucos pontos percentuais),
+   nunca como fator dominante:
+     - Passe e drible: mini-QTE de timing (acerta a janela ou perde a bola)
+     - Finalização: primeiro você MIRA (grade de 6 zonas do gol),
+       depois acerta o TIMING — cantos valem mais mas têm janela menor
+     - Defesa: quando o adversário ataca, você tem uma janela curta
+       pra "desarmar" (reflexo), reduzindo a chance de gol dele
+
    Qualquer tela que quiser "jogar uma partida" só precisa chamar:
 
      startMatch({
@@ -174,10 +184,13 @@ function ensureMatchOverlay(){
           <button class="btn btn-ghost decision-btn" data-choice="driblar">Driblar</button>
         </div>
 
-        <div class="corner-grid hidden" id="cornerGrid">
-          <button class="btn btn-ghost corner-btn" data-corner="esq">↖ Canto esquerdo</button>
-          <button class="btn btn-ghost corner-btn" data-corner="centro">↑ Meio do gol</button>
-          <button class="btn btn-ghost corner-btn" data-corner="dir">↗ Canto direito</button>
+        <div class="goal-grid hidden" id="goalGrid">
+          <button class="goal-zone tl" data-zone="TL"><span>↖</span></button>
+          <button class="goal-zone tc" data-zone="TC"><span>↑</span></button>
+          <button class="goal-zone tr" data-zone="TR"><span>↗</span></button>
+          <button class="goal-zone bl" data-zone="BL"><span>↙</span></button>
+          <button class="goal-zone bc" data-zone="BC"><span>↓</span></button>
+          <button class="goal-zone br" data-zone="BR"><span>↘</span></button>
         </div>
 
         <div class="qte-track" id="qteTrack">
@@ -277,7 +290,7 @@ function nextChance(){
    ========================================================= */
 function awaitRemoteChance(){
   document.getElementById("matchsimDecision").classList.add("hidden");
-  document.getElementById("cornerGrid").classList.add("hidden");
+  document.getElementById("goalGrid").classList.add("hidden");
   document.getElementById("qteTrack").classList.add("hidden");
   document.getElementById("qteBtn").classList.add("hidden");
   document.getElementById("matchsimHint").textContent = `Aguardando o lance do ${_match.cfg.awayTeamName}...`;
@@ -330,7 +343,7 @@ function playerEffectiveOvr(player){
 
 function beginPlayerTurn(){
   document.getElementById("matchsimDecision").classList.add("hidden");
-  document.getElementById("cornerGrid").classList.add("hidden");
+  document.getElementById("goalGrid").classList.add("hidden");
   document.getElementById("qteTrack").classList.add("hidden");
   document.getElementById("qteBtn").classList.add("hidden");
 
@@ -343,7 +356,8 @@ function beginPlayerTurn(){
     document.getElementById("matchsimHint").textContent = player
       ? `Cruzamento na área! ${player.name} sobe para cabecear.`
       : "Cruzamento na área! Cabeceio!";
-    runShotQTE({ kind: "cabeceio", zoneMult: 0.85, speedMult: 1.35 });
+    const strength = applyMomentum(_match.cfg.playerStrength, "home");
+    showGoalTargetGrid({ kind: "cabeceio", zoneMult: 0.8, strengthOverride: strength, speedMult: 1.2 });
     return;
   }
 
@@ -365,77 +379,70 @@ function resolveDecision(choice, player){
   document.getElementById("matchsimDecision").classList.add("hidden");
   const ovr = playerEffectiveOvr(player);
   const baseStrength = applyMomentum(_match.cfg.playerStrength, "home");
-  // combina força do time com o overall do jogador sorteado, se existir
+  // combina força do time com o overall do jogador sorteado (efeito pequeno — quem decide é o timing)
   const blended = ovr != null ? Math.round(baseStrength*0.45 + ovr*0.55) : baseStrength;
 
   if(choice === "chutar"){
-    document.getElementById("matchsimHint").textContent = "Finalização direta!";
-    runShotQTE({ kind:"chute", zoneMult: 1.0, speedMult: 1.0, strengthOverride: blended });
+    document.getElementById("matchsimHint").textContent = "Finalização direta! Escolha onde mirar:";
+    showGoalTargetGrid({ kind: "chute", zoneMult: 1.0, strengthOverride: blended });
     return;
   }
 
   if(choice === "passar"){
-    const interceptChance = clamp(0.32 - blended*0.0025, 0.05, 0.32);
-    if(Math.random() < interceptChance){
-      setTimeout(()=>{
+    document.getElementById("matchsimHint").textContent = "Toque na hora certa pra tocar a bola:";
+    runActionQTE("passar", blended, (success)=>{
+      if(!success){
         toast("Passe interceptado! A jogada morreu ali.", "");
         syncLocalChance(false, "Passe interceptado! A jogada morreu ali.");
         advanceChance();
-      }, 500);
-      return;
-    }
-    document.getElementById("matchsimHint").textContent = "Passe certo! Finalização facilitada.";
-    runShotQTE({ kind:"chute", zoneMult: 1.35, speedMult: 0.9, strengthOverride: blended });
+        return;
+      }
+      document.getElementById("matchsimHint").textContent = "Passe certo! Escolha onde mirar:";
+      showGoalTargetGrid({ kind: "chute", zoneMult: 1.25, strengthOverride: blended });
+    });
     return;
   }
 
   // driblar
-  const dribbleFail = clamp(0.4 - blended*0.003, 0.08, 0.4);
-  if(Math.random() < dribbleFail){
-    setTimeout(()=>{
+  document.getElementById("matchsimHint").textContent = "Toque na hora certa pra encarar o marcador:";
+  runActionQTE("driblar", blended, (success)=>{
+    if(!success){
       toast("Perdeu a bola no drible...", "");
       syncLocalChance(false, "Perdeu a bola no drible...");
       advanceChance();
-    }, 500);
-    return;
-  }
-  document.getElementById("matchsimHint").textContent = "Cara a cara com o goleiro! Escolha o canto:";
-  showCornerGrid(blended);
-}
-
-function showCornerGrid(strength){
-  document.getElementById("qteTrack").classList.add("hidden");
-  document.getElementById("qteBtn").classList.add("hidden");
-  const grid = document.getElementById("cornerGrid");
-  grid.classList.remove("hidden");
-  const keeperChoice = ["esq","centro","dir"][Math.floor(Math.random()*3)];
-  grid.querySelectorAll(".corner-btn").forEach(btn=>{
-    btn.onclick = () => {
-      grid.classList.add("hidden");
-      const hit = btn.dataset.corner !== keeperChoice;
-      const isGoal = hit && Math.random() < clamp(0.55 + strength*0.004, 0.4, 0.93);
-      setTimeout(()=> resolvePlayerShot(isGoal, { kind: "penalti" }), 300);
-    };
+      return;
+    }
+    document.getElementById("matchsimHint").textContent = "Cara a cara com o goleiro! Escolha o canto:";
+    showGoalTargetGrid({ kind: "penalti", zoneMult: 1.15, strengthOverride: blended });
   });
 }
 
-function runShotQTE(opts){
+/* =========================================================
+   PASSE / DRIBLE — mini-QTE de timing (sem RNG cru): acerte a
+   janela na barra pra ter sucesso. Força/overall só encolhem ou
+   alargam a janela em uns poucos pontos percentuais.
+   ========================================================= */
+function runActionQTE(kind, strength, onDone){
   const track = document.getElementById("qteTrack");
   const pointer = document.getElementById("qtePointer");
-  const zone = document.getElementById("qteZone");
+  const zoneEl = document.getElementById("qteZone");
   const btn = document.getElementById("qteBtn");
   track.classList.remove("hidden");
   btn.classList.remove("hidden");
   btn.disabled = false;
+  btn.textContent = kind === "passar" ? "Tocar!" : "Driblar!";
 
-  const strength = opts.strengthOverride ?? applyMomentum(_match.cfg.playerStrength, "home");
-  const zoneWidthPct = clamp((Math.max(14, Math.min(42, strength * 0.4))) * (opts.zoneMult ?? 1), 10, 60);
-  const zoneLeftPct = Math.random() * (100 - zoneWidthPct);
-  zone.style.width = zoneWidthPct + "%";
-  zone.style.left = zoneLeftPct + "%";
+  const isPass = kind === "passar";
+  const base = isPass ? 46 : 26; // passe é mais generoso que o drible
+  const strMod = clamp((strength - 65) * 0.1, -5, 5); // efeito pequeno de proposito
+  const widthPct = clamp(base + strMod, isPass ? 30 : 16, isPass ? 62 : 40);
+  const leftPct = Math.random() * (100 - widthPct);
+  zoneEl.style.width = widthPct + "%";
+  zoneEl.style.left = leftPct + "%";
+  pointer.style.left = "0%";
 
   let pos = 0, dir = 1;
-  const speed = 1.6 * (opts.speedMult ?? 1);
+  const speed = isPass ? 1.5 : 2.1;
   let raf = requestAnimationFrame(function tick(){
     pos += dir * speed;
     if(pos >= 100){ pos = 100; dir = -1; }
@@ -447,11 +454,127 @@ function runShotQTE(opts){
   btn.onclick = () => {
     cancelAnimationFrame(raf);
     btn.disabled = true;
-    const hit = pos >= zoneLeftPct && pos <= zoneLeftPct + zoneWidthPct;
-    const centerDist = Math.abs(pos - (zoneLeftPct + zoneWidthPct/2));
-    const isGoal = hit && Math.random() < (0.85 - centerDist*0.005);
-    setTimeout(()=> resolvePlayerShot(isGoal, opts), 300);
+    const success = pos >= leftPct && pos <= leftPct + widthPct;
+    setTimeout(()=> onDone(success), 250);
   };
+}
+
+/* =========================================================
+   FINALIZAÇÃO — 2 eixos, igual ao "estilo Soccer Champs":
+   1) MIRA: você escolhe uma das 6 zonas do gol (cantos valem mais,
+      mas têm janela de timing menor — risco x recompensa real)
+   2) TIMING: barra de precisão pra "bater bem" na zona escolhida
+   O goleiro "adivinha" uma zona depois (com viés pequeno pro seu
+   adversário ter mais chance de acertar quanto mais forte for) —
+   se ele acertar a MESMA zona que você mirou, só uma pancada muito
+   bem cronometrada ainda vira gol. Se errar a zona, é gol quase certo.
+   ========================================================= */
+const GOAL_ZONES = {
+  TL: { label: "canto superior esquerdo", corner: true,  weight: 1.0 },
+  TC: { label: "meio do gol, alto",        corner: false, weight: 2.4 },
+  TR: { label: "canto superior direito",   corner: true,  weight: 1.0 },
+  BL: { label: "canto inferior esquerdo",  corner: true,  weight: 1.3 },
+  BC: { label: "meio do gol, rasteiro",    corner: false, weight: 2.6 },
+  BR: { label: "canto inferior direito",   corner: true,  weight: 1.3 },
+};
+
+function showGoalTargetGrid(opts){
+  document.getElementById("matchsimDecision").classList.add("hidden");
+  document.getElementById("qteTrack").classList.add("hidden");
+  document.getElementById("qteBtn").classList.add("hidden");
+  const grid = document.getElementById("goalGrid");
+  grid.classList.remove("hidden");
+  grid.querySelectorAll(".goal-zone").forEach(btn=>{
+    btn.onclick = () => {
+      grid.classList.add("hidden");
+      runShotTimingQTE(btn.dataset.zone, opts);
+    };
+  });
+}
+
+function computeZoneWidth(zone, opts){
+  const info = GOAL_ZONES[zone];
+  const base = info.corner ? 20 : 40; // cantos = janela bem mais apertada
+  const strength = opts.strengthOverride ?? applyMomentum(_match.cfg.playerStrength, "home");
+  const strMod = clamp((strength - 65) * 0.12, -6, 6); // efeito pequeno de proposito
+  const width = (base + strMod) * (opts.zoneMult ?? 1);
+  return clamp(width, info.corner ? 10 : 20, info.corner ? 34 : 58);
+}
+
+function runShotTimingQTE(zone, opts){
+  const track = document.getElementById("qteTrack");
+  const pointer = document.getElementById("qtePointer");
+  const zoneEl = document.getElementById("qteZone");
+  const btn = document.getElementById("qteBtn");
+  track.classList.remove("hidden");
+  btn.classList.remove("hidden");
+  btn.disabled = false;
+  btn.textContent = "Finalizar!";
+
+  const info = GOAL_ZONES[zone];
+  document.getElementById("matchsimHint").textContent = `Mirando no ${info.label}. Toque na hora certa!`;
+
+  const widthPct = computeZoneWidth(zone, opts);
+  const leftPct = Math.random() * (100 - widthPct);
+  zoneEl.style.width = widthPct + "%";
+  zoneEl.style.left = leftPct + "%";
+  pointer.style.left = "0%";
+
+  let pos = 0, dir = 1;
+  const speed = (info.corner ? 2.0 : 1.6) * (opts.speedMult ?? 1);
+  let raf = requestAnimationFrame(function tick(){
+    pos += dir * speed;
+    if(pos >= 100){ pos = 100; dir = -1; }
+    if(pos <= 0){ pos = 0; dir = 1; }
+    pointer.style.left = pos + "%";
+    raf = requestAnimationFrame(tick);
+  });
+
+  btn.onclick = () => {
+    cancelAnimationFrame(raf);
+    btn.disabled = true;
+    const sweetWidth = widthPct * 0.4;
+    const center = leftPct + widthPct / 2;
+    const dist = Math.abs(pos - center);
+    let quality = "miss";
+    if(dist <= sweetWidth / 2) quality = "sweet";
+    else if(pos >= leftPct && pos <= leftPct + widthPct) quality = "hit";
+    setTimeout(()=> resolveGoalAttempt(zone, quality, opts), 250);
+  };
+}
+
+/* Decide o resultado a partir da MIRA + QUALIDADE do toque.
+   O goleiro "chuta" uma zona (viés levíssimo pela força do adversário)
+   — o resto é 100% a sua pontaria e timing. */
+function resolveGoalAttempt(zone, quality, opts){
+  if(quality === "miss"){
+    setTimeout(()=> resolvePlayerShot(false, opts), 0);
+    return;
+  }
+
+  const oppStrength = _match.cfg.opponentStrength || 65;
+  const oppMod = 1 + clamp((oppStrength - 50) / 500, -0.1, 0.1); // efeito pequeno de proposito
+  const weights = {};
+  for(const z in GOAL_ZONES) weights[z] = GOAL_ZONES[z].weight;
+  weights[zone] = weights[zone] * oppMod;
+
+  const totalW = Object.values(weights).reduce((a,b)=>a+b, 0);
+  let r = Math.random() * totalW;
+  let keeperZone = zone;
+  for(const z in weights){
+    r -= weights[z];
+    if(r <= 0){ keeperZone = z; break; }
+  }
+
+  let isGoal;
+  if(keeperZone !== zone){
+    isGoal = Math.random() < 0.94; // goleiro foi pro lado errado — gol quase certo
+  } else if(quality === "sweet"){
+    isGoal = Math.random() < 0.58; // bateu perfeito mesmo com o goleiro no canto certo
+  } else {
+    isGoal = Math.random() < 0.14; // só "acertou" a janela, e o goleiro adivinhou — difícil
+  }
+  resolvePlayerShot(isGoal, opts);
 }
 
 /* Chance extra rápida de rebote: um único clique dentro de uma janela curta */
@@ -565,15 +688,20 @@ const AWAY_SAVE_MESSAGES = [
 
 function runOpponentChance(){
   document.getElementById("matchsimDecision").classList.add("hidden");
-  document.getElementById("cornerGrid").classList.add("hidden");
+  document.getElementById("goalGrid").classList.add("hidden");
   document.getElementById("qteTrack").classList.add("hidden");
   document.getElementById("qteBtn").classList.add("hidden");
-  document.getElementById("matchsimHint").textContent = `Chance do ${_match.cfg.awayTeamName}...`;
+  document.getElementById("matchsimHint").textContent = `Ataque perigoso do ${_match.cfg.awayTeamName}! Fique atento pra desarmar...`;
 
-  const oStr = applyMomentum(_match.cfg.opponentStrength, "away");
-  const isGoalRaw = Math.random() < (0.25 + oStr*0.003);
+  showDefendPrompt((tackleResult)=>{
+    const oStr = applyMomentum(_match.cfg.opponentStrength, "away");
+    const pStr = applyMomentum(_match.cfg.playerStrength, "home");
+    // diferença de força só desloca a chance base em poucos pontos — o reflexo é quem decide de verdade
+    let goalChance = clamp(0.30 + (oStr - pStr) * 0.0018, 0.16, 0.46);
+    if(tackleResult === "perfect") goalChance *= 0.12;
+    else if(tackleResult === "good") goalChance *= 0.42;
+    const isGoalRaw = Math.random() < goalChance;
 
-  setTimeout(()=>{
     const evt = rollRareEvent("away", isGoalRaw, {});
 
     if(evt.type === "rebote" && !evt.finalGoal){
@@ -593,11 +721,61 @@ function runOpponentChance(){
       toast(evt.message || pickMsg(AWAY_GOAL_MESSAGES(_match.cfg.awayTeamName)), "");
       registerGoal("away");
     } else {
-      toast(evt.message || pickMsg(AWAY_SAVE_MESSAGES), "success");
+      const saveMsg = tackleResult === "perfect" ? "DESARME PERFEITO! Você tirou a bola na hora certa!"
+        : tackleResult === "good" ? "Bom desarme! Você aliviou o perigo."
+        : pickMsg(AWAY_SAVE_MESSAGES);
+      toast(evt.message || saveMsg, "success");
       maybeIssueCard();
     }
     advanceChance();
-  }, 700);
+  });
+}
+
+/* Janela curta de reflexo: um "DESARMAR!" aparece depois de um atraso
+   aleatório. Tocar rápido reduz bastante a chance de gol do CPU;
+   tocar tarde (ou não tocar) não muda nada. É 100% habilidade sua. */
+function showDefendPrompt(onResolved){
+  const btn = document.getElementById("qteBtn");
+  btn.classList.remove("hidden");
+  btn.classList.remove("qte-btn-flash");
+  btn.disabled = true;
+  btn.textContent = "Aguarde...";
+
+  const delay = 500 + Math.random() * 1300;
+  let resolved = false;
+
+  setTimeout(()=>{
+    if(resolved || !_match) return;
+    btn.textContent = "DESARMAR!";
+    btn.disabled = false;
+    btn.classList.add("qte-btn-flash");
+    const start = Date.now();
+
+    const timeout = setTimeout(()=>{
+      if(resolved) return;
+      resolved = true;
+      cleanup();
+      onResolved("miss");
+    }, 650);
+
+    function cleanup(){
+      btn.classList.remove("qte-btn-flash");
+      btn.classList.add("hidden");
+      btn.onclick = null;
+    }
+
+    btn.onclick = () => {
+      if(resolved) return;
+      resolved = true;
+      clearTimeout(timeout);
+      const reaction = Date.now() - start;
+      cleanup();
+      let result = "miss";
+      if(reaction <= 240) result = "perfect";
+      else if(reaction <= 500) result = "good";
+      onResolved(result);
+    };
+  }, delay);
 }
 
 /* Ao segurar o ataque adversário, pequena chance de o lance ter sido
