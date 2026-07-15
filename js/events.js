@@ -157,10 +157,13 @@ function startEventMatch(eventId){
     }
   };
 
-  // Eventos podem marcar "engine":"arcade" em data/events.json para usar o
-  // Modo Arcade (js/arcade.js) em vez do motor de QTE padrão (matchsim.js).
+  // Eventos podem marcar "engine":"arcade" ou "engine":"penalty" em
+  // data/events.json para usar o Modo Arcade (js/arcade.js) ou o Modo
+  // Pênaltis (js/penalty.js) em vez do motor de QTE padrão (matchsim.js).
   if(evt.engine === "arcade" && typeof startArcadeMatch === "function"){
     startArcadeMatch(matchCfg);
+  } else if(evt.engine === "penalty" && typeof startPenaltyMatch === "function"){
+    startPenaltyMatch(matchCfg);
   } else {
     startMatch(matchCfg);
   }
