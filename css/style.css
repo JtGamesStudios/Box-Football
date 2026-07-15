@@ -1716,6 +1716,54 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 }
 
 /* =========================================================
+   LOGIN BONUS — popup diário estilo eFootball, com banner por
+   baixo do título e calendário de 7 dias com os prêmios.
+   ========================================================= */
+.daily-login-card{
+  width:min(94vw, 480px); max-height:88vh; overflow-y:auto; background:var(--surface);
+  border-radius:var(--radius-lg); box-shadow:var(--shadow-card-hover); overflow:hidden;
+  display:flex; flex-direction:column;
+}
+.daily-login-banner{
+  position:relative; height:150px; background:#0B1220 center/cover no-repeat;
+  display:flex; align-items:flex-end; padding:16px; flex:0 0 auto;
+}
+.daily-login-banner-fade{
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(8,11,18,.05) 0%, rgba(8,11,18,.75) 100%);
+}
+.daily-login-title{
+  position:relative; z-index:1; font-family:var(--font-display); font-size:clamp(18px,5.5vw,24px);
+  font-weight:800; color:#fff; margin:0; text-shadow:0 2px 8px rgba(0,0,0,.5); line-height:1.15;
+}
+.daily-login-body{ padding:18px 18px 20px; }
+.daily-login-grid{
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-bottom:16px;
+}
+.daily-login-day{
+  border:1px solid var(--border); border-radius:12px; padding:10px 6px; text-align:center;
+  background:var(--surface-2); display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.daily-login-day-num{ font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; }
+.daily-login-day-icon{ font-size:20px; line-height:1; margin:2px 0; }
+.daily-login-day-prize{ font-size:11px; font-weight:600; color:var(--text); line-height:1.35; }
+.daily-login-day.done{ opacity:.55; }
+.daily-login-day.done .daily-login-day-icon{ color:var(--turf); }
+.daily-login-day.today{
+  border-color:var(--brand); background:var(--brand-light);
+  box-shadow:0 0 0 2px rgba(25,140,255,0.25);
+  animation:dailyLoginPulse 1.6s ease-in-out infinite;
+}
+.daily-login-day.today .daily-login-day-num{ color:var(--brand-dim); }
+.daily-login-day.locked{ opacity:.45; }
+.daily-login-day.locked .daily-login-day-prize{ color:var(--text-dim); }
+.daily-login-claim{ width:100%; }
+@keyframes dailyLoginPulse{
+  0%,100%{ box-shadow:0 0 0 2px rgba(25,140,255,0.25); }
+  50%{ box-shadow:0 0 0 5px rgba(25,140,255,0.12); }
+}
+
+/* =========================================================
    JOGO C/ AMIGO — PvP online (sala + lista de amigos + histórico)
    ========================================================= */
 .pvp-invite-card{
