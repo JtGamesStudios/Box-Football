@@ -80,7 +80,8 @@ async function boot(){
   checkDailyLogin();
   refreshWalletUI();
   showScreen("home");
-  if(typeof maybeShowNovidades === "function") maybeShowNovidades();
+  const openedDailyLogin = typeof maybeShowDailyLogin === "function" && maybeShowDailyLogin();
+  if(!openedDailyLogin && typeof maybeShowNovidades === "function") maybeShowNovidades();
   if(typeof maybeShowUsernamePopup === "function") maybeShowUsernamePopup();
   if(typeof pushProfileToFirestore === "function") pushProfileToFirestore();
 }

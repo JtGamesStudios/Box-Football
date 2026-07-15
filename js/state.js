@@ -8,6 +8,19 @@ function todayStr(){
   return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
 }
 
+/* "Dia de jogo" do Login Bonus — vira pro dia seguinte às 23h (em vez
+   de à meia-noite), pra bater com o horário pedido pro reset diário. */
+function loginDayInfo(){
+  const d = new Date();
+  if(d.getHours() >= 23) d.setDate(d.getDate()+1);
+  d.setHours(0,0,0,0);
+  return d;
+}
+function loginDayStr(d){
+  d = d || loginDayInfo();
+  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+}
+
 function defaultState(){
   return {
     currency: { gp: 15000, coins: 200 },
@@ -55,6 +68,7 @@ function defaultState(){
       gpSpent: 0,
       loginStreak: 0,
       lastLoginDate: null,
+      dailyLoginPending: false,  // true quando o bônus do dia ainda não foi resgatado no popup
       giftIdSeq: 1,
     },
   };
@@ -164,20 +178,23 @@ function toast(msg, type){
   setTimeout(()=>{ el.style.opacity="0"; el.style.transition="opacity .3s"; setTimeout(()=>el.remove(), 300); }, 2600);
 }
 
-/* ---------- daily login ---------- */
+/* ---------- daily login ----------
+   Reseta às 23h (loginDayStr, ver acima). Ao detectar um novo "dia de
+   jogo", só avança a sequência e marca dailyLoginPending=true — quem
+   realmente credita o prêmio é claimDailyLogin() (js/dailylogin.js),
+   quando o jogador clica em "Resgatar" no popup. */
 function checkDailyLogin(){
-  const today = todayStr();
-  if(STATE.stats.lastLoginDate === today) return; // já logou hoje
-  const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
-  const yStr = `${yesterday.getFullYear()}-${yesterday.getMonth()+1}-${yesterday.getDate()}`;
+  const dayObj = loginDayInfo();
+  const today = loginDayStr(dayObj);
+  if(STATE.stats.lastLoginDate === today) return; // já processou esse dia de jogo
+
+  const yObj = new Date(dayObj); yObj.setDate(yObj.getDate()-1);
+  const yStr = loginDayStr(yObj);
   if(STATE.stats.lastLoginDate === yStr){ STATE.stats.loginStreak += 1; }
   else { STATE.stats.loginStreak = 1; }
   STATE.stats.lastLoginDate = today;
+  STATE.stats.dailyLoginPending = true;
 
-  const cycleDay = ((STATE.stats.loginStreak - 1) % 7) + 1;
-  const reward = (GAME_DATA.events.dailyLogin || []).find(r=>r.day===cycleDay) || {rewardGP:500, rewardCoins:0};
-  addGift(`Login diário — dia ${cycleDay}`, "Recompensa por acessar o Box Clube hoje.", reward.rewardGP, reward.rewardCoins);
-  toast(`Login diário! Presente do dia ${cycleDay} na Caixa de Presentes.`, "success");
   updateMissionProgress("loginStreak", null, STATE.stats.loginStreak, true);
   persist();
 }
