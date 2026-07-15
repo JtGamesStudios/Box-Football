@@ -4,7 +4,7 @@
   "date": "",
   "description": "",
   "banner": "assets/banners/banner-contratar-especial.jpg",
-  "active": true,
+  "active": false,
   "priceCoins": 100,
   "players":  ["p547","p548","p549",
     "p162",
