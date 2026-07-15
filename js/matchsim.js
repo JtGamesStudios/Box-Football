@@ -39,6 +39,11 @@ const MATCH_DEFAULTS = {
   weather: null,
   winCondition: null,
   onComplete: null,
+  // ---- Modo online (PvP c/ amigo, ver js/online.js) ----
+  online: false,             // true = lances "away" não são resolvidos por RNG, e sim por um adversário real
+  turnQueue: null,           // se informado, sobrescreve o sorteio normal (usado pra sincronizar os 2 lados)
+  onLocalChance: null,       // (chanceIndex, {isGoal, message}) => void  — chamado toda vez que UM LANCE NOSSO é resolvido, pra sincronizar
+  onWaitRemoteChance: null,  // (chanceIndex, callback) => void — callback deve ser chamado com {isGoal, message} quando o lance do amigo chegar
 };
 
 let _match = null;
@@ -54,7 +59,7 @@ function startMatch(userConfig){
     chanceIndex: 0,
     homeGoals: 0,
     awayGoals: 0,
-    turnQueue: buildTurnQueue(cfg),
+    turnQueue: cfg.turnQueue || buildTurnQueue(cfg),
     momentum: { home: 0, away: 0 },
     usedHomeIds: new Set(),
     cardEvents: [],
@@ -261,7 +266,38 @@ function nextChance(){
   renderCommentary();
 
   if(side === "home") beginPlayerTurn();
+  else if(_match.cfg.online) awaitRemoteChance();
   else runOpponentChance();
+}
+
+/* =========================================================
+   LANCE DO AMIGO (modo online) — em vez de sortear por RNG,
+   fica esperando o resultado que o cliente do amigo vai publicar
+   (ver js/online.js: onLocalChance / onWaitRemoteChance).
+   ========================================================= */
+function awaitRemoteChance(){
+  document.getElementById("matchsimDecision").classList.add("hidden");
+  document.getElementById("cornerGrid").classList.add("hidden");
+  document.getElementById("qteTrack").classList.add("hidden");
+  document.getElementById("qteBtn").classList.add("hidden");
+  document.getElementById("matchsimHint").textContent = `Aguardando o lance do ${_match.cfg.awayTeamName}...`;
+
+  if(typeof _match.cfg.onWaitRemoteChance !== "function"){
+    // sem handler configurado — evita travar o jogo, resolve como perdido
+    advanceChance();
+    return;
+  }
+
+  _match.cfg.onWaitRemoteChance(_match.chanceIndex, (data)=>{
+    data = data || {};
+    if(data.isGoal){
+      toast(data.message || pickMsg(AWAY_GOAL_MESSAGES(_match.cfg.awayTeamName)), "");
+      registerGoal("away");
+    } else {
+      toast(data.message || pickMsg(AWAY_SAVE_MESSAGES), "success");
+    }
+    advanceChance();
+  });
 }
 
 /* =========================================================
@@ -343,6 +379,7 @@ function resolveDecision(choice, player){
     if(Math.random() < interceptChance){
       setTimeout(()=>{
         toast("Passe interceptado! A jogada morreu ali.", "");
+        syncLocalChance(false, "Passe interceptado! A jogada morreu ali.");
         advanceChance();
       }, 500);
       return;
@@ -357,6 +394,7 @@ function resolveDecision(choice, player){
   if(Math.random() < dribbleFail){
     setTimeout(()=>{
       toast("Perdeu a bola no drible...", "");
+      syncLocalChance(false, "Perdeu a bola no drible...");
       advanceChance();
     }, 500);
     return;
@@ -463,29 +501,33 @@ const MISS_MESSAGES = [
 
 function pickMsg(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
+/* Publica o resultado de um lance NOSSO pro amigo, quando em modo online */
+function syncLocalChance(isGoal, message){
+  if(_match.cfg.online && typeof _match.cfg.onLocalChance === "function"){
+    _match.cfg.onLocalChance(_match.chanceIndex, { isGoal: !!isGoal, message: message || "" });
+  }
+}
+
 /* Resolve o resultado do lance do jogador, já passando pelos eventos raros */
 function resolvePlayerShot(isGoalRaw, opts){
   const evt = rollRareEvent("home", isGoalRaw, opts);
 
   if(evt.type === "rebote" && !evt.finalGoal){
     runReboundQTE((made)=>{
-      if(made){
-        toast("Rebote e... GOOOL! ⚽", "success");
-        registerGoal("home");
-      } else {
-        toast("Rebote, mas a zaga afasta o perigo!", "");
-      }
+      const message = made ? "Rebote e... GOOOL! ⚽" : "Rebote, mas a zaga afasta o perigo!";
+      if(made) registerGoal("home");
+      toast(message, made ? "success" : "");
+      syncLocalChance(made, message);
       advanceChance();
     });
     return;
   }
 
-  if(evt.finalGoal){
-    toast(evt.message || pickMsg(GOAL_MESSAGES), "success");
-    registerGoal("home");
-  } else {
-    toast(evt.message || pickMsg(MISS_MESSAGES), "");
-  }
+  const isGoal = !!evt.finalGoal;
+  const message = evt.message || (isGoal ? pickMsg(GOAL_MESSAGES) : pickMsg(MISS_MESSAGES));
+  if(isGoal) registerGoal("home");
+  toast(message, isGoal ? "success" : "");
+  syncLocalChance(isGoal, message);
   advanceChance();
 }
 

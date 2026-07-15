@@ -49,7 +49,7 @@ const TOP_ICONS = [
 const HOME_CARDS = [
   { nav: null, banner: "banner-home-efootball", icon: "🎮", title: "eFootball",      sub: "Encare usuários e ganhe prêmios", badgeSource: null, locked: true },
   { nav: "evento", banner: "banner-home-evento", icon: "🏆", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
-  { nav: null, banner: "banner-home-amigo",     icon: "⚽", title: "Jogo c/ amigo",  sub: "", badgeSource: null, locked: true },
+  { nav: "amigo", banner: "banner-home-amigo",  icon: "⚽", title: "Jogo c/ amigo",  sub: "Desafie um amigo, ao vivo, online", badgeSource: null },
   { nav: "campanha", banner: "banner-home-campanha",  icon: "🛡️", title: "Campanha",      sub: "", badgeSource: null },
 ];
 const CLUBHOUSE_CARDS = [
@@ -80,6 +80,7 @@ const SCREEN_PARENT_TAB = {
   campanha: "home",
   ranking: "home",
   evento: "home",
+  amigo: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
   contract: "contract", contratar: "contract", boxes: "contract", loja: "contract",
   boxdraw: "contratar", especial: "contratar",
@@ -295,6 +296,7 @@ function showScreen(id, opts){
   if(id==="campanha") renderCampaign();
   if(id==="ranking") renderRankingScreen();
   if(id==="evento") renderEventoScreen();
+  if(id==="amigo") renderAmigoScreen();
 
   syncTopBadges();
 

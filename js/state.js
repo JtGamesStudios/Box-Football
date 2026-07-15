@@ -45,6 +45,10 @@ function defaultState(){
     seenContent: {               // controla o popup "Novidades" (boxes/eventos ativos)
       signature: null,
     },
+    pvp: {                       // Jogo c/ amigo — PvP online (ver js/online.js)
+      friends: [],                // [{id, nickname}]
+      history: [],                // [{opponent, score, result, date}]
+    },
     stats: {
       boxesOpened: 0,
       ballCounts: { branca: 0, prata: 0, dourada: 0, preta: 0 },
