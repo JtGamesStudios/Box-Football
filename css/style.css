@@ -1682,3 +1682,45 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   .novidades-item-banner{ width:76px; height:48px; }
   .event-banner{ height:120px; }
 }
+
+/* =========================================================
+   JOGO C/ AMIGO — PvP online (sala + lista de amigos + histórico)
+   ========================================================= */
+.pvp-invite-card{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  flex-wrap:wrap; margin-bottom:16px; border-color:var(--brand); background:var(--brand-light);
+}
+.pvp-invite-text{ font-size:14px; color:var(--text); }
+.pvp-invite-actions{ display:flex; gap:8px; flex:0 0 auto; }
+
+.pvp-room-actions{ display:flex; flex-direction:column; gap:12px; }
+
+.pvp-friend-list{ display:flex; flex-direction:column; gap:8px; }
+.pvp-friend-row{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  background:var(--surface); border:1px solid var(--border); border-radius:14px;
+  padding:12px 14px; box-shadow:var(--shadow-card);
+}
+.pvp-friend-info{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.pvp-friend-name{ font-weight:700; font-size:14px; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pvp-friend-id{ font-size:11.5px; color:var(--text-muted); letter-spacing:.5px; }
+.pvp-friend-actions{ display:flex; gap:8px; flex:0 0 auto; }
+
+.pvp-history-list{ display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+.pvp-history-row{
+  display:grid; grid-template-columns:1fr auto auto; gap:12px; align-items:center;
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:9px 14px; font-size:13px; font-weight:600;
+}
+.pvp-history-row span:first-child{ color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pvp-history-row span:nth-child(2){ color:var(--text-muted); font-family:var(--font-display); }
+.pvp-history-row.win span:last-child{ color:var(--turf-dim); }
+.pvp-history-row.draw span:last-child{ color:var(--text-muted); }
+.pvp-history-row.loss span:last-child{ color:var(--crimson); }
+
+.pvp-lobby-inner{ text-align:center; }
+.pvp-lobby-code{
+  font-family:var(--font-display); font-weight:800; font-size:clamp(28px,9vw,40px);
+  letter-spacing:4px; color:var(--gold); margin:8px 0 14px;
+}
+.pvp-lobby-status{ color:#C7CCD8; font-size:13.5px; margin-bottom:22px; }
