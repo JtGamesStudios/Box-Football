@@ -15,8 +15,8 @@
   // Deixe true enquanto o servidor estiver em manutenção.
   // Quando quiser liberar o app de novo, é só voltar para false.
   // ---------------------------------------------------------------
-  const MAINTENANCE_MODE = false;
-  const MAINTENANCE_END_LABEL = "terça, 14/07";
+  const MAINTENANCE_MODE = true;
+  const MAINTENANCE_END_LABEL = "Quarta, 15/07 19:30";
 
   // ---------------------------------------------------------------
   // ACESSO SECRETO (bypass da manutenção)
