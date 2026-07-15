@@ -1474,6 +1474,29 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 .corner-grid.hidden{ display:none; }
 .corner-btn{ font-size:12px; }
 
+/* Grade de mira do gol (6 zonas) — cantos = maior risco/recompensa */
+.goal-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr);
+  gap:8px; margin:4px 0 18px; aspect-ratio:16/7; border:3px solid #9AA3B5;
+  border-bottom:none; border-radius:10px 10px 0 0; padding:8px;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 12px),
+    #12151C;
+}
+.goal-grid.hidden{ display:none; }
+.goal-zone{
+  border:1.5px dashed rgba(255,255,255,.22); border-radius:8px; background:rgba(255,255,255,.03);
+  color:#C7CCD8; font-size:18px; display:flex; align-items:center; justify-content:center;
+  transition:background .15s, border-color .15s, transform .1s;
+}
+.goal-zone:active{ transform:scale(.94); }
+.goal-zone.tl, .goal-zone.tc, .goal-zone.tr{ border-color:rgba(212,175,55,.35); }
+.goal-zone.tl:hover, .goal-zone.tr:hover, .goal-zone.bl:hover, .goal-zone.br:hover{
+  background:rgba(212,175,55,.14); border-color:var(--gold);
+}
+.goal-zone.tc:hover, .goal-zone.bc:hover{ background:rgba(90,200,140,.14); border-color:var(--turf); }
+
 .qte-track{
   position:relative; height:34px; background:#1B2030; border-radius:999px; margin-bottom:18px; overflow:hidden;
 }
@@ -1484,6 +1507,15 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   border-radius:2px; box-shadow:0 0 8px rgba(255,255,255,.8); transform:translateX(-50%);
 }
 .qte-btn.hidden{ display:none; }
+
+/* Botão de reflexo (desarme) — pisca pra chamar atenção na hora certa */
+@keyframes qteBtnFlash{
+  0%, 100%{ box-shadow:0 0 0 0 rgba(224,64,64,.55); }
+  50%{ box-shadow:0 0 0 10px rgba(224,64,64,0); }
+}
+.qte-btn.qte-btn-flash{
+  background:var(--crimson); animation:qteBtnFlash .5s ease-out infinite;
+}
 
 .matchsim-result{ text-align:center; }
 .matchsim-result.hidden{ display:none; }
