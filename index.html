@@ -314,6 +314,41 @@
       </div>
     </section>
 
+    <!-- JOGO C/ AMIGO — PvP online em tempo real -->
+    <section class="screen" id="screen-amigo" data-title="Jogo c/ amigo">
+      <h1 class="page-title">⚽ Jogo c/ amigo</h1>
+      <p class="page-sub">Desafie um amigo pra um duelo ao vivo, online.</p>
+
+      <div class="card pvp-invite-card hidden" id="amigoInviteCard"></div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="settings-row" style="margin-bottom:16px;">
+          <span>Seu ID</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="player-id-badge" id="amigoPlayerId">----</span>
+            <button class="btn btn-sm btn-primary" onclick="copyPlayerId()">Copiar</button>
+          </div>
+        </div>
+        <div class="pvp-room-actions">
+          <button class="btn btn-primary btn-block" id="amigoCreateRoomBtn" onclick="pvpCreateRoomFlow()">Criar sala</button>
+          <div class="redeem-row">
+            <input type="text" id="amigoJoinCodeInput" class="redeem-input" placeholder="Código da sala" maxlength="6" autocapitalize="characters">
+            <button class="btn btn-sm" id="amigoJoinRoomBtn" onclick="pvpJoinRoomFlow()">Entrar</button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="page-title" style="font-size:20px;">Amigos</h2>
+      <div class="pvp-friend-list" id="amigoFriendList"></div>
+      <div class="redeem-row" style="margin:12px 0 26px;">
+        <input type="text" id="amigoAddFriendInput" class="redeem-input" placeholder="ID do amigo (ex: ABCD-1234)" maxlength="12" autocapitalize="characters">
+        <button class="btn btn-sm btn-primary" id="amigoAddFriendBtn" onclick="pvpAddFriendFlow()">Adicionar</button>
+      </div>
+
+      <h2 class="page-title" style="font-size:20px;">Últimos duelos</h2>
+      <div class="pvp-history-list" id="amigoHistoryList"></div>
+    </section>
+
     <!-- RANKING GLOBAL (tela cheia) -->
     <section class="screen" id="screen-ranking" data-title="Ranking Global">
       <h1 class="page-title">🏆 Ranking Global</h1>
@@ -667,6 +702,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script src="js/ranking.js?v=6"></script>
+<script src="js/online.js?v=1"></script>
 <script>
   // RANKING: mostra o popup de cadastro (se ainda não tiver nome) e já
   // carrega o mini-ranking da Campanha assim que o app inicia.
