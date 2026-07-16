@@ -4,7 +4,7 @@
   "date": "27/08/2020",
   "description": "Featured Players - 27/08/2020",
   "banner": "assets/banners/psgclubselection.jpg",
-  "active": false,
+  "active": true,
   "priceCoins": 100,
-  "players": [""]
+  "players": ["P551", "P550", "P552"]
 }
