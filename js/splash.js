@@ -16,7 +16,7 @@
   // Quando quiser liberar o app de novo, é só voltar para false.
   // ---------------------------------------------------------------
   const MAINTENANCE_MODE = false;
-  const MAINTENANCE_END_LABEL = "Quarta, 15/07 19:30";
+  const MAINTENANCE_END_LABEL = "terça, 14/07";
 
   // ---------------------------------------------------------------
   // ACESSO SECRETO (bypass da manutenção)
@@ -28,7 +28,7 @@
   // do site ou trocar de dispositivo/navegador.
   // ---------------------------------------------------------------
   const BYPASS_KEY = "pes2021mobile";
-  const BYPASS_STORAGE_FLAG = "boxclube_bypass_maintenance_v7";
+  const BYPASS_STORAGE_FLAG = "boxclube_bypass_maintenance_v5";
 
   function hasBypass() {
     try {

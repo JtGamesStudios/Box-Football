@@ -164,6 +164,8 @@ function startEventMatch(eventId){
     startArcadeMatch(matchCfg);
   } else if(evt.engine === "penalty" && typeof startPenaltyMatch === "function"){
     startPenaltyMatch(matchCfg);
+  } else if(evt.engine === "soccer2d" && typeof startSoccer2DMatch === "function"){
+    startSoccer2DMatch(Object.assign({ difficulty: evt.difficulty || "normal", matchSeconds: evt.matchSeconds || 60 }, matchCfg));
   } else {
     startMatch(matchCfg);
   }

@@ -26,12 +26,9 @@ function renderDailyLoginPopup(){
   const titleEl = document.getElementById("dailyLoginPopupTitle");
   if(titleEl) titleEl.textContent = GAME_DATA.events.dailyLoginTitle || "Login Bonus";
 
-  const subEl = document.getElementById("dailyLoginPopupSub");
-  if(subEl) subEl.textContent = `Dia ${cycleDay} de 7 — resgate hoje pra manter a sequência!`;
-
-  const cardEl = document.getElementById("dailyLoginPopupBanner");
-  if(cardEl){
-    cardEl.style.backgroundImage = GAME_DATA.events.dailyLoginBanner
+  const bannerEl = document.getElementById("dailyLoginPopupBanner");
+  if(bannerEl){
+    bannerEl.style.backgroundImage = GAME_DATA.events.dailyLoginBanner
       ? `url('${GAME_DATA.events.dailyLoginBanner}')` : "none";
   }
 
@@ -44,10 +41,10 @@ function renderDailyLoginPopup(){
       ? `${r.rewardGP.toLocaleString("pt-BR")} GP<br>+${r.rewardCoins} Moedas`
       : `${r.rewardGP.toLocaleString("pt-BR")} GP`;
     return `
-      <div class="wc-login-day ${status}">
-        <div class="wc-login-day-num">Dia ${r.day}</div>
-        <div class="wc-login-day-circle">${icon}</div>
-        <div class="wc-login-day-prize">${prize}</div>
+      <div class="daily-login-day ${status}">
+        <div class="daily-login-day-num">Dia ${r.day}</div>
+        <div class="daily-login-day-icon">${icon}</div>
+        <div class="daily-login-day-prize">${prize}</div>
       </div>`;
   }).join("");
 
@@ -86,6 +83,4 @@ function maybeShowDailyLogin(){
 document.addEventListener("DOMContentLoaded", ()=>{
   const claimBtn = document.getElementById("dailyLoginClaimBtn");
   if(claimBtn) claimBtn.onclick = claimDailyLogin;
-  const closeBtn = document.getElementById("dailyLoginCloseBtn");
-  if(closeBtn) closeBtn.onclick = closeDailyLoginPopup; // fecha sem resgatar; volta a aparecer no próximo acesso
 });

@@ -47,29 +47,30 @@ const TOP_ICONS = [
    referência (eFootball / Modo de evento / Jogo c/ amigo / Campanha).
    nav:null = card decorativo, sem clique/navegação nenhuma. */
 const HOME_CARDS = [
-  { nav: null, banner: "banner-home-efootball", icon: "", title: "eFootball",      sub: "Encare usuários e ganhe prêmios", badgeSource: null, locked: true, keepIcon: true },
-  { nav: "evento", banner: "banner-home-evento", icon: "", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
-  { nav: "amigo", banner: "banner-home-amigo",  icon: "", title: "Jogo c/ amigo",  sub: "Desafie um amigo, ao vivo, online", badgeSource: null },
-  { nav: "campanha", banner: "banner-home-campanha",  icon: "", title: "Campanha",      sub: "", badgeSource: null },
+  { nav: "arena2d", banner: "banner-home-efootball", icon: "🎮", title: "Arena 2D",   sub: "Duelo em tempo real contra o CPU (beta)", badgeSource: null },
+  { nav: "evento", banner: "banner-home-evento", icon: "🏆", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
+  { nav: "amigo", banner: "banner-home-amigo",  icon: "⚽", title: "Jogo c/ amigo",  sub: "Desafie um amigo, ao vivo, online", badgeSource: null },
+  { nav: "campanha", banner: "banner-home-campanha",  icon: "🛡️", title: "Campanha",      sub: "", badgeSource: null },
 ];
 const CLUBHOUSE_CARDS = [
-  { nav: "clube",     banner: "banner-club-meuclube",  icon: "", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados", badgeSource: null },
-  { nav: "escalacao", banner: "banner-club-escalacao", icon: "", title: "Escalação",  sub: "Monte seu time titular e salve elencos", badgeSource: null },
-  { nav: "missoes",   banner: "banner-club-missoes",   icon: "", title: "Missões",   sub: "Complete objetivos e ganhe recompensas", badgeSource: "homeMissions" },
+  { nav: "clube",     banner: "banner-club-meuclube",  icon: "👥", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados", badgeSource: null },
+  { nav: "escalacao", banner: "banner-club-escalacao", icon: "⚽", title: "Escalação",  sub: "Monte seu time titular e salve elencos", badgeSource: null },
+  { nav: "missoes",   banner: "banner-club-missoes",   icon: "🎯", title: "Missões",   sub: "Complete objetivos e ganhe recompensas", badgeSource: "homeMissions" },
 ];
 const CONTRACT_CARDS = [
-  { nav: "contratar", banner: "banner-contract-contratar", icon: "", title: "Contratar", sub: "Abra Boxes e contrate seu próximo reforço", badgeSource: null },
-  { nav: "loja",       banner: "banner-contract-loja",      icon: "", title: "Loja",       sub: "Troque Moedas por GP", badgeSource: null },
+  { nav: "contratar", banner: "banner-contract-contratar", icon: "🎰", title: "Contratar", sub: "Abra Boxes e contrate seu próximo reforço", badgeSource: null },
+  { nav: "boxes",      banner: "banner-contract-boxes",     icon: "📦", title: "Boxes",      sub: "Acompanhe o progresso de cada Box", badgeSource: null },
+  { nav: "loja",       banner: "banner-contract-loja",      icon: "💰", title: "Loja",       sub: "Troque Moedas por GP", badgeSource: null },
 ];
 /* Sub-hub da tela "Contratar": escolher entre a Box Draw (Legends,
    paga em GP) e as Boxes Especiais (eventos/destaque, pagas em Moedas). */
 const CONTRATAR_CARDS = [
-  { nav: "boxdraw",  banner: "banner-contratar-boxdraw",  icon: "", title: "Box Draw", sub: "A grande Box de Lendas — sorteio pago em GP", badgeSource: null },
-  { nav: "especial", banner: "banner-contratar-especial", icon: "", title: "Especial", sub: "Boxes de eventos e jogadores em destaque", badgeSource: null },
+  { nav: "boxdraw",  banner: "banner-contratar-boxdraw",  icon: "🎲", title: "Box Draw", sub: "A grande Box de Lendas — sorteio pago em GP", badgeSource: null },
+  { nav: "especial", banner: "banner-contratar-especial", icon: "⭐", title: "Especial", sub: "Boxes de eventos e jogadores em destaque", badgeSource: null },
 ];
 const EXTRAS_CARDS = [
-  { nav: "presentes", banner: "banner-extras-presentes", icon: "", title: "Caixa de Presentes", sub: "Resgate recompensas de missões e eventos", badgeSource: "homeGifts" },
-  { nav: "config",     banner: "banner-extras-config",    icon: "⚙",  title: "Configurações",       sub: "Preferências, seu ID e resgate de código", badgeSource: null, keepIcon: true },
+  { nav: "presentes", banner: "banner-extras-presentes", icon: "🎁", title: "Caixa de Presentes", sub: "Resgate recompensas de missões e eventos", badgeSource: "homeGifts" },
+  { nav: "config",     banner: "banner-extras-config",    icon: "⚙",  title: "Configurações",       sub: "Preferências, seu ID e resgate de código", badgeSource: null },
 ];
 
 /* Cada tela "filha" pertence a uma aba do topo — usado para destacar
@@ -80,6 +81,7 @@ const SCREEN_PARENT_TAB = {
   ranking: "home",
   evento: "home",
   amigo: "home",
+  arena2d: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
   contract: "contract", contratar: "contract", boxes: "contract", loja: "contract",
   boxdraw: "contratar", especial: "contratar",
@@ -198,7 +200,7 @@ function buildHubGrid(containerId, cards){
     btn.innerHTML = `
       <div class="menu-card-banner ${c.banner}" id="menuCardBanner-${c.nav || containerId + '-' + c.title}"></div>
       ${c.badgeSource ? `<span class="menu-card-badge hidden" data-hub-badge-for="${c.nav}">0</span>` : ""}
-      ${(c.icon || c.keepIcon) ? `<div class="menu-card-icon">${c.icon}</div>` : ""}
+      <div class="menu-card-icon">${c.icon}</div>
       <div class="menu-card-body">
         <div class="menu-card-title">${c.title}</div>
         ${c.sub ? `<div class="menu-card-sub">${c.sub}</div>` : ""}
@@ -296,6 +298,7 @@ function showScreen(id, opts){
   if(id==="ranking") renderRankingScreen();
   if(id==="evento") renderEventoScreen();
   if(id==="amigo") renderAmigoScreen();
+  if(id==="arena2d") renderArena2DScreen();
 
   syncTopBadges();
 
