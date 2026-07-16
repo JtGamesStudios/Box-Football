@@ -349,6 +349,26 @@
       <div class="pvp-history-list" id="amigoHistoryList"></div>
     </section>
 
+    <!-- ARENA 2D — duelo em tempo real (canvas), modo novo, offline por enquanto -->
+    <section class="screen" id="screen-arena2d" data-title="Arena 2D">
+      <h1 class="page-title">⚽ Arena 2D</h1>
+      <p class="page-sub">Duelo 1x1 em tempo real: mova, pule e chute contra o CPU. Beta — o modo online chega numa próxima atualização.</p>
+
+      <div class="card" style="margin-bottom:16px;" id="s2dSetupPreview"></div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="settings-row" style="margin-bottom:10px;"><span>Dificuldade do CPU</span></div>
+        <div class="s2d-setup-diffgrid" id="s2dSetupDiffGrid"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="settings-row" style="margin-bottom:10px;"><span>Duração da partida</span></div>
+        <div class="s2d-setup-durgrid" id="s2dSetupDurGrid"></div>
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="launchArena2DFriendly()">Entrar em campo ›</button>
+    </section>
+
     <!-- RANKING GLOBAL (tela cheia) -->
     <section class="screen" id="screen-ranking" data-title="Ranking Global">
       <h1 class="page-title">🏆 Ranking Global</h1>
@@ -639,18 +659,17 @@
   </div>
 </div>
 
-<!-- ===================== LOGIN BONUS: popup diário estilo eFootball (card de evento) ===================== -->
+<!-- ===================== LOGIN BONUS: popup diário estilo eFootball ===================== -->
 <div class="novidades-overlay hidden" id="dailyLoginOverlay">
-  <div class="wc-login-card" id="dailyLoginPopupBanner">
-    <div class="wc-login-overlay"></div>
-    <button class="wc-login-close" id="dailyLoginCloseBtn" aria-label="Fechar">✕</button>
-    <div class="wc-login-content">
-      <div class="wc-login-eyebrow">Bônus de Login</div>
-      <h2 class="wc-login-title" id="dailyLoginPopupTitle">World Cup 2026: Login Bonus</h2>
-      <p class="wc-login-sub" id="dailyLoginPopupSub">Entre todos os dias e resgate as recompensas da semana.</p>
-      <div class="wc-login-label">Recompensas</div>
-      <div class="wc-login-days" id="dailyLoginPopupGrid"></div>
-      <button class="wc-login-btn" id="dailyLoginClaimBtn">Resgatar</button>
+  <div class="daily-login-card">
+    <div class="daily-login-banner" id="dailyLoginPopupBanner">
+      <div class="daily-login-banner-fade"></div>
+      <h2 class="daily-login-title" id="dailyLoginPopupTitle">Login Bonus</h2>
+    </div>
+    <div class="daily-login-body">
+      <p class="page-sub" style="margin:0 0 12px;">Entre todos os dias e resgate as recompensas da semana.</p>
+      <div class="daily-login-grid" id="dailyLoginPopupGrid"></div>
+      <button class="btn btn-primary daily-login-claim" id="dailyLoginClaimBtn">Resgatar</button>
     </div>
   </div>
 </div>
@@ -686,6 +705,7 @@
 <script src="js/nav.js?v=2"></script>
 <script src="js/matchsim.js?v=1"></script>
 <script src="js/campaign.js?v=1"></script>
+<script src="js/soccer2d.js?v=1"></script>
 <script src="js/penalty.js?v=1"></script>
 <script src="js/events.js?v=1"></script>
 <script>
