@@ -73,7 +73,7 @@
     },
     {
       "id": "evt_arena2d",
-      "title": "Arena 2D — Estreia",
+      "title": "Arena 2D",
       "description": "Novo modo em tempo real: dispute o duelo Arena 2D contra o COM (estilo cabeção) e vença partidas para ganhar pontos de evento.",
       "banner": "assets/banners/banner-home-evento-2d.jpg",
       "engine": "soccer2d",
@@ -85,7 +85,30 @@
       "difficulty": "normal",
       "matchSeconds": 90,
       "dailyAttempts": 5,
-      "opponentStrength": 90,
+      "opponentStrength": 190,
+      "totalChances": 8,
+      "milestones": [
+        { "points": 1, "rewardGP": 800,  "rewardCoins": 20 },
+        { "points": 3, "rewardGP": 2000, "rewardCoins": 60 },
+        { "points": 5, "rewardGP": 5000, "rewardCoins": 120 },
+        { "points": 8, "rewardGP": 15000, "rewardCoins": 300 }
+      ]
+    },
+    {
+      "id": "evt_beach",
+      "title": "Futvolley",
+      "description": "Novo modo em tempo real: dispute o duelo e vença partidas para ganhar pontos de evento.",
+      "banner": "assets/banners/banner-home-evento-2d2.jpg",
+      "engine": "beachvolley",
+      "active": true,
+      "start": "2026-07-17T00:00:00",
+      "end": "2026-07-19T23:00:00",
+      "mode": "default",
+      "goalTarget": null,
+      "difficulty": "normal",
+      "matchSeconds": 60,
+      "dailyAttempts": 20,
+      "opponentStrength": 190,
       "totalChances": 8,
       "milestones": [
         { "points": 1, "rewardGP": 800,  "rewardCoins": 20 },
