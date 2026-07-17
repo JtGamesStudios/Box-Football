@@ -69,6 +69,7 @@ function defaultState(){
       loginStreak: 0,
       lastLoginDate: null,
       dailyLoginPending: false,  // true quando o bônus do dia ainda não foi resgatado no popup
+      dailyLoginMigrated: true, // marca que este save já passou pela migração do novo Login Bonus
       giftIdSeq: 1,
     },
   };
@@ -84,10 +85,22 @@ function loadState(){
     console.warn("Falha ao carregar save, iniciando novo.", e);
     STATE = defaultState();
   }
+  const needsDailyLoginMigration = !('dailyLoginMigrated' in STATE.stats);
+
   // merge de campos novos que possam faltar em saves antigos
   const d = defaultState();
   for(const k in d){ if(!(k in STATE)) STATE[k] = d[k]; }
   for(const k in d.stats){ if(!(k in STATE.stats)) STATE.stats[k] = d.stats[k]; }
+
+  // Migração única: saves de antes do popup de Login Bonus não devem
+  // "pular" o Dia 1 — zera o ciclo pra começar hoje mesmo.
+  if(needsDailyLoginMigration){
+    STATE.stats.lastLoginDate = null;
+    STATE.stats.loginStreak = 0;
+    STATE.stats.dailyLoginPending = false;
+    STATE.stats.dailyLoginMigrated = true;
+  }
+
   return STATE;
 }
 
