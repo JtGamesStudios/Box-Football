@@ -144,7 +144,7 @@ function startEventMatch(eventId){
       // eventos com mode "goals"/"cleanSheet" continuarem funcionando
       // do mesmo jeito com esse motor, recalculamos o resultado aqui
       // a partir do placar final usando a mesma regra dos outros motores.
-      const outcome = (evt.engine === "soccer2d")
+      const outcome = (evt.engine === "soccer2d" || evt.engine === "beachvolley")
         ? buildEventWinCondition(evt)({ home: result.homeGoals, away: result.awayGoals }).result
         : result.result;
 
@@ -166,11 +166,12 @@ function startEventMatch(eventId){
     }
   };
 
-  // Eventos podem marcar "engine":"arcade", "engine":"penalty" ou
-  // "engine":"soccer2d" em data/events.json para usar o Modo Arcade
-  // (js/arcade.js), o Modo Pênaltis (js/penalty.js) ou o Modo Arena 2D
-  // (js/soccer2d.js — duelo em tempo real via canvas) em vez do motor
-  // de QTE padrão (matchsim.js).
+  // Eventos podem marcar "engine":"arcade", "engine":"penalty",
+  // "engine":"soccer2d" ou "engine":"beachvolley" em data/events.json
+  // para usar o Modo Arcade (js/arcade.js), o Modo Pênaltis
+  // (js/penalty.js), o Modo Arena 2D (js/soccer2d.js) ou o Modo
+  // Vôlei de Praia (js/beachvolley.js) em vez do motor de QTE
+  // padrão (matchsim.js).
   if(evt.engine === "arcade" && typeof startArcadeMatch === "function"){
     startArcadeMatch(matchCfg);
   } else if(evt.engine === "penalty" && typeof startPenaltyMatch === "function"){
@@ -179,6 +180,11 @@ function startEventMatch(eventId){
     startSoccer2DMatch(Object.assign({}, matchCfg, {
       difficulty: evt.difficulty || "normal",
       matchSeconds: evt.matchSeconds || 90,
+    }));
+  } else if(evt.engine === "beachvolley" && typeof startBeachVolleyMatch === "function"){
+    startBeachVolleyMatch(Object.assign({}, matchCfg, {
+      difficulty: evt.difficulty || "normal",
+      pointsToWin: evt.pointsToWin || 7,
     }));
   } else {
     startMatch(matchCfg);
