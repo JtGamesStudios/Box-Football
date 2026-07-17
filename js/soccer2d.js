@@ -547,19 +547,25 @@ function s2dHandleAI(f, dt){
   const a = _s2d, diff = a.diff, ball = a.ball;
   const speed = f.moveSpeed * (1 - f.fatigue);
 
-  // decide alvo X: se a bola está no ar vindo em direção perigosa, tenta
-  // prever o pouso; se está longe defendendo, mantém uma posição mais
-  // recuada perto do próprio gol; se está perto, vai pro ataque/desarme.
   const distToBall = Math.abs(ball.x - f.x);
-  const defendAnchor = S2D_ARENA_R - 90; // perto do gol que o CPU defende
+  const ownGoalX = S2D_ARENA_R;                    // gol que o CPU defende
+  const inOwnThird = ball.x > S2D_FIELD_W*0.58;     // bola no terço de defesa do CPU = perigo real
+  const defendAnchor = ownGoalX - 90;
+
+  // decide alvo X: se a bola está no ar vindo em direção perigosa, tenta
+  // prever o pouso; se está no campo de defesa dele OU perto, ele SEMPRE
+  // pressiona/marca a bola (antes só reagia quando ela já estava colada
+  // na área, deixando o meio-campo inteiro livre pro jogador andar sem
+  // ninguém desarmar); só quando ela está bem longe, no ataque, é que ele
+  // mantém uma posição de cobertura entre a bola e o próprio gol — sem
+  // nunca abandonar de vez a marcação.
   let targetX;
   if(ball.y < S2D_GROUND_Y - 60 && Math.random() < diff.jumpSkill){
     targetX = s2dClamp(s2dPredictBallLanding(ball), S2D_ARENA_L+20, S2D_ARENA_R-20);
-  } else if(distToBall > 260 && ball.x < S2D_FIELD_W*0.45){
-    // bola muito longe, no campo do adversário: cobre o gol em vez de correr até lá
-    targetX = defendAnchor + (Math.random()-0.5)*40;
-  } else {
+  } else if(inOwnThird || distToBall < 300){
     targetX = ball.x;
+  } else {
+    targetX = s2dClamp((ball.x + defendAnchor)/2, S2D_FIELD_W*0.42, ownGoalX-30);
   }
   // ruído de posicionamento (menor nas dificuldades mais altas)
   targetX += (Math.random()-0.5) * diff.errorPx;
@@ -572,17 +578,21 @@ function s2dHandleAI(f, dt){
   f.x = s2dClamp(f.x, S2D_ARENA_L+f.headR, S2D_ARENA_R-f.headR);
   if(Math.abs(dir) > 0.05) f.facing = dir>0?1:-1;
 
+  // perto do próprio gol o CPU quase não erra o desarme/cabeceio — evita
+  // o "gol contra" bobo de deixar a bola quicar sozinha dentro da área.
+  const reactionNow = inOwnThird ? Math.max(diff.reaction, 0.88) : diff.reaction;
+
   const feetY = S2D_GROUND_Y - f.airY;
   const ballAbove = ball.y < feetY - f.legH - f.bodyH*0.3;
   const closeX = Math.abs(ball.x - f.x) < 74;
-  if(f.onGround && closeX && ballAbove && ball.vy < 260 && Math.random() < diff.reaction){
+  if(f.onGround && closeX && ballAbove && ball.vy < 260 && Math.random() < reactionNow){
     f.vy = f.jumpV; f.onGround = false;
   }
   s2dPhysicsFighter(f, dt);
 
   if(f.kickCooldown > 0) f.kickCooldown -= dt;
   const d = s2dDist(f.x, feetY-f.legH*0.6, ball.x, ball.y);
-  if(d < f.reach + 4 && f.kickCooldown <= 0 && Math.random() < diff.reaction){
+  if(d < f.reach + 4 && f.kickCooldown <= 0 && Math.random() < reactionNow){
     // mira: quanto maior o aimSkill, mais perto das quinas do gol
     // (mais difícil de defender) em vez de sempre reto pro centro.
     const aimSpread = (1 - diff.aimSkill) * 0.35;
