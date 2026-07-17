@@ -1,10 +1,10 @@
 {
-  "id": "box004",
+  "id": "box008",
   "name": "LEGENDS - Worldwide Clubs",
   "date": "--/--/----",
   "description": "LEGENDS - Worldwide Clubs",
   "banner": "assets/banners/Worldwide Clubs.png",
-  "active": false,
+  "active": true,
   "category": "boxdraw",
   "priceGP": 25000,
   "priceCoins": 0,
