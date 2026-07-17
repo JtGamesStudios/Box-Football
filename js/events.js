@@ -139,13 +139,22 @@ function startEventMatch(eventId){
 
       if(typeof applyPostMatchPlayerEffects === "function") applyPostMatchPlayerEffects(result);
 
-      const success = result.result === "win";
+      // O motor Arena 2D (soccer2d.js) não recebe winCondition — ele
+      // sempre devolve o resultado "cru" comparando o placar. Pra
+      // eventos com mode "goals"/"cleanSheet" continuarem funcionando
+      // do mesmo jeito com esse motor, recalculamos o resultado aqui
+      // a partir do placar final usando a mesma regra dos outros motores.
+      const outcome = (evt.engine === "soccer2d")
+        ? buildEventWinCondition(evt)({ home: result.homeGoals, away: result.awayGoals }).result
+        : result.result;
+
+      const success = outcome === "win";
       if(success) STATE.events.points[evt.id] += 1;
 
       STATE.events.history[evt.id].unshift({
         date: Date.now(),
         score: `${result.homeGoals}-${result.awayGoals}`,
-        result: result.result,
+        result: outcome,
       });
       STATE.events.history[evt.id] = STATE.events.history[evt.id].slice(0, 20);
 
@@ -157,13 +166,20 @@ function startEventMatch(eventId){
     }
   };
 
-  // Eventos podem marcar "engine":"arcade" ou "engine":"penalty" em
-  // data/events.json para usar o Modo Arcade (js/arcade.js) ou o Modo
-  // Pênaltis (js/penalty.js) em vez do motor de QTE padrão (matchsim.js).
+  // Eventos podem marcar "engine":"arcade", "engine":"penalty" ou
+  // "engine":"soccer2d" em data/events.json para usar o Modo Arcade
+  // (js/arcade.js), o Modo Pênaltis (js/penalty.js) ou o Modo Arena 2D
+  // (js/soccer2d.js — duelo em tempo real via canvas) em vez do motor
+  // de QTE padrão (matchsim.js).
   if(evt.engine === "arcade" && typeof startArcadeMatch === "function"){
     startArcadeMatch(matchCfg);
   } else if(evt.engine === "penalty" && typeof startPenaltyMatch === "function"){
     startPenaltyMatch(matchCfg);
+  } else if(evt.engine === "soccer2d" && typeof startSoccer2DMatch === "function"){
+    startSoccer2DMatch(Object.assign({}, matchCfg, {
+      difficulty: evt.difficulty || "normal",
+      matchSeconds: evt.matchSeconds || 90,
+    }));
   } else {
     startMatch(matchCfg);
   }
