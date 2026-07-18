@@ -77,7 +77,7 @@
       "description": "Novo modo em tempo real: dispute o duelo Arena 2D contra o COM (estilo cabeção) e vença partidas para ganhar pontos de evento.",
       "banner": "assets/banners/banner-home-evento-2d.jpg",
       "engine": "soccer2d",
-      "active": true,
+      "active": false,
       "start": "2026-07-17T00:00:00",
       "end": "2026-07-22T23:00:00",
       "mode": "default",
