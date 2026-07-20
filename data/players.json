@@ -4640,7 +4640,7 @@
     "image": "assets/players/default.png",
     "tier": "normal"
   },
-    {
+  {
     "id": "p358",
     "name": "E. Petit",
     "overall": 95,
@@ -4653,7 +4653,7 @@
     "image": "assets/players/e. petit.png",
     "tier": "iconic"
   },
-    {
+  {
     "id": "p359",
     "name": "D. Bergkamp",
     "overall": 98,
@@ -4679,7 +4679,7 @@
     "image": "assets/players/r. pirés.png",
     "tier": "iconic"
   },
-    {
+  {
     "id": "p540",
     "name": "S. nakamura",
     "overall": 96,
@@ -4692,7 +4692,7 @@
     "image": "assets/players/S. nakamura.png",
     "tier": "iconic"
   },
-   { 
+  {
     "id": "p541",
     "name": "M. Mandžukić",
     "overall": 90,
@@ -4705,7 +4705,7 @@
     "image": "assets/players/M. MANDŽUKIĆ.png",
     "tier": "normal"
   },
-     { 
+  {
     "id": "p542",
     "name": "C. Ronaldo",
     "overall": 97,
@@ -4718,7 +4718,7 @@
     "image": "assets/players/C. Ronaldo.png",
     "tier": "normal"
   },
-     { 
+  {
     "id": "p543",
     "name": "L. Messi",
     "overall": 98,
@@ -4731,7 +4731,7 @@
     "image": "assets/players/L. Messi.png",
     "tier": "normal"
   },
-     { 
+  {
     "id": "p544",
     "name": "Neymar",
     "overall": 97,
@@ -4744,7 +4744,7 @@
     "image": "assets/players/Neymar.png",
     "tier": "normal"
   },
-       { 
+  {
     "id": "p547",
     "name": "A. Cole",
     "overall": 99,
@@ -4757,7 +4757,7 @@
     "image": "assets/players/A. COLE.png",
     "tier": "iconic"
   },
-         { 
+  {
     "id": "p548",
     "name": "D. Forlán",
     "overall": 99,
@@ -4770,7 +4770,7 @@
     "image": "assets/players/D. FORLÁN.png",
     "tier": "iconic"
   },
-           { 
+  {
     "id": "p549",
     "name": "D. Yorke",
     "overall": 97,
@@ -4783,7 +4783,7 @@
     "image": "assets/players/D. YORKE.png",
     "tier": "iconic"
   },
-             { 
+  {
     "id": "p550",
     "name": "Neymar",
     "overall": 98,
@@ -4796,7 +4796,7 @@
     "image": "assets/players/NEYMAR.png",
     "tier": "normal"
   },
-               { 
+  {
     "id": "p551",
     "name": "K. Mbappé",
     "overall": 100,
@@ -4809,7 +4809,7 @@
     "image": "assets/players/K. MBAPPÉ.png",
     "tier": "normal"
   },
-                 { 
+  {
     "id": "p552",
     "name": "Marquinhos",
     "overall": 95,
@@ -4822,7 +4822,7 @@
     "image": "assets/players/MARQUINHOS.png",
     "tier": "normal"
   },
-     { 
+  {
     "id": "p545",
     "name": "K. Miura",
     "overall": 98,
@@ -4964,5 +4964,135 @@
     "rarityLabel": "Lendária",
     "image": "assets/players/XAVI.png",
     "tier": "iconic"
+  },
+  {
+    "id": "p563",
+    "name": "K. Mbappé",
+    "overall": 102,
+    "club": "Real Madrid",
+    "nationality": "France",
+    "nationalityFlag": "🇫🇷",
+    "position": "CA",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/k_mbappe.png",
+    "tier": "destaque"
+  },
+  {
+    "id": "p564",
+    "name": "F. Torres",
+    "overall": 101,
+    "club": "Barcelona",
+    "nationality": "Spain",
+    "nationalityFlag": "🇪🇸",
+    "position": "CA",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/f_torres.png",
+    "tier": "destaque"
+  },
+  {
+    "id": "p565",
+    "name": "E. Martínez",
+    "overall": 101,
+    "club": "Aston Villa",
+    "nationality": "Argentina",
+    "nationalityFlag": "🇦🇷",
+    "position": "GO",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/e_martinez.png",
+    "tier": "destaque"
+  },
+  {
+    "id": "p566",
+    "name": "D. Rice",
+    "overall": 102,
+    "club": "Arsenal",
+    "nationality": "England",
+    "nationalityFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "position": "MLG",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/d_rice.png",
+    "tier": "destaque"
+  },
+  {
+    "id": "p567",
+    "name": "B. Saka",
+    "overall": 103,
+    "club": "Arsenal",
+    "nationality": "England",
+    "nationalityFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "position": "PTD",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/b_saka.png",
+    "tier": "destaque"
+  },
+  {
+    "id": "p568",
+    "name": "Rodri",
+    "overall": 107,
+    "club": "Manchester City",
+    "nationality": "Spain",
+    "nationalityFlag": "🇪🇸",
+    "position": "VOL",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/rodri.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p569",
+    "name": "P. Cubarsí",
+    "overall": 104,
+    "club": "Barcelona",
+    "nationality": "Spain",
+    "nationalityFlag": "🇪🇸",
+    "position": "ZC",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/p_cubarsi.png",
+    "tier": "destaque"
+  },
+  {
+    "id": "p570",
+    "name": "N. Williams",
+    "overall": 101,
+    "club": "Athletic Bilbao",
+    "nationality": "Spain",
+    "nationalityFlag": "🇪🇸",
+    "position": "PTE",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/n_williams.png",
+    "tier": "destaque"
+  },
+  {
+    "id": "p571",
+    "name": "M. Cucurella",
+    "overall": 105,
+    "club": "Chelsea",
+    "nationality": "Spain",
+    "nationalityFlag": "🇪🇸",
+    "position": "LE",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/m_cucurella.png",
+    "tier": "destaque"
+  },
+  {
+    "id": "p572",
+    "name": "Lamine Yamal",
+    "overall": 105,
+    "club": "Barcelona",
+    "nationality": "Spain",
+    "nationalityFlag": "🇪🇸",
+    "position": "PTD",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/lamine_yamal.png",
+    "tier": "destaque"
   }
 ]
