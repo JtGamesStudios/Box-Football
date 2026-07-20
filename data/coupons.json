@@ -1,10 +1,10 @@
 [
   {
-    "code": "BEMVINDO10",
+    "code": "Copa2026",
     "title": "Presente de boas-vindas",
     "desc": "Obrigado por jogar Box Clube!",
     "gp": 50000,
-    "coins": 500,
+    "coins": 1550,
     "targetId": null,
     "expiresAt": null,
     "announce": true,
