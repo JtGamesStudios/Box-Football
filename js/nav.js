@@ -65,8 +65,7 @@ const CONTRACT_CARDS = [
    paga em GP) e as Boxes Especiais (eventos/destaque, pagas em Moedas). */
 const CONTRATAR_CARDS = [
   { nav: "boxdraw",  banner: "banner-contratar-boxdraw",  icon: "", title: "Box Draw", sub: "A grande Box de Lendas — sorteio pago em GP", badgeSource: null },
-  { nav: "especial", banner: "banner-contratar-especial", icon: "", title: "Especial", sub: "Boxes de eventos e jogadores em destaque", badgeSource: null },
-  { nav: "gratis",   banner: "banner-contratar-gratis",   icon: "", title: "Grátis",   sub: "Boxes por tempo limitado, sem custo nenhum", badgeSource: null },
+  { nav: "especial", banner: "banner-contratar-especial", icon: "", title: "Especial", sub: "Boxes de eventos, jogadores em destaque e grátis", badgeSource: null },
 ];
 const EXTRAS_CARDS = [
   { nav: "presentes", banner: "banner-extras-presentes", icon: "", title: "Caixa de Presentes", sub: "Resgate recompensas de missões e eventos", badgeSource: "homeGifts" },
@@ -83,7 +82,7 @@ const SCREEN_PARENT_TAB = {
   amigo: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
   contract: "contract", contratar: "contract", boxes: "contract", loja: "contract",
-  boxdraw: "contratar", especial: "contratar", gratis: "contratar",
+  boxdraw: "contratar", especial: "contratar",
   extras: "extras", presentes: "extras", config: "extras",
 };
 
@@ -114,7 +113,7 @@ function buildNav(){
    modos "Indisponível". */
 function updateContratarCardBanners(){
   if(!window.GAME_DATA || !GAME_DATA.boxesRaw || !GAME_DATA.boxesRaw.length) return;
-  ["boxdraw","especial","gratis"].forEach(cat=>{
+  ["boxdraw","especial"].forEach(cat=>{
     const el = document.getElementById(`menuCardBanner-${cat}`);
     if(!el) return;
     const card = el.closest(".menu-card");
@@ -284,7 +283,6 @@ function showScreen(id, opts){
   // recarrega conteúdo dinâmico de cada tela ao entrar nela (inalterado)
   if(id==="boxdraw") renderContratarGrid("boxdraw");
   if(id==="especial") renderContratarGrid("especial");
-  if(id==="gratis") renderContratarGrid("gratis");
   if(id==="contratar") updateContratarCardBanners();
   if(id==="boxes") renderBoxesScreen();
   if(id==="clube") renderClubeGrid();
