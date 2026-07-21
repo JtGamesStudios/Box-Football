@@ -1,0 +1,15 @@
+{
+  "id": "box010",
+  "name": "Iconic Moment: Worldwide Clubs",
+  "date": "",
+  "description": "",
+  "banner": "assets/banners/iconicgratis.png",
+  "active": true,
+  "category": "gratis",
+  "priceGP": 0,
+  "priceCoins": 0,
+  "expiresAt": "2026-07-29T00:00:00",
+  "players": [
+    "p573"
+  ]
+}
