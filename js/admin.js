@@ -67,7 +67,6 @@ function adminSetField(boxId, field, value){
   toast(`Box atualizada.`, "success");
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
-  renderContratarGrid("gratis");
   updateContratarCardBanners();
   renderBoxesScreen();
 }
@@ -89,7 +88,6 @@ function adminSaveBox(boxId){
   toast("Box salva com sucesso!", "success");
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
-  renderContratarGrid("gratis");
   updateContratarCardBanners();
   renderBoxesScreen();
 }
@@ -101,7 +99,6 @@ function adminResetOverrides(boxId){
   renderAdminPanel();
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
-  renderContratarGrid("gratis");
   updateContratarCardBanners();
   renderBoxesScreen();
   toast("Box restaurada ao padrão.", "success");
