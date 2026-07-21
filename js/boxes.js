@@ -144,7 +144,7 @@ function renderBallChips(boxId){
 }
 
 /* ---------------- CONTRATAR GRID ---------------- */
-const CONTRATAR_GRID_IDS = { boxdraw: "boxdrawGrid", especial: "especialGrid", gratis: "gratisGrid" };
+const CONTRATAR_GRID_IDS = { boxdraw: "boxdrawGrid", especial: "especialGrid" };
 
 function renderContratarGrid(category){
   const wrap = document.getElementById(CONTRATAR_GRID_IDS[category] || "contratarGrid");
@@ -207,7 +207,6 @@ function resetBox(boxId){
   toast(`Box "${box.name}" resetada!`, "success");
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
-  renderContratarGrid("gratis");
   renderBoxesScreen();
 }
 
@@ -577,8 +576,6 @@ document.getElementById("btnBoxDrawPrev").addEventListener("click", ()=>scrollBo
 document.getElementById("btnBoxDrawNext").addEventListener("click", ()=>scrollBoxCarousel(1,"boxdrawGrid"));
 document.getElementById("btnEspecialPrev").addEventListener("click", ()=>scrollBoxCarousel(-1,"especialGrid"));
 document.getElementById("btnEspecialNext").addEventListener("click", ()=>scrollBoxCarousel(1,"especialGrid"));
-document.getElementById("btnGratisPrev").addEventListener("click", ()=>scrollBoxCarousel(-1,"gratisGrid"));
-document.getElementById("btnGratisNext").addEventListener("click", ()=>scrollBoxCarousel(1,"gratisGrid"));
 
 document.getElementById("btnCloseStage").addEventListener("click", ()=>{
   document.getElementById("stageOverlay").classList.add("hidden");
@@ -586,7 +583,6 @@ document.getElementById("btnCloseStage").addEventListener("click", ()=>{
   document.getElementById("beam2").classList.remove("sweep");
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
-  renderContratarGrid("gratis");
   renderHome();
   resumeMusicWithNextTrack(); // sai da Box -> toca outra faixa da playlist
 });
