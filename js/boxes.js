@@ -146,10 +146,28 @@ function renderBallChips(boxId){
 /* ---------------- CONTRATAR GRID ---------------- */
 const CONTRATAR_GRID_IDS = { boxdraw: "boxdrawGrid", especial: "especialGrid" };
 
+/* Regra do giro grátis (só se aplica a boxes category:"gratis"):
+   - Se a box só tem 1 jogador no total, o giro é SEMPRE grátis
+     (não há como "gastar" o giro grátis e sobrar mais alguém pago).
+   - Se a box tem mais de 1 jogador, apenas o PRIMEIRO giro é grátis;
+     assim que o primeiro jogador sai dela, os giros seguintes passam
+     a custar Moedas (box.priceCoins), até a box ser resetada. */
+function isFreeSpinAvailable(box){
+  if(box.category !== "gratis") return false;
+  if(box.allPlayerIds.length <= 1) return true;
+  const removedCount = (STATE.boxRemoved[box.id] || []).length;
+  return removedCount === 0;
+}
+
 function renderContratarGrid(category){
   const wrap = document.getElementById(CONTRATAR_GRID_IDS[category] || "contratarGrid");
   if(!wrap) return;
-  const boxes = GAME_DATA.boxesRaw.map(b=>getEffectiveBox(b.id)).filter(b=>b.active && b.category===category);
+  const boxes = GAME_DATA.boxesRaw.map(b=>getEffectiveBox(b.id)).filter(b=>{
+    if(!b.active) return false;
+    // Boxes grátis aparecem junto das "Especial" (mesma aba/grid).
+    if(category === "especial") return b.category === "especial" || b.category === "gratis";
+    return b.category === category;
+  });
   if(boxes.length===0){
     wrap.innerHTML = `<div class="empty-state"><div class="big">📦</div>Nenhuma Box ativa no momento.<br>Ative uma no Painel Admin (Configurações).</div>`;
     return;
@@ -158,6 +176,7 @@ function renderContratarGrid(category){
     const remaining = getRemainingIds(box.id).length;
     const total = box.allPlayerIds.length;
     const timeLeft = formatTimeLeft(box.expiresAt);
+    const freeSpin = isFreeSpinAvailable(box);
     return `
     <div class="box-pair">
       <div class="box-card">
@@ -176,12 +195,14 @@ function renderContratarGrid(category){
               ${box.category === "boxdraw"
                 ? `<div class="price-pill">$ ${box.priceGP.toLocaleString("pt-BR")}</div>`
                 : box.category === "gratis"
-                  ? `<div class="price-pill price-pill-free">GRÁTIS</div><span class="free-left-badge">${remaining} restante${remaining===1?"":"s"}</span>`
+                  ? (freeSpin
+                      ? `<div class="price-pill price-pill-free">GRÁTIS</div><span class="free-left-badge">${remaining} restante${remaining===1?"":"s"}</span>`
+                      : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div><span class="free-left-badge">${remaining} restante${remaining===1?"":"s"}</span>`)
                   : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`}
             </div>
           </div>
-          <button class="btn btn-primary btn-block ${box.category==='gratis'?'btn-free-spin':''}" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':'coins'}')">${box.category==='gratis' ? '🎁 Girar Grátis' : 'Contratar'}</button>
-        </div>
+          <button class="btn btn-primary btn-block ${freeSpin?'btn-free-spin':''}" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':'coins'}')">${freeSpin ? '🎁 Girar Grátis' : (box.category==='gratis' ? '◆ Girar' : 'Contratar')}</button>
+          </div>
       </div>
       <div class="box-stats-panel">
         <div class="stat-block">
@@ -220,7 +241,9 @@ function startBoxOpen(boxId, method){
 
   const price = box.category === "boxdraw"
     ? { gp: box.priceGP, coins: 0 }
-    : { gp: 0, coins: box.priceCoins };
+    : box.category === "gratis"
+      ? { gp: 0, coins: isFreeSpinAvailable(box) ? 0 : box.priceCoins }
+      : { gp: 0, coins: box.priceCoins };
   if(price.gp > STATE.currency.gp || price.coins > STATE.currency.coins){
     toast("Saldo insuficiente para essa contratação.", "");
     return;
