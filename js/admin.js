@@ -32,6 +32,7 @@ function renderAdminPanel(){
           <select id="adm-category-${raw.id}">
             <option value="especial" ${box.category==="especial"?"selected":""}>Especial</option>
             <option value="boxdraw" ${box.category==="boxdraw"?"selected":""}>Box Draw</option>
+            <option value="gratis" ${box.category==="gratis"?"selected":""}>Grátis</option>
           </select>
         </div>
         <div>
@@ -66,6 +67,7 @@ function adminSetField(boxId, field, value){
   toast(`Box atualizada.`, "success");
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
+  renderContratarGrid("gratis");
   updateContratarCardBanners();
   renderBoxesScreen();
 }
@@ -87,6 +89,7 @@ function adminSaveBox(boxId){
   toast("Box salva com sucesso!", "success");
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
+  renderContratarGrid("gratis");
   updateContratarCardBanners();
   renderBoxesScreen();
 }
@@ -98,6 +101,7 @@ function adminResetOverrides(boxId){
   renderAdminPanel();
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
+  renderContratarGrid("gratis");
   updateContratarCardBanners();
   renderBoxesScreen();
   toast("Box restaurada ao padrão.", "success");

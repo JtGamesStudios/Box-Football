@@ -66,6 +66,29 @@ function playCutscene(tier, onDone){
   if(playPromise && playPromise.catch) playPromise.catch(finish);
 }
 
+/* ---------------- POOL VISUAL DA ROLETA ----------------
+   Antes, o giro sempre sorteava as 4 cores (preta/dourada/prata/branca)
+   em pesos iguais pra "encher" a faixa animada — só que isso é o que
+   causa o bug: uma Box que só tem bola preta (ex: as Boxes grátis de
+   jogador único) ainda mostrava dourada/prata/branca girando, mesmo
+   sem nenhum jogador dessas cores disponível ali dentro. Sempre
+   parava certo na bola preta no final, mas a faixa toda mentia sobre
+   o que existe na Box.
+   Agora o giro só usa as cores que a Box realmente tem restante (byR),
+   ponderadas pelo peso "natural" de cada uma (RARITY_WEIGHT_BASE) pra
+   manter a preta rara de aparecer quando ela convive com outras cores
+   — mas se só sobrar preta, a faixa inteira gira só de preta mesmo. */
+function buildVisualPool(byR){
+  const pool = [];
+  RARITY_ORDER.forEach(r=>{
+    if(byR[r] && byR[r].length > 0){
+      const weight = RARITY_WEIGHT_BASE[r] || 1;
+      for(let i=0;i<weight;i++) pool.push(r);
+    }
+  });
+  return pool.length ? pool : RARITY_ORDER.slice(); // fallback de segurança
+}
+
 function getOverride(boxId){ return STATE.adminOverrides[boxId] || {}; }
 
 function getEffectiveBox(boxId){
@@ -121,7 +144,7 @@ function renderBallChips(boxId){
 }
 
 /* ---------------- CONTRATAR GRID ---------------- */
-const CONTRATAR_GRID_IDS = { boxdraw: "boxdrawGrid", especial: "especialGrid" };
+const CONTRATAR_GRID_IDS = { boxdraw: "boxdrawGrid", especial: "especialGrid", gratis: "gratisGrid" };
 
 function renderContratarGrid(category){
   const wrap = document.getElementById(CONTRATAR_GRID_IDS[category] || "contratarGrid");
@@ -140,6 +163,7 @@ function renderContratarGrid(category){
       <div class="box-card">
         <div class="box-banner" style="background-image: url('${box.banner}'), linear-gradient(150deg,#1B2438,#0A0E17); background-size: cover; background-position: center;">
           <span class="box-badge on">ATIVA</span>
+          ${box.category === "gratis" ? `<span class="box-badge-free">FREE</span>` : ""}
         </div>
         <div class="box-body">
           <div class="box-name-row">
@@ -151,10 +175,12 @@ function renderContratarGrid(category){
             <div class="box-prices-inline">
               ${box.category === "boxdraw"
                 ? `<div class="price-pill">$ ${box.priceGP.toLocaleString("pt-BR")}</div>`
-                : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`}
+                : box.category === "gratis"
+                  ? `<div class="price-pill price-pill-free">GRÁTIS</div><span class="free-left-badge">${remaining} restante${remaining===1?"":"s"}</span>`
+                  : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`}
             </div>
           </div>
-          <button class="btn btn-primary btn-block" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':'coins'}')">Contratar</button>
+          <button class="btn btn-primary btn-block ${box.category==='gratis'?'btn-free-spin':''}" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':'coins'}')">${box.category==='gratis' ? '🎁 Girar Grátis' : 'Contratar'}</button>
         </div>
       </div>
       <div class="box-stats-panel">
@@ -181,6 +207,7 @@ function resetBox(boxId){
   toast(`Box "${box.name}" resetada!`, "success");
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
+  renderContratarGrid("gratis");
   renderBoxesScreen();
 }
 
@@ -240,10 +267,15 @@ function startBoxOpen(boxId, method){
   }
 
   _pendingOpen = { boxId, method };
-  playOpenAnimation(chosenRarity, chosenPlayer, lightningStrike);
+  playOpenAnimation(chosenRarity, chosenPlayer, lightningStrike, byR);
 }
 
-function playOpenAnimation(rarity, player, lightningStrike){
+function playOpenAnimation(rarity, player, lightningStrike, byR){
+  // Cores que a Box realmente tem restante — é isso que a faixa gira,
+  // não mais as 4 cores fixas (ver buildVisualPool acima).
+  const visualPool = buildVisualPool(byR || {});
+  function pickVisualRarity(){ return visualPool[Math.floor(Math.random()*visualPool.length)]; }
+
   const overlay = document.getElementById("stageOverlay");
   const spinWrap = document.getElementById("stageSpinWrap");
   const revealWrap = document.getElementById("stageRevealWrap");
@@ -272,7 +304,7 @@ function playOpenAnimation(rarity, player, lightningStrike){
   // na tela — até lá a roleta gira livre e aleatória, sem parar sozinha.
   const sequence = [];
   for(let i=0;i<24;i++){
-    sequence.push(RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)]);
+    sequence.push(pickVisualRarity());
   }
   strip.innerHTML = sequence.map(r=>`<div class="ball-item ${r}"></div>`).join("");
   strip.style.transition = "none";
@@ -299,7 +331,7 @@ function playOpenAnimation(rarity, player, lightningStrike){
 
   function fillSequenceTo(minIndex){
     while(sequence.length <= minIndex){
-      const r = RARITY_ORDER[Math.floor(Math.random()*RARITY_ORDER.length)];
+      const r = pickVisualRarity();
       sequence.push(r);
       const div = document.createElement("div");
       div.className = "ball-item " + r;
@@ -545,6 +577,8 @@ document.getElementById("btnBoxDrawPrev").addEventListener("click", ()=>scrollBo
 document.getElementById("btnBoxDrawNext").addEventListener("click", ()=>scrollBoxCarousel(1,"boxdrawGrid"));
 document.getElementById("btnEspecialPrev").addEventListener("click", ()=>scrollBoxCarousel(-1,"especialGrid"));
 document.getElementById("btnEspecialNext").addEventListener("click", ()=>scrollBoxCarousel(1,"especialGrid"));
+document.getElementById("btnGratisPrev").addEventListener("click", ()=>scrollBoxCarousel(-1,"gratisGrid"));
+document.getElementById("btnGratisNext").addEventListener("click", ()=>scrollBoxCarousel(1,"gratisGrid"));
 
 document.getElementById("btnCloseStage").addEventListener("click", ()=>{
   document.getElementById("stageOverlay").classList.add("hidden");
@@ -552,6 +586,7 @@ document.getElementById("btnCloseStage").addEventListener("click", ()=>{
   document.getElementById("beam2").classList.remove("sweep");
   renderContratarGrid("boxdraw");
   renderContratarGrid("especial");
+  renderContratarGrid("gratis");
   renderHome();
   resumeMusicWithNextTrack(); // sai da Box -> toca outra faixa da playlist
 });
