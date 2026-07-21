@@ -5082,6 +5082,19 @@
     "image": "assets/players/m_cucurella.png",
     "tier": "destaque"
   },
+    {
+    "id": "p573",
+    "name": "L. MESSI",
+    "overall": 100,
+    "club": "Barcelona",
+    "nationality": "Argentina",
+    "nationalityFlag": "🇦🇷",
+    "position": "AD",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/L. MESSI_100.png",
+    "tier": "iconic"
+  },
   {
     "id": "p572",
     "name": "Lamine Yamal",
