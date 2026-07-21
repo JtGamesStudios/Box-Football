@@ -1,0 +1,15 @@
+{
+  "id": "box009",
+  "name": "Iconic Moment: L. Messi",
+  "date": "",
+  "description": "Gire de graça e tente ganhar o Iconic Moment do L. Messi!",
+  "banner": "assets/players/L. MESSI.png",
+  "active": true,
+  "category": "gratis",
+  "priceGP": 0,
+  "priceCoins": 0,
+  "expiresAt": "2026-10-19T00:00:00",
+  "players": [
+    "p558"
+  ]
+}
