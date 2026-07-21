@@ -383,6 +383,7 @@ html.hub-active .menu-card-body{
 
 .banner-contratar-boxdraw{  background-image:url('../assets/banners/banner-contratar-boxdraw.jpg');  background-color:#3A2E10; background-position:center 35%; }
 .banner-contratar-especial{ background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-contratar-especial.jpg'); background-color:#8A6B1E; }
+.banner-contratar-gratis{ background-image:linear-gradient(135deg, #FF2D78, #C6116B 60%, #7A0E52); background-color:#C6116B; }
 
 .banner-extras-presentes{ background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-extras-presentes.jpg'); background-color:#5B2FA6; }
 .banner-extras-config{    background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-extras-config.jpg');    background-color:#8A1F3D; }
@@ -394,6 +395,12 @@ html.hub-active .menu-card-body{
 }
 .box-badge.off{ color:#FF8FA0; }
 .box-badge.on{ color:#8CF0B4; }
+.box-badge-free{
+  position:absolute; top:10px; left:10px; font-size:11px; font-weight:800; z-index:2;
+  padding:4px 10px; border-radius:20px; letter-spacing:.5px;
+  background:linear-gradient(135deg,#FF2D78,#FF7EB3); color:#fff;
+  box-shadow:0 0 10px rgba(255,45,120,.6);
+}
 .box-body{ padding:16px; display:flex; flex-direction:column; gap:12px; flex:1; }
 .box-desc{ font-size:13px; color:var(--text-muted); min-height:36px; }
 .ball-row{ display:flex; gap:10px; flex-wrap:wrap; }
@@ -427,8 +434,19 @@ html.hub-active .menu-card-body{
   transition:transform .12s, border-color .15s, color .15s;
 }
 .box-search-btn:hover{ transform:translateY(-1px); border-color:var(--brand); color:var(--brand); }
-.box-prices-inline{ flex:1; display:flex; }
+.box-prices-inline{ flex:1; display:flex; align-items:center; gap:8px; }
 .box-prices-inline .price-pill{ flex:1; }
+.price-pill-free{
+  background:linear-gradient(135deg,#FF2D78,#FF7EB3); border-color:transparent; color:#fff;
+  box-shadow:0 0 10px rgba(255,45,120,.45);
+}
+.free-left-badge{
+  flex:0 0 auto; font-size:11px; font-weight:700; color:var(--text-muted);
+  white-space:nowrap; padding:0 2px;
+}
+.btn-free-spin{
+  background:linear-gradient(135deg,#FF2D78,#FF7EB3) !important; border-color:transparent !important;
+}
 
 /* --- Painel escuro: Jogadores/Bolas restantes + Resetar --- */
 .box-stats-panel{
