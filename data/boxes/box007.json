@@ -7,7 +7,7 @@
   "active": true,
   "category": "gratis",
   "priceGP": 0,
-  "priceCoins": 0,
+  "priceCoins": 100,
   "expiresAt": "2026-07-29T00:00:00",
   "players": [
     "p590",
