@@ -168,6 +168,26 @@
       </div>
     </div>
   </div>
+
+  <!-- Bloqueio permanente pós-migração — sem bypass. Ver MIGRATION_CUTOFF_DATE em js/splash.js -->
+  <div class="splash-maintenance hidden" id="splashMigrationLock">
+    <div class="maint-card">
+      <div class="maint-banner">
+        <svg viewBox="0 0 64 64" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="14" y="26" width="36" height="28" rx="4" stroke="#fff" stroke-width="3.5"/>
+          <path d="M22 26v-6a10 10 0 0 1 20 0v6" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="32" cy="40" r="3.5" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="maint-body">
+        <h2>O Box Clube agora é só pelo app</h2>
+        <p class="maint-line">· O acesso pelo navegador foi encerrado</p>
+        <p class="maint-desc">A migração pro app Android foi concluída. Se você já tinha vinculado sua conta Google, é só entrar com ela no app pra continuar de onde parou.</p>
+        <p class="maint-note">Baixe o app pra continuar jogando:</p>
+        <a class="btn btn-primary hidden" id="migrationLockDownloadBtn" href="#" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;text-decoration:none;">Baixar o app</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== OVERLAY: gire o celular / tela cheia ===================== -->
@@ -530,6 +550,11 @@
         </div>
       </div>
 
+      <div class="settings-row" style="margin-bottom:18px;flex-wrap:wrap;gap:8px;">
+        <span id="googleLinkStatus">Sua conta ainda não está vinculada.</span>
+        <button class="btn btn-sm btn-primary" id="googleLinkBtn">Vincular conta Google</button>
+      </div>
+
       <h2 class="page-title" style="font-size:20px;margin-top:24px;">Seu perfil no Ranking</h2>
       <p class="page-sub">Esse avatar aparece pra todo mundo no Ranking Global, junto com sua bandeira e nome.</p>
       <div class="avatar-picker" id="settingsAvatarPicker"></div>
@@ -722,6 +747,12 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script src="js/ranking.js?v=6"></script>
+<script src="js/ui-dialog.js?v=1"></script>
+<script src="js/transfer-limit.js?v=1"></script>
+<script src="js/cloud-save.js?v=1"></script>
+<script src="js/google-link.js?v=1"></script>
+<script src="js/app-transfer.js?v=1"></script>
+<script src="js/migration-notice.js?v=1"></script>
 <script src="js/online.js?v=1"></script>
 <script>
   // RANKING: mostra o popup de cadastro (se ainda não tiver nome) e já
