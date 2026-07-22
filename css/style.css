@@ -1649,42 +1649,46 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:14px;
 }
 #eventoList .empty-state{ grid-column:1/-1; }
+
+/* ---------- card compacto (só a "capa" — clica pra abrir o submenu) ---------- */
 .event-card{
+  appearance:none; -webkit-appearance:none;
   background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
   overflow:hidden; box-shadow:var(--shadow-card); display:flex; flex-direction:column;
+  cursor:pointer; padding:0; margin:0; text-align:left; width:100%; font:inherit; color:inherit;
+  transition:transform .12s ease, box-shadow .12s ease;
 }
-.event-banner{
-  position:relative; height:92px; background-size:cover; background-position:center;
-  display:flex; align-items:flex-end; padding:9px 10px;
+.event-card:focus-visible{ outline:2px solid var(--brand); outline-offset:2px; }
+.event-card:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.16); }
+.event-card:active{ transform:translateY(0); }
+.event-card-banner{
+  position:relative; height:118px; background-size:cover; background-position:center;
+  display:flex; align-items:flex-end; padding:10px 11px;
 }
-.event-banner-shade{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.68)); }
-.event-banner-body{ position:relative; z-index:1; color:#fff; }
+.event-card-shade{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.08) 30%, rgba(0,0,0,.78)); }
+.event-card-body{ position:relative; z-index:1; color:#fff; width:100%; }
 .event-title{ font-family:var(--font-display); font-weight:800; font-size:15px; line-height:1.2; text-shadow:0 2px 6px rgba(0,0,0,.5); }
 .event-timeleft{ font-size:10.5px; opacity:.9; margin-top:1px; }
-.event-body{ padding:11px 12px 12px; flex:1; display:flex; flex-direction:column; }
-.event-desc{ margin:0 0 6px; color:var(--text-muted); font-size:12px; line-height:1.4; }
-.event-objective{ font-weight:700; font-size:12px; color:var(--text); }
-.event-milestones{ display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 2px; }
-.event-milestone{
-  position:relative; display:flex; flex-direction:column; align-items:center; gap:1px;
-  min-width:56px; padding:5px 7px; border-radius:8px; background:var(--surface-2);
-  border:1px solid var(--border); font-size:9.5px; color:var(--text-muted);
+.event-download-badge{
+  position:absolute; top:8px; right:8px; z-index:2; display:flex; align-items:center; gap:4px;
+  background:rgba(20,10,10,.72); border:1px solid rgba(255,110,110,.55); color:#ffb3b3;
+  font-size:9.5px; font-weight:700; padding:4px 8px; border-radius:999px; backdrop-filter:blur(2px);
 }
-.event-milestone.done{ border-color:var(--turf); background:rgba(47,184,107,.1); color:var(--turf-dim); }
-.event-milestone-pts{ font-family:var(--font-display); font-weight:800; font-size:13px; color:var(--text); }
-.event-milestone.done .event-milestone-pts{ color:var(--turf-dim); }
-.event-milestone-check{ position:absolute; top:3px; right:5px; color:var(--turf); font-weight:800; font-size:10px; }
-.event-actions{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; padding-top:10px; }
-.event-actions-external{ flex-direction:column; align-items:stretch; }
-.event-actions-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-.event-ext-timer{
-  align-self:flex-start; display:flex; align-items:center; gap:4px;
-  font-family:var(--font-display); font-weight:800; font-size:13px;
-  color:var(--turf-dim); background:rgba(47,184,107,.1);
-  border:1px solid var(--turf); border-radius:8px; padding:4px 10px; margin-bottom:2px;
+.event-card-footer{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:9px 12px; border-top:1px solid var(--border);
+}
+.event-card-meta{ font-size:11px; color:var(--text-muted); font-weight:600; }
+.event-card-cta{ font-size:11.5px; font-weight:800; color:var(--brand); white-space:nowrap; }
+
+@media (max-width: 420px){
+  #eventoList{ grid-template-columns:1fr 1fr; gap:10px; }
+  .event-card-banner{ height:92px; }
+  .event-title{ font-size:12.5px; }
+  .event-card-footer{ padding:8px 9px; flex-direction:column; align-items:flex-start; gap:2px; }
 }
 
-/* ---------- submenu "jogar no site" (marcos + iframe do jogo) ---------- */
+/* ---------- submenu (modal de detalhes do evento) ---------- */
 .event-play-overlay{
   position:fixed; inset:0; z-index:300; background:rgba(6,9,15,.82);
   display:flex; align-items:center; justify-content:center; padding:16px;
@@ -1694,23 +1698,37 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 .event-play-inner{
   position:relative; width:min(96vw, 560px); max-height:92vh; overflow-y:auto;
   background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
-  padding:20px 18px 16px; box-shadow:0 20px 60px rgba(0,0,0,.55);
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
 }
+.event-play-banner{
+  position:relative; height:160px; background-size:cover; background-position:center;
+  display:flex; align-items:flex-end; padding:14px 16px;
+}
+.event-play-banner-shade{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.05) 35%, rgba(0,0,0,.82)); }
+.event-play-banner-body{ position:relative; z-index:1; color:#fff; }
 .event-play-close{
-  position:absolute; top:10px; right:10px; width:30px; height:30px; border-radius:50%;
-  border:1px solid var(--border); background:var(--surface-2, rgba(255,255,255,.05));
-  color:var(--text); font-size:14px; line-height:1; cursor:pointer;
+  position:absolute; top:10px; right:10px; z-index:2; width:30px; height:30px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.35); background:rgba(10,12,18,.55);
+  color:#fff; font-size:14px; line-height:1; cursor:pointer;
 }
-.event-play-header{ padding-right:34px; margin-bottom:8px; }
-.event-play-title{ font-family:var(--font-display); font-weight:800; font-size:16px; color:var(--text); }
-.event-play-desc{ margin:4px 0 0; color:var(--text-muted); font-size:12.5px; line-height:1.4; }
-.event-play-milestones{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; }
+.event-play-title{ font-family:var(--font-display); font-weight:800; font-size:18px; line-height:1.2; text-shadow:0 2px 6px rgba(0,0,0,.5); }
+.event-play-timeleft{ font-size:11.5px; opacity:.9; margin-top:2px; }
+.event-play-content{ padding:16px 16px 14px; }
+.event-play-desc{ margin:0 0 10px; color:var(--text-muted); font-size:12.5px; line-height:1.4; }
+.event-play-download-warning{
+  display:flex; align-items:flex-start; gap:8px; margin:0 0 10px; padding:9px 10px;
+  border-radius:10px; background:rgba(255,110,80,.12); border:1px solid rgba(255,110,80,.4);
+  color:#c24a2e; font-size:11.5px; line-height:1.4; font-weight:600;
+}
+.event-play-download-warning.hidden{ display:none; }
+.event-play-objective{ font-weight:700; font-size:12.5px; color:var(--text); margin-bottom:8px; }
+.event-play-milestones-label{ font-weight:800; font-size:11.5px; color:var(--text); text-transform:uppercase; letter-spacing:.03em; margin:10px 0 6px; }
+.event-play-milestones{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 6px; }
 .event-play-frame-wrap{
   width:100%; aspect-ratio:16/9; border-radius:var(--radius-md); overflow:hidden;
-  background:#000; border:1px solid var(--border); margin-bottom:8px;
+  background:#000; border:1px solid var(--border); margin:10px 0 8px; position:relative;
 }
 .event-play-frame{ width:100%; height:100%; border:0; display:block; }
-.event-play-frame-wrap{ position:relative; }
 .event-play-emulator{ position:absolute; inset:0; background:#000; overflow:hidden; }
 .event-emulator-msg{
   display:flex; align-items:center; justify-content:center; text-align:center;
@@ -1719,24 +1737,24 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 .event-emulator-msg code{ background:rgba(255,255,255,.08); padding:1px 5px; border-radius:4px; }
 .event-play-fallback{ font-size:11px; color:var(--text-muted); margin-bottom:12px; }
 .event-play-fallback a{ color:var(--brand); font-weight:700; }
-.event-play-actions{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.event-play-actions{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:8px; padding-top:10px; border-top:1px solid var(--border); }
 .event-play-timer{ font-family:var(--font-display); font-weight:800; font-size:12.5px; color:var(--text-muted); }
 .event-play-actions .btn{ padding:9px 16px; font-size:12.5px; }
 
-@media (max-width: 520px){
-  .event-play-inner{ padding:16px 12px 14px; }
-  .event-play-frame-wrap{ aspect-ratio:4/3; }
+.event-milestone{
+  position:relative; display:flex; flex-direction:column; align-items:center; gap:1px;
+  min-width:56px; padding:5px 7px; border-radius:8px; background:var(--surface-2);
+  border:1px solid var(--border); font-size:9.5px; color:var(--text-muted);
 }
+.event-milestone.done{ border-color:var(--turf); background:rgba(47,184,107,.1); color:var(--turf-dim); }
+.event-milestone-pts{ font-family:var(--font-display); font-weight:800; font-size:13px; color:var(--text); }
+.event-milestone.done .event-milestone-pts{ color:var(--turf-dim); }
+.event-milestone-check{ position:absolute; top:3px; right:5px; color:var(--turf); font-weight:800; font-size:10px; }
 .event-tickets{ font-size:11px; color:var(--text-muted); }
-.event-actions .btn{ padding:8px 14px; font-size:12.5px; }
 
-@media (max-width: 420px){
-  #eventoList{ grid-template-columns:1fr 1fr; gap:10px; }
-  .event-banner{ height:78px; }
-  .event-title{ font-size:13px; }
-  .event-body{ padding:9px 9px 10px; }
-  .event-actions{ flex-direction:column; align-items:stretch; gap:6px; }
-  .event-actions .btn{ width:100%; }
+@media (max-width: 520px){
+  .event-play-content{ padding:14px 12px 12px; }
+  .event-play-frame-wrap{ aspect-ratio:4/3; }
 }
 
 /* =========================================================
@@ -1782,7 +1800,6 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 
 @media (max-width: 480px){
   .novidades-item-banner{ width:76px; height:48px; }
-  .event-banner{ height:120px; }
 }
 
 /* =========================================================
