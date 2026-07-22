@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "label": "Melhorias no app: seção de Informações e Notícias",
+  "assets": [
+    "css/style.css",
+    "js/nav.js",
+    "js/state.js",
+    "js/main.js",
+    "js/informacoes.js",
+    "js/splash.js"
+  ]
+}
