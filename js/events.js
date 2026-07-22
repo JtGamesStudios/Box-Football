@@ -44,6 +44,222 @@ function ensureEventProgress(eventId){
   return ev;
 }
 
+/* ---------- eventos "externos" (jogar num site parceiro) ---------- */
+function ensureExternalTimer(eventId){
+  if(!STATE.events.externalTimers) STATE.events.externalTimers = {};
+  if(!(eventId in STATE.events.externalTimers)) STATE.events.externalTimers[eventId] = null;
+  return STATE.events.externalTimers;
+}
+
+// retorna { state: "idle" | "running" | "ready", remainingMs }
+function externalTimerStatus(evt){
+  ensureExternalTimer(evt.id);
+  const startedAt = STATE.events.externalTimers[evt.id];
+  if(!startedAt) return { state: "idle" };
+  const durationMs = (evt.durationMinutes || 30) * 60000;
+  const elapsed = Date.now() - startedAt;
+  if(elapsed >= durationMs) return { state: "ready" };
+  return { state: "running", remainingMs: durationMs - elapsed };
+}
+
+function formatCountdown(ms){
+  const totalSec = Math.max(0, Math.ceil(ms / 1000));
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+function buildMilestoneChipsHtml(evt){
+  ensureEventProgress(evt.id);
+  const points = STATE.events.points[evt.id];
+  const milestones = evt.milestones || [];
+  return milestones.map(m=>{
+    const done = points >= m.points;
+    const rewardTxt = [m.rewardGP ? `${m.rewardGP.toLocaleString("pt-BR")} GP` : null, m.rewardCoins ? `${m.rewardCoins} Moedas` : null].filter(Boolean).join(" + ");
+    return `<div class="event-milestone ${done ? "done" : ""}">
+      <span class="event-milestone-pts">${m.points}</span>
+      <span class="event-milestone-reward">${rewardTxt}</span>
+      ${done ? '<span class="event-milestone-check">✓</span>' : ""}
+    </div>`;
+  }).join("");
+}
+
+/* ---------- submenu (modal) com marcos + frame do jogo ---------- */
+function ensureExternalEventModal(){
+  let modal = document.getElementById("eventExternalModal");
+  if(modal) return modal;
+
+  modal = document.createElement("div");
+  modal.id = "eventExternalModal";
+  modal.className = "event-play-overlay hidden";
+  modal.innerHTML = `
+    <div class="event-play-inner">
+      <button type="button" class="event-play-close" aria-label="Fechar">✕</button>
+      <div class="event-play-header">
+        <div class="event-play-title"></div>
+        <p class="event-play-desc"></p>
+      </div>
+      <div class="event-play-milestones"></div>
+      <div class="event-play-frame-wrap">
+        <iframe class="event-play-frame" src="" loading="lazy" allow="fullscreen; autoplay" allowfullscreen></iframe>
+      </div>
+      <div class="event-play-fallback">
+        Se o jogo não carregar aqui dentro, <a class="event-play-opentab" href="#" target="_blank" rel="noopener">abra em uma nova aba ↗</a>.
+      </div>
+      <div class="event-play-actions">
+        <span class="event-play-timer"></span>
+        <button type="button" class="btn btn-primary event-play-action"></button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  modal.querySelector(".event-play-close").onclick = closeExternalEventModal;
+  modal.addEventListener("click", (e)=>{ if(e.target === modal) closeExternalEventModal(); });
+
+  return modal;
+}
+
+function closeExternalEventModal(){
+  const modal = document.getElementById("eventExternalModal");
+  if(!modal) return;
+  modal.classList.add("hidden");
+  // pausa o jogo/emulador ao fechar, pra não ficar rodando escondido
+  const frame = modal.querySelector(".event-play-frame");
+  if(frame) frame.src = "about:blank";
+}
+
+function openExternalEventModal(eventId){
+  const evt = getEvent(eventId);
+  if(!evt) return;
+  ensureEventProgress(eventId);
+  ensureExternalTimer(eventId);
+
+  const modal = ensureExternalEventModal();
+  modal.dataset.eventId = eventId;
+  modal.querySelector(".event-play-title").textContent = evt.title;
+  modal.querySelector(".event-play-desc").textContent = evt.description;
+  modal.querySelector(".event-play-milestones").innerHTML = buildMilestoneChipsHtml(evt);
+
+  const frame = modal.querySelector(".event-play-frame");
+  if(frame.src !== evt.externalUrl) frame.src = evt.externalUrl;
+  modal.querySelector(".event-play-opentab").href = evt.externalUrl;
+
+  updateExternalEventModalAction(evt);
+  modal.classList.remove("hidden");
+
+  if(externalTimerStatus(evt).state === "running" && !_externalTimerInterval){
+    _externalTimerInterval = setInterval(tickExternalTimers, 1000);
+  }
+}
+
+function updateExternalEventModalAction(evt){
+  const modal = document.getElementById("eventExternalModal");
+  if(!modal || modal.dataset.eventId !== evt.id) return;
+
+  const status = externalTimerStatus(evt);
+  const tickets = ticketsLeft(evt);
+  const timerEl = modal.querySelector(".event-play-timer");
+  const btn = modal.querySelector(".event-play-action");
+
+  if(status.state === "running"){
+    timerEl.textContent = `⏱ ${formatCountdown(status.remainingMs)} restantes`;
+    btn.textContent = "Jogando… (aguarde o cronômetro)";
+    btn.disabled = true;
+    btn.onclick = null;
+  } else if(status.state === "ready"){
+    timerEl.textContent = "Tempo completo! ✅";
+    btn.textContent = "Resgatar recompensa 🎁";
+    btn.disabled = false;
+    btn.onclick = () => { claimExternalEventReward(evt.id); closeExternalEventModal(); };
+  } else {
+    timerEl.textContent = tickets > 0 ? `${tickets}/${evt.dailyAttempts} jogada(s) hoje` : "Sem jogadas hoje";
+    btn.textContent = "Começar a jogar (inicia o cronômetro) ▶";
+    btn.disabled = tickets <= 0;
+    btn.onclick = () => beginExternalEventTimer(evt.id);
+  }
+}
+
+function beginExternalEventTimer(eventId){
+  const evt = getEvent(eventId);
+  if(!evt) return;
+  ensureEventProgress(eventId);
+  ensureExternalTimer(eventId);
+
+  if(ticketsLeft(evt) <= 0){
+    toast("Sem tentativas hoje. Volte amanhã pra jogar de novo.", "");
+    return;
+  }
+  if(externalTimerStatus(evt).state !== "idle") return;
+
+  STATE.events.externalTimers[eventId] = Date.now();
+  persist();
+  toast(`Cronômetro iniciado! Jogue por ${evt.durationMinutes || 30} minutos e volte aqui pra resgatar.`, "success");
+  updateExternalEventModalAction(evt);
+  renderEventoScreen();
+
+  if(!_externalTimerInterval) _externalTimerInterval = setInterval(tickExternalTimers, 1000);
+}
+
+function claimExternalEventReward(eventId){
+  const evt = getEvent(eventId);
+  if(!evt) return;
+  ensureEventProgress(eventId);
+  ensureExternalTimer(eventId);
+
+  const status = externalTimerStatus(evt);
+  if(status.state !== "ready"){
+    toast("Ainda não deu o tempo. Continue jogando no site!", "");
+    return;
+  }
+
+  STATE.events.attemptsToday[evt.id].used += 1;
+  STATE.events.points[evt.id] += 1;
+  STATE.events.externalTimers[evt.id] = null;
+  STATE.events.history[evt.id].unshift({ date: Date.now(), score: "-", result: "win" });
+  STATE.events.history[evt.id] = STATE.events.history[evt.id].slice(0, 20);
+
+  persist();
+  checkEventMilestones(evt);
+  toast("Recompensa resgatada! Obrigado por jogar.", "success");
+  renderEventoScreen();
+}
+
+// atualiza os cronômetros na tela (e no modal, se estiver aberto) sem
+// precisar re-renderizar tudo a cada segundo
+let _externalTimerInterval = null;
+function tickExternalTimers(){
+  const screenEl = document.getElementById("screen-evento");
+  const evtoScreenActive = !!screenEl && screenEl.classList.contains("active");
+  const modal = document.getElementById("eventExternalModal");
+  const modalOpen = !!modal && !modal.classList.contains("hidden");
+
+  if(!evtoScreenActive && !modalOpen){
+    clearInterval(_externalTimerInterval);
+    _externalTimerInterval = null;
+    return;
+  }
+
+  const externalEvents = getActiveEvents().filter(e => e.engine === "external");
+  let anyRunning = false;
+  externalEvents.forEach(evt=>{
+    const status = externalTimerStatus(evt);
+    if(status.state === "running"){
+      anyRunning = true;
+      const el = document.querySelector(`.event-ext-timer[data-evt="${evt.id}"]`);
+      if(el) el.textContent = `⏱ ${formatCountdown(status.remainingMs)} restantes`;
+      if(modalOpen && modal.dataset.eventId === evt.id) updateExternalEventModalAction(evt);
+    } else if(status.state === "ready"){
+      // acabou de virar — re-renderiza o card e/ou o modal pra trocar o botão pra "Resgatar"
+      if(evtoScreenActive) renderEventoScreen();
+      if(modalOpen && modal.dataset.eventId === evt.id) updateExternalEventModalAction(evt);
+    }
+  });
+  if(!anyRunning){
+    clearInterval(_externalTimerInterval);
+    _externalTimerInterval = null;
+  }
+}
+
 function ticketsLeft(evt){
   ensureEventProgress(evt.id);
   const used = STATE.events.attemptsToday[evt.id].used;
@@ -81,6 +297,7 @@ function buildEventWinCondition(evt){
 }
 
 function eventObjectiveLabel(evt){
+  if(evt.engine === "external") return `Jogue ${evt.durationMinutes || 30} minutos no site parceiro`;
   if(evt.mode === "goals") return `Marque ${evt.goalTarget}+ gols na partida`;
   if(evt.mode === "cleanSheet") return "Vença sem sofrer gols";
   return "Vença a partida";
@@ -211,15 +428,41 @@ function renderEventoScreen(){
     const tickets = ticketsLeft(evt);
     const timeLeft = formatEventTimeLeft(evt);
 
-    const milestoneChips = milestones.map(m=>{
-      const done = points >= m.points;
-      const rewardTxt = [m.rewardGP ? `${m.rewardGP.toLocaleString("pt-BR")} GP` : null, m.rewardCoins ? `${m.rewardCoins} Moedas` : null].filter(Boolean).join(" + ");
-      return `<div class="event-milestone ${done ? "done" : ""}">
-        <span class="event-milestone-pts">${m.points}</span>
-        <span class="event-milestone-reward">${rewardTxt}</span>
-        ${done ? '<span class="event-milestone-check">✓</span>' : ""}
-      </div>`;
-    }).join("");
+    const milestoneChips = buildMilestoneChipsHtml(evt);
+
+    let actionsHtml;
+    if(evt.engine === "external"){
+      const extStatus = externalTimerStatus(evt);
+      let btnLabel = "Jogar no site ›";
+      let btnDisabled = tickets <= 0;
+      let timerHtml = "";
+      let onClickAttr = `openExternalEventModal('${evt.id}')`;
+
+      if(extStatus.state === "running"){
+        btnLabel = "Ver cronômetro / jogar ›";
+        btnDisabled = false;
+        timerHtml = `<div class="event-ext-timer" data-evt="${evt.id}">⏱ ${formatCountdown(extStatus.remainingMs)} restantes</div>`;
+      } else if(extStatus.state === "ready"){
+        btnLabel = "Resgatar recompensa 🎁";
+        btnDisabled = false;
+        onClickAttr = `claimExternalEventReward('${evt.id}')`;
+      }
+
+      actionsHtml = `
+        <div class="event-actions event-actions-external">
+          ${timerHtml}
+          <div class="event-actions-row">
+            <span class="event-tickets">${tickets}/${evt.dailyAttempts} jogada(s) hoje</span>
+            <button class="btn btn-primary" ${btnDisabled ? "disabled" : ""} onclick="${onClickAttr}">${btnLabel}</button>
+          </div>
+        </div>`;
+    } else {
+      actionsHtml = `
+        <div class="event-actions">
+          <span class="event-tickets">${tickets}/${evt.dailyAttempts} tentativas hoje</span>
+          <button class="btn btn-primary" ${tickets<=0?"disabled":""} onclick="startEventMatch('${evt.id}')">Jogar ›</button>
+        </div>`;
+    }
 
     return `
     <div class="event-card">
@@ -241,11 +484,16 @@ function renderEventoScreen(){
 
         <div class="event-milestones">${milestoneChips}</div>
 
-        <div class="event-actions">
-          <span class="event-tickets">${tickets}/${evt.dailyAttempts} tentativas hoje</span>
-          <button class="btn btn-primary" ${tickets<=0?"disabled":""} onclick="startEventMatch('${evt.id}')">Jogar ›</button>
-        </div>
+        ${actionsHtml}
       </div>
     </div>`;
   }).join("");
+
+  // liga o cronômetro ao vivo (mm:ss) se houver algum evento externo rodando
+  clearInterval(_externalTimerInterval);
+  _externalTimerInterval = null;
+  const hasRunningExternal = events.some(e => e.engine === "external" && externalTimerStatus(e).state === "running");
+  if(hasRunningExternal){
+    _externalTimerInterval = setInterval(tickExternalTimers, 1000);
+  }
 }
