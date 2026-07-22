@@ -126,7 +126,7 @@
       "emulator": {
         "system": "psx",
         "core": "pcsx_rearmed",
-        "gameUrl": "assets/roms/winning-eleven-2002.bin",
+        "gameUrl": "https://joshc00epbkstedv.public.blob.vercel-storage.com/Winning%20Eleven%202002%20-%20My%20disc.7z",
         "biosUrl": "assets/roms/bios/psx-bios.bin",
         "gameName": "World Soccer Winning Eleven 2002"
       },
