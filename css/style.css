@@ -1710,6 +1710,13 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   background:#000; border:1px solid var(--border); margin-bottom:8px;
 }
 .event-play-frame{ width:100%; height:100%; border:0; display:block; }
+.event-play-frame-wrap{ position:relative; }
+.event-play-emulator{ position:absolute; inset:0; background:#000; overflow:hidden; }
+.event-emulator-msg{
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  height:100%; padding:16px; color:var(--text-muted); font-size:12.5px; line-height:1.5;
+}
+.event-emulator-msg code{ background:rgba(255,255,255,.08); padding:1px 5px; border-radius:4px; }
 .event-play-fallback{ font-size:11px; color:var(--text-muted); margin-bottom:12px; }
 .event-play-fallback a{ color:var(--brand); font-weight:700; }
 .event-play-actions{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
