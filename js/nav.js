@@ -29,11 +29,11 @@ const ICON_SVG = {
 /* O ícone do Ranking Global fica sempre visível no topo (fora ou dentro
    da Campanha), pra dar acesso rápido à área própria do ranking. */
 const TOP_ICONS = [
-  { iconKey: "trophy", nav: "ranking",  title: "Ranking Global",        badgeSource: null },
-  { iconKey: "user", nav: "config",    title: "Perfil / Configurações", badgeSource: null },
-  { iconKey: "gift", nav: "presentes", title: "Caixa de Presentes",     badgeSource: "homeGifts" },
-  { iconKey: "mail", nav: "missoes",   title: "Mensagens / Missões",    badgeSource: null },
-  { iconKey: "cart", nav: "loja",      title: "Loja",                  badgeSource: null },
+  { iconKey: "trophy", nav: "ranking",      title: "Ranking Global",        badgeSource: null },
+  { iconKey: "user", nav: "config",        title: "Perfil / Configurações", badgeSource: null },
+  { iconKey: "gift", nav: "presentes",     title: "Caixa de Presentes",     badgeSource: "homeGifts" },
+  { iconKey: "mail", nav: "informacoes",   title: "Informações e Notícias", badgeSource: null, arrowBadge: true },
+  { iconKey: "cart", nav: "loja",          title: "Loja",                  badgeSource: null },
 ];
 
 /* Cards grandes de cada hub (banner + ícone + título + subtítulo + badge
@@ -84,6 +84,7 @@ const SCREEN_PARENT_TAB = {
   contract: "contract", contratar: "contract", boxes: "contract", loja: "contract",
   boxdraw: "contratar", especial: "contratar",
   extras: "extras", presentes: "extras", config: "extras",
+  informacoes: "home",
 };
 
 /* Telas "hub" mostram grid de cards; as demais são telas-folha reais */
@@ -177,7 +178,9 @@ function buildTopIcons(){
     btn.className = "topicon-btn";
     btn.title = item.title;
     btn.dataset.nav = item.nav;
-    btn.innerHTML = item.badgeSource
+    btn.innerHTML = item.arrowBadge
+      ? `<span class="info-badge-arrow hidden" id="infoBadgeArrow">▲</span>${ICON_SVG[item.iconKey]}`
+      : item.badgeSource
       ? `<span class="badge-dot hidden" data-badge-for="${item.nav}">0</span>${ICON_SVG[item.iconKey]}`
       : ICON_SVG[item.iconKey];
     btn.onclick = ()=> showScreen(item.nav);
@@ -289,6 +292,7 @@ function showScreen(id, opts){
   if(id==="escalacao") renderEscalacao();
   if(id==="presentes") renderGifts();
   if(id==="missoes") renderMissions();
+  if(id==="informacoes") renderInformacoes();
   if(id==="loja") renderStore();
   if(id==="config") renderConfigScreen();
   if(id==="home") renderHome();
