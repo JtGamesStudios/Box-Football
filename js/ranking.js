@@ -112,11 +112,19 @@ function initRanking() {
         if (user) {
           _rankingUid = user.uid;
           resolve(true);
+          return;
         }
-      });
-      firebase.auth().signInAnonymously().catch((err) => {
-        rankingLog("Falha no login anônimo:", err.message);
-        resolve(false);
+        // Só cria uma conta anônima nova se realmente não existe
+        // NENHUMA sessão persistida (nem anônima, nem vinculada ao
+        // Google). Chamar signInAnonymously() sem essa checagem corre
+        // em paralelo com a restauração da sessão salva (IndexedDB) e,
+        // se ganhar a corrida, cria um uid anônimo novo por cima da
+        // conta já vinculada — é isso que fazia o login "sumir" a
+        // cada refresh.
+        firebase.auth().signInAnonymously().catch((err) => {
+          rankingLog("Falha no login anônimo:", err.message);
+          resolve(false);
+        });
       });
     } catch (err) {
       rankingLog("Falha ao iniciar Firebase:", err.message);
