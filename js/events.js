@@ -44,7 +44,13 @@ function ensureEventProgress(eventId){
   return ev;
 }
 
-/* ---------- eventos "externos" (jogar num site parceiro) ---------- */
+/* ---------- eventos "externos" (jogar num site parceiro OU num emulador local) ---------- */
+// engine "external"  -> abre um site parceiro num iframe
+// engine "emulator"  -> roda um emulador (EmulatorJS) direto no nosso frame, sem site de terceiros
+function isTimedPlayEngine(evt){
+  return evt.engine === "external" || evt.engine === "emulator";
+}
+
 function ensureExternalTimer(eventId){
   if(!STATE.events.externalTimers) STATE.events.externalTimers = {};
   if(!(eventId in STATE.events.externalTimers)) STATE.events.externalTimers[eventId] = null;
@@ -101,10 +107,14 @@ function ensureExternalEventModal(){
       </div>
       <div class="event-play-milestones"></div>
       <div class="event-play-frame-wrap">
-        <iframe class="event-play-frame" src="" loading="lazy" allow="fullscreen; autoplay" allowfullscreen></iframe>
+        <iframe class="event-play-frame event-play-iframe" src="" loading="lazy" allow="fullscreen; autoplay" allowfullscreen></iframe>
+        <div class="event-play-frame event-play-emulator hidden" id="eventEmulatorMount"></div>
       </div>
-      <div class="event-play-fallback">
+      <div class="event-play-fallback event-play-fallback-external">
         Se o jogo não carregar aqui dentro, <a class="event-play-opentab" href="#" target="_blank" rel="noopener">abra em uma nova aba ↗</a>.
+      </div>
+      <div class="event-play-fallback event-play-fallback-emulator hidden">
+        Rodando localmente com EmulatorJS — nenhum site de terceiros é aberto. Se a ROM não estiver disponível, avisamos aqui.
       </div>
       <div class="event-play-actions">
         <span class="event-play-timer"></span>
@@ -123,9 +133,11 @@ function closeExternalEventModal(){
   const modal = document.getElementById("eventExternalModal");
   if(!modal) return;
   modal.classList.add("hidden");
-  // pausa o jogo/emulador ao fechar, pra não ficar rodando escondido
-  const frame = modal.querySelector(".event-play-frame");
-  if(frame) frame.src = "about:blank";
+  // pausa o site parceiro ao fechar, pra não ficar rodando escondido
+  const iframe = modal.querySelector(".event-play-iframe");
+  if(iframe) iframe.src = "about:blank";
+  // desliga o emulador local (se estava rodando), sem deixar áudio tocando escondido
+  teardownLocalEmulator();
 }
 
 function openExternalEventModal(eventId){
@@ -140,15 +152,112 @@ function openExternalEventModal(eventId){
   modal.querySelector(".event-play-desc").textContent = evt.description;
   modal.querySelector(".event-play-milestones").innerHTML = buildMilestoneChipsHtml(evt);
 
-  const frame = modal.querySelector(".event-play-frame");
-  if(frame.src !== evt.externalUrl) frame.src = evt.externalUrl;
-  modal.querySelector(".event-play-opentab").href = evt.externalUrl;
+  const iframe = modal.querySelector(".event-play-iframe");
+  const emuMount = modal.querySelector(".event-play-emulator");
+  const fbExternal = modal.querySelector(".event-play-fallback-external");
+  const fbEmulator = modal.querySelector(".event-play-fallback-emulator");
+
+  if(evt.engine === "emulator"){
+    iframe.classList.add("hidden");
+    iframe.src = "about:blank";
+    fbExternal.classList.add("hidden");
+    emuMount.classList.remove("hidden");
+    fbEmulator.classList.remove("hidden");
+    setupLocalEmulator(evt, emuMount);
+  } else {
+    emuMount.classList.add("hidden");
+    fbEmulator.classList.add("hidden");
+    iframe.classList.remove("hidden");
+    fbExternal.classList.remove("hidden");
+    if(iframe.src !== evt.externalUrl) iframe.src = evt.externalUrl;
+    modal.querySelector(".event-play-opentab").href = evt.externalUrl;
+  }
 
   updateExternalEventModalAction(evt);
   modal.classList.remove("hidden");
 
   if(externalTimerStatus(evt).state === "running" && !_externalTimerInterval){
     _externalTimerInterval = setInterval(tickExternalTimers, 1000);
+  }
+}
+
+/* ---------- emulador local (EmulatorJS), sem site de terceiros ---------- */
+// Roda o jogo dentro do nosso próprio frame usando o EmulatorJS,
+// que a gente hospeda em assets/emulatorjs/data (js/css/localização).
+// Só os "núcleos" (o motor de emulação em si, ex.: pcsx_rearmed) podem
+// ser baixados de um CDN neutro caso não estejam vendorizados localmente
+// em assets/emulatorjs/data/cores — isso é padrão do próprio projeto
+// EmulatorJS e NÃO abre nenhum site/jogo de terceiros na tela.
+// A ROM do jogo (assets/roms/...) precisa ser fornecida por você.
+// loader.js já lê as variáveis window.EJS_* e cria window.EJS_emulator
+// sozinho (não precisamos chamar "new EmulatorJS(...)" na mão). Por isso
+// cada vez que o modal abre a gente reinjeta o <script> pra ele rodar de
+// novo com a config atual.
+function injectEmulatorLoaderScript(){
+  return new Promise((resolve, reject) => {
+    const old = document.getElementById("ejsLoaderScript");
+    if(old) old.remove();
+    const script = document.createElement("script");
+    script.id = "ejsLoaderScript";
+    script.src = "assets/emulatorjs/data/loader.js";
+    script.onload = resolve;
+    script.onerror = () => reject(new Error("Falha ao carregar o EmulatorJS local (assets/emulatorjs/data/loader.js)."));
+    document.body.appendChild(script);
+  });
+}
+
+async function setupLocalEmulator(evt, mountEl){
+  const cfg = evt.emulator || {};
+  mountEl.innerHTML = "";
+  teardownLocalEmulator(false);
+
+  if(!cfg.gameUrl){
+    mountEl.innerHTML = `<div class="event-emulator-msg">Configuração do emulador incompleta neste evento (falta emulator.gameUrl em data/events.json).</div>`;
+    return;
+  }
+
+  // checa se o arquivo da ROM existe antes de inicializar o emulador,
+  // pra dar uma mensagem clara em vez de o EmulatorJS travar tentando
+  // baixar um arquivo que não existe
+  try{
+    const head = await fetch(cfg.gameUrl, { method: "HEAD" });
+    if(!head.ok) throw new Error("not found");
+  } catch(e){
+    mountEl.innerHTML = `<div class="event-emulator-msg">
+      ROM não encontrada em <code>${cfg.gameUrl}</code>.<br>
+      Adicione o arquivo do jogo nessa pasta (veja assets/roms/LEIA-ME.txt) — não incluímos ROMs de jogos no projeto.
+    </div>`;
+    return;
+  }
+
+  const playDiv = document.createElement("div");
+  playDiv.id = "eventEmulatorGame";
+  mountEl.appendChild(playDiv);
+
+  window.EJS_player = "#eventEmulatorGame";
+  window.EJS_core = cfg.core || cfg.system || "psx";
+  window.EJS_pathtodata = "assets/emulatorjs/data/";
+  window.EJS_gameUrl = cfg.gameUrl;
+  window.EJS_gameName = cfg.gameName || evt.title;
+  window.EJS_biosUrl = cfg.biosUrl || "";
+  window.EJS_startOnLoaded = true;
+  window.EJS_language = "pt-BR";
+
+  try{
+    await injectEmulatorLoaderScript();
+  } catch(err){
+    mountEl.innerHTML = `<div class="event-emulator-msg">Não foi possível iniciar o emulador: ${err.message}</div>`;
+  }
+}
+
+function teardownLocalEmulator(clearMount){
+  if(window.EJS_emulator){
+    try{ window.EJS_emulator.callEvent && window.EJS_emulator.callEvent("exit"); }catch(e){}
+    window.EJS_emulator = undefined;
+  }
+  if(clearMount !== false){
+    const mount = document.getElementById("eventEmulatorMount");
+    if(mount) mount.innerHTML = "";
   }
 }
 
@@ -239,7 +348,7 @@ function tickExternalTimers(){
     return;
   }
 
-  const externalEvents = getActiveEvents().filter(e => e.engine === "external");
+  const externalEvents = getActiveEvents().filter(isTimedPlayEngine);
   let anyRunning = false;
   externalEvents.forEach(evt=>{
     const status = externalTimerStatus(evt);
@@ -298,6 +407,7 @@ function buildEventWinCondition(evt){
 
 function eventObjectiveLabel(evt){
   if(evt.engine === "external") return `Jogue ${evt.durationMinutes || 30} minutos no site parceiro`;
+  if(evt.engine === "emulator") return `Jogue ${evt.durationMinutes || 30} minutos no emulador`;
   if(evt.mode === "goals") return `Marque ${evt.goalTarget}+ gols na partida`;
   if(evt.mode === "cleanSheet") return "Vença sem sofrer gols";
   return "Vença a partida";
@@ -431,9 +541,9 @@ function renderEventoScreen(){
     const milestoneChips = buildMilestoneChipsHtml(evt);
 
     let actionsHtml;
-    if(evt.engine === "external"){
+    if(isTimedPlayEngine(evt)){
       const extStatus = externalTimerStatus(evt);
-      let btnLabel = "Jogar no site ›";
+      let btnLabel = evt.engine === "emulator" ? "Jogar ›" : "Jogar no site ›";
       let btnDisabled = tickets <= 0;
       let timerHtml = "";
       let onClickAttr = `openExternalEventModal('${evt.id}')`;
@@ -492,7 +602,7 @@ function renderEventoScreen(){
   // liga o cronômetro ao vivo (mm:ss) se houver algum evento externo rodando
   clearInterval(_externalTimerInterval);
   _externalTimerInterval = null;
-  const hasRunningExternal = events.some(e => e.engine === "external" && externalTimerStatus(e).state === "running");
+  const hasRunningExternal = events.some(e => isTimedPlayEngine(e) && externalTimerStatus(e).state === "running");
   if(hasRunningExternal){
     _externalTimerInterval = setInterval(tickExternalTimers, 1000);
   }
