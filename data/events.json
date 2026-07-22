@@ -123,6 +123,7 @@
       "description": "Comemorando os 31 anos da franquia PES: jogue o clássico World Soccer Winning Eleven 2002 direto no navegador,por 30 minutos seguidos e volte aqui pra resgatar sua recompensa.",
       "banner": "assets/banners/evento_pes31anos.jpg",
       "engine": "emulator",
+      "downloadSizeMB": 500,
       "emulator": {
         "system": "psx",
         "core": "pcsx_rearmed",
