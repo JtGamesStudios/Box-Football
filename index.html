@@ -523,11 +523,19 @@
       <div id="giftsList"></div>
     </section>
 
-    <!-- MISSÕES (inalterada) -->
+    <!-- MISSÕES (inalterada — só acessível pelo card "Missões" do Club House) -->
     <section class="screen" id="screen-missoes" data-title="Missões">
       <h1 class="page-title">Missões</h1>
       <p class="page-sub">Complete objetivos para ganhar GP e Moedas extras.</p>
       <div id="missionsList"></div>
+    </section>
+
+    <!-- INFORMAÇÕES — avisos e notícias do jogo (só acessível pelo ícone de
+         mensagens no topo; ver js/informacoes.js) -->
+    <section class="screen" id="screen-informacoes" data-title="Informações">
+      <h1 class="page-title">Informações</h1>
+      <p class="page-sub">Avisos importantes e notícias do Box-Football.</p>
+      <div id="informacoesList"></div>
     </section>
 
     <!-- LOJA (inalterada) -->
@@ -664,6 +672,19 @@
   </div>
 </div>
 
+<!-- ===================== INFORMAÇÕES: detalhe de um aviso/notícia (ver js/informacoes.js) ===================== -->
+<div class="novidades-overlay hidden" id="infoDetailOverlay">
+  <div class="novidades-card" style="max-width:600px;">
+    <div class="novidades-head">
+      <h2 id="infoDetailTitle"></h2>
+      <button class="novidades-close" id="infoDetailCloseBtn" aria-label="Fechar">✕</button>
+    </div>
+    <div class="info-detail-date" id="infoDetailDate"></div>
+    <div class="info-detail-body" id="infoDetailBody"></div>
+    <div class="dialog-actions" id="infoDetailActions"></div>
+  </div>
+</div>
+
 <!-- ===================== LOGIN BONUS: popup diário estilo eFootball (card de evento) ===================== -->
 <div class="novidades-overlay hidden" id="dailyLoginOverlay">
   <div class="wc-login-card" id="dailyLoginPopupBanner">
@@ -741,6 +762,7 @@
 <script src="js/store.js?v=2"></script>
 <script src="js/coupons.js?v=1"></script>
 <script src="js/novidades.js?v=1"></script>
+<script src="js/informacoes.js?v=1"></script>
 <script src="js/dailylogin.js?v=1"></script>
 <script src="js/music.js?v=1"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
