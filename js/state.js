@@ -59,6 +59,7 @@ function defaultState(){
     seenContent: {               // controla o popup "Novidades" (boxes/eventos ativos)
       signature: null,
     },
+    readInfoIds: [],             // [ "itemId", ... ] — avisos/notícias já lidos na tela Informações
     pvp: {                       // Jogo c/ amigo — PvP online (ver js/online.js)
       friends: [],                // [{id, nickname}]
       history: [],                // [{opponent, score, result, date}]
