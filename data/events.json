@@ -124,7 +124,7 @@
       "banner": "assets/banners/evento_pes31anos.jpg",
       "engine": "external",
       "externalUrl": "https://classicgamezone.com/pt/games/world-soccer-winning-eleven-2002",
-      "active": true,
+      "active": false,
       "start": "2026-07-21T00:00:00",
       "end": "2026-07-29T23:59:59",
       "mode": "external",
