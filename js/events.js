@@ -90,47 +90,74 @@ function buildMilestoneChipsHtml(evt){
   }).join("");
 }
 
-/* ---------- submenu (modal) com marcos + frame do jogo ---------- */
-function ensureExternalEventModal(){
-  let modal = document.getElementById("eventExternalModal");
+/* ---------- helper: aviso de download (ex.: ROM de emulador ~500MB) ---------- */
+function eventDownloadWarningText(evt){
+  if(!evt.downloadSizeMB) return null;
+  return `📥 Este evento baixa cerca de <strong>${evt.downloadSizeMB}MB</strong> de arquivos no seu dispositivo na primeira vez que você jogar. Recomendado usar Wi‑Fi.`;
+}
+function eventDownloadBadgeText(evt){
+  if(!evt.downloadSizeMB) return null;
+  return `📥 ~${evt.downloadSizeMB}MB`;
+}
+
+/* ---------- submenu (modal de detalhes do evento) — capa cheia + marcos + (se for o caso) frame do jogo ---------- */
+function ensureEventDetailModal(){
+  let modal = document.getElementById("eventDetailModal");
   if(modal) return modal;
 
   modal = document.createElement("div");
-  modal.id = "eventExternalModal";
+  modal.id = "eventDetailModal";
   modal.className = "event-play-overlay hidden";
   modal.innerHTML = `
     <div class="event-play-inner">
-      <button type="button" class="event-play-close" aria-label="Fechar">✕</button>
-      <div class="event-play-header">
-        <div class="event-play-title"></div>
+      <div class="event-play-banner">
+        <div class="event-play-banner-shade"></div>
+        <button type="button" class="event-play-close" aria-label="Fechar">✕</button>
+        <div class="event-play-banner-body">
+          <div class="event-play-title"></div>
+          <div class="event-play-timeleft"></div>
+        </div>
+      </div>
+      <div class="event-play-content">
         <p class="event-play-desc"></p>
-      </div>
-      <div class="event-play-milestones"></div>
-      <div class="event-play-frame-wrap">
-        <iframe class="event-play-frame event-play-iframe" src="" loading="lazy" allow="fullscreen; autoplay" allowfullscreen></iframe>
-        <div class="event-play-frame event-play-emulator hidden" id="eventEmulatorMount"></div>
-      </div>
-      <div class="event-play-fallback event-play-fallback-external">
-        Se o jogo não carregar aqui dentro, <a class="event-play-opentab" href="#" target="_blank" rel="noopener">abra em uma nova aba ↗</a>.
-      </div>
-      <div class="event-play-fallback event-play-fallback-emulator hidden">
-        Rodando localmente com EmulatorJS — nenhum site de terceiros é aberto. Se a ROM não estiver disponível, avisamos aqui.
-      </div>
-      <div class="event-play-actions">
-        <span class="event-play-timer"></span>
-        <button type="button" class="btn btn-primary event-play-action"></button>
+        <div class="event-play-download-warning hidden"></div>
+        <div class="event-play-objective"></div>
+
+        <div class="box-progress" style="margin:10px 0;">
+          <div class="progress-track"><div class="progress-fill event-play-progress-fill" style="width:0%"></div></div>
+          <span class="event-play-progress-label"></span>
+        </div>
+
+        <div class="event-play-milestones-label">Recompensas</div>
+        <div class="event-play-milestones"></div>
+
+        <div class="event-play-frame-wrap hidden">
+          <iframe class="event-play-frame event-play-iframe" src="" loading="lazy" allow="fullscreen; autoplay" allowfullscreen></iframe>
+          <div class="event-play-frame event-play-emulator hidden" id="eventEmulatorMount"></div>
+        </div>
+        <div class="event-play-fallback event-play-fallback-external hidden">
+          Se o jogo não carregar aqui dentro, <a class="event-play-opentab" href="#" target="_blank" rel="noopener">abra em uma nova aba ↗</a>.
+        </div>
+        <div class="event-play-fallback event-play-fallback-emulator hidden">
+          Rodando localmente com EmulatorJS — nenhum site de terceiros é aberto. Se a ROM não estiver disponível, avisamos aqui.
+        </div>
+
+        <div class="event-play-actions">
+          <span class="event-play-timer"></span>
+          <button type="button" class="btn btn-primary event-play-action"></button>
+        </div>
       </div>
     </div>`;
   document.body.appendChild(modal);
 
-  modal.querySelector(".event-play-close").onclick = closeExternalEventModal;
-  modal.addEventListener("click", (e)=>{ if(e.target === modal) closeExternalEventModal(); });
+  modal.querySelector(".event-play-close").onclick = closeEventDetailModal;
+  modal.addEventListener("click", (e)=>{ if(e.target === modal) closeEventDetailModal(); });
 
   return modal;
 }
 
-function closeExternalEventModal(){
-  const modal = document.getElementById("eventExternalModal");
+function closeEventDetailModal(){
+  const modal = document.getElementById("eventDetailModal");
   if(!modal) return;
   modal.classList.add("hidden");
   // pausa o site parceiro ao fechar, pra não ficar rodando escondido
@@ -140,40 +167,72 @@ function closeExternalEventModal(){
   teardownLocalEmulator();
 }
 
-function openExternalEventModal(eventId){
+function openEventDetailModal(eventId){
   const evt = getEvent(eventId);
   if(!evt) return;
   ensureEventProgress(eventId);
   ensureExternalTimer(eventId);
 
-  const modal = ensureExternalEventModal();
+  const modal = ensureEventDetailModal();
   modal.dataset.eventId = eventId;
+  modal.querySelector(".event-play-banner").style.backgroundImage = `url('${evt.banner}')`;
   modal.querySelector(".event-play-title").textContent = evt.title;
+  const timeLeft = formatEventTimeLeft(evt);
+  modal.querySelector(".event-play-timeleft").textContent = timeLeft || "";
   modal.querySelector(".event-play-desc").textContent = evt.description;
+  modal.querySelector(".event-play-objective").textContent = `🎯 ${eventObjectiveLabel(evt)}`;
+
+  const warningEl = modal.querySelector(".event-play-download-warning");
+  const warningTxt = eventDownloadWarningText(evt);
+  if(warningTxt){
+    warningEl.innerHTML = warningTxt;
+    warningEl.classList.remove("hidden");
+  } else {
+    warningEl.classList.add("hidden");
+  }
+
+  const points = STATE.events.points[evt.id];
+  const milestones = evt.milestones || [];
+  const maxPoints = milestones.length ? milestones[milestones.length - 1].points : 1;
+  const pct = Math.min(100, Math.round((points / maxPoints) * 100));
+  modal.querySelector(".event-play-progress-fill").style.width = `${pct}%`;
+  modal.querySelector(".event-play-progress-label").textContent = `${points}/${maxPoints}`;
   modal.querySelector(".event-play-milestones").innerHTML = buildMilestoneChipsHtml(evt);
 
+  const frameWrap = modal.querySelector(".event-play-frame-wrap");
   const iframe = modal.querySelector(".event-play-iframe");
   const emuMount = modal.querySelector(".event-play-emulator");
   const fbExternal = modal.querySelector(".event-play-fallback-external");
   const fbEmulator = modal.querySelector(".event-play-fallback-emulator");
 
-  if(evt.engine === "emulator"){
-    iframe.classList.add("hidden");
-    iframe.src = "about:blank";
-    fbExternal.classList.add("hidden");
-    emuMount.classList.remove("hidden");
-    fbEmulator.classList.remove("hidden");
-    setupLocalEmulator(evt, emuMount);
+  if(isTimedPlayEngine(evt)){
+    frameWrap.classList.remove("hidden");
+    if(evt.engine === "emulator"){
+      iframe.classList.add("hidden");
+      iframe.src = "about:blank";
+      fbExternal.classList.add("hidden");
+      emuMount.classList.remove("hidden");
+      fbEmulator.classList.remove("hidden");
+      setupLocalEmulator(evt, emuMount);
+    } else {
+      emuMount.classList.add("hidden");
+      fbEmulator.classList.add("hidden");
+      iframe.classList.remove("hidden");
+      fbExternal.classList.remove("hidden");
+      if(iframe.src !== evt.externalUrl) iframe.src = evt.externalUrl;
+      modal.querySelector(".event-play-opentab").href = evt.externalUrl;
+    }
   } else {
-    emuMount.classList.add("hidden");
+    // eventos "normais" (arcade/pênaltis/2D/etc.) não precisam de frame —
+    // só mostramos o resumo + botão de jogar, sem site/emulador embutido.
+    frameWrap.classList.add("hidden");
+    fbExternal.classList.add("hidden");
     fbEmulator.classList.add("hidden");
-    iframe.classList.remove("hidden");
-    fbExternal.classList.remove("hidden");
-    if(iframe.src !== evt.externalUrl) iframe.src = evt.externalUrl;
-    modal.querySelector(".event-play-opentab").href = evt.externalUrl;
+    iframe.src = "about:blank";
+    teardownLocalEmulator();
   }
 
-  updateExternalEventModalAction(evt);
+  updateEventDetailModalAction(evt);
   modal.classList.remove("hidden");
 
   if(externalTimerStatus(evt).state === "running" && !_externalTimerInterval){
@@ -261,15 +320,24 @@ function teardownLocalEmulator(clearMount){
   }
 }
 
-function updateExternalEventModalAction(evt){
-  const modal = document.getElementById("eventExternalModal");
+function updateEventDetailModalAction(evt){
+  const modal = document.getElementById("eventDetailModal");
   if(!modal || modal.dataset.eventId !== evt.id) return;
 
-  const status = externalTimerStatus(evt);
   const tickets = ticketsLeft(evt);
   const timerEl = modal.querySelector(".event-play-timer");
   const btn = modal.querySelector(".event-play-action");
 
+  if(!isTimedPlayEngine(evt)){
+    // eventos "normais": o botão só inicia a partida (motor de campanha/arcade/etc.)
+    timerEl.textContent = tickets > 0 ? `${tickets}/${evt.dailyAttempts} tentativa(s) hoje` : "Sem tentativas hoje";
+    btn.textContent = "Jogar ▶";
+    btn.disabled = tickets <= 0;
+    btn.onclick = () => { closeEventDetailModal(); startEventMatch(evt.id); };
+    return;
+  }
+
+  const status = externalTimerStatus(evt);
   if(status.state === "running"){
     timerEl.textContent = `⏱ ${formatCountdown(status.remainingMs)} restantes`;
     btn.textContent = "Jogando… (aguarde o cronômetro)";
@@ -279,7 +347,7 @@ function updateExternalEventModalAction(evt){
     timerEl.textContent = "Tempo completo! ✅";
     btn.textContent = "Resgatar recompensa 🎁";
     btn.disabled = false;
-    btn.onclick = () => { claimExternalEventReward(evt.id); closeExternalEventModal(); };
+    btn.onclick = () => { claimExternalEventReward(evt.id); closeEventDetailModal(); };
   } else {
     timerEl.textContent = tickets > 0 ? `${tickets}/${evt.dailyAttempts} jogada(s) hoje` : "Sem jogadas hoje";
     btn.textContent = "Começar a jogar (inicia o cronômetro) ▶";
@@ -303,7 +371,7 @@ function beginExternalEventTimer(eventId){
   STATE.events.externalTimers[eventId] = Date.now();
   persist();
   toast(`Cronômetro iniciado! Jogue por ${evt.durationMinutes || 30} minutos e volte aqui pra resgatar.`, "success");
-  updateExternalEventModalAction(evt);
+  updateEventDetailModalAction(evt);
   renderEventoScreen();
 
   if(!_externalTimerInterval) _externalTimerInterval = setInterval(tickExternalTimers, 1000);
@@ -339,7 +407,7 @@ let _externalTimerInterval = null;
 function tickExternalTimers(){
   const screenEl = document.getElementById("screen-evento");
   const evtoScreenActive = !!screenEl && screenEl.classList.contains("active");
-  const modal = document.getElementById("eventExternalModal");
+  const modal = document.getElementById("eventDetailModal");
   const modalOpen = !!modal && !modal.classList.contains("hidden");
 
   if(!evtoScreenActive && !modalOpen){
@@ -354,13 +422,13 @@ function tickExternalTimers(){
     const status = externalTimerStatus(evt);
     if(status.state === "running"){
       anyRunning = true;
-      const el = document.querySelector(`.event-ext-timer[data-evt="${evt.id}"]`);
-      if(el) el.textContent = `⏱ ${formatCountdown(status.remainingMs)} restantes`;
-      if(modalOpen && modal.dataset.eventId === evt.id) updateExternalEventModalAction(evt);
+      const card = document.querySelector(`.event-card[onclick*="${evt.id}"] .event-card-meta`);
+      if(card) card.textContent = `⏱ ${formatCountdown(status.remainingMs)} restantes`;
+      if(modalOpen && modal.dataset.eventId === evt.id) updateEventDetailModalAction(evt);
     } else if(status.state === "ready"){
       // acabou de virar — re-renderiza o card e/ou o modal pra trocar o botão pra "Resgatar"
       if(evtoScreenActive) renderEventoScreen();
-      if(modalOpen && modal.dataset.eventId === evt.id) updateExternalEventModalAction(evt);
+      if(modalOpen && modal.dataset.eventId === evt.id) updateEventDetailModalAction(evt);
     }
   });
   if(!anyRunning){
@@ -531,72 +599,37 @@ function renderEventoScreen(){
 
   wrap.innerHTML = events.map(evt=>{
     ensureEventProgress(evt.id);
-    const points = STATE.events.points[evt.id];
-    const milestones = evt.milestones || [];
-    const maxPoints = milestones.length ? milestones[milestones.length - 1].points : 1;
-    const pct = Math.min(100, Math.round((points / maxPoints) * 100));
     const tickets = ticketsLeft(evt);
     const timeLeft = formatEventTimeLeft(evt);
+    const downloadBadge = eventDownloadBadgeText(evt);
 
-    const milestoneChips = buildMilestoneChipsHtml(evt);
-
-    let actionsHtml;
+    // resumo curtinho no rodapé do card — o resto (descrição, prêmios,
+    // marcos, jogar) só aparece no submenu, ao clicar no card.
+    let metaText;
     if(isTimedPlayEngine(evt)){
       const extStatus = externalTimerStatus(evt);
-      let btnLabel = evt.engine === "emulator" ? "Jogar ›" : "Jogar no site ›";
-      let btnDisabled = tickets <= 0;
-      let timerHtml = "";
-      let onClickAttr = `openExternalEventModal('${evt.id}')`;
-
-      if(extStatus.state === "running"){
-        btnLabel = "Ver cronômetro / jogar ›";
-        btnDisabled = false;
-        timerHtml = `<div class="event-ext-timer" data-evt="${evt.id}">⏱ ${formatCountdown(extStatus.remainingMs)} restantes</div>`;
-      } else if(extStatus.state === "ready"){
-        btnLabel = "Resgatar recompensa 🎁";
-        btnDisabled = false;
-        onClickAttr = `claimExternalEventReward('${evt.id}')`;
-      }
-
-      actionsHtml = `
-        <div class="event-actions event-actions-external">
-          ${timerHtml}
-          <div class="event-actions-row">
-            <span class="event-tickets">${tickets}/${evt.dailyAttempts} jogada(s) hoje</span>
-            <button class="btn btn-primary" ${btnDisabled ? "disabled" : ""} onclick="${onClickAttr}">${btnLabel}</button>
-          </div>
-        </div>`;
+      if(extStatus.state === "running") metaText = `⏱ ${formatCountdown(extStatus.remainingMs)} restantes`;
+      else if(extStatus.state === "ready") metaText = "Recompensa pronta 🎁";
+      else metaText = tickets > 0 ? `${tickets}/${evt.dailyAttempts} jogada(s) hoje` : "Sem jogadas hoje";
     } else {
-      actionsHtml = `
-        <div class="event-actions">
-          <span class="event-tickets">${tickets}/${evt.dailyAttempts} tentativas hoje</span>
-          <button class="btn btn-primary" ${tickets<=0?"disabled":""} onclick="startEventMatch('${evt.id}')">Jogar ›</button>
-        </div>`;
+      metaText = tickets > 0 ? `${tickets}/${evt.dailyAttempts} tentativa(s) hoje` : "Sem tentativas hoje";
     }
 
     return `
-    <div class="event-card">
-      <div class="event-banner" style="background-image:url('${evt.banner}')">
-        <div class="event-banner-shade"></div>
-        <div class="event-banner-body">
+    <button type="button" class="event-card" onclick="openEventDetailModal('${evt.id}')">
+      <div class="event-card-banner" style="background-image:url('${evt.banner}')">
+        <div class="event-card-shade"></div>
+        ${downloadBadge ? `<div class="event-download-badge">${downloadBadge}</div>` : ""}
+        <div class="event-card-body">
           <div class="event-title">${evt.title}</div>
           ${timeLeft ? `<div class="event-timeleft">${timeLeft}</div>` : ""}
         </div>
       </div>
-      <div class="event-body">
-        <p class="event-desc">${evt.description}</p>
-        <div class="event-objective">🎯 ${eventObjectiveLabel(evt)}</div>
-
-        <div class="box-progress" style="margin:10px 0;">
-          <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-          <span>${points}/${maxPoints}</span>
-        </div>
-
-        <div class="event-milestones">${milestoneChips}</div>
-
-        ${actionsHtml}
+      <div class="event-card-footer">
+        <span class="event-card-meta">${metaText}</span>
+        <span class="event-card-cta">Ver detalhes ›</span>
       </div>
-    </div>`;
+    </button>`;
   }).join("");
 
   // liga o cronômetro ao vivo (mm:ss) se houver algum evento externo rodando
