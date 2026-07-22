@@ -118,6 +118,10 @@ let _saveTimer = null;
 function persist(){
   clearTimeout(_saveTimer);
   _saveTimer = setTimeout(saveState, 150);
+  // espelha o save completo na nuvem (js/cloud-save.js), com seu próprio
+  // debounce maior — nunca trava o jogo se o arquivo não estiver carregado
+  // ou se a rede/auth falhar.
+  if (typeof scheduleCloudSave === "function") scheduleCloudSave();
 }
 
 /* ---------- moeda ---------- */
