@@ -246,6 +246,12 @@
   overlay.addEventListener(
     "touchend",
     (e) => {
+      // Se tiver update de conteúdo pendente (ou o toque foi em algum
+      // botão/link dentro da splash, tipo o menu hambúrguer ou o botão
+      // "Baixar agora"), não faz preventDefault aqui — senão cancela o
+      // clique sintético que o próprio elemento tocado precisa receber.
+      if (typeof isContentUpdatePending === "function" && isContentUpdatePending()) return;
+      if (e.target.closest && e.target.closest("button, a")) return;
       e.preventDefault();
       enterApp();
     },
