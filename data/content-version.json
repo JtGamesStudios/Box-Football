@@ -1,12 +1,12 @@
 {
-  "version": 1,
-  "label": "Melhorias no app: seção de Informações e Notícias",
+  "version": 2,
+  "label": "Live Update",
   "assets": [
-    "css/style.css",
-    "js/nav.js",
-    "js/state.js",
-    "js/main.js",
-    "js/informacoes.js",
-    "js/splash.js"
+    "assets/players/J. CRUIFF_ic.png",
+    "assets/players/L. MESSI_ic.png",
+    "assets/players/M. VAN BASTEN.png",
+    "assets/players/RONALDINHO G.ic.png",
+    "assets/players/NEYMAR_ic.png",
+    "assets/players/KAKÁ.png"
   ]
 }
