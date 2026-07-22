@@ -120,6 +120,19 @@
     border-top:1px solid #eee;
     padding-top:14px;
   }
+  .content-update-track{
+    height:8px;
+    border-radius:8px;
+    background:#eee;
+    overflow:hidden;
+    margin:4px 0 10px;
+  }
+  .content-update-fill{
+    height:100%;
+    border-radius:8px;
+    background:linear-gradient(90deg, #0d1fa8, #198CFF);
+    transition:width .2s ease;
+  }
 </style>
 </head>
 <body>
@@ -185,6 +198,27 @@
         <p class="maint-desc">A migração pro app Android foi concluída. Se você já tinha vinculado sua conta Google, é só entrar com ela no app pra continuar de onde parou.</p>
         <p class="maint-note">Baixe o app pra continuar jogando:</p>
         <a class="btn btn-primary hidden" id="migrationLockDownloadBtn" href="#" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;text-decoration:none;">Baixar o app</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update obrigatório de conteúdo — ver data/content-version.json e
+       js/content-update.js. Bloqueia a entrada no jogo até baixar. -->
+  <div class="splash-maintenance hidden" id="splashContentUpdate">
+    <div class="maint-card">
+      <div class="maint-banner">
+        <svg viewBox="0 0 64 64" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M32 6v34M32 40l-12-12M32 40l12-12" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 46v6a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4v-6" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="maint-body">
+        <h2>Atualização disponível</h2>
+        <p class="maint-line" id="contentUpdateLabel">Novidades no Box-Football.</p>
+        <p class="maint-dates" id="contentUpdateSize">Calculando tamanho…</p>
+        <div class="content-update-track"><div class="content-update-fill" id="contentUpdateFill" style="width:0%;"></div></div>
+        <p class="maint-note" id="contentUpdateStatus">Baixe agora para continuar jogando.</p>
+        <button class="btn btn-primary" id="contentUpdateBtn" style="margin-top:10px;">⬇️ Baixar agora</button>
       </div>
     </div>
   </div>
@@ -726,6 +760,7 @@
 
 <script src="js/playerid.js?v=1"></script>
 <script src="js/splash.js?v=1"></script>
+<script src="js/content-update.js?v=1"></script>
 <script src="js/state.js?v=2"></script>
 <script src="js/data.js?v=2"></script>
 <script src="js/arcade.js?v=2"></script>
