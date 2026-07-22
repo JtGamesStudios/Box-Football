@@ -54,6 +54,7 @@ function defaultState(){
       claimedMilestones: {},     // { eventId: [pointsThreshold, ...] }
       attemptsToday: {},         // { eventId: { date: "YYYY-M-D", used: number } }
       history: {},               // { eventId: [{date, score, result}, ...] }
+      externalTimers: {},        // { eventId: startedAtTimestamp|null } — eventos "engine":"external"
     },
     seenContent: {               // controla o popup "Novidades" (boxes/eventos ativos)
       signature: null,
