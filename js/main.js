@@ -79,6 +79,7 @@ async function boot(){
   wireCouponRedeem();
   checkDailyLogin();
   refreshWalletUI();
+  if(typeof updateInfoBadge === "function") updateInfoBadge();
   showScreen("home");
   const openedDailyLogin = typeof maybeShowDailyLogin === "function" && maybeShowDailyLogin();
   if(!openedDailyLogin && typeof maybeShowNovidades === "function") maybeShowNovidades();
