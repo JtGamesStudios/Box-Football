@@ -4,9 +4,12 @@
      e depois exibe a tela de MANUTENÇÃO (o app não é liberado enquanto
      MAINTENANCE_MODE estiver true).
    - Não depende de nenhum outro script pra funcionar (pode ficar antes
-     ou depois dos demais <script> no index.html) — a única exceção é o
-     menu "Transferir dados" (só existe dentro do app/Capacitor), que
-     chama startDataTransferFlow() de js/app-transfer.js. */
+     ou depois dos demais <script> no index.html) — as exceções são o
+     menu hambúrguer (só existe dentro do app/Capacitor), com "Limpar
+     cache" (local) e "Transferir dados", que chama startDataTransferFlow()
+     de js/app-transfer.js; e o update obrigatório de conteúdo (ver
+     js/content-update.js), que pode segurar o enterApp() até terminar
+     de baixar. */
 (function () {
   const SLIDE_INTERVAL = 10000;   // troca de imagem a cada 10s
   const LOADING_DURATION = 1400;  // quanto tempo o loading fica visível
@@ -129,11 +132,39 @@
   }
 
   /* ---------- Menu hambúrguer (só dentro do app / Capacitor) ----------
-     "Transferir dados" chama startDataTransferFlow(), definido em
-     js/app-transfer.js. Criado dinamicamente aqui pra não poluir o
-     index.html com algo que só existe dentro do app instalado. */
+     "Limpar cache" apaga os arquivos temporários já baixados neste
+     dispositivo (Cache Storage + Service Worker), sem mexer na conta
+     nem no progresso salvo. "Transferir dados" chama
+     startDataTransferFlow(), definido em js/app-transfer.js (abre o
+     seletor de conta Google nativo, igual no PES original). Criado
+     dinamicamente aqui pra não poluir o index.html com algo que só
+     existe dentro do app instalado. */
+  async function clearAppCache() {
+    const message =
+      "Isso vai apagar os arquivos temporários do jogo já baixados neste dispositivo (imagens, sons etc.). Sua conta e seu progresso NÃO serão apagados.";
+    const confirmed =
+      typeof showConfirmDialog === "function"
+        ? await showConfirmDialog("Limpar cache", message, "Limpar", "Cancelar")
+        : confirm(message);
+    if (!confirmed) return;
+
+    try {
+      if (window.caches && caches.keys) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map((k) => caches.delete(k)));
+      }
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map((r) => r.unregister()));
+      }
+    } catch (e) {
+      console.warn("[splash] Falha ao limpar cache:", e);
+    }
+
+    location.reload();
+  }
+
   function setupAppMenu() {
-    if (!isNativePlatform()) return;
     if (document.getElementById("splashHamburgerBtn")) return;
 
     const btn = document.createElement("button");
@@ -145,7 +176,12 @@
     const menu = document.createElement("div");
     menu.id = "splashHamburgerMenu";
     menu.className = "splash-hamburger-menu hidden";
-    menu.innerHTML = `<button type="button" class="splash-hamburger-item" id="splashTransferDataBtn">Transferir dados</button>`;
+    // "Transferir dados" só faz sentido dentro do app instalado (abre o
+    // seletor de conta Google nativo) — no navegador nem aparece, pra
+    // não deixar um botão "morto" na tela.
+    menu.innerHTML = `
+      <button type="button" class="splash-hamburger-item" id="splashClearCacheBtn">🧹 Limpar cache</button>
+      ${isNativePlatform() ? '<button type="button" class="splash-hamburger-item" id="splashTransferDataBtn">🔄 Transferir dados</button>' : ""}`;
 
     overlay.appendChild(btn);
     overlay.appendChild(menu);
@@ -158,16 +194,28 @@
       if (!menu.contains(ev.target) && ev.target !== btn) menu.classList.add("hidden");
     });
 
-    const transferBtn = menu.querySelector("#splashTransferDataBtn");
-    transferBtn.addEventListener("click", (ev) => {
+    const clearCacheBtn = menu.querySelector("#splashClearCacheBtn");
+    clearCacheBtn.addEventListener("click", (ev) => {
       ev.stopPropagation();
       menu.classList.add("hidden");
-      if (typeof startDataTransferFlow === "function") startDataTransferFlow();
+      clearAppCache();
     });
+
+    const transferBtn = menu.querySelector("#splashTransferDataBtn");
+    if (transferBtn) {
+      transferBtn.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        menu.classList.add("hidden");
+        if (typeof startDataTransferFlow === "function") startDataTransferFlow();
+      });
+    }
   }
 
   function enterApp() {
     if (started) return;
+    // Bloqueia a entrada enquanto o update obrigatório de conteúdo
+    // (js/content-update.js) ainda não terminou de baixar.
+    if (typeof isContentUpdatePending === "function" && isContentUpdatePending()) return;
     started = true;
 
     stopCarousel();
