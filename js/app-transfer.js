@@ -109,6 +109,7 @@ async function startDataTransferFlow() {
     location.reload();
   } catch (err) {
     appTransferLog("Falha na transferência de dados:", err && err.message);
+    alert("ERRO DEBUG: " + (err && err.message ? err.message : String(err)));
     if (typeof toast === "function") {
       toast("Não deu pra transferir os dados agora. Tenta de novo em instantes.", "");
     }
