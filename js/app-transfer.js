@@ -109,7 +109,24 @@ async function startDataTransferFlow() {
     location.reload();
   } catch (err) {
     appTransferLog("Falha na transferência de dados:", err && err.message);
-    alert("ERRO DEBUG: " + (err && err.message ? err.message : String(err)));
+    try {
+      const debugInfo = {
+        message: err && err.message,
+        code: err && err.code,
+        name: err && err.name,
+        stack: err && err.stack,
+        raw: (function () {
+          try {
+            return JSON.stringify(err, Object.getOwnPropertyNames(err || {}));
+          } catch (e) {
+            return String(err);
+          }
+        })(),
+      };
+      alert("ERRO DEBUG:\n" + JSON.stringify(debugInfo, null, 2));
+    } catch (alertErr) {
+      alert("ERRO DEBUG (fallback): " + String(err));
+    }
     if (typeof toast === "function") {
       toast("Não deu pra transferir os dados agora. Tenta de novo em instantes.", "");
     }
