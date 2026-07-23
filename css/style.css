@@ -1977,3 +1977,33 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   letter-spacing:4px; color:var(--gold); margin:8px 0 14px;
 }
 .pvp-lobby-status{ color:#C7CCD8; font-size:13.5px; margin-bottom:22px; }
+
+/* =========================================================
+   DIALOG ACTIONS — usado por js/ui-dialog.js (confirmação/aviso) e
+   pelo popup de aviso de migração (js/migration-notice.js)
+   ========================================================= */
+.dialog-actions{ display:flex; justify-content:flex-end; gap:10px; margin-top:14px; flex-wrap:wrap; }
+.migration-countdown{
+  display:inline-block; margin-top:6px; padding:6px 14px; border-radius:999px;
+  background:var(--brand-light); color:var(--brand-dim); font-weight:700; font-size:13px;
+}
+
+/* =========================================================
+   SPLASH — menu hambúrguer (só existe dentro do app/Capacitor)
+   ========================================================= */
+.splash-hamburger-btn{
+  position:absolute; top:18px; right:18px; z-index:5; width:40px; height:40px;
+  border-radius:50%; border:1px solid rgba(255,255,255,.35); background:rgba(0,0,0,.35);
+  color:#fff; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.splash-hamburger-menu{
+  position:absolute; top:64px; right:18px; z-index:5; min-width:180px;
+  background:var(--surface); border-radius:12px; box-shadow:var(--shadow-card-hover); overflow:hidden;
+}
+.splash-hamburger-menu.hidden{ display:none; }
+.splash-hamburger-item{
+  display:block; width:100%; text-align:left; padding:12px 16px; border:none; background:none;
+  color:var(--text); font-size:14px; font-family:inherit; cursor:pointer;
+}
+.splash-hamburger-item:hover{ background:var(--surface-2); }
