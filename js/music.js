@@ -16,6 +16,8 @@ const MUSIC_TRACKS = [
   "assets/audio/music/track2.mp3",
   "assets/audio/music/track3.mp3",
   "assets/audio/music/track4.mp3",
+   "assets/audio/music/track5.mp3",
+   "assets/audio/music/track6.mp3",
 ];
 
 let _musicAudio = null;
