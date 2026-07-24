@@ -1,12 +1,8 @@
 {
-  "version": 2,
+  "version": 3,
   "label": "Live Update",
   "assets": [
-    "assets/players/J. CRUIJFF_ic.png",
-    "assets/players/L. MESSI_ic.png",
-    "assets/players/M. VAN BASTEN.png",
-    "assets/players/RONALDINHO G.ic.png",
-    "assets/players/NEYMAR_ic.png",
-    "assets/players/KAKÁ.png"
+    "assets/players/M. DEPAY.png",
+    "assets/players/L. MESSI_ic.png"
   ]
 }
