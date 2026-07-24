@@ -1,8 +1,18 @@
 {
-  "version": 3,
+  "version":4,
   "label": "Live Update",
   "assets": [
-    "assets/players/M. DEPAY.png",
-    "assets/players/L. MESSI_ic.png"
-  ]
+    "assets/players/A. PRILO_ic.png", 
+    "assets/players/A. DEL PIERO_ic.png",
+    "assets/players/C. RONALDO_ic.png",
+     "assets/players/M. SALAH.png",
+    "assets/players/L. BONUCCI.png",
+    "assets/players/A. BASTONI.png",
+    "assets/players/S. AGÜERO.png",
+    "assets/banners/boxbarcelona_ic.png",
+     "assets/banners/boxjuventus_ic.png",
+     "assets/banners/boxmilan_ic.png",
+     "assets/audio/music/track5.mp3",
+      "assets/audio/music/track6.mp3"
+]
 }
