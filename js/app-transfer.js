@@ -32,8 +32,6 @@ function isNativeApp() {
   return !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
 }
 
-let _googleAuthInitialized = false;
-
 /** Pega um idToken do Google via qualquer um dos dois plugins nativos
  *  suportados. Lança erro se nenhum estiver disponível/configurado. */
 async function _nativeGoogleSignIn() {
@@ -41,17 +39,9 @@ async function _nativeGoogleSignIn() {
 
   // Opção 1: @codetrix-studio/capacitor-google-auth
   if (plugins.GoogleAuth && typeof plugins.GoogleAuth.signIn === "function") {
-    // Alguns builds do plugin exigem initialize() explícito antes do
-    // primeiro signIn(), senão o lado nativo quebra (crash do app).
-    if (!_googleAuthInitialized && typeof plugins.GoogleAuth.initialize === "function") {
-      try {
-        await plugins.GoogleAuth.initialize();
-      } catch (initErr) {
-        appTransferLog("Falha ao inicializar GoogleAuth:", initErr && initErr.message);
-      }
-      _googleAuthInitialized = true;
+    if (typeof plugins.GoogleAuth.initialize === "function") {
+      await plugins.GoogleAuth.initialize();
     }
-
     const result = await plugins.GoogleAuth.signIn();
     const idToken = result && result.authentication && result.authentication.idToken;
     if (idToken) return idToken;
@@ -109,24 +99,6 @@ async function startDataTransferFlow() {
     location.reload();
   } catch (err) {
     appTransferLog("Falha na transferência de dados:", err && err.message);
-    try {
-      const debugInfo = {
-        message: err && err.message,
-        code: err && err.code,
-        name: err && err.name,
-        stack: err && err.stack,
-        raw: (function () {
-          try {
-            return JSON.stringify(err, Object.getOwnPropertyNames(err || {}));
-          } catch (e) {
-            return String(err);
-          }
-        })(),
-      };
-      alert("ERRO DEBUG:\n" + JSON.stringify(debugInfo, null, 2));
-    } catch (alertErr) {
-      alert("ERRO DEBUG (fallback): " + String(err));
-    }
     if (typeof toast === "function") {
       toast("Não deu pra transferir os dados agora. Tenta de novo em instantes.", "");
     }
