@@ -19,6 +19,18 @@
 
 const INFO_ITEMS = [
   {
+    id: "app-download-apk-2026-07",
+    date: "24/07/2026",
+    title: "📲 O app já está disponível pra baixar!",
+    preview: "Baixe o Box-Football Mobile agora e jogue direto pelo app.",
+    body: [
+      "O aplicativo do Box-Football já está pronto! A partir de 30/07 às 23h não vai ser mais possível jogar pelo navegador — só pelo app.",
+      "Seu progresso é vinculado à sua conta Google: ao abrir o app pela primeira vez e entrar com a mesma conta que você já vinculou, tudo (fichas, plantel, moedas e todo o resto) é transferido automaticamente, sem precisar recriar nada.",
+      "Toque no botão abaixo pra baixar o APK agora. Assim que o download terminar, o próprio Android já vai te oferecer a instalação.",
+    ],
+    action: { type: "download", label: "⬇️ Baixar o app agora", url: "assets/app/box-clube.apk", filename: "box-clube.apk" },
+  },
+  {
     id: "app-launch-migration-2026-07",
     date: "22/07/2026",
     title: "🚨 IMPORTANTE: Box-Football está chegando ao aplicativo!",
@@ -104,7 +116,17 @@ function openInfoItem(id){
     btn.textContent = item.action.label;
     btn.onclick = ()=>{
       closeInfoDetail();
-      showScreen(item.action.nav);
+      if(item.action.type === "download"){
+        const a = document.createElement("a");
+        a.href = item.action.url;
+        a.download = item.action.filename || "";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        if(typeof toast === "function") toast("Baixando o app… ao terminar, toque no arquivo pra instalar.", "success");
+      } else {
+        showScreen(item.action.nav);
+      }
     };
     actions.appendChild(btn);
   }
