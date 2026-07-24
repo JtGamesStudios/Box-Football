@@ -5082,7 +5082,7 @@
     "image": "assets/players/m_cucurella.png",
     "tier": "destaque"
   },
-    {
+  {
     "id": "p573",
     "name": "L. MESSI",
     "overall": 100,
@@ -5095,7 +5095,7 @@
     "image": "assets/players/L. MESSI_100.png",
     "tier": "iconic"
   },
-      {
+  {
     "id": "p590",
     "name": "Ronaldinho G.",
     "overall": 98,
@@ -5108,7 +5108,7 @@
     "image": "assets/players/RONALDINHO G.png",
     "tier": "lendario"
   },
-        {
+  {
     "id": "p591",
     "name": "RIVALDO.",
     "overall": 94,
@@ -5121,7 +5121,7 @@
     "image": "assets/players/RIVALDO.png",
     "tier": "lendario"
   },
-          {
+  {
     "id": "p591",
     "name": "ÉLBER.",
     "overall": 91,
@@ -5134,7 +5134,7 @@
     "image": "assets/players/ÉLBER.png",
     "tier": "lendario"
   },
-            {
+  {
     "id": "p592",
     "name": "O. KAHN",
     "overall": 93,
@@ -5147,7 +5147,7 @@
     "image": "assets/players/O. KAHN.png",
     "tier": "lendario"
   },
-    {
+  {
     "id": "p593",
     "name": "P. VIEIRA",
     "overall": 95,
@@ -5160,7 +5160,7 @@
     "image": "assets/players/LEG_P. VIEIRA.png",
     "tier": "lendario"
   },
-    {
+  {
     "id": "p594",
     "name": "D. BECKHAM",
     "overall": 92,
@@ -5185,5 +5185,174 @@
     "rarityLabel": "Lendária",
     "image": "assets/players/lamine_yamal.png",
     "tier": "destaque"
+  },
+  {
+    "id": "p595",
+    "name": "Kaká",
+    "overall": 101,
+    "club": "Milano RN",
+    "nationality": "Brasil",
+    "nationalityFlag": "🇧🇷",
+    "position": "MO",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/KAKÁ.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p596",
+    "name": "M. Van Basten",
+    "overall": 99,
+    "club": "Milano RN",
+    "nationality": "Netherlands",
+    "nationalityFlag": "🇳🇱",
+    "position": "AC",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/M. VAN BASTEN.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p597",
+    "name": "Ronaldinho G.",
+    "overall": 100,
+    "club": "Milano RN",
+    "nationality": "Brasil",
+    "nationalityFlag": "🇧🇷",
+    "position": "MO",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/RONALDINHO G._ic.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p598",
+    "name": "J. Cruijff",
+    "overall": 101,
+    "club": "FC Barcelona",
+    "nationality": "Netherlands",
+    "nationalityFlag": "🇳🇱",
+    "position": "SA",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/J. CRUIJFF_ic.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p599",
+    "name": "L. Messi",
+    "overall": 102,
+    "club": "FC Barcelona",
+    "nationality": "Argentina",
+    "nationalityFlag": "🇦🇷",
+    "position": "AD",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/L. MESSI_ic.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p600",
+    "name": "Neymar",
+    "overall": 102,
+    "club": "FC Barcelona",
+    "nationality": "Brasil",
+    "nationalityFlag": "🇧🇷",
+    "position": "AE",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/NEYMAR_ic.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p601",
+    "name": "A. Pirlo",
+    "overall": 97,
+    "club": "Juventus",
+    "nationality": "Italy",
+    "nationalityFlag": "🇮🇹",
+    "position": "DMF",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/A. PIRLO_ic.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p602",
+    "name": "C. Ronaldo",
+    "overall": 100,
+    "club": "Juventus",
+    "nationality": "Portugal",
+    "nationalityFlag": "🇵🇹",
+    "position": "AE",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/C. RONALDO_ic.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p603",
+    "name": "A. Del Piero",
+    "overall": 99,
+    "club": "Juventus",
+    "nationality": "Italy",
+    "nationalityFlag": "🇮🇹",
+    "position": "SS",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/A. DEL PIERO_ic.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p604",
+    "name": "M. Salah",
+    "overall": 94,
+    "club": "Egypt",
+    "nationality": "Egypt",
+    "nationalityFlag": "🇪🇬",
+    "position": "RWF",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/M. SALAH.png",
+    "tier": "normal"
+  },
+  {
+    "id": "p605",
+    "name": "S. Agüero",
+    "overall": 93,
+    "club": "Manchester City",
+    "nationality": "Argentina",
+    "nationalityFlag": "🇦🇷",
+    "position": "CF",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/S. AGÜERO.png",
+    "tier": "normal"
+  },
+  {
+    "id": "p606",
+    "name": "A. Bastoni",
+    "overall": 92,
+    "club": "LOM",
+    "nationality": "Italy",
+    "nationalityFlag": "🇮🇹",
+    "position": "CB",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/A. BASTONI.png",
+    "tier": "normal"
+  },
+  {
+    "id": "p607",
+    "name": "L. Bonucci",
+    "overall": 91,
+    "club": "Juventus",
+    "nationality": "Italy",
+    "nationalityFlag": "🇮🇹",
+    "position": "CB",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/L. BONUCCI.png",
+    "tier": "normal"
   }
 ]
