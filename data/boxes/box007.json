@@ -4,7 +4,7 @@
   "date": "",
   "description": "",
   "banner": "assets/banners/legendgratis.png",
-  "active": true,
+  "active": false,
   "category": "gratis",
   "priceGP": 0,
   "priceCoins": 100,
