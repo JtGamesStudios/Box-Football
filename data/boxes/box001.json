@@ -4,7 +4,7 @@
   "expiresAt": "2026-07-29T00:00:00",
   "description": "",
   "banner": "assets/banners/banner-contratar-especial.jpg",
-  "active": true,
+  "active": false,
   "priceCoins": 100,
   "players": [
     "p563",
