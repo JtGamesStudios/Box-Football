@@ -5358,7 +5358,7 @@
   {
     "id": "p609",
     "name": "BRUNO HENRIQUE",
-    "overall": 88,
+    "overall": 95,
     "club": "Flamengo",
     "nationality": "Brazil",
     "nationalityFlag": "🇧🇷",
@@ -5371,7 +5371,7 @@
   {
     "id": "p610",
     "name": "CÁSSIO",
-    "overall": 89,
+    "overall": 92,
     "club": "Corinthians",
     "nationality": "Brazil",
     "nationalityFlag": "🇧🇷",
@@ -5384,7 +5384,7 @@
   {
     "id": "p611",
     "name": "CLAUDINHO",
-    "overall": 87,
+    "overall": 95,
     "club": "Bragantino",
     "nationality": "Brazil",
     "nationalityFlag": "🇧🇷",
@@ -5397,7 +5397,7 @@
   {
     "id": "p612",
     "name": "FÁGNER",
-    "overall": 87,
+    "overall": 94,
     "club": "Corinthians",
     "nationality": "Brazil",
     "nationalityFlag": "🇧🇷",
@@ -5410,7 +5410,7 @@
   {
     "id": "p613",
     "name": "G. DE ARRASCAETA",
-    "overall": 90,
+    "overall": 96,
     "club": "Flamengo",
     "nationality": "Uruguay",
     "nationalityFlag": "🇺🇾",
@@ -5423,7 +5423,7 @@
   {
     "id": "p614",
     "name": "GABRIEL BARBOSA",
-    "overall": 90,
+    "overall": 97,
     "club": "Flamengo",
     "nationality": "Brazil",
     "nationalityFlag": "🇧🇷",
@@ -5436,7 +5436,7 @@
   {
     "id": "p615",
     "name": "GERSON",
-    "overall": 88,
+    "overall": 95,
     "club": "Flamengo",
     "nationality": "Brazil",
     "nationalityFlag": "🇧🇷",
@@ -5449,7 +5449,7 @@
   {
     "id": "p616",
     "name": "GUILHERME ARANA",
-    "overall": 87,
+    "overall": 94,
     "club": "Atlético Mineiro",
     "nationality": "Brazil",
     "nationalityFlag": "🇧🇷",
@@ -5462,7 +5462,7 @@
   {
     "id": "p617",
     "name": "LUCIANO",
-    "overall": 88,
+    "overall": 93,
     "club": "São Paulo",
     "nationality": "Brazil",
     "nationalityFlag": "🇧🇷",
@@ -5475,7 +5475,7 @@
   {
     "id": "p618",
     "name": "RODRIGO CAIO",
-    "overall": 87,
+    "overall": 95,
     "club": "Flamengo",
     "nationality": "Brazil",
     "nationalityFlag": "🇧🇷",
@@ -5488,7 +5488,7 @@
   {
     "id": "p619",
     "name": "V. CUESTA",
-    "overall": 86,
+    "overall": 94,
     "club": "Internacional",
     "nationality": "Argentina",
     "nationalityFlag": "🇦🇷",
@@ -5496,7 +5496,7 @@
     "rarity": "dourada",
     "rarityLabel": "Ouro",
     "image": "assets/players/V. CUESTA.png",
-    "tier": "iconic"
+    "tier": "destaque"
   },
   {
     "id": "p620",
