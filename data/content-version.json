@@ -1,18 +1,47 @@
 {
-  "version":4,
-  "label": "Live Update",
-  "assets": [
-    "assets/players/A. PIRLO_ic.png", 
-    "assets/players/A. DEL PIERO_ic.png",
-    "assets/players/C. RONALDO_ic.png",
-     "assets/players/M. SALAH.png",
-    "assets/players/L. BONUCCI.png",
-    "assets/players/A. BASTONI.png",
-    "assets/players/S. AGÜERO.png",
-    "assets/banners/boxbarcelona_ic.png",
-     "assets/banners/boxjuventus_ic.png",
-     "assets/banners/boxmilan_ic.png",
-     "assets/audio/music/track5.mp3",
-      "assets/audio/music/track6.mp3"
-]
+  "updates": [
+    {
+      "version": 5,
+      "releaseDate": "2026-07-26T00:00:00",
+      "label": "Atualização Aovivo",
+      "assets": [
+        "assets/players/BRUNO HENRIQUE.png",
+        "assets/players/CÁSSIO.png",
+        "assets/players/CLAUDINHO.png",
+        "assets/players/FÁGNER.png",
+        "assets/players/G. DE ARRASCAETA.png",
+        "assets/players/GABRIEL BARBOSA.png",
+        "assets/players/GERSON.png",
+        "assets/players/GUILHERME ARANA.png",
+        "assets/players/LUCIANO.png",
+        "assets/players/RODRIGO CAIO.png",
+        "assets/players/V. CUESTA.png",
+        "assets/players/I. ZAMORANO.png",
+        "assets/players/L. FIGO.png",
+        "assets/players/L. MATTHÄUS.png",
+        "assets/players/ALDAIR.png",
+        "assets/players/CAFU.png",
+        "assets/players/G. BATISTUTA_new.png",
+        "assets/players/GUARDIOLA.png",
+        "assets/players/RIVALDO_new.png",
+        "assets/players/ROMÁRIO.png",
+        "assets/players/F. RIJKAARD.png",
+        "assets/players/P. MALDINI.png",
+        "assets/players/D. BECKHAM_new.png",
+        "assets/players/R. CARLOS.png",
+        "assets/players/XABI ALONSO.png",
+        "assets/banners/banner-box-brasileirao-pots-2607.jpg",
+        "assets/banners/banner-box-lombardia-3007.jpg",
+        "assets/banners/banner-box-roma-0608.jpg",
+        "assets/banners/banner-box-barcelona-1308.jpg",
+        "assets/banners/banner-box-milan-1608.jpg",
+        "assets/banners/banner-box-madrid-2008.jpg",
+        "assets/videos/cutscene-destaque.mp4",
+        "assets/players/L. MESSI_BIGTIME_ARG.jpg",
+        "assets/players/L. MESSI_BIGTIME_BCN_107.jpg",
+        "assets/players/L. MESSI_BIGTIME_BCN_106.jpg",
+        "assets/banners/banner-box-messibigtime-0208.jpg"
+      ]
+    }
+  ]
 }
