@@ -104,9 +104,19 @@ function getEffectiveBox(boxId){
     category: ov.category ?? raw.category ?? "especial", // "boxdraw" | "especial"
     priceGP: ov.priceGP ?? raw.priceGP ?? 0,
     priceCoins: ov.priceCoins ?? raw.priceCoins,
+    startsAt: ov.startsAt ?? raw.startsAt ?? null,
     expiresAt: ov.expiresAt ?? raw.expiresAt ?? null,
     allPlayerIds: ov.playerIds ?? raw.players,
   };
+}
+
+/* Live service: box só entra em jogo quando now >= startsAt (se o campo
+   existir) e some sozinha quando now >= expiresAt (se existir). Sem os
+   campos, a box segue valendo só o "active" manual, como sempre foi. */
+function isBoxLive(box){
+  if(box.startsAt && Date.now() < new Date(box.startsAt).getTime()) return false;
+  if(box.expiresAt && Date.now() >= new Date(box.expiresAt).getTime()) return false;
+  return true;
 }
 
 /* "13 dias 20 hrs restantes" — funciona só se a box tiver o campo
@@ -163,7 +173,7 @@ function renderContratarGrid(category){
   const wrap = document.getElementById(CONTRATAR_GRID_IDS[category] || "contratarGrid");
   if(!wrap) return;
   const boxes = GAME_DATA.boxesRaw.map(b=>getEffectiveBox(b.id)).filter(b=>{
-    if(!b.active) return false;
+    if(!b.active || !isBoxLive(b)) return false;
     // Boxes grátis aparecem junto das "Especial" (mesma aba/grid).
     if(category === "especial") return b.category === "especial" || b.category === "gratis";
     return b.category === category;

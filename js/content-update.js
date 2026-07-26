@@ -1,23 +1,30 @@
 /* =========================================================
    CONTENT UPDATE — download obrigatório de conteúdo novo
    =========================================================
-   Compara data/content-version.json com a versão já baixada neste
-   dispositivo (localStorage). Se for diferente (ou for a primeira
-   vez), mostra um popup bloqueante na splash, ANTES do "Toque para
-   começar", com o tamanho do download e uma barra de progresso — o
-   jogo só libera depois que tudo for baixado com sucesso.
+   Agora data/content-version.json guarda uma LISTA de updates
+   ("updates": [...]), cada um com sua própria "releaseDate". O
+   jogo baixa um update assim que a data dele chega — sem precisar
+   publicar nada de novo naquele dia. Se a pessoa ficar dias sem
+   abrir o jogo, ela recebe de uma vez só todos os updates que
+   ficaram pendentes nesse meio tempo (não precisa abrir um por um).
 
-   Pra publicar uma atualização nova (ex: campanha com jogadores e
-   Boxes novas), edite data/content-version.json:
-     - bump o "version" (qualquer número diferente do anterior já
-       dispara o popup pra quem já jogou antes);
-     - troque o "label" pelo texto que a pessoa vai ver;
-     - liste em "assets" os arquivos novos/pesados que valem a pena
-       pré-baixar (fotos de jogador, banners, vídeos etc.) — o
-       tamanho mostrado no popup é calculado sozinho a partir desses
-       arquivos.
-   Arquivos "leves" (jogadores.json, boxes, missões, cupons) já
-   atualizam sozinhos a cada sessão — não precisam entrar aqui.
+   Pra publicar uma atualização nova, adicione um objeto na lista
+   "updates" de data/content-version.json:
+     - "version": um número maior que o do update anterior;
+     - "releaseDate": ISO datetime — só passa a valer a partir
+       dessa data/hora (pode deixar cadastrado com semanas de
+       antecedência, ex: todo o calendário de agosto de uma vez);
+     - "label": o texto que a pessoa vai ver no popup;
+     - "assets": arquivos novos/pesados que valem pré-baixar
+       (fotos de jogador, banners, vídeos etc.) — o tamanho do
+       popup é calculado sozinho a partir desses arquivos.
+   Arquivos "leves" (players.json, boxes, eventos, missões, cupons)
+   já atualizam sozinhos a cada sessão — não precisam entrar aqui.
+
+   IMPORTANTE: música NÃO deve entrar em "assets". As faixas tocam
+   via <audio> normal (js/music.js) e não precisam de pré-download
+   bloqueante — colocá-las aqui só deixaria o popup de update maior
+   e mais lento sem necessidade.
 
    Expõe isContentUpdatePending(), usado por js/splash.js pra não
    deixar a pessoa entrar no jogo enquanto o download não terminar.
@@ -43,9 +50,10 @@
 
   function getSavedVersion() {
     try {
-      return localStorage.getItem(VERSION_STORAGE_KEY);
+      const raw = localStorage.getItem(VERSION_STORAGE_KEY);
+      return raw === null ? 0 : Number(raw) || 0;
     } catch (e) {
-      return null;
+      return 0;
     }
   }
 
@@ -55,6 +63,18 @@
     } catch (e) {
       /* ignora — não é crítico */
     }
+  }
+
+  // Pega só os updates cuja releaseDate já chegou, e que ainda não
+  // foram baixados neste dispositivo (version > o que já foi salvo).
+  function getPendingUpdates(manifest, savedVersion) {
+    const all = Array.isArray(manifest.updates) ? manifest.updates : [];
+    const now = Date.now();
+    return all
+      .filter((u) => u && typeof u.version === "number")
+      .filter((u) => !u.releaseDate || new Date(u.releaseDate).getTime() <= now)
+      .filter((u) => u.version > savedVersion)
+      .sort((a, b) => a.version - b.version);
   }
 
   async function computeTotalSize(assets) {
@@ -107,7 +127,7 @@
     if (overlay) overlay.classList.add("hidden");
   }
 
-  async function runUpdateFlow(manifest) {
+  async function runUpdateFlow(pendingUpdates) {
     const overlay = showUpdateOverlay();
     if (!overlay) {
       // sem overlay na página (não deveria acontecer) — não trava o jogo
@@ -121,10 +141,24 @@
     const statusEl = document.getElementById("contentUpdateStatus");
     const btn = document.getElementById("contentUpdateBtn");
 
-    if (labelEl) labelEl.textContent = manifest.label || "Novidades no Box-Football.";
+    // Se vários updates ficaram pendentes (pessoa sumiu um tempo), junta
+    // tudo num download só, com o texto do update mais recente.
+    const finalVersion = pendingUpdates[pendingUpdates.length - 1].version;
+    const label = pendingUpdates[pendingUpdates.length - 1].label || "Novidades no Box-Football.";
+    const assets = [];
+    const seen = new Set();
+    pendingUpdates.forEach((u) => {
+      (Array.isArray(u.assets) ? u.assets : []).forEach((a) => {
+        if (!seen.has(a)) {
+          seen.add(a);
+          assets.push(a);
+        }
+      });
+    });
+
+    if (labelEl) labelEl.textContent = label;
     if (sizeEl) sizeEl.textContent = "Calculando tamanho…";
 
-    const assets = Array.isArray(manifest.assets) ? manifest.assets : [];
     const totalSize = await computeTotalSize(assets);
     if (sizeEl) {
       sizeEl.textContent = totalSize > 0 ? `Tamanho: ${formatBytes(totalSize)}` : "Atualização leve — poucos KB.";
@@ -137,7 +171,7 @@
       }
       if (statusEl) statusEl.textContent = "Baixando, não feche o jogo…";
 
-      downloadAssets(assets, manifest.version, (downloaded) => {
+      downloadAssets(assets, finalVersion, (downloaded) => {
         const pct = totalSize > 0 ? Math.min(100, Math.round((downloaded / totalSize) * 100)) : 100;
         if (fillEl) fillEl.style.width = pct + "%";
         if (statusEl) statusEl.textContent = `Baixando… ${formatBytes(downloaded)}${totalSize > 0 ? " / " + formatBytes(totalSize) : ""}`;
@@ -145,7 +179,7 @@
         .then(() => {
           if (fillEl) fillEl.style.width = "100%";
           if (statusEl) statusEl.textContent = "Concluído!";
-          saveVersion(manifest.version);
+          saveVersion(finalVersion);
           pending = false;
           setTimeout(hideUpdateOverlay, 400);
         })
@@ -169,14 +203,14 @@
       const manifest = await res.json();
 
       const saved = getSavedVersion();
-      const isNew = saved === null || String(manifest.version) !== saved;
+      const pendingUpdates = getPendingUpdates(manifest, saved);
 
-      if (!isNew) {
+      if (!pendingUpdates.length) {
         pending = false;
         return;
       }
 
-      await runUpdateFlow(manifest);
+      await runUpdateFlow(pendingUpdates);
     } catch (e) {
       // se não der pra checar (offline, arquivo ausente etc.), não trava
       // o jogo pra sempre — deixa entrar normalmente.

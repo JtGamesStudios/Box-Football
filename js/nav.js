@@ -120,7 +120,7 @@ function updateContratarCardBanners(){
     const card = el.closest(".menu-card");
     const first = GAME_DATA.boxesRaw
       .map(b=>getEffectiveBox(b.id))
-      .find(b=>b.active && b.category===cat);
+      .find(b=>b.active && isBoxLive(b) && b.category===cat);
 
     if(first && first.banner){
       el.style.backgroundImage = `url('${first.banner}')`;

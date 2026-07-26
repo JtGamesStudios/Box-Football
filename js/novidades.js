@@ -31,7 +31,7 @@ function getAnnouncedCoupons(){
 function computeContentSignature(){
   const boxIds = GAME_DATA.boxesRaw
     .map(b => getEffectiveBox(b.id))
-    .filter(b => b && b.active)
+    .filter(b => b && b.active && isBoxLive(b))
     .map(b => b.id)
     .sort();
   const eventIds = getActiveEvents().map(e => e.id).sort();
@@ -55,7 +55,7 @@ function buildNovidadesItems(){
 
   GAME_DATA.boxesRaw
     .map(b => getEffectiveBox(b.id))
-    .filter(b => b && b.active)
+    .filter(b => b && b.active && isBoxLive(b))
     .forEach(b=>{
       items.push({
         banner: b.banner,
