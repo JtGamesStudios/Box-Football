@@ -20,7 +20,7 @@
   // Deixe true enquanto o servidor estiver em manutenção.
   // Quando quiser liberar o app de novo, é só voltar para false.
   // ---------------------------------------------------------------
-  const MAINTENANCE_MODE = true;
+  const MAINTENANCE_MODE = false;
   const MAINTENANCE_END_LABEL = "Terça, 28/07 20h";
 
   // ---------------------------------------------------------------
