@@ -20,8 +20,8 @@
   // Deixe true enquanto o servidor estiver em manutenção.
   // Quando quiser liberar o app de novo, é só voltar para false.
   // ---------------------------------------------------------------
-  const MAINTENANCE_MODE = false;
-  const MAINTENANCE_END_LABEL = "Domingo, 26/07 18h";
+  const MAINTENANCE_MODE = true;
+  const MAINTENANCE_END_LABEL = "Terça, 28/07 20h";
 
   // ---------------------------------------------------------------
   // MIGRAÇÃO PRO APP — a partir dessa data/hora (horário de Brasília),
