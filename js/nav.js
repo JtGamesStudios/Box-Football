@@ -47,7 +47,7 @@ const TOP_ICONS = [
    referência (eFootball / Modo de evento / Jogo c/ amigo / Campanha).
    nav:null = card decorativo, sem clique/navegação nenhuma. */
 const HOME_CARDS = [
-  { nav: null, banner: "banner-home-efootball", icon: "", title: "eFootball",      sub: "Encare usuários e ganhe prêmios", badgeSource: null, locked: true, keepIcon: true },
+  { nav: "cardbattle", banner: "banner-home-efootball", icon: "", title: "eFootball",      sub: "Duelo de cartas — vida, combo e estratégia", badgeSource: null, keepIcon: true },
   { nav: "evento", banner: "banner-home-evento", icon: "", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
   { nav: "amigo", banner: "banner-home-amigo",  icon: "", title: "Jogo c/ amigo",  sub: "Desafie um amigo, ao vivo, online", badgeSource: null },
   { nav: "campanha", banner: "banner-home-campanha",  icon: "", title: "Campanha",      sub: "", badgeSource: null },
@@ -80,6 +80,7 @@ const SCREEN_PARENT_TAB = {
   ranking: "home",
   evento: "home",
   amigo: "home",
+  cardbattle: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
   contract: "contract", contratar: "contract", boxes: "contract", loja: "contract",
   boxdraw: "contratar", especial: "contratar",
@@ -300,6 +301,7 @@ function showScreen(id, opts){
   if(id==="ranking") renderRankingScreen();
   if(id==="evento") renderEventoScreen();
   if(id==="amigo") renderAmigoScreen();
+  if(id==="cardbattle") initCardBattleScreen();
 
   syncTopBadges();
 
