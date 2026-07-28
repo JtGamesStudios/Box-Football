@@ -17,6 +17,22 @@
      acabam (5 rodadas) — nesse caso quem tiver mais vida vence.
    ========================================================= */
 
+/* ---------- controle de acesso (beta fechado) ----------
+   Enquanto o Card Battle estiver em teste, só os IDs listados aqui
+   conseguem ver/jogar. O ID de cada um aparece na tela de splash
+   ("Seu ID: XXXX-XXXX") e em Configurações, com botão "Copiar".
+   Pra liberar pra mais gente, só adicionar o ID na lista abaixo —
+   não precisa mexer em mais nada. Lista vazia ([]) = liberado geral. */
+const CARD_BATTLE_ACCESS_WHITELIST = [
+  "PQXU-Z8W7",
+  "ME7X-SK8M",
+];
+
+function hasCardBattleAccess(){
+  if(!CARD_BATTLE_ACCESS_WHITELIST.length) return true;
+  return typeof getPlayerId === "function" && CARD_BATTLE_ACCESS_WHITELIST.includes(getPlayerId());
+}
+
 const CB = {
   homeHand: [],
   awayHand: [],
@@ -88,6 +104,15 @@ function cbBuildAwayHand(){
 
 /* ---------- ciclo de vida da tela ---------- */
 function initCardBattleScreen(){
+  if(!hasCardBattleAccess()){
+    document.getElementById("cbIntro").classList.remove("hidden");
+    document.getElementById("cbArena").classList.add("hidden");
+    document.getElementById("cbIntro").innerHTML = `
+      <div class="cb-intro-badge">🔒 EM BREVE</div>
+      <h1 class="cb-intro-title">Card Battle</h1>
+      <p class="cb-intro-sub">Esse modo está em teste fechado no momento. Em breve libera pra todo mundo!</p>`;
+    return;
+  }
   document.getElementById("cbIntro").classList.remove("hidden");
   document.getElementById("cbArena").classList.add("hidden");
   const startBtn = document.getElementById("cbStartBtn");
