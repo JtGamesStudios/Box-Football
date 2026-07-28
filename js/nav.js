@@ -134,7 +134,7 @@ function updateCardBattleCardLock(){
    (sem clique) e sem foto — só um cinza liso, igual aos outros
    modos "Indisponível". */
 function updateContratarCardBanners(){
-  if(!window.GAME_DATA || !GAME_DATA.boxesRaw || !GAME_DATA.boxesRaw.length) return;
+  if(typeof GAME_DATA === 'undefined' || !GAME_DATA.boxesRaw || !GAME_DATA.boxesRaw.length) return;
   ["boxdraw","especial"].forEach(cat=>{
     const el = document.getElementById(`menuCardBanner-${cat}`);
     if(!el) return;
