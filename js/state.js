@@ -74,6 +74,10 @@ function defaultState(){
       dailyLoginMigrated: true, // marca que este save já passou pela migração do novo Login Bonus
       giftIdSeq: 1,
     },
+    cardBattle: {                // progresso do modo Níveis do Card Battle
+      unlockedLevel: 1,          // até qual nível (1-based) o jogador já destravou
+      stars: {},                 // { levelId: 1|2|3 } melhor resultado em cada nível
+    },
   };
 }
 
