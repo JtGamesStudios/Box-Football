@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Box Clube — Monte seu time, abra boxes, suba de divisão</title>
+<title>Box Clube — site oficial</title>
 <meta name="description" content="Box Clube: o gacha de futebol na palma da sua mão. Abra boxes, monte seu elenco e suba de divisão contra o CPU.">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Box Clube">
 <meta property="og:description" content="Monte seu time, abra boxes e suba de divisão no Box Clube.">
-<meta property="og:image" content="../assets/banner-home-evento-2d2.jpg">
-<meta name="theme-color" content="#0A0F1F">
+<meta property="og:image" content="../assets/banners/evento_pes31anos.jpg">
+<meta name="theme-color" content="#080C18">
 
 <link rel="stylesheet" href="css/site.css">
 </head>
@@ -18,50 +18,128 @@
 
 <a class="skip-link" href="#main">Pular para o conteúdo</a>
 
+<!-- ================= NAV ================= -->
 <header class="nav" id="siteNav">
   <div class="nav-inner">
     <a class="nav-logo" href="#top">
       <span class="nav-logo-mark">BC</span>
       <span class="nav-logo-text">BOX CLUBE</span>
     </a>
+
     <nav class="nav-links" aria-label="Navegação principal">
-      <a href="#boxes">Boxes</a>
+      <a href="#top">Início</a>
+
+      <div class="nav-drop">
+        <button class="nav-drop-btn" aria-expanded="false">Boxes <span class="caret">▾</span></button>
+        <div class="nav-drop-panel">
+          <a href="#boxes">Boxes ativos</a>
+          <a href="../index.html#screen-boxdraw">Box Draw</a>
+          <a href="../index.html#screen-especial">Especial</a>
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-drop-btn" aria-expanded="false">Modos <span class="caret">▾</span></button>
+        <div class="nav-drop-panel">
+          <a href="#modos">Arena 2D</a>
+          <a href="#modos">Pênaltis</a>
+          <a href="#modos">Futvolley</a>
+          <a href="#modos">Campanha</a>
+        </div>
+      </div>
+
       <a href="#elenco">Elenco</a>
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#novidades">Novidades</a>
+      <a href="#informacoes">Novidades</a>
+
+      <div class="nav-drop">
+        <button class="nav-drop-btn" aria-expanded="false">Suporte <span class="caret">▾</span></button>
+        <div class="nav-drop-panel">
+          <a href="../index.html">Como jogar</a>
+          <a href="#produto">Requisitos</a>
+        </div>
+      </div>
     </nav>
-    <a class="nav-cta" href="../index.html">Jogar agora</a>
+
+    <div class="nav-actions">
+      <a class="nav-cta" href="../index.html">Jogar agora</a>
+      <button class="nav-burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nav-mobile" id="navMobile">
+    <a href="#top">Início</a>
+    <details><summary>Boxes</summary>
+      <a href="#boxes">Boxes ativos</a>
+      <a href="../index.html">Box Draw</a>
+      <a href="../index.html">Especial</a>
+    </details>
+    <details><summary>Modos</summary>
+      <a href="#modos">Arena 2D</a>
+      <a href="#modos">Pênaltis</a>
+      <a href="#modos">Futvolley</a>
+      <a href="#modos">Campanha</a>
+    </details>
+    <a href="#elenco">Elenco</a>
+    <a href="#informacoes">Novidades</a>
+    <a href="#produto">Requisitos</a>
+    <a class="nav-mobile-cta" href="../index.html">Jogar agora</a>
   </div>
 </header>
 
 <main id="main">
 
-  <!-- ================= HERO ================= -->
+  <!-- ================= HERO / CARROSSEL ================= -->
   <section class="hero" id="top">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <div class="hero-copy">
-        <p class="eyebrow">Gacha de futebol · PWA + Android</p>
-        <h1 class="hero-title">Monte seu time.<br>Abra boxes.<br><span class="accent">Suba de divisão.</span></h1>
-        <p class="hero-sub">Contrate craques em boxes temáticos, escale sua formação ideal e dispute partidas contra o CPU pra subir de divisão. Tudo direto do navegador, sem instalar nada — ou leve o clube com você no Android.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="../index.html">Jogar agora</a>
-          <a class="btn btn-ghost" href="#download">Baixar APK</a>
-        </div>
-      </div>
+    <p class="hero-kicker">Gacha de futebol · PWA + Android</p>
+    <h1 class="hero-title">Monte seu time. Abra boxes. <span class="accent">Suba de divisão.</span></h1>
 
-      <div class="hero-card-stage">
-        <div class="hero-card" id="heroCard">
-          <img id="heroCardImg" src="../assets/players/L. MESSI_BIGTIME_BCN_107.jpg" alt="Carta de destaque de um jogador do Box Clube">
-          <div class="hero-card-sheen" aria-hidden="true"></div>
-          <div class="hero-card-chip" id="heroCardChip">107 OVR</div>
-        </div>
+    <div class="carousel" id="heroCarousel">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="skeleton-slide" aria-hidden="true"></div>
+      </div>
+      <button class="carousel-arrow carousel-arrow-prev" id="carouselPrev" aria-label="Slide anterior">‹</button>
+      <button class="carousel-arrow carousel-arrow-next" id="carouselNext" aria-label="Próximo slide">›</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="../index.html">Jogar agora</a>
+      <a class="btn btn-ghost" href="#produto">Baixar APK</a>
+    </div>
+  </section>
+
+  <!-- ================= INFORMAÇÕES ================= -->
+  <section class="section" id="informacoes">
+    <div class="section-inner">
+      <div class="section-head-row">
+        <h2>Informações</h2>
+        <a class="section-link" href="../index.html">Mais →</a>
+      </div>
+      <div class="news-list" id="newsList">
+        <div class="skeleton-news-row" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SPOTLIGHT: PES 31 ANOS ================= -->
+  <section class="spotlight">
+    <div class="section-inner spotlight-inner">
+      <a class="spotlight-banner" href="../index.html">
+        <img src="../assets/banners/evento_pes31anos.jpg" alt="World Soccer Winning Eleven 2002 Online" loading="lazy">
+      </a>
+      <div class="spotlight-copy">
+        <p class="eyebrow">Evento especial</p>
+        <h2>31 anos de franquia</h2>
+        <p>Comemorando os 31 anos da franquia, jogue o clássico World Soccer Winning Eleven 2002 direto no navegador por 30 minutos seguidos e volte pra resgatar sua recompensa.</p>
+        <a class="btn btn-primary btn-sm" href="../index.html">Ver detalhes</a>
       </div>
     </div>
   </section>
 
   <!-- ================= BOXES AO VIVO ================= -->
-  <section class="section" id="boxes">
+  <section class="section section-alt" id="boxes">
     <div class="section-inner">
       <div class="section-head">
         <p class="eyebrow eyebrow-live"><span class="live-dot"></span>Ao vivo agora</p>
@@ -75,6 +153,62 @@
           <div class="skeleton-card"></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ================= MODOS DE JOGO ================= -->
+  <section class="section" id="modos">
+    <div class="section-inner">
+      <div class="section-head">
+        <p class="eyebrow">Dentro de campo</p>
+        <h2>Modos de jogo</h2>
+        <p class="section-sub">Além da campanha, o clube tem modos em tempo real pra disputar contra o CPU.</p>
+      </div>
+      <div class="mode-grid">
+        <div class="mode-card">
+          <img src="../assets/banners/banner-home-evento-2d.jpg" alt="Arena 2D" loading="lazy">
+          <div class="mode-card-body">
+            <h3>Arena 2D</h3>
+            <p>Duelo em tempo real com motor de canvas próprio, estádio, camisas do time e IA em quatro níveis.</p>
+          </div>
+        </div>
+        <div class="mode-card">
+          <img src="../assets/banners/banner-home-evento2.jpg" alt="Pênaltis" loading="lazy">
+          <div class="mode-card-body">
+            <h3>Pênaltis</h3>
+            <p>Mire com o dedo, escolha o estilo da cobrança e tente adivinhar o canto na defesa.</p>
+          </div>
+        </div>
+        <div class="mode-card">
+          <img src="../assets/banner-home-evento-2d2.jpg" alt="Futvolley" loading="lazy">
+          <div class="mode-card-body">
+            <h3>Futvolley</h3>
+            <p>Modo em tempo real estilo vôlei de praia, disputado ponto a ponto contra o CPU.</p>
+          </div>
+        </div>
+        <div class="mode-card">
+          <img src="../assets/banners/banner-contratar-especial.jpg" alt="Campanha" loading="lazy">
+          <div class="mode-card-body">
+            <h3>Campanha</h3>
+            <p>Vença partidas simuladas contra o CPU pra subir de divisão e evoluir seu clube.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SPOTLIGHT: BOX DRAW ================= -->
+  <section class="spotlight spotlight-alt">
+    <div class="section-inner spotlight-inner spotlight-inner-reverse">
+      <div class="spotlight-copy">
+        <p class="eyebrow">Contratar</p>
+        <h2>Box Draw — a grande box de lendas</h2>
+        <p>Pago em GP, o Box Draw é onde você tem a maior chance de contratar lendas do futebol pro seu elenco. Toda semana o conteúdo é renovado.</p>
+        <a class="btn btn-primary btn-sm" href="../index.html">Ver detalhes</a>
+      </div>
+      <a class="spotlight-banner" href="../index.html">
+        <img src="../assets/banners/banner-boxdraw.jpg" alt="Box Draw" loading="lazy">
+      </a>
     </div>
   </section>
 
@@ -97,56 +231,30 @@
     </div>
   </section>
 
-  <!-- ================= COMO FUNCIONA ================= -->
-  <section class="section" id="como-funciona">
+  <!-- ================= VISÃO GERAL DO PRODUTO ================= -->
+  <section class="section" id="produto">
     <div class="section-inner">
       <div class="section-head">
-        <p class="eyebrow">O ciclo do clube</p>
-        <h2>Contratar. Escalar. Disputar.</h2>
-        <p class="section-sub">As três telas que você mais vai usar, nessa ordem.</p>
+        <p class="eyebrow">Ficha técnica</p>
+        <h2>Visão geral do produto</h2>
       </div>
-      <div class="steps">
-        <div class="step-card">
-          <span class="step-word">Contratar</span>
-          <p>Abra Box Draw pago em GP ou o modo Especial pago em Moedas, e receba jogadores de branca a preta — ou lendas, se a sorte ajudar.</p>
+      <div class="product-table">
+        <div class="product-row">
+          <span class="product-label">Preço</span>
+          <span class="product-value">Grátis pra jogar</span>
         </div>
-        <div class="step-card">
-          <span class="step-word">Escalar</span>
-          <p>Organize sua formação no Meu Clube, ajuste a escalação por posição e prepare o time pra entrar em campo.</p>
+        <div class="product-row">
+          <span class="product-label">Plataformas</span>
+          <span class="product-value">Navegador (PWA) e Android (APK)</span>
         </div>
-        <div class="step-card">
-          <span class="step-word">Disputar</span>
-          <p>Jogue partidas simuladas ou na Arena 2D, vença o CPU e suba de divisão na campanha.</p>
+        <div class="product-row">
+          <span class="product-label">Requisitos mínimos</span>
+          <span class="product-value">Navegador atualizado (Chrome/Safari) ou Android 7.0+</span>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= NOVIDADES ================= -->
-  <section class="section section-alt" id="novidades">
-    <div class="section-inner">
-      <div class="section-head">
-        <p class="eyebrow">Bastidores</p>
-        <h2>Novidades do clube</h2>
-        <p class="section-sub">A última atualização de conteúdo aplicada ao jogo.</p>
-      </div>
-      <div class="news-card" id="newsCard">
-        <div class="skeleton-news" aria-hidden="true"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= DOWNLOAD ================= -->
-  <section class="section download" id="download">
-    <div class="section-inner download-inner">
-      <div>
-        <p class="eyebrow">Leve o clube com você</p>
-        <h2>Jogue no navegador ou instale no Android</h2>
-        <p class="section-sub">O Box Clube roda como PWA em qualquer navegador, ou como APK no Android — mesmo save, mesmo progresso.</p>
-      </div>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="../index.html">Jogar no navegador</a>
-        <a class="btn btn-ghost" href="../index.html">Baixar APK</a>
+        <div class="product-row">
+          <span class="product-label">Conexão</span>
+          <span class="product-value">Internet necessária pra sincronizar o save na nuvem</span>
+        </div>
       </div>
     </div>
   </section>
@@ -155,17 +263,28 @@
 
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <span class="nav-logo-mark">BC</span>
-      <span class="nav-logo-text">BOX CLUBE</span>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo-mark">BC</span>
+        <span class="nav-logo-text">BOX CLUBE</span>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Jogo</h4>
+          <a href="../index.html">Jogar agora</a>
+          <a href="#boxes">Boxes</a>
+          <a href="#elenco">Elenco</a>
+          <a href="#modos">Modos de jogo</a>
+        </div>
+        <div class="footer-col">
+          <h4>Suporte</h4>
+          <a href="../index.html">Como jogar</a>
+          <a href="#produto">Requisitos</a>
+          <a href="#informacoes">Novidades</a>
+        </div>
+      </div>
     </div>
-    <div class="footer-links">
-      <a href="../index.html">Jogar agora</a>
-      <a href="#download">Baixar APK</a>
-      <a href="#boxes">Boxes</a>
-      <a href="#elenco">Elenco</a>
-    </div>
-    <p class="footer-note">Um jogo da JT Games Studios. Fã-projeto sem fins comerciais — nomes e clubes reais usados apenas a título de referência.</p>
+    <p class="footer-note">Box Clube é um fã-projeto da JT Games Studios, sem fins comerciais. Nomes de jogadores e clubes reais são usados apenas a título de referência.</p>
     <p class="footer-copy">© 2026 JT Games Studios</p>
   </div>
 </footer>
