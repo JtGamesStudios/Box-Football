@@ -18,6 +18,19 @@
    ========================================================= */
 
 const INFO_ITEMS = [
+{
+    id: "battle-cards-mode-2026-08",
+    date: "28/07/2026",
+    title: "⚔️ Novo Modo: Batalha de Cartas (Battle Cards)!",
+    preview: "Desafie níveis e chefes com os 5 mais fortes do seu elenco. Lançamento dia 02/08 às 23h!",
+    body: [
+      "Prepare-se para uma nova forma de jogar! Está chegando o modo Batalha de Cartas (Battle Cards), trazendo novos desafios e recompensas para o seu clube.",
+      "Para disputar as partidas, o sistema selecionará automaticamente os 5 jogadores mais fortes do seu elenco atual. Monte um time forte para ter a melhor formação possível!",
+      "O evento é dividido em níveis de dificuldade progressiva, terminando em um desafio contra o Chefe Final (Boss). Vença o chefe para zerar o evento e garantir recompensas exclusivas.",
+      "⚠️ Nota sobre a versão Mobile: Identificamos que a versão para celular está apresentando alguns bugs nas escalações. Nossa equipe já está trabalhando para corrigir essa falha o mais rápido possível.",
+      "O modo Batalha de Cartas estará disponível oficialmente no dia 02/08 às 23h. Prepare seu elenco!"
+    ],
+  },
   {
     id: "app-download-apk-2026-07",
     date: "24/07/2026",
