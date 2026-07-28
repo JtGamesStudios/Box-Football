@@ -81,7 +81,7 @@ function cbBuildHomeHand(){
     }
   }
   // fallback total: ninguém tem elenco ainda — usa jogadores base do jogo
-  if(pool.length < 5 && window.GAME_DATA && GAME_DATA.players && GAME_DATA.players.length){
+  if(pool.length < 5 && typeof GAME_DATA !== 'undefined' && GAME_DATA.players && GAME_DATA.players.length){
     const extra = [...GAME_DATA.players].sort((a,b)=>(b.overall||0)-(a.overall||0)).slice(0,20);
     for(const p of extra){
       if(pool.length >= 5) break;
@@ -92,7 +92,7 @@ function cbBuildHomeHand(){
 }
 
 function cbBuildAwayHand(){
-  const all = (window.GAME_DATA && GAME_DATA.players) ? GAME_DATA.players : [];
+  const all = (typeof GAME_DATA !== 'undefined' && GAME_DATA.players) ? GAME_DATA.players : [];
   if(!all.length) return [];
   const sorted = [...all].sort((a,b)=>(b.overall||0)-(a.overall||0));
   // pega um "time" de força parecida com a do jogador: uma faixa
