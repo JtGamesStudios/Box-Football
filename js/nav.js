@@ -106,6 +106,26 @@ function buildNav(){
   buildHubGrid("extrasGrid", EXTRAS_CARDS);
   buildHubGrid("contratarSubGrid", CONTRATAR_CARDS);
   updateContratarCardBanners();
+  updateCardBattleCardLock();
+}
+
+/* Enquanto o Card Battle estiver em teste fechado (ver
+   CARD_BATTLE_ACCESS_WHITELIST em js/cardbattle.js), o card da Home
+   (o antigo "eFootball") fica travado igual aos outros modos
+   "Indisponível" pra quem não está na lista. */
+function updateCardBattleCardLock(){
+  const card = document.querySelector('.menu-card[data-nav="cardbattle"]');
+  if(!card) return;
+  const allowed = typeof hasCardBattleAccess !== "function" || hasCardBattleAccess();
+  card.classList.toggle("locked", !allowed);
+  card.disabled = !allowed;
+  card.onclick = allowed ? (()=> showScreen("cardbattle")) : null;
+  const existingLock = card.querySelector(".menu-card-lock");
+  if(!allowed && !existingLock){
+    card.insertAdjacentHTML("beforeend", `<div class="menu-card-lock"><span class="menu-card-lock-icon">🔒</span><span class="menu-card-lock-label">Em breve</span></div>`);
+  } else if(allowed && existingLock){
+    existingLock.remove();
+  }
 }
 
 /* Os cards "Box Draw" e "Especial" usam como imagem o banner da
