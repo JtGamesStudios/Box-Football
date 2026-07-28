@@ -1,0 +1,175 @@
+/* =========================================================
+   CARD BATTLE — arena de duelo de cartas (estilo Top Stars)
+   Usa as mesmas variáveis de cor do resto do app (:root em style.css)
+   mas com um tema escuro próprio, tipo "arena", pra destacar as
+   cartas e o combate.
+   ========================================================= */
+
+#screen-cardbattle{ padding:0 !important; background:#0B0A1E; min-height:100vh; }
+
+.cb-root{ position:relative; min-height:100vh; color:#fff; font-family:var(--font-body); overflow:hidden; }
+.cb-root::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(124,77,255,.35), transparent 45%),
+    radial-gradient(circle at 85% 100%, rgba(255,201,60,.22), transparent 45%),
+    linear-gradient(180deg, #14103A 0%, #0B0A1E 60%, #08071A 100%);
+}
+
+/* ---------- INTRO ---------- */
+.cb-intro{ position:relative; z-index:1; padding:48px 24px 32px; max-width:520px; margin:0 auto; text-align:center; }
+.cb-intro-badge{
+  display:inline-block; padding:6px 14px; border-radius:999px; font-size:12px; font-weight:800;
+  letter-spacing:.06em; background:linear-gradient(135deg, var(--gold), var(--gold-dim)); color:#3A2A00; margin-bottom:14px;
+}
+.cb-intro-title{ font-family:var(--font-display); font-size:34px; font-weight:800; margin:0 0 10px; text-shadow:0 2px 12px rgba(124,77,255,.5); }
+.cb-intro-sub{ color:#C6C8E0; font-size:14.5px; line-height:1.5; margin:0 0 22px; }
+.cb-intro-rules{ display:flex; flex-direction:column; gap:10px; margin-bottom:28px; text-align:left; }
+.cb-rule{
+  display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1); border-radius:var(--radius-md); padding:12px 14px; font-size:13.5px; color:#E4E5F5;
+}
+.cb-rule span{ font-size:18px; }
+.cb-start-btn{ width:100%; font-size:16px; padding:15px; box-shadow:0 8px 24px rgba(25,140,255,.35); }
+
+/* ---------- ARENA ---------- */
+.cb-arena{ position:relative; z-index:1; display:flex; flex-direction:column; min-height:100vh; padding:14px 14px 0; }
+.cb-arena.hidden, .cb-intro.hidden{ display:none; }
+
+.cb-top-bar{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.cb-side{ flex:1; min-width:0; }
+.cb-side-name{ font-size:12.5px; font-weight:700; color:#E4E5F5; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cb-side-away .cb-side-name{ text-align:left; }
+.cb-side-home .cb-side-name{ text-align:right; }
+.cb-lifebar{ height:10px; border-radius:999px; background:rgba(255,255,255,.12); overflow:hidden; border:1px solid rgba(255,255,255,.15); }
+.cb-lifebar-fill{ height:100%; width:100%; border-radius:999px; transition:width .5s cubic-bezier(.2,.8,.2,1); }
+.cb-lifebar-fill.away{ background:linear-gradient(90deg, var(--crimson), #FF7A8A); margin-left:auto; }
+.cb-lifebar-fill.home{ background:linear-gradient(90deg, var(--brand), #5CC2FF); }
+.cb-life-num{ font-size:11px; color:#9EA0C4; margin-top:2px; font-weight:600; }
+.cb-side-home .cb-life-num{ text-align:right; }
+.cb-vs-badge{
+  flex:0 0 auto; font-family:var(--font-display); font-weight:800; font-size:13px; color:#3A2A00;
+  background:linear-gradient(135deg, var(--gold), var(--gold-dim)); padding:6px 10px; border-radius:10px;
+  box-shadow:0 4px 10px rgba(255,201,60,.35);
+}
+
+.cb-round-tag{
+  align-self:center; margin:10px 0 4px; font-size:12px; font-weight:700; letter-spacing:.05em;
+  color:#C6C8E0; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14);
+  padding:5px 14px; border-radius:999px;
+}
+
+/* ---------- palco do duelo ---------- */
+.cb-duel-stage{
+  position:relative; display:flex; align-items:center; justify-content:center; gap:14px;
+  padding:16px 6px; min-height:220px;
+}
+.cb-slot{
+  width:132px; height:184px; border-radius:var(--radius-md); position:relative;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.cb-slot-placeholder{
+  width:100%; height:100%; border-radius:var(--radius-md); border:2px dashed rgba(255,255,255,.25);
+  display:flex; align-items:center; justify-content:center; font-size:13px; color:#8688B0; font-weight:600;
+  background:rgba(255,255,255,.03);
+}
+.cb-clash{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(0); font-size:38px;
+  z-index:5; filter:drop-shadow(0 0 12px rgba(255,201,60,.8)); pointer-events:none;
+}
+.cb-clash.pop{ animation:cbClashPop .55s ease-out; }
+@keyframes cbClashPop{
+  0%{ transform:translate(-50%,-50%) scale(0); opacity:0; }
+  40%{ transform:translate(-50%,-50%) scale(1.25); opacity:1; }
+  100%{ transform:translate(-50%,-50%) scale(1.6); opacity:0; }
+}
+
+.cb-slot.shake{ animation:cbShake .4s ease; }
+@keyframes cbShake{
+  0%,100%{ transform:translateX(0); } 20%{ transform:translateX(-6px); } 40%{ transform:translateX(6px); }
+  60%{ transform:translateX(-4px); } 80%{ transform:translateX(4px); }
+}
+.cb-slot.winner{ transform:scale(1.06); }
+.cb-slot.winner::after{
+  content:""; position:absolute; inset:-6px; border-radius:calc(var(--radius-md) + 6px);
+  box-shadow:0 0 0 3px var(--gold), 0 0 20px rgba(255,201,60,.7); pointer-events:none;
+}
+.cb-slot.loser{ opacity:.55; filter:grayscale(.4); }
+
+/* cartas dentro do slot (duelo) reaproveitam a estrutura .p-card,
+   só ajustamos tamanho/skin pro tema escuro da arena */
+.cb-slot .p-card{ width:100%; height:100%; box-shadow:0 10px 24px rgba(0,0,0,.5); }
+.cb-slot .p-power-tag{
+  position:absolute; bottom:-9px; left:50%; transform:translateX(-50%); z-index:4;
+  background:linear-gradient(135deg, #1C2230, #000); border:1px solid rgba(255,255,255,.25);
+  color:#fff; font-size:11px; font-weight:800; padding:3px 9px; border-radius:999px; white-space:nowrap;
+}
+
+.cb-combo-popup{
+  position:absolute; left:50%; top:36%; transform:translate(-50%,-50%) scale(.6); z-index:6;
+  font-family:var(--font-display); font-weight:900; font-size:30px; letter-spacing:.03em;
+  background:linear-gradient(135deg, var(--legend-glow), var(--legend));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 30px rgba(124,77,255,.6); pointer-events:none;
+}
+.cb-combo-popup.show{ animation:cbComboPop 1s ease-out forwards; }
+@keyframes cbComboPop{
+  0%{ transform:translate(-50%,-50%) scale(.4) rotate(-6deg); opacity:0; }
+  25%{ transform:translate(-50%,-50%) scale(1.15) rotate(2deg); opacity:1; }
+  70%{ transform:translate(-50%,-50%) scale(1) rotate(0); opacity:1; }
+  100%{ transform:translate(-50%,-58%) scale(.92) rotate(0); opacity:0; }
+}
+
+.cb-result-banner{
+  align-self:center; margin-top:-6px; margin-bottom:4px; font-weight:800; font-size:14px;
+  padding:6px 16px; border-radius:999px; letter-spacing:.02em;
+}
+.cb-result-banner.win{ background:rgba(47,184,107,.18); color:#7CE7A6; border:1px solid rgba(47,184,107,.4); }
+.cb-result-banner.lose{ background:rgba(230,57,80,.18); color:#FF9DAA; border:1px solid rgba(230,57,80,.4); }
+.cb-result-banner.draw{ background:rgba(255,201,60,.18); color:#FFD877; border:1px solid rgba(255,201,60,.4); }
+
+/* ---------- log de rodadas ---------- */
+.cb-log{
+  max-height:56px; overflow-y:auto; font-size:11.5px; color:#9EA0C4; text-align:center;
+  padding:0 10px; margin-bottom:6px; line-height:1.6;
+}
+.cb-log div:last-child{ color:#E4E5F5; font-weight:600; }
+
+/* ---------- mão de cartas ---------- */
+.cb-hand-wrap{
+  margin-top:auto; position:sticky; bottom:0; padding:10px 8px calc(14px + env(safe-area-inset-bottom));
+  background:linear-gradient(180deg, rgba(11,10,30,0), rgba(11,10,30,.92) 30%);
+}
+.cb-hand{ display:flex; gap:8px; overflow-x:auto; padding:6px 2px 10px; scroll-snap-type:x proximity; }
+.cb-hand-card{
+  flex:0 0 auto; width:82px; scroll-snap-align:start; cursor:pointer;
+  transform:translateY(0); transition:transform .18s ease, box-shadow .18s ease; border-radius:var(--radius-md);
+}
+.cb-hand-card .p-card{ width:82px; height:114px; }
+.cb-hand-card.selected{ transform:translateY(-10px); }
+.cb-hand-card.selected .p-card{ box-shadow:0 0 0 3px var(--gold), 0 10px 20px rgba(255,201,60,.4); }
+.cb-hand-card.used{ opacity:.25; pointer-events:none; }
+.cb-confirm-btn{ width:100%; padding:13px; font-size:14.5px; }
+.cb-confirm-btn:disabled{ opacity:.4; }
+
+/* cartas em miniatura (usadas na .cb-hand e nos slots) — ajustes ao p-card
+   original, que foi pensado pra fundo claro */
+.cb-hand .p-name-bar, .cb-slot .p-name-bar{ padding:4px 6px; }
+.cb-hand .p-name{ font-size:9px; }
+.cb-hand .p-meta{ font-size:7.5px; }
+
+/* ---------- fim de partida ---------- */
+.cb-end-overlay{
+  position:fixed; inset:0; z-index:50; background:rgba(5,4,16,.85); backdrop-filter:blur(4px);
+  display:flex; align-items:center; justify-content:center; padding:24px;
+}
+.cb-end-overlay.hidden{ display:none; }
+.cb-end-card{
+  width:100%; max-width:340px; background:linear-gradient(160deg, #1B1A3E, #0E0D26);
+  border:1px solid rgba(255,255,255,.12); border-radius:var(--radius-lg); padding:28px 22px; text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+.cb-end-title{ font-family:var(--font-display); font-size:26px; font-weight:800; margin-bottom:8px; }
+.cb-end-desc{ font-size:13.5px; color:#C6C8E0; margin-bottom:20px; line-height:1.6; }
+.cb-end-card .btn{ width:100%; }

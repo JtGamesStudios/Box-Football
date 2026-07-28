@@ -386,6 +386,7 @@ html.hub-active .menu-card-body{
 .banner-home-evento{     background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-evento.jpg');     background-color:#5B2FA6; }
 .banner-home-amigo{      background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-amigo.jpg');      background-color:#8A1F3D; }
 .banner-home-campanha{   background-image:url('../assets/banners/banner-home-campanha.jpg');   background-color:#8A6B1E; background-position:center 30%; }
+.banner-home-cardbattle{ background-image:linear-gradient(150deg, rgba(20,10,40,.15), rgba(0,0,0,.35)), radial-gradient(circle at 30% 20%, rgba(255,201,60,.35), transparent 55%), linear-gradient(135deg, #2A1B5E, #0D0B2B); background-color:#1B1440; }
 
 .banner-club-meuclube{   background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-club-meuclube.jpg');   background-color:#0F6FD1; }
 .banner-club-escalacao{  background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-club-escalacao.jpg');  background-color:#1E8A4C; }
@@ -1079,19 +1080,82 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
    nenhum "cartão" ou cor de marca ao redor — daí a aparência estranha.
    Agora usa um ícone SVG (sempre consistente) dentro de um card,
    com o mesmo azul de marca do resto do app. */
-/* Aviso de "gire o celular" removido: o app já fica fixo em modo
-   paisagem (wrapper nativo), então esse overlay era redundante.
-   A regra abaixo garante que ele nunca apareça, mesmo se algum
-   script antigo tentar reativá-lo. */
 .rotate-overlay{
-  display:none !important;
+  display:none;
+  position:fixed; inset:0; z-index:700;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(25,140,255,.22), transparent 65%),
+    linear-gradient(180deg, #0B1220 0%, #060A14 100%);
+  color:#fff;
+  align-items:center; justify-content:center;
+  padding:24px;
+  padding-top:calc(24px + env(safe-area-inset-top, 0px));
+  padding-bottom:calc(24px + env(safe-area-inset-bottom, 0px));
+}
+/* Só se aplica em telas pequenas (mobile) — igual era antes. */
+@media (max-width: 900px){
+  .rotate-overlay{ display:flex; }
 }
 /* Dentro do mobile, some assim que o fullscreen estiver realmente
    ativo — não exigimos paisagem JUNTO, porque o lock de orientação
    (screen.orientation.lock) costuma falhar silenciosamente fora de
    PWA instalada (e não existe no iOS Safari), mesmo com o fullscreen
    já funcionando. Exigir as duas condições ao mesmo tempo deixava o
-   aviso preso na tela pra sempre nesses casos — esse era o bug. */
+   aviso preso na tela pra sempre nesses casos — esse era o bug.
+   Prioriza as classes controladas pelo fullscreen.js (is-fullscreen),
+   mais confiáveis entre navegadores mobile; mantém a pseudo-classe
+   :fullscreen como reforço extra. */
+html.is-fullscreen .rotate-overlay,
+html:fullscreen .rotate-overlay,
+html:-webkit-full-screen .rotate-overlay,
+html:-moz-full-screen .rotate-overlay,
+html:-ms-fullscreen .rotate-overlay{
+  display:none !important;
+}
+/* Sem NENHUM suporte a Fullscreen API (ex: iOS Safari) não tem como
+   pedir tela cheia de verdade — aí sim a única saída é girar o
+   aparelho fisicamente, então mantemos a exigência de paisagem
+   só pra esse caso específico. */
+@media (max-width: 900px) and (orientation: landscape){
+  html.fs-unsupported .rotate-overlay{
+    display:none;
+  }
+}
+/* Botão "Continuar sem tela cheia" — faltava essa regra, então esse
+   botão nunca escondia o aviso de verdade (só marcava a classe). */
+html.rotate-dismissed .rotate-overlay{
+  display:none !important;
+}
+
+.rotate-card{
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  max-width:300px; text-align:center;
+  animation:rotateCardIn .4s ease both;
+}
+@keyframes rotateCardIn{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+
+.rotate-icon-wrap{
+  width:88px; height:88px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(25,140,255,.14); border:1px solid rgba(25,140,255,.35);
+  box-shadow:0 0 30px rgba(25,140,255,.18);
+}
+.rotate-icon-svg{
+  width:38px; height:38px; color:var(--brand);
+  animation:rotateHint 1.6s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes rotateHint{ 0%,100%{ transform:rotate(0deg);} 50%{ transform:rotate(90deg);} }
+
+.rotate-overlay h2{ font-family:var(--font-display); font-size:21px; font-weight:700; margin:0; }
+.rotate-overlay p{ color:#9DAAC2; font-size:13.5px; max-width:270px; margin:0; line-height:1.5; }
+.rotate-overlay .btn{ margin-top:4px; }
+
+@media (max-width:360px){
+  .rotate-icon-wrap{ width:74px; height:74px; }
+  .rotate-icon-svg{ width:32px; height:32px; }
+  .rotate-overlay h2{ font-size:18.5px; }
+}
 
 /* ============ Botão flutuante: forçar tela cheia ============
    Fica fixo no canto, sempre por cima do conteúdo (mas abaixo do
