@@ -26,6 +26,7 @@
 <meta name="twitter:image" content="https://assetsio.gnwcdn.com/pes_2021_cover_crop_1.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp">
 
 <link rel="stylesheet" href="css/style.css?v=5">
+<link rel="stylesheet" href="css/cardbattle.css?v=1">
 <style>
   /* ===== Cutscene (Destaque / Lendário) ===== */
   .cutscene-overlay{
@@ -224,6 +225,22 @@
   </div>
 </div>
 
+<!-- ===================== OVERLAY: gire o celular / tela cheia ===================== -->
+<div class="rotate-overlay" id="rotateOverlay">
+  <div class="rotate-card">
+    <div class="rotate-icon-wrap">
+      <svg class="rotate-icon-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="20" y="6" width="24" height="52" rx="5" stroke="currentColor" stroke-width="3"/>
+        <circle cx="32" cy="49" r="1.6" fill="currentColor"/>
+      </svg>
+    </div>
+    <h2>Gire o celular para o modo paisagem</h2>
+    <p>O Box Clube foi feito pra jogar deitado, igual eFootball/PES.</p>
+    <button class="btn btn-primary" id="btnFullscreen">🖥️ Entrar em tela cheia</button>
+    <button class="rotate-skip-btn" id="btnSkipRotate">Continuar sem tela cheia</button>
+  </div>
+</div>
+
 <div id="app">
 
   <!-- ===================== TOPBAR: carteira + ícones rápidos ===================== -->
@@ -267,6 +284,74 @@
           <div class="quick-card"><div class="num" id="homeStreak">0</div><div class="lbl">Dias seguidos logado</div></div>
         </div>
         <div id="dailyLoginRow"></div>
+      </div>
+    </section>
+
+    <!-- CARD BATTLE (duelo de cartas estilo Top Stars) -->
+    <section class="screen" id="screen-cardbattle" data-title="Card Battle">
+      <div class="cb-root" id="cbRoot">
+
+        <!-- INTRO: escolha rápida antes de duelar -->
+        <div class="cb-intro" id="cbIntro">
+          <div class="cb-intro-badge">⚔️ NOVO MODO</div>
+          <h1 class="cb-intro-title">Card Battle</h1>
+          <p class="cb-intro-sub">Duele com as cartas do seu elenco. Vença rodadas, monte combos e zere a vida do adversário.</p>
+          <div class="cb-intro-rules">
+            <div class="cb-rule"><span>⚡</span>Cada rodada, uma carta sua contra uma do rival</div>
+            <div class="cb-rule"><span>🔥</span>Jogadores do mesmo clube/seleção em sequência = COMBO</div>
+            <div class="cb-rule"><span>❤️</span>Zere a vida do adversário antes que zerem a sua</div>
+          </div>
+          <button class="btn btn-primary cb-start-btn" id="cbStartBtn">Entrar na arena ›</button>
+        </div>
+
+        <!-- ARENA: tela de duelo -->
+        <div class="cb-arena hidden" id="cbArena">
+
+          <div class="cb-top-bar">
+            <div class="cb-side cb-side-away">
+              <div class="cb-side-name" id="cbAwayName">CPU</div>
+              <div class="cb-lifebar"><div class="cb-lifebar-fill away" id="cbAwayLifeFill"></div></div>
+              <div class="cb-life-num" id="cbAwayLifeNum">100</div>
+            </div>
+            <div class="cb-vs-badge">VS</div>
+            <div class="cb-side cb-side-home">
+              <div class="cb-side-name" id="cbHomeName">Meu Time</div>
+              <div class="cb-lifebar"><div class="cb-lifebar-fill home" id="cbHomeLifeFill"></div></div>
+              <div class="cb-life-num" id="cbHomeLifeNum">100</div>
+            </div>
+          </div>
+
+          <div class="cb-round-tag" id="cbRoundTag">Rodada 1</div>
+
+          <div class="cb-duel-stage" id="cbDuelStage">
+            <div class="cb-slot cb-slot-away" id="cbAwaySlot">
+              <div class="cb-slot-placeholder">?</div>
+            </div>
+            <div class="cb-clash" id="cbClash">💥</div>
+            <div class="cb-slot cb-slot-home" id="cbHomeSlot">
+              <div class="cb-slot-placeholder">Escolha</div>
+            </div>
+          </div>
+
+          <div class="cb-combo-popup hidden" id="cbComboPopup">COMBO!</div>
+          <div class="cb-result-banner hidden" id="cbResultBanner"></div>
+
+          <div class="cb-log" id="cbLog"></div>
+
+          <div class="cb-hand-wrap">
+            <div class="cb-hand" id="cbHand"></div>
+            <button class="btn btn-primary cb-confirm-btn" id="cbConfirmBtn" disabled>Jogar carta</button>
+          </div>
+
+          <div class="cb-end-overlay hidden" id="cbEndOverlay">
+            <div class="cb-end-card">
+              <div class="cb-end-title" id="cbEndTitle">Vitória!</div>
+              <div class="cb-end-desc" id="cbEndDesc"></div>
+              <button class="btn btn-primary" id="cbEndBtn">Voltar</button>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -774,6 +859,7 @@
 </script>
 <script src="js/fullscreen.js?v=2"></script>
 <script src="js/boxes.js?v=3"></script>
+<script src="js/cardbattle.js?v=1"></script>
 <script src="js/club.js?v=2"></script>
 <script src="js/lineup.js?v=2"></script>
 <script src="js/missions.js?v=2"></script>
