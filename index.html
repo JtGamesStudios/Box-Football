@@ -26,7 +26,7 @@
 <meta name="twitter:image" content="https://assetsio.gnwcdn.com/pes_2021_cover_crop_1.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp">
 
 <link rel="stylesheet" href="css/style.css?v=5">
-<link rel="stylesheet" href="css/cardbattle.css?v=1">
+<link rel="stylesheet" href="css/cardbattle.css?v=2">
 <style>
   /* ===== Cutscene (Destaque / Lendário) ===== */
   .cutscene-overlay{
@@ -225,23 +225,8 @@
   </div>
 </div>
 
-<!-- ===================== OVERLAY: gire o celular / tela cheia ===================== -->
-<div class="rotate-overlay" id="rotateOverlay">
-  <div class="rotate-card">
-    <div class="rotate-icon-wrap">
-      <svg class="rotate-icon-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="20" y="6" width="24" height="52" rx="5" stroke="currentColor" stroke-width="3"/>
-        <circle cx="32" cy="49" r="1.6" fill="currentColor"/>
-      </svg>
-    </div>
-    <h2>Gire o celular para o modo paisagem</h2>
-    <p>O Box Clube foi feito pra jogar deitado, igual eFootball/PES.</p>
-    <button class="btn btn-primary" id="btnFullscreen">🖥️ Entrar em tela cheia</button>
-    <button class="rotate-skip-btn" id="btnSkipRotate">Continuar sem tela cheia</button>
-  </div>
-</div>
-
 <div id="app">
+
 
   <!-- ===================== TOPBAR: carteira + ícones rápidos ===================== -->
   <header class="app-topbar">
@@ -301,11 +286,22 @@
             <div class="cb-rule"><span>🔥</span>Jogadores do mesmo clube/seleção em sequência = COMBO</div>
             <div class="cb-rule"><span>❤️</span>Zere a vida do adversário antes que zerem a sua</div>
           </div>
-          <button class="btn btn-primary cb-start-btn" id="cbStartBtn">Entrar na arena ›</button>
+          <button class="btn btn-primary cb-start-btn" id="cbStartBtn">Ver níveis ›</button>
+        </div>
+
+        <!-- SELEÇÃO DE NÍVEL -->
+        <div class="cb-levels hidden" id="cbLevels">
+          <div class="cb-levels-header">
+            <button class="cb-levels-back" id="cbLevelsBackBtn" aria-label="Voltar">‹</button>
+            <h2 class="cb-levels-title">Escolha o adversário</h2>
+          </div>
+          <div class="cb-levels-grid" id="cbLevelsGrid"></div>
         </div>
 
         <!-- ARENA: tela de duelo -->
         <div class="cb-arena hidden" id="cbArena">
+
+          <div class="cb-level-tag hidden" id="cbLevelTag">Nível 1</div>
 
           <div class="cb-top-bar">
             <div class="cb-side cb-side-away">
@@ -346,8 +342,14 @@
           <div class="cb-end-overlay hidden" id="cbEndOverlay">
             <div class="cb-end-card">
               <div class="cb-end-title" id="cbEndTitle">Vitória!</div>
+              <div class="cb-end-stars hidden" id="cbEndStars"></div>
               <div class="cb-end-desc" id="cbEndDesc"></div>
-              <button class="btn btn-primary" id="cbEndBtn">Voltar</button>
+              <div class="cb-end-actions">
+                <button class="btn btn-primary hidden" id="cbNextLevelBtn">Próximo nível ›</button>
+                <button class="btn cb-end-btn-alt hidden" id="cbRetryBtn">Tentar de novo</button>
+                <button class="btn cb-end-btn-alt hidden" id="cbBackToLevelsBtn">Escolher outro nível</button>
+                <button class="btn cb-end-btn-alt" id="cbEndBtn">Sair pro início</button>
+              </div>
             </div>
           </div>
 
@@ -830,7 +832,7 @@
 <script src="js/playerid.js?v=1"></script>
 <script src="js/splash.js?v=1"></script>
 <script src="js/content-update.js?v=1"></script>
-<script src="js/state.js?v=2"></script>
+<script src="js/state.js?v=3"></script>
 <script src="js/data.js?v=2"></script>
 <script src="js/arcade.js?v=2"></script>
 <script src="js/nav.js?v=3"></script>
@@ -859,7 +861,7 @@
 </script>
 <script src="js/fullscreen.js?v=2"></script>
 <script src="js/boxes.js?v=3"></script>
-<script src="js/cardbattle.js?v=1"></script>
+<script src="js/cardbattle.js?v=2"></script>
 <script src="js/club.js?v=2"></script>
 <script src="js/lineup.js?v=2"></script>
 <script src="js/missions.js?v=2"></script>
