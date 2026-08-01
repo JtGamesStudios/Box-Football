@@ -81,8 +81,10 @@ async function boot(){
   refreshWalletUI();
   if(typeof updateInfoBadge === "function") updateInfoBadge();
   showScreen("home");
-  const openedDailyLogin = typeof maybeShowDailyLogin === "function" && maybeShowDailyLogin();
-  if(!openedDailyLogin && typeof maybeShowNovidades === "function") maybeShowNovidades();
+  // Popup de Login Bonus (campanha "World Cup 2026") desligado — a campanha já
+  // passou. checkDailyLogin() continua rodando (streak/missões seguem contando),
+  // só o popup de resgate não abre mais sozinho.
+  if(typeof maybeShowNovidades === "function") maybeShowNovidades();
   if(typeof maybeShowUsernamePopup === "function") maybeShowUsernamePopup();
   if(typeof pushProfileToFirestore === "function") pushProfileToFirestore();
 }
