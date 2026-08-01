@@ -87,6 +87,31 @@ async function boot(){
   if(typeof maybeShowNovidades === "function") maybeShowNovidades();
   if(typeof maybeShowUsernamePopup === "function") maybeShowUsernamePopup();
   if(typeof pushProfileToFirestore === "function") pushProfileToFirestore();
+
+  startLiveContentWatcher();
+}
+
+/* =========================================================
+   LIVE CONTENT WATCHER — sem isso, uma Box/Evento agendado
+   (startsAt) só "aparecia de verdade" (popup de Novidades +
+   foto do card Especial/Box Draw) quando a pessoa recarregava
+   a página, porque tudo isso só era calculado no boot(). Esse
+   timer refaz essas checagens periodicamente com o app já
+   aberto, então o conteúdo agendado entra no ar sozinho, sem
+   precisar dar F5.
+   ========================================================= */
+function checkForLiveContentUpdates(){
+  if(typeof updateContratarCardBanners === "function") updateContratarCardBanners();
+  if(currentScreen === "boxdraw" && typeof renderContratarGrid === "function") renderContratarGrid("boxdraw");
+  if(currentScreen === "especial" && typeof renderContratarGrid === "function") renderContratarGrid("especial");
+  if(typeof maybeShowNovidades === "function") maybeShowNovidades();
+}
+
+function startLiveContentWatcher(){
+  setInterval(checkForLiveContentUpdates, 60000); // a cada 60s
+  document.addEventListener("visibilitychange", ()=>{
+    if(document.visibilityState === "visible") checkForLiveContentUpdates();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", boot);
