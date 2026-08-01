@@ -1,4 +1,11 @@
 [
+  "box013.json",
+  "box014.json",
+  "box016.json",
+  "box017.json",
+  "box018.json",
+  "box019.json",
+  "box015.json",
   "box010.json",
   "box011.json",
   "box012.json",
@@ -8,12 +15,5 @@
   "box003.json",
   "box006.json",
   "box007.json",
-  "box005.json",
-  "box013.json",
-  "box014.json",
-  "box016.json",
-  "box017.json",
-  "box018.json",
-  "box019.json",
-  "box015.json"
+  "box005.json"
 ]
