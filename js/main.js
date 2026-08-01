@@ -102,8 +102,11 @@ async function boot(){
    ========================================================= */
 function checkForLiveContentUpdates(){
   if(typeof updateContratarCardBanners === "function") updateContratarCardBanners();
+  if(typeof updateCardBattleCardLock === "function") updateCardBattleCardLock();
   if(currentScreen === "boxdraw" && typeof renderContratarGrid === "function") renderContratarGrid("boxdraw");
   if(currentScreen === "especial" && typeof renderContratarGrid === "function") renderContratarGrid("especial");
+  const cbIntroEl = document.getElementById("cbIntro");
+  if(currentScreen === "cardbattle" && cbIntroEl && cbIntroEl.dataset.locked === "1" && typeof initCardBattleScreen === "function") initCardBattleScreen();
   if(typeof maybeShowNovidades === "function") maybeShowNovidades();
 }
 
