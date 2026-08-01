@@ -36,11 +36,21 @@ function computeContentSignature(){
     .sort();
   const eventIds = getActiveEvents().map(e => e.id).sort();
   const couponCodes = getAnnouncedCoupons().map(c => String(c.code).toUpperCase()).sort();
-  return JSON.stringify({ boxes: boxIds, events: eventIds, coupons: couponCodes });
+  const cardBattle = (typeof isCardBattleReleased === "function" && isCardBattleReleased()) ? "cardbattle-live" : "";
+  return JSON.stringify({ boxes: boxIds, events: eventIds, coupons: couponCodes, cardBattle });
 }
 
 function buildNovidadesItems(){
   const items = [];
+
+  if(typeof isCardBattleReleased === "function" && isCardBattleReleased()){
+    items.push({
+      banner: "",
+      title: "Card Battle chegou! ⚔️",
+      sub: "Duele com as cartas do seu elenco contra o CPU",
+      nav: "cardbattle",
+    });
+  }
 
   getAnnouncedCoupons().forEach(c=>{
     const code = String(c.code || "").trim().toUpperCase();
