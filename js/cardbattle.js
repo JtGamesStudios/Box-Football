@@ -94,7 +94,19 @@ function cbTriangleBonus(myGroup, oppGroup){
   return 0;
 }
 
-/* ---------- montagem das mãos ---------- */
+/* ---------- montagem das mãos ----------
+   IMPORTANTE: cbConfirmSelection marca `card.__used = true` direto no
+   objeto da carta pra travar ela na mão depois de jogada. Só que os
+   objetos que chegavam aqui (STATE.ownedPlayers e GAME_DATA.players)
+   eram passados por REFERÊNCIA — ou seja, esse "__used" ficava colado
+   pra sempre no jogador real, e como esses objetos são compartilhados
+   entre partidas (e até salvos no localStorage via persist()), na
+   partida seguinte aquele mesmo jogador já nascia "usado" e a carta
+   dele ficava impossível de jogar (esse era o bug de "não dá pra
+   colocar mais cartas"). A correção é sempre clonar a carta antes de
+   colocar na mão, pra `__used` viver só naquela partida. */
+function cbCloneCard(p){ return Object.assign({}, p, { __used:false }); }
+
 function cbBuildHomeHand(){
   let pool = [];
   const squad = (typeof getActiveSquad === "function") ? getActiveSquad() : (STATE.squads || []).find(s=>s.id===STATE.activeSquadId);
@@ -117,7 +129,7 @@ function cbBuildHomeHand(){
       if(!pool.find(x=>x.id===p.id)) pool.push(p);
     }
   }
-  return pool.slice(0,5);
+  return pool.slice(0,5).map(cbCloneCard);
 }
 
 /* Monta a mão do CPU dentro da faixa de overall do adversário
@@ -141,7 +153,7 @@ function cbBuildAwayHand(opponent){
     min -= 4; max += 4; // alarga a faixa se faltou gente
     guard++;
   }
-  return picked.slice(0,5);
+  return picked.slice(0,5).map(cbCloneCard);
 }
 
 /* ---------- ciclo de vida da tela ---------- */
@@ -301,8 +313,8 @@ function cbSelectCard(idx){
 }
 
 function cbResetSlots(){
-  document.getElementById("cbAwaySlot").innerHTML = `<div class="cb-slot-placeholder">?</div>`;
-  document.getElementById("cbHomeSlot").innerHTML = `<div class="cb-slot-placeholder">Escolha</div>`;
+  document.getElementById("cbAwaySlot").innerHTML = `<div class="cb-slot-placeholder"><span>Aguardando</span></div>`;
+  document.getElementById("cbHomeSlot").innerHTML = `<div class="cb-slot-placeholder"><span>Escolha</span></div>`;
   document.getElementById("cbAwaySlot").className = "cb-slot cb-slot-away";
   document.getElementById("cbHomeSlot").className = "cb-slot cb-slot-home";
   document.getElementById("cbClash").classList.remove("pop");
@@ -344,7 +356,15 @@ function cbConfirmSelection(){
   // maior, mais chance de vir logo a melhor carta disponível em vez
   // de uma das melhores no acaso — deixa os níveis avançados mais
   // espertos e os iniciais mais imprevisíveis.
-  const awayAvailable = CB.awayHand.filter(p=>!p.__used);
+  let awayAvailable = CB.awayHand.filter(p=>!p.__used);
+  // Rede de segurança: se por qualquer motivo a mão do CPU esvaziar antes
+  // da sua (ex: rodadas ficaram fora de sincronia), reabre a mão dele em
+  // vez de travar o jogo — antes isso quebrava com "awayCard undefined" e
+  // ninguém mais conseguia jogar carta nenhuma pelo resto da partida.
+  if(!awayAvailable.length){
+    CB.awayHand.forEach(p=> p.__used = false);
+    awayAvailable = CB.awayHand.slice();
+  }
   awayAvailable.sort((a,b)=>(b.overall||0)-(a.overall||0));
   const aggro = (CB.opponent && CB.opponent.aggro != null) ? CB.opponent.aggro : .3;
   const pickPoolSize = Math.random() < aggro ? 1 : Math.min(3, awayAvailable.length);
@@ -375,6 +395,9 @@ function cbResolveClash(homeCard, awayCard){
 
   let homePower = (homeCard.overall||70) + cbTriangleBonus(homeGroup, awayGroup) + (Math.random()*10-5);
   let awayPower = (awayCard.overall||70) + cbTriangleBonus(awayGroup, homeGroup) + (Math.random()*10-5);
+
+  document.getElementById("cbHomeSlot").insertAdjacentHTML("beforeend", `<div class="p-power-tag">⚡ ${Math.round(homePower)}</div>`);
+  document.getElementById("cbAwaySlot").insertAdjacentHTML("beforeend", `<div class="p-power-tag">⚡ ${Math.round(awayPower)}</div>`);
 
   // combo: mesma seleção ou clube do lance anterior daquele lado
   const homeCombo = CB.lastHomeCard && (CB.lastHomeCard.club === homeCard.club || CB.lastHomeCard.nationality === homeCard.nationality);
