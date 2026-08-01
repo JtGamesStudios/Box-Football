@@ -128,20 +128,22 @@ function updateCardBattleCardLock(){
   }
 }
 
-/* Os cards "Box Draw" e "Especial" usam como imagem o banner da
-   primeira Box ativa de cada categoria (ordem de data/boxes/index.json).
-   Se nenhuma box ativa existir na categoria, o card fica travado
-   (sem clique) e sem foto — só um cinza liso, igual aos outros
-   modos "Indisponível". */
+/* Os cards "Box Draw" e "Especial" usam como imagem o banner da Box
+   ativa que "chegou" mais recentemente (maior startsAt) — assim, toda
+   vez que uma Box agendada nova entra no ar ela vira a capa sozinha,
+   sem precisar reordenar o data/boxes/index.json. Boxes sem startsAt
+   entram por último, na ordem do index.json. Se nenhuma box ativa
+   existir na categoria, o card fica travado (sem clique) e sem foto —
+   só um cinza liso, igual aos outros modos "Indisponível". */
 function updateContratarCardBanners(){
   if(typeof GAME_DATA === 'undefined' || !GAME_DATA.boxesRaw || !GAME_DATA.boxesRaw.length) return;
   ["boxdraw","especial"].forEach(cat=>{
     const el = document.getElementById(`menuCardBanner-${cat}`);
     if(!el) return;
     const card = el.closest(".menu-card");
-    const first = GAME_DATA.boxesRaw
+    const first = sortBoxesNewestFirst(GAME_DATA.boxesRaw
       .map(b=>getEffectiveBox(b.id))
-      .find(b=>b.active && isBoxLive(b) && b.category===cat);
+      .filter(b=>b && b.active && isBoxLive(b) && b.category===cat))[0];
 
     if(first && first.banner){
       el.style.backgroundImage = `url('${first.banner}')`;
