@@ -119,6 +119,20 @@ function isBoxLive(box){
   return true;
 }
 
+/* Ordena boxes colocando primeiro a que "chegou" mais recentemente
+   (maior startsAt). Boxes sem startsAt (sempre ativas, sem agenda)
+   ficam no fim, na ordem em que aparecem no index.json. Assim, quando
+   uma Box agendada nova entra no ar, ela automaticamente vira a
+   capa/primeira do grid — sem precisar reordenar o index.json toda
+   vez que uma nova box é adicionada. */
+function sortBoxesNewestFirst(list){
+  return list.slice().sort((a,b)=>{
+    const at = a.startsAt ? new Date(a.startsAt).getTime() : 0;
+    const bt = b.startsAt ? new Date(b.startsAt).getTime() : 0;
+    return bt - at;
+  });
+}
+
 /* "13 dias 20 hrs restantes" — funciona só se a box tiver o campo
    opcional "expiresAt" (ISO datetime, ex: "2026-07-23T00:00:00").
    Sem esse campo, o card simplesmente não mostra o prazo. */
@@ -172,12 +186,12 @@ function isFreeSpinAvailable(box){
 function renderContratarGrid(category){
   const wrap = document.getElementById(CONTRATAR_GRID_IDS[category] || "contratarGrid");
   if(!wrap) return;
-  const boxes = GAME_DATA.boxesRaw.map(b=>getEffectiveBox(b.id)).filter(b=>{
+  const boxes = sortBoxesNewestFirst(GAME_DATA.boxesRaw.map(b=>getEffectiveBox(b.id)).filter(b=>{
     if(!b.active || !isBoxLive(b)) return false;
     // Boxes grátis aparecem junto das "Especial" (mesma aba/grid).
     if(category === "especial") return b.category === "especial" || b.category === "gratis";
     return b.category === category;
-  });
+  }));
   if(boxes.length===0){
     wrap.innerHTML = `<div class="empty-state"><div class="big">📦</div>Nenhuma Box ativa no momento.<br>Ative uma no Painel Admin (Configurações).</div>`;
     return;
