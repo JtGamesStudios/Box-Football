@@ -28,13 +28,26 @@
    conseguem ver/jogar. O ID de cada um aparece na tela de splash
    ("Seu ID: XXXX-XXXX") e em Configurações, com botão "Copiar".
    Pra liberar pra mais gente, só adicionar o ID na lista abaixo —
-   não precisa mexer em mais nada. Lista vazia ([]) = liberado geral. */
+   não precisa mexer em mais nada. Lista vazia ([]) = liberado geral.
+
+   CARD_BATTLE_RELEASE_AT: data/hora (ISO) em que o modo libera
+   AUTOMATICAMENTE pra todo mundo, sem precisar tirar ninguém da
+   whitelist nem dar reload na página (o watcher em main.js
+   rechecka isso periodicamente). Deixe `null` pra não agendar nada
+   e depender só da whitelist. */
 const CARD_BATTLE_ACCESS_WHITELIST = [
   "PQXU-Z8W7",
   "ME7X-SK8M",
 ];
+const CARD_BATTLE_RELEASE_AT = "2026-08-02T23:00:00";
+
+function isCardBattleReleased(){
+  if(!CARD_BATTLE_RELEASE_AT) return false;
+  return Date.now() >= new Date(CARD_BATTLE_RELEASE_AT).getTime();
+}
 
 function hasCardBattleAccess(){
+  if(isCardBattleReleased()) return true;
   if(!CARD_BATTLE_ACCESS_WHITELIST.length) return true;
   return typeof getPlayerId === "function" && CARD_BATTLE_ACCESS_WHITELIST.includes(getPlayerId());
 }
@@ -162,12 +175,14 @@ function initCardBattleScreen(){
     document.getElementById("cbIntro").classList.remove("hidden");
     document.getElementById("cbLevels").classList.add("hidden");
     document.getElementById("cbArena").classList.add("hidden");
+    document.getElementById("cbIntro").dataset.locked = "1";
     document.getElementById("cbIntro").innerHTML = `
       <div class="cb-intro-badge">🔒 EM BREVE</div>
       <h1 class="cb-intro-title">Card Battle</h1>
       <p class="cb-intro-sub">Esse modo está em teste fechado no momento. Em breve libera pra todo mundo!</p>`;
     return;
   }
+  delete document.getElementById("cbIntro").dataset.locked;
   document.getElementById("cbIntro").classList.remove("hidden");
   document.getElementById("cbLevels").classList.add("hidden");
   document.getElementById("cbArena").classList.add("hidden");
