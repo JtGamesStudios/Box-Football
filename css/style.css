@@ -930,6 +930,43 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
 .team-stat .num{ font-family:var(--font-display); font-size:clamp(18px,4.5vw,22px); font-weight:800; color:var(--brand); }
 .team-stat .lbl{ font-size:11px; color:var(--text-muted); }
 
+/* Faixa de identidade acima do campo: técnico + formação, estilo eFootball */
+.squad-identity-strip{
+  display:flex; align-items:center; gap:10px; background:var(--surface);
+  border:1px solid var(--border); border-radius:12px; padding:8px 10px; margin-bottom:10px;
+}
+.identity-avatar-badge{
+  flex:none; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:19px; background:var(--surface-2); border:2px solid var(--border);
+}
+.identity-info{ flex:1; display:flex; flex-direction:column; min-width:0; }
+.identity-name{ font-weight:700; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.identity-sub{ font-size:11px; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.identity-formation-badge{
+  flex:none; font-family:var(--font-display); font-weight:800; font-size:13px; color:var(--brand);
+  background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:5px 10px;
+}
+
+/* Card de status do time — espírito (escudo), força, overall médio, formação —
+   igual ao painel lateral das telas de escalação do eFootball/PES. */
+.team-meta-card{
+  display:grid; grid-template-columns:1fr 1fr; gap:10px;
+  background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:14px;
+}
+.meta-stat{ text-align:center; background:var(--surface-2); border-radius:10px; padding:12px 6px; }
+.meta-stat.meta-spirit{ grid-column:1 / -1; background:linear-gradient(160deg, rgba(255,201,60,.12), var(--surface-2)); }
+.meta-shield{
+  position:relative; display:inline-flex; align-items:center; justify-content:center;
+  font-size:40px; line-height:1; filter:drop-shadow(0 2px 4px rgba(0,0,0,.35));
+}
+.meta-shield-num{
+  position:absolute; top:52%; left:50%; transform:translate(-50%,-46%);
+  font-family:var(--font-display); font-weight:800; font-size:14px; color:#3A2A00;
+}
+.meta-num{ font-family:var(--font-display); font-weight:800; font-size:clamp(18px,4.5vw,22px); color:var(--brand); }
+.meta-num-formation{ font-size:clamp(15px,3.6vw,18px); }
+.meta-lbl{ font-size:10.5px; color:var(--text-muted); margin-top:4px; }
+
 /* ============ Missions / Gifts ============ */
 .mission-item, .gift-item{
   display:flex; align-items:center; justify-content:space-between; gap:12px;
