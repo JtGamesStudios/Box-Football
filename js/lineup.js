@@ -51,6 +51,12 @@ function renderEscalacao(){
   ensureDefaultSquad();
   const squad = getActiveSquad();
 
+  // rede de segurança: se por algum motivo sobrou um fantasma de arraste
+  // preso na tela de uma sessão anterior, some com ele ao reabrir a tela
+  document.querySelectorAll(".drag-ghost").forEach(el=>el.remove());
+  document.body.classList.remove("dragging-cards");
+  _drag = null;
+
   const formationSel = document.getElementById("formationSelect");
   formationSel.innerHTML = GAME_DATA.formations.map(f=>`<option value="${f.id}" ${f.id===squad.formationId?"selected":""}>${f.name}</option>`).join("");
   formationSel.onchange = ()=>{ squad.formationId = formationSel.value; squad.assignments = {}; squad.captainSlot=null; persist(); renderEscalacao(); };
@@ -134,11 +140,32 @@ function makeDraggable(el, { type, id, squad, getPlayer, onTap }){
   el.addEventListener("pointerdown", (e)=>{
     if(e.button !== undefined && e.button !== 0) return;
     const startX = e.clientX, startY = e.clientY;
+    const isTouch = e.pointerType === "touch";
     let active = false, moved = false;
+    // No toque, só "arma" o arraste depois de ~160ms parado — assim um gesto de
+    // rolar a lista (#reserveList/#unrelatedList, que tem scroll vertical) não
+    // é confundido com início de arraste. No mouse (desktop) arma na hora.
+    let armed = !isTouch;
+    let armTimer = isTouch ? setTimeout(()=>{ armed = true; }, 160) : null;
+
+    function cleanup(){
+      if(armTimer) clearTimeout(armTimer);
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerup", onUp);
+      document.removeEventListener("pointercancel", onCancel);
+    }
 
     function onMove(ev){
       if(!active){
-        if(Math.abs(ev.clientX-startX) > DRAG_THRESHOLD || Math.abs(ev.clientY-startY) > DRAG_THRESHOLD){
+        const dx = Math.abs(ev.clientX-startX), dy = Math.abs(ev.clientY-startY);
+        if(!armed){
+          // ainda não armou (toque recente) e já moveu bastante -> é rolagem
+          // da lista, não arraste. Solta o gesto de vez, sem chamar onTap nem
+          // criar fantasma nenhum, e deixa o scroll nativo seguir normalmente.
+          if(dx > DRAG_THRESHOLD || dy > DRAG_THRESHOLD){ moved = true; cleanup(); }
+          return;
+        }
+        if(dx > DRAG_THRESHOLD || dy > DRAG_THRESHOLD){
           moved = true;
           const player = getPlayer();
           if(player){
@@ -152,14 +179,21 @@ function makeDraggable(el, { type, id, squad, getPlayer, onTap }){
       updateDragGhostPos(ev);
       updateDragHover(ev);
     }
-    function onUp(ev){
-      document.removeEventListener("pointermove", onMove);
-      document.removeEventListener("pointerup", onUp);
-      if(active) endDrag(ev);
+    function finish(ev, wasCancelled){
+      cleanup();
+      if(active) endDrag(ev, wasCancelled);
       else if(!moved && onTap) onTap();
     }
+    function onUp(ev){ finish(ev, false); }
+    // pointercancel acontece principalmente quando o navegador assume um gesto de
+    // rolagem no meio do arraste (comum dentro de listas com scroll no celular).
+    // Sem tratar esse evento, o fantasma do arraste fica preso na tela pra sempre
+    // (era o bug do print: cartões "grudados" flutuando por cima da lista).
+    function onCancel(ev){ finish(ev, true); }
+
     document.addEventListener("pointermove", onMove);
     document.addEventListener("pointerup", onUp);
+    document.addEventListener("pointercancel", onCancel);
   });
 }
 
@@ -175,6 +209,9 @@ function createGhost(player, x, y){
 }
 
 function beginDrag(type, sourceId, squad, player, evt){
+  // limpeza defensiva: se por algum motivo sobrou um fantasma de um arraste
+  // anterior que não foi limpo direito, remove antes de criar um novo
+  if(_drag && _drag.ghost) _drag.ghost.remove();
   _drag = { type, sourceId, squad, ghost: createGhost(player, evt.clientX, evt.clientY) };
   document.body.classList.add("dragging-cards");
 }
@@ -193,9 +230,19 @@ function updateDragHover(evt){
   if(slotEl) slotEl.classList.add("drop-hover");
 }
 
-function endDrag(evt){
+function endDrag(evt, wasCancelled){
   if(!_drag) return;
   const { type, sourceId, squad, ghost } = _drag;
+
+  // arraste cancelado pelo navegador (ex: virou gesto de rolagem no meio do
+  // toque) -> só limpa o fantasma, sem aplicar nenhuma troca de posição
+  if(wasCancelled){
+    ghost.remove();
+    document.body.classList.remove("dragging-cards");
+    _drag = null;
+    return;
+  }
+
   const el = document.elementFromPoint(evt.clientX, evt.clientY);
   const slotEl = el && el.closest(".pitch-slot");
   const reserveZone = el && el.closest("#reserveList");
