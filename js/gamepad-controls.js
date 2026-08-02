@@ -249,4 +249,44 @@
   window.addEventListener("gamepaddisconnected", (e) => {
     if (e.gamepad && e.gamepad.index === gpIndex) stopGamepadFeatures();
   });
+
+  /* ---------- Watchdog (fallback p/ Android) ----------
+     Em muitos navegadores mobile (principalmente Chrome/Android com
+     controle Bluetooth já pareado antes de abrir a página) o evento
+     "gamepadconnected" simplesmente NUNCA dispara, mesmo com o
+     controle 100% funcional e respondendo a getGamepads(). Sem esse
+     evento, o resto do script (que é todo "preguiçoso" de propósito)
+     nunca liga — por isso os botões pareciam não fazer nada.
+
+     Esse watchdog roda um setInterval leve (não é loop de animação,
+     não pesa no TV box) só para checar de tempos em tempos se existe
+     algum gamepad conectado que o evento não avisou, e liga tudo
+     manualmente nesse caso. Também serve de rede de segurança para
+     detectar desconexão quando esse outro evento falha. */
+  setInterval(() => {
+    let pads;
+    try {
+      pads = navigator.getGamepads ? navigator.getGamepads() : [];
+    } catch (e) {
+      return;
+    }
+    if (!pads) return;
+
+    // Controle plugado que o evento não avisou -> liga na mão.
+    if (gpIndex === null) {
+      for (let i = 0; i < pads.length; i++) {
+        const pad = pads[i];
+        if (pad && (pad.connected !== false)) {
+          startGamepadFeatures(pad);
+          break;
+        }
+      }
+      return;
+    }
+
+    // Já conectado: confirma que ainda existe (rede de segurança
+    // para o caso do "gamepaddisconnected" também não disparar).
+    const stillThere = pads[gpIndex] && pads[gpIndex].connected !== false;
+    if (!stillThere) stopGamepadFeatures();
+  }, 800);
 })();
