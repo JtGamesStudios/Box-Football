@@ -1,7 +1,23 @@
 /* =========================================================
-   ESCALAÇÃO — formação, campo, banco, capitão, técnico
+   ESCALAÇÃO — formação, campo, banco de reservas, não
+   relacionados, capitão, técnico
    ========================================================= */
-let selectedBenchPlayerId = null;
+let selectedPlayerId = null;
+const RESERVES_CAP = 7; // tamanho do banco de reservas (igual ao padrão de jogos de clube)
+
+function normalizeSquad(squad){
+  if(!Array.isArray(squad.reserves)) squad.reserves = [];
+  // remove duplicados e ids que já viraram titulares (evita estado inconsistente
+  // de saves antigos, de antes de existir banco de reservas separado)
+  const starterIds = new Set(Object.values(squad.assignments || {}));
+  const seen = new Set();
+  squad.reserves = squad.reserves.filter(id=>{
+    if(starterIds.has(id) || seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  }).slice(0, RESERVES_CAP);
+  return squad;
+}
 
 function ensureDefaultSquad(){
   if(STATE.squads.length===0){
@@ -13,6 +29,7 @@ function ensureDefaultSquad(){
       coachId: GAME_DATA.coaches[0].id,
       captainSlot: null,
       assignments: {},
+      reserves: [],
     };
     STATE.squads.push(squad);
     STATE.activeSquadId = squad.id;
@@ -22,6 +39,7 @@ function ensureDefaultSquad(){
     STATE.activeSquadId = STATE.squads[0].id;
     persist();
   }
+  STATE.squads.forEach(normalizeSquad);
 }
 
 function getActiveSquad(){
@@ -46,7 +64,8 @@ function renderEscalacao(){
   squadSel.onchange = ()=>{ STATE.activeSquadId = squadSel.value; persist(); renderEscalacao(); };
 
   renderPitch(squad);
-  renderBench(squad);
+  renderReserves(squad);
+  renderUnrelated(squad);
   updateTeamStats(squad);
 }
 
@@ -93,7 +112,7 @@ function renderPitch(squad){
    de sempre). Assim continua dando pra selecionar/tocar normalmente
    e também dá pra arrastar o jogador até a posição certa no campo. */
 const DRAG_THRESHOLD = 6;
-let _drag = null; // { type:'bench'|'slot', id, squad, ghost }
+let _drag = null; // { type:'reserve'|'unrelated'|'slot', sourceId, squad, ghost }
 
 function makeDraggable(el, { type, id, squad, getPlayer, onTap }){
   el.addEventListener("pointerdown", (e)=>{
@@ -163,11 +182,14 @@ function endDrag(evt){
   const { type, sourceId, squad, ghost } = _drag;
   const el = document.elementFromPoint(evt.clientX, evt.clientY);
   const slotEl = el && el.closest(".pitch-slot");
-  const benchZone = el && el.closest("#benchList");
+  const reserveZone = el && el.closest("#reserveList");
+  const unrelatedZone = el && el.closest("#unrelatedList");
 
   if(slotEl && slotEl.dataset.slotId){
     const targetId = slotEl.dataset.slotId;
-    if(type === "bench"){
+    if(type === "reserve" || type === "unrelated"){
+      // vira titular: some do banco/não relacionados e ocupa a posição
+      squad.reserves = squad.reserves.filter(id=>id!==sourceId);
       Object.keys(squad.assignments).forEach(k=>{ if(squad.assignments[k]===sourceId) delete squad.assignments[k]; });
       squad.assignments[targetId] = sourceId;
       persist();
@@ -178,9 +200,32 @@ function endDrag(evt){
       squad.assignments[targetId] = fromPlayer;
       persist();
     }
-  } else if(type === "slot" && benchZone){
-    delete squad.assignments[sourceId];
-    persist();
+  } else if(reserveZone){
+    if(type === "slot"){
+      // sai do campo e vira reserva (se ainda houver vaga no banco)
+      const playerId = squad.assignments[sourceId];
+      delete squad.assignments[sourceId];
+      if(squad.captainSlot === sourceId) squad.captainSlot = null;
+      if(squad.reserves.length < RESERVES_CAP) squad.reserves.push(playerId);
+      persist();
+    } else if(type === "unrelated"){
+      if(squad.reserves.length < RESERVES_CAP){
+        squad.reserves.push(sourceId);
+        persist();
+      } else {
+        toast(`Banco de reservas já está cheio (${RESERVES_CAP}/${RESERVES_CAP}).`, "");
+      }
+    }
+  } else if(unrelatedZone){
+    if(type === "slot"){
+      // sai do campo direto pra fora do jogo
+      delete squad.assignments[sourceId];
+      if(squad.captainSlot === sourceId) squad.captainSlot = null;
+      persist();
+    } else if(type === "reserve"){
+      squad.reserves = squad.reserves.filter(id=>id!==sourceId);
+      persist();
+    }
   }
 
   document.querySelectorAll(".pitch-slot.drop-hover").forEach(el=>el.classList.remove("drop-hover"));
@@ -195,11 +240,12 @@ function getOwnedPlayerById(id){
 }
 
 function onSlotClick(squad, slot, currentPlayer){
-  if(selectedBenchPlayerId){
-    // remove o jogador selecionado de qualquer outra posição já ocupada
-    Object.keys(squad.assignments).forEach(k=>{ if(squad.assignments[k]===selectedBenchPlayerId) delete squad.assignments[k]; });
-    squad.assignments[slot.id] = selectedBenchPlayerId;
-    selectedBenchPlayerId = null;
+  if(selectedPlayerId){
+    // remove o jogador selecionado de qualquer outra posição já ocupada e do banco de reservas
+    Object.keys(squad.assignments).forEach(k=>{ if(squad.assignments[k]===selectedPlayerId) delete squad.assignments[k]; });
+    squad.reserves = squad.reserves.filter(id=>id!==selectedPlayerId);
+    squad.assignments[slot.id] = selectedPlayerId;
+    selectedPlayerId = null;
     persist();
     renderEscalacao();
     return;
@@ -210,49 +256,120 @@ function onSlotClick(squad, slot, currentPlayer){
     renderPitch(squad);
     updateTeamStats(squad);
   } else {
-    toast("Selecione um jogador do banco primeiro.", "");
+    toast("Selecione um jogador do banco de reservas ou dos não relacionados primeiro.", "");
   }
 }
 
-function renderBench(squad){
-  const list = document.getElementById("benchList");
-  if(STATE.ownedPlayers.length===0){
-    list.innerHTML = `<div class="empty-state"><div class="big">⚽</div>Contrate jogadores na aba Contratar para montar seu time.</div>`;
+function renderReserves(squad){
+  const list = document.getElementById("reserveList");
+  const countEl = document.getElementById("reserveCount");
+  if(countEl) countEl.textContent = `(${squad.reserves.length}/${RESERVES_CAP})`;
+
+  if(squad.reserves.length===0){
+    list.innerHTML = `<div class="empty-state"><div class="big">🪑</div>Banco vazio. Toque em ➕ num jogador de "Não Relacionados" pra colocar no banco.</div>`;
     return;
   }
-  const assignedIds = new Set(Object.values(squad.assignments));
-  list.innerHTML = STATE.ownedPlayers
-    .slice()
-    .sort((a,b)=> b.overall - a.overall)
-    .map(p=>{
-      const isSelected = selectedBenchPlayerId===p.id;
-      const isAssigned = assignedIds.has(p.id);
-      return `<div class="bench-item" data-player-id="${p.id}" style="${isSelected?'border-color:var(--turf);':''} ${isAssigned?'opacity:.55;':''}">
-        <span class="mini-avatar ${p.rarity?'rarity-'+p.rarity:''}" style="background-image:url('${p.image || "assets/players/default.png"}')"></span>
-        <span class="bench-pos">${p.position}</span>
-        <span style="flex:1;">${p.name}</span>
-        <span style="color:var(--text-muted);">${p.overall}</span>
-        ${isAssigned? '<span style="font-size:10px;color:var(--turf);">EM CAMPO</span>':''}
-      </div>`;
-    }).join("");
+
+  const players = squad.reserves.map(getOwnedPlayerById).filter(Boolean);
+  list.innerHTML = players.map(p=>{
+    const isSelected = selectedPlayerId===p.id;
+    return `<div class="bench-item ${isSelected?'selected':''}" data-player-id="${p.id}">
+      <span class="mini-avatar ${p.rarity?'rarity-'+p.rarity:''}" style="background-image:url('${p.image || "assets/players/default.png"}')"></span>
+      <span class="bench-pos">${p.position}</span>
+      <span style="flex:1;">${p.name}</span>
+      <span style="color:var(--text-muted);">${p.overall}</span>
+      <button class="bench-squad-btn" data-demote-id="${p.id}" title="Tirar do banco">➖</button>
+    </div>`;
+  }).join("");
 
   list.querySelectorAll(".bench-item").forEach(el=>{
     const playerId = el.dataset.playerId;
     const player = STATE.ownedPlayers.find(p=>p.id===playerId);
     makeDraggable(el, {
-      type: "bench",
+      type: "reserve",
       id: playerId,
       squad,
       getPlayer: ()=> player,
-      onTap: ()=> selectBenchPlayer(playerId),
+      onTap: ()=> selectPlayer(playerId),
+    });
+  });
+  list.querySelectorAll("[data-demote-id]").forEach(btn=>{
+    btn.addEventListener("pointerdown", e=> e.stopPropagation());
+    btn.addEventListener("click", e=>{
+      e.stopPropagation();
+      const id = btn.dataset.demoteId;
+      squad.reserves = squad.reserves.filter(pid=>pid!==id);
+      if(selectedPlayerId===id) selectedPlayerId = null;
+      persist();
+      renderEscalacao();
     });
   });
 }
 
-function selectBenchPlayer(id){
-  selectedBenchPlayerId = selectedBenchPlayerId===id ? null : id;
-  toast(selectedBenchPlayerId ? "Agora clique numa posição do campo." : "Seleção cancelada.", "");
-  renderBench(getActiveSquad());
+function renderUnrelated(squad){
+  const list = document.getElementById("unrelatedList");
+  if(STATE.ownedPlayers.length===0){
+    list.innerHTML = `<div class="empty-state"><div class="big">⚽</div>Contrate jogadores na aba Contratar para montar seu time.</div>`;
+    return;
+  }
+
+  const starterIds = new Set(Object.values(squad.assignments));
+  const reserveIds = new Set(squad.reserves);
+  const players = STATE.ownedPlayers
+    .filter(p=> !starterIds.has(p.id) && !reserveIds.has(p.id))
+    .slice()
+    .sort((a,b)=> b.overall - a.overall);
+
+  if(players.length===0){
+    list.innerHTML = `<div class="empty-state"><div class="big">✅</div>Todo o elenco já está entre titulares e reservas.</div>`;
+    return;
+  }
+
+  const reservesFull = squad.reserves.length >= RESERVES_CAP;
+  list.innerHTML = players.map(p=>{
+    const isSelected = selectedPlayerId===p.id;
+    return `<div class="bench-item ${isSelected?'selected':''}" data-player-id="${p.id}">
+      <span class="mini-avatar ${p.rarity?'rarity-'+p.rarity:''}" style="background-image:url('${p.image || "assets/players/default.png"}')"></span>
+      <span class="bench-pos">${p.position}</span>
+      <span style="flex:1;">${p.name}</span>
+      <span style="color:var(--text-muted);">${p.overall}</span>
+      <button class="bench-squad-btn" data-promote-id="${p.id}" title="Colocar no banco de reservas" ${reservesFull?"disabled":""}>➕</button>
+    </div>`;
+  }).join("");
+
+  list.querySelectorAll(".bench-item").forEach(el=>{
+    const playerId = el.dataset.playerId;
+    const player = STATE.ownedPlayers.find(p=>p.id===playerId);
+    makeDraggable(el, {
+      type: "unrelated",
+      id: playerId,
+      squad,
+      getPlayer: ()=> player,
+      onTap: ()=> selectPlayer(playerId),
+    });
+  });
+  list.querySelectorAll("[data-promote-id]").forEach(btn=>{
+    btn.addEventListener("pointerdown", e=> e.stopPropagation());
+    btn.addEventListener("click", e=>{
+      e.stopPropagation();
+      if(squad.reserves.length >= RESERVES_CAP){
+        toast(`Banco de reservas já está cheio (${RESERVES_CAP}/${RESERVES_CAP}).`, "");
+        return;
+      }
+      const id = btn.dataset.promoteId;
+      squad.reserves.push(id);
+      if(selectedPlayerId===id) selectedPlayerId = null;
+      persist();
+      renderEscalacao();
+    });
+  });
+}
+
+function selectPlayer(id){
+  selectedPlayerId = selectedPlayerId===id ? null : id;
+  toast(selectedPlayerId ? "Agora clique numa posição do campo." : "Seleção cancelada.", "");
+  renderReserves(getActiveSquad());
+  renderUnrelated(getActiveSquad());
 }
 
 function updateTeamStats(squad){
@@ -273,7 +390,7 @@ document.getElementById("btnNewSquad").addEventListener("click", ()=>{
   const name = prompt("Nome do novo elenco:", "Novo Elenco " + (STATE.squads.length+1));
   if(!name) return;
   const formation = GAME_DATA.formations[0];
-  const squad = { id:"sq"+Date.now(), name, formationId:formation.id, coachId:GAME_DATA.coaches[0].id, captainSlot:null, assignments:{} };
+  const squad = { id:"sq"+Date.now(), name, formationId:formation.id, coachId:GAME_DATA.coaches[0].id, captainSlot:null, assignments:{}, reserves:[] };
   STATE.squads.push(squad);
   STATE.activeSquadId = squad.id;
   persist();
