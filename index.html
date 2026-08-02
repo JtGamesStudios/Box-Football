@@ -604,20 +604,43 @@
 
       <div class="lineup-wrap">
         <div>
-          <div class="pitch" id="pitch"></div>
-          <div class="team-stats">
-            <div class="team-stat"><div class="num" id="teamOverall">0</div><div class="lbl">Overall do time</div></div>
-            <div class="team-stat"><div class="num" id="teamForce">0</div><div class="lbl">Força coletiva</div></div>
+          <div class="squad-identity-strip">
+            <div class="identity-avatar-badge" id="coachAvatarBadge">🧑‍💼</div>
+            <div class="identity-info">
+              <span class="identity-name" id="coachNameDisplay">—</span>
+              <span class="identity-sub" id="coachBonusDisplay">—</span>
+            </div>
+            <div class="identity-formation-badge" id="formationBadge">4-3-3</div>
           </div>
+          <div class="pitch" id="pitch"></div>
         </div>
-        <div class="card">
-          <h3 style="margin-top:0;font-family:var(--font-display);">Banco de Reservas <span id="reserveCount" style="color:var(--text-muted);font-weight:400;font-size:13px;"></span></h3>
-          <p class="page-sub" style="margin-bottom:10px;">Toque num reserva e depois numa posição do campo pra escalar, ou toque em ➖ pra tirar do banco.</p>
-          <div class="bench-list" id="reserveList"></div>
-        </div>
-        <div class="card" style="margin-top:16px;">
-          <h3 style="margin-top:0;font-family:var(--font-display);">Não Relacionados</h3>
-          <p class="page-sub" style="margin-bottom:10px;">Ficam fora do jogo. Toque em ➕ pra colocar no banco de reservas.</p>
+        <div>
+          <div class="team-meta-card">
+            <div class="meta-stat meta-spirit">
+              <div class="meta-shield">🛡️<span class="meta-shield-num" id="teamSpirit">0</span></div>
+              <div class="meta-lbl">Espírito do Time</div>
+            </div>
+            <div class="meta-stat">
+              <div class="meta-num" id="teamForce">0</div>
+              <div class="meta-lbl">Força do Time</div>
+            </div>
+            <div class="meta-stat">
+              <div class="meta-num" id="teamOverall">0</div>
+              <div class="meta-lbl">Overall Médio</div>
+            </div>
+            <div class="meta-stat">
+              <div class="meta-num meta-num-formation" id="teamFormationLabel">4-3-3</div>
+              <div class="meta-lbl">Formação</div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:16px;">
+            <h3 style="margin-top:0;font-family:var(--font-display);">Banco de Reservas <span id="reserveCount" style="color:var(--text-muted);font-weight:400;font-size:13px;"></span></h3>
+            <p class="page-sub" style="margin-bottom:10px;">Toque num reserva e depois numa posição do campo pra escalar, ou toque em ➖ pra tirar do banco.</p>
+            <div class="bench-list" id="reserveList"></div>
+          </div>
+          <div class="card" style="margin-top:16px;">
+            <h3 style="margin-top:0;font-family:var(--font-display);">Não Relacionados</h3>
+            <p class="page-sub" style="margin-bottom:10px;">Ficam fora do jogo. Toque em ➕ pra colocar no banco de reservas.</p>
           <div class="bench-list unrelated-list" id="unrelatedList"></div>
         </div>
       </div>
