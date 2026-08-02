@@ -1,0 +1,86 @@
+/* =========================================================
+   SUPORTE A CONTROLE — estilos do cursor virtual, barra de
+   legenda de botões e aviso de conexão. Só aparecem quando um
+   controle está plugado (ver js/gamepad-controls.js).
+   ========================================================= */
+
+#gpCursor{
+  position: fixed;
+  top: 0; left: 0;
+  width: 30px; height: 30px;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(50vw, 50vh);
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.45));
+  transition: transform 40ms linear;
+}
+#gpCursor.hidden{ display:none; }
+#gpCursor.gp-cursor-click svg{ transform: scale(.82); transform-origin: 4px 2px; }
+
+#gpLegend{
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  z-index: 99998;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(20,24,32,.88);
+  color: #fff;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(0,0,0,.35);
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+}
+#gpLegend.hidden{ display:none; }
+.gp-legend-title{
+  font-weight: 700;
+  opacity: .8;
+  margin-right: 2px;
+  max-width: 30vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gp-legend-item{
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.gp-legend-icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.gp-legend-icon svg{ display:block; }
+
+#gpToast{
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translate(-50%, -20px);
+  z-index: 100000;
+  background: rgba(20,24,32,.92);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.4);
+  opacity: 0;
+  transition: opacity .25s ease, transform .25s ease;
+  white-space: nowrap;
+}
+#gpToast.show{
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.gp-toast-icon{ margin-right: 4px; }
+
+/* Quando um controle está ativo, dá um respiro extra embaixo pra barra
+   de legenda não tampar botões importantes das telas com scroll. */
+html.gp-active body{
+  scroll-padding-bottom: 56px;
+}
