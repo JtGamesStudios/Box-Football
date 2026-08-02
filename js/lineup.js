@@ -430,9 +430,16 @@ function renderUnrelated(squad){
 
 function selectPlayer(id){
   selectedPlayerId = selectedPlayerId===id ? null : id;
-  toast(selectedPlayerId ? "Agora clique numa posição do campo." : "Seleção cancelada.", "");
+  toast(selectedPlayerId ? "Agora toque numa posição do campo." : "Seleção cancelada.", "");
   renderReserves(getActiveSquad());
   renderUnrelated(getActiveSquad());
+  // No mobile, Campo e Banco são abas separadas — ao escolher um jogador do
+  // banco, já leva o usuário direto pro campo pra tocar na posição, sem
+  // precisar trocar de aba manualmente.
+  if(selectedPlayerId){
+    const campoTab = document.querySelector('.lineup-tab[data-lineup-view="campo"]');
+    if(campoTab) campoTab.click();
+  }
 }
 
 function updateTeamStats(squad){
@@ -458,6 +465,24 @@ function updateTeamStats(squad){
   const formLabelEl = document.getElementById("teamFormationLabel");
   if(formLabelEl) formLabelEl.textContent = formation ? formation.name : "—";
 }
+
+/* Alternância Campo / Banco (visível no mobile; no desktop as duas ficam
+   lado a lado e essas abas ficam escondidas via CSS). Os painéis nunca são
+   recriados pelo renderEscalacao (só o conteúdo interno deles é), então
+   basta ligar esse listener uma vez aqui fora. */
+document.querySelectorAll(".lineup-tab").forEach(tab=>{
+  tab.addEventListener("click", ()=>{
+    document.querySelectorAll(".lineup-tab").forEach(t=>{
+      t.classList.remove("active");
+      t.setAttribute("aria-selected", "false");
+    });
+    tab.classList.add("active");
+    tab.setAttribute("aria-selected", "true");
+    const view = tab.dataset.lineupView;
+    document.getElementById("lineupPanelCampo").classList.toggle("active", view==="campo");
+    document.getElementById("lineupPanelBanco").classList.toggle("active", view==="banco");
+  });
+});
 
 document.getElementById("btnSaveSquad").addEventListener("click", ()=>{
   persist();
