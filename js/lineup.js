@@ -63,10 +63,26 @@ function renderEscalacao(){
   squadSel.innerHTML = STATE.squads.map(s=>`<option value="${s.id}" ${s.id===squad.id?"selected":""}>${s.name}</option>`).join("");
   squadSel.onchange = ()=>{ STATE.activeSquadId = squadSel.value; persist(); renderEscalacao(); };
 
+  renderSquadIdentity(squad);
   renderPitch(squad);
   renderReserves(squad);
   renderUnrelated(squad);
   updateTeamStats(squad);
+}
+
+function renderSquadIdentity(squad){
+  const coach = GAME_DATA.coaches.find(c=>c.id===squad.coachId);
+  const formation = GAME_DATA.formations.find(f=>f.id===squad.formationId);
+  const avatarEl = document.getElementById("coachAvatarBadge");
+  const nameEl = document.getElementById("coachNameDisplay");
+  const bonusEl = document.getElementById("coachBonusDisplay");
+  const formBadgeEl = document.getElementById("formationBadge");
+  if(coach){
+    if(avatarEl) avatarEl.textContent = coach.nationalityFlag || "🧑‍💼";
+    if(nameEl) nameEl.textContent = coach.name;
+    if(bonusEl) bonusEl.textContent = `${coach.style} · ${coach.bonus}`;
+  }
+  if(formBadgeEl) formBadgeEl.textContent = formation ? formation.name : "—";
 }
 
 function renderPitch(squad){
@@ -380,6 +396,20 @@ function updateTeamStats(squad){
   if(squad.captainSlot && squad.assignments[squad.captainSlot]) force += 5;
   document.getElementById("teamOverall").textContent = overall;
   document.getElementById("teamForce").textContent = force;
+
+  // "Espírito do time": indicador visual (não afeta o motor de partida) que reflete
+  // o quão completa/organizada está a escalação — cresce com titulares escalados
+  // e ganha um empurrão extra quando há um capitão definido.
+  const formation = GAME_DATA.formations.find(f=>f.id===squad.formationId);
+  const totalSlots = formation ? formation.slots.length : 11;
+  const filled = players.length;
+  let spirit = Math.round((filled/totalSlots)*100);
+  spirit = filled>=totalSlots && squad.captainSlot ? 100 : Math.max(0, spirit - (squad.captainSlot?0:3));
+  const spiritEl = document.getElementById("teamSpirit");
+  if(spiritEl) spiritEl.textContent = spirit;
+
+  const formLabelEl = document.getElementById("teamFormationLabel");
+  if(formLabelEl) formLabelEl.textContent = formation ? formation.name : "—";
 }
 
 document.getElementById("btnSaveSquad").addEventListener("click", ()=>{
