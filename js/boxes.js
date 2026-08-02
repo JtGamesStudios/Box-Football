@@ -32,8 +32,23 @@ const CUTSCENE_BY_TIER = {
   iconic: "assets/videos/iconic-Moment-Opening-Animation.mp4",
 };
 
-function playCutscene(tier, onDone){
-  const src = CUTSCENE_BY_TIER[tier];
+/* ---------------- CUTSCENES POR CARTA ESPECÍFICA (override do tier) ----------------
+   Quando várias cartas diferentes compartilham o mesmo "tier" (ex: as 3 Messi
+   "iconic" na Box Big Time) mas cada uma precisa da SUA PRÓPRIA animação,
+   cadastre aqui pelo "id" do jogador (o mesmo id de players.json). Se o id
+   sorteado tiver entrada aqui, ela tem prioridade sobre CUTSCENE_BY_TIER.
+   Pra adicionar uma carta nova: só colocar "idDoJogador": "caminho/do/video.mp4". */
+const CUTSCENE_BY_PLAYER = {
+  p634: "assets/videos/cutscene-messi-2022.mp4", // Messi Big Time - Argentina (Copa do Mundo 2022)
+  p635: "assets/videos/cutscene-messi-2009.mp4", // Messi Big Time - Barcelona 107
+  p636: "assets/videos/cutscene-messi-2015.mp4", // Messi Big Time - Barcelona 106
+};
+
+function getCutsceneSrc(player){
+  return CUTSCENE_BY_PLAYER[player.id] || CUTSCENE_BY_TIER[player.tier] || null;
+}
+
+function playCutscene(src, onDone){
   if(!src){ onDone(); return; }
 
   const overlay = document.getElementById("cutsceneOverlay");
@@ -469,14 +484,14 @@ function playOpenAnimation(rarity, player, lightningStrike, byR){
         refreshWalletUI();
       }
 
-      // Bola preta + jogador com tier que tem cutscene cadastrada (destaque,
-      // lendario, iconic, ou qualquer tier novo que vocês adicionarem depois
-      // em CUTSCENE_BY_TIER) -> toca a cutscene certa antes da carta.
-      const wantsCutscene = rarity === "preta" && !!CUTSCENE_BY_TIER[player.tier];
+      // Bola preta + jogador com cutscene cadastrada (por carta específica em
+      // CUTSCENE_BY_PLAYER, ou por tier em CUTSCENE_BY_TIER como fallback)
+      // -> toca a cutscene certa antes da carta.
+      const cutsceneSrc = rarity === "preta" ? getCutsceneSrc(player) : null;
 
       setTimeout(()=>{
-        if(wantsCutscene){
-          playCutscene(player.tier, showPlayerCard);
+        if(cutsceneSrc){
+          playCutscene(cutsceneSrc, showPlayerCard);
         } else {
           showPlayerCard();
         }
