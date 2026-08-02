@@ -915,6 +915,16 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
   font-size:10px; font-weight:700; color:var(--brand); background:var(--surface-2);
   padding:2px 6px; border-radius:6px; flex:none;
 }
+.bench-item.selected{ border-color:var(--turf); box-shadow:0 0 0 1px var(--turf); }
+.bench-item .bench-squad-btn{
+  flex:none; width:26px; height:26px; border-radius:50%; border:1px solid var(--border);
+  background:var(--surface-2); color:var(--text); font-size:14px; line-height:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:border-color .15s, transform .1s;
+}
+.bench-item .bench-squad-btn:hover{ border-color:var(--brand); transform:scale(1.08); }
+.bench-item .bench-squad-btn:disabled{ opacity:.4; cursor:not-allowed; }
+.unrelated-list .bench-item{ opacity:.75; }
+.unrelated-list .bench-item:hover{ opacity:1; }
 .team-stats{ display:flex; gap:14px; margin-top:14px; }
 .team-stat{ flex:1; text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:10px; }
 .team-stat .num{ font-family:var(--font-display); font-size:clamp(18px,4.5vw,22px); font-weight:800; color:var(--brand); }
