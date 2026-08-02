@@ -42,6 +42,16 @@
         "assets/players/L. MESSI_BIGTIME_BCN_106.jpg",
         "assets/banners/banner-box-messibigtime-0208.jpg"
       ]
+    },
+    {
+      "version": 6,
+      "releaseDate": "2026-08-02T00:00:00",
+      "label": "Animações exclusivas Messi Big Time",
+      "assets": [
+        "assets/videos/cutscene-messi-2022.mp4",
+        "assets/videos/cutscene-messi-2009.mp4",
+        "assets/videos/cutscene-messi-2015.mp4"
+      ]
     }
   ]
 }
