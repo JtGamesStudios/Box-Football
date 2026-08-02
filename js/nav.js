@@ -303,6 +303,10 @@ function showScreen(id, opts){
   // demais telas (listas, boxes, escalação etc.) continuam rolando
   // normalmente, por isso essa classe só entra/sai com base no id.
   document.documentElement.classList.toggle("hub-active", HUB_SCREENS.includes(id));
+  // Escalação usa o mesmo truque de "tela travada sem scroll" da hub, só que
+  // com layout próprio (toolbar + status bar + abas Campo/Banco) — por isso
+  // tem sua própria classe em vez de entrar em HUB_SCREENS.
+  document.documentElement.classList.toggle("lineup-active", id === "escalacao");
 
   updateBackButton(id);
 
