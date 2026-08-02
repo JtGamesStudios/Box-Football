@@ -809,13 +809,102 @@ html.hub-active .menu-card-body{
 .empty-state{ padding:40px 20px; text-align:center; color:var(--text-muted); }
 .empty-state .big{ font-size:38px; margin-bottom:10px; }
 
-/* ============ Escalação (lineup) ============ */
-.lineup-wrap{ display:grid; grid-template-columns:1.3fr 1fr; gap:20px; }
-@media (max-width: 900px){ .lineup-wrap{ grid-template-columns:1fr; } }
+/* ============ Escalação (lineup) — layout compacto, sem scroll, estilo eFootball ============
+   A tela inteira é travada na altura da viewport (mesma técnica do .hub-active
+   usado em Club House/Contract/Extras): barra de controles + faixa de status +
+   abas Campo/Banco ficam com altura natural (flex:0 0 auto) e o painel ativo
+   (campo OU banco) ocupa todo o espaço restante. No desktop (≥900px) as abas
+   somem e Campo + Banco aparecem lado a lado, já que sobra espaço horizontal. */
+html.lineup-active, html.lineup-active body{ height:100%; overflow:hidden; }
+html.lineup-active #app{ height:100vh; height:100dvh; }
+html.lineup-active .main{
+  flex:1; min-height:0; overflow:hidden;
+  display:flex; flex-direction:column;
+  padding-bottom:clamp(8px,2vh,16px);
+}
+html.lineup-active .screen.active{ flex:1; min-height:0; display:flex; flex-direction:column; }
 
-/* Gramado escuro, estilo eFootball (igual referência) */
+.lineup-screen{ gap:0; }
+.lineup-screen .screen-back-btn{
+  flex:0 0 auto; align-self:flex-start;
+  margin-bottom:8px; padding:6px 12px; font-size:12px;
+}
+
+/* Barra de controles: formação / técnico / elenco / novo / salvar — tudo numa linha */
+.lineup-toolbar{ display:flex; gap:6px; align-items:center; flex:0 0 auto; margin-bottom:8px; }
+.lineup-select{
+  flex:1 1 0; min-width:0; background:var(--surface); border:1px solid var(--border); color:var(--text);
+  padding:8px 8px; border-radius:9px; font-size:12px;
+}
+.lineup-icon-btn{
+  flex:none; width:34px; height:34px; border-radius:9px; border:1px solid var(--border);
+  background:var(--surface-2); color:var(--text); font-size:14px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:transform .12s, background .15s;
+}
+.lineup-icon-btn:hover{ transform:translateY(-1px); background:#EEF1F5; }
+.lineup-icon-btn-primary{ background:linear-gradient(135deg, var(--brand), var(--brand-dim)); color:#fff; border:none; box-shadow:0 3px 10px rgba(25,140,255,.3); }
+
+/* Faixa de status: técnico + espírito/força/overall/formação, compacta numa linha só */
+.lineup-status-bar{
+  display:flex; align-items:center; gap:6px; flex:0 0 auto; margin-bottom:8px;
+  background:var(--surface); border:1px solid var(--border); border-radius:11px;
+  padding:6px 8px; overflow-x:auto;
+}
+.lineup-coach-chip{ display:flex; align-items:center; gap:7px; flex:1 1 auto; min-width:0; }
+.lineup-status-bar .identity-avatar-badge{ width:28px; height:28px; font-size:14px; }
+.lineup-status-bar .identity-name{ font-size:11.5px; }
+.lineup-status-bar .identity-sub{ font-size:10px; }
+.lineup-mini-stat{
+  flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  min-width:36px; padding:3px 7px; border-radius:8px; background:var(--surface-2);
+  font-family:var(--font-display); font-weight:800; font-size:12.5px; color:var(--brand); line-height:1.15;
+}
+.lineup-mini-stat small{ font-size:8px; font-weight:700; color:var(--text-muted); letter-spacing:.3px; }
+.lineup-mini-spirit{
+  flex-direction:row; gap:4px; color:#3A2A00;
+  background:linear-gradient(160deg, rgba(255,201,60,.32), var(--surface-2));
+}
+.lineup-mini-ico{ font-size:13px; }
+.lineup-mini-formation{ color:var(--text); font-size:11px; }
+
+/* Abas Campo / Banco — só no mobile; no desktop dá lugar ao layout lado a lado */
+.lineup-tabs{ display:flex; gap:6px; flex:0 0 auto; margin-bottom:8px; }
+.lineup-tab{
+  flex:1; background:var(--surface-2); border:1px solid var(--border); color:var(--text-muted);
+  padding:9px 10px; border-radius:9px; font-weight:700; font-size:12.5px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:5px; transition:background .15s, color .15s;
+}
+.lineup-tab.active{ background:linear-gradient(135deg, var(--brand), var(--brand-dim)); color:#fff; border-color:transparent; }
+.lineup-tab-badge{ font-size:10px; opacity:.85; }
+
+.lineup-panels{ flex:1; min-height:0; }
+.lineup-panel{ display:none; height:100%; min-height:0; }
+.lineup-panel.active{ display:flex; flex-direction:column; }
+.lineup-panel-banco.active{ flex-direction:row; gap:8px; }
+
+.bench-col{
+  flex:1; min-width:0; min-height:0; display:flex; flex-direction:column;
+  background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:8px;
+}
+.bench-col-head{
+  flex:0 0 auto; font-family:var(--font-display); font-weight:700; font-size:11.5px;
+  color:var(--text); margin-bottom:6px; display:flex; flex-direction:column; gap:1px;
+}
+.bench-col-hint{ font-family:var(--font-body,inherit); font-weight:400; font-size:9.5px; color:var(--text-muted); }
+.bench-col .bench-list{ flex:1; min-height:0; max-height:none; }
+
+/* Desktop: sobra espaço horizontal — Campo e Banco lado a lado, sem precisar de abas */
+@media (min-width: 900px){
+  .lineup-tabs{ display:none; }
+  .lineup-panels{ display:grid; grid-template-columns:1.4fr 1fr; gap:14px; }
+  .lineup-panel{ display:flex !important; flex-direction:column; }
+  .lineup-panel-banco{ flex-direction:column; gap:10px; }
+}
+
+/* Gramado escuro, estilo eFootball (igual referência) — ocupa todo o espaço do painel */
 .pitch{
-  position:relative; aspect-ratio:3/4; border-radius:var(--radius-lg); overflow:hidden;
+  position:relative; flex:1; min-height:0; width:100%;
+  border-radius:var(--radius-lg); overflow:hidden;
   background:
     radial-gradient(ellipse at center, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 55%),
     repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 2px, transparent 2px 34px),
@@ -925,16 +1014,9 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
 .bench-item .bench-squad-btn:disabled{ opacity:.4; cursor:not-allowed; }
 .unrelated-list .bench-item{ opacity:.75; }
 .unrelated-list .bench-item:hover{ opacity:1; }
-.team-stats{ display:flex; gap:14px; margin-top:14px; }
-.team-stat{ flex:1; text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:10px; }
-.team-stat .num{ font-family:var(--font-display); font-size:clamp(18px,4.5vw,22px); font-weight:800; color:var(--brand); }
-.team-stat .lbl{ font-size:11px; color:var(--text-muted); }
 
-/* Faixa de identidade acima do campo: técnico + formação, estilo eFootball */
-.squad-identity-strip{
-  display:flex; align-items:center; gap:10px; background:var(--surface);
-  border:1px solid var(--border); border-radius:12px; padding:8px 10px; margin-bottom:10px;
-}
+/* Chip de técnico reaproveitado dentro da .lineup-status-bar (ver bloco
+   "Escalação (lineup)" acima) — estes são os estilos-base do avatar/nome/sub. */
 .identity-avatar-badge{
   flex:none; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;
   font-size:19px; background:var(--surface-2); border:2px solid var(--border);
@@ -942,30 +1024,6 @@ body.dragging-cards, body.dragging-cards *{ cursor:grabbing !important; }
 .identity-info{ flex:1; display:flex; flex-direction:column; min-width:0; }
 .identity-name{ font-weight:700; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .identity-sub{ font-size:11px; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.identity-formation-badge{
-  flex:none; font-family:var(--font-display); font-weight:800; font-size:13px; color:var(--brand);
-  background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:5px 10px;
-}
-
-/* Card de status do time — espírito (escudo), força, overall médio, formação —
-   igual ao painel lateral das telas de escalação do eFootball/PES. */
-.team-meta-card{
-  display:grid; grid-template-columns:1fr 1fr; gap:10px;
-  background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:14px;
-}
-.meta-stat{ text-align:center; background:var(--surface-2); border-radius:10px; padding:12px 6px; }
-.meta-stat.meta-spirit{ grid-column:1 / -1; background:linear-gradient(160deg, rgba(255,201,60,.12), var(--surface-2)); }
-.meta-shield{
-  position:relative; display:inline-flex; align-items:center; justify-content:center;
-  font-size:40px; line-height:1; filter:drop-shadow(0 2px 4px rgba(0,0,0,.35));
-}
-.meta-shield-num{
-  position:absolute; top:52%; left:50%; transform:translate(-50%,-46%);
-  font-family:var(--font-display); font-weight:800; font-size:14px; color:#3A2A00;
-}
-.meta-num{ font-family:var(--font-display); font-weight:800; font-size:clamp(18px,4.5vw,22px); color:var(--brand); }
-.meta-num-formation{ font-size:clamp(15px,3.6vw,18px); }
-.meta-lbl{ font-size:10.5px; color:var(--text-muted); margin-top:4px; }
 
 /* ============ Missions / Gifts ============ */
 .mission-item, .gift-item{
@@ -1234,7 +1292,6 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   .app-topbar{ padding:10px 14px; }
   .menu-tabs{ top:52px; padding:0 14px; gap:8px; }
   .main{ padding:16px 14px 40px; }
-  .lineup-wrap{ gap:14px; }
   .box-grid{ gap:14px; }
   .box-grid .box-pair{ max-width:88vw; }
   .menu-card-grid{ gap:12px; }
@@ -1291,7 +1348,6 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   .quick-grid{ grid-template-columns:repeat(auto-fit, minmax(130px,1fr)); }
   .box-grid .box-pair{ max-width:80vw; }
   .club-grid{ grid-template-columns:repeat(auto-fill, minmax(130px,1fr)); }
-  .lineup-wrap{ grid-template-columns:1.1fr 0.9fr; gap:16px; }
   .main{ padding:14px 20px 40px; }
 }
 @media (orientation: landscape) and (max-height: 480px){
