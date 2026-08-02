@@ -589,50 +589,66 @@
       <div class="club-grid" id="clubeGrid"></div>
     </section>
 
-    <!-- ESCALAÇÃO -->
+    <!-- ESCALAÇÃO — tela cheia estilo eFootball, igual à referência -->
     <section class="screen lineup-screen" id="screen-escalacao" data-title="Escalação">
 
-      <!-- Barra compacta de controles: formação, técnico, elenco, salvar/novo -->
-      <div class="lineup-toolbar">
-        <select id="formationSelect" class="lineup-select" aria-label="Formação" title="Formação"></select>
-        <select id="coachSelect" class="lineup-select" aria-label="Técnico" title="Técnico"></select>
-        <select id="squadSlotSelect" class="lineup-select" aria-label="Elenco" title="Elenco"></select>
-        <button class="lineup-icon-btn" id="btnNewSquad" title="Novo elenco">➕</button>
-        <button class="lineup-icon-btn lineup-icon-btn-primary" id="btnSaveSquad" title="Salvar elenco">💾</button>
-      </div>
-
-      <!-- Faixa de status: técnico + espírito/força/overall/formação, tudo numa linha só -->
-      <div class="lineup-status-bar">
-        <div class="lineup-coach-chip">
-          <div class="identity-avatar-badge" id="coachAvatarBadge">🧑‍💼</div>
-          <div class="identity-info">
-            <span class="identity-name" id="coachNameDisplay">—</span>
-            <span class="identity-sub" id="coachBonusDisplay">—</span>
-          </div>
-        </div>
-        <div class="lineup-mini-stat lineup-mini-spirit" title="Espírito do Time">
-          <span class="lineup-mini-ico">🛡️</span><span id="teamSpirit">0</span>
-        </div>
-        <div class="lineup-mini-stat" title="Força do Time">
-          <span id="teamForce">0</span><small>FOR</small>
-        </div>
-        <div class="lineup-mini-stat" title="Overall Médio">
-          <span id="teamOverall">0</span><small>OVR</small>
-        </div>
-        <div class="lineup-mini-stat lineup-mini-formation" id="formationBadge" title="Formação">4-3-3</div>
-        <span class="hidden" id="teamFormationLabel"></span>
-      </div>
-
-      <!-- Alternância Campo / Banco — cada uma ocupa a tela toda, sem rolagem -->
-      <div class="lineup-tabs" role="tablist">
-        <button class="lineup-tab active" type="button" data-lineup-view="campo" role="tab" aria-selected="true">⚽ Campo</button>
-        <button class="lineup-tab" type="button" data-lineup-view="banco" role="tab" aria-selected="false">🪑 Banco <span class="lineup-tab-badge" id="reserveCount"></span></button>
-      </div>
-
       <div class="lineup-panels">
+
+        <!-- CAMPO: gramado em tela cheia + réguas flutuantes esq/dir + ações no rodapé -->
         <div class="lineup-panel lineup-panel-campo active" id="lineupPanelCampo">
           <div class="pitch" id="pitch"></div>
+
+          <!-- Régua esquerda: técnico, elenco, alternância Campo/Banco -->
+          <div class="pitch-rail pitch-rail-left">
+            <div class="rail-tap" title="Técnico">
+              <div class="identity-avatar-badge" id="coachAvatarBadge">🧑‍💼</div>
+              <select id="coachSelect" class="invisible-select" aria-label="Técnico"></select>
+            </div>
+            <div class="rail-tap" title="Elenco">
+              <div class="club-crest-badge">🛡️</div>
+              <select id="squadSlotSelect" class="invisible-select" aria-label="Elenco"></select>
+            </div>
+            <button class="rail-kit-btn lineup-tab active" type="button" data-lineup-view="campo" role="tab" aria-selected="true" title="Campo">⚽</button>
+            <button class="rail-kit-btn lineup-tab" type="button" data-lineup-view="banco" role="tab" aria-selected="false" title="Banco">
+              🪑<span class="lineup-tab-badge" id="reserveCount"></span>
+            </button>
+          </div>
+
+          <!-- Régua direita: Team Spirit / Team Strength / Overall / Formação -->
+          <div class="pitch-rail pitch-rail-right">
+            <div class="rail-spirit-badge" title="Espírito do Time">
+              <div class="rail-spirit-label">Team Spirit</div>
+              <div class="rail-spirit-shield"><span id="teamSpirit">0</span></div>
+            </div>
+            <div class="rail-stat" title="Força do Time">
+              <div class="rail-stat-label">Team Strength</div>
+              <div class="rail-stat-value" id="teamForce">0</div>
+            </div>
+            <div class="rail-stat" title="Overall Médio">
+              <div class="rail-stat-label">Overall</div>
+              <div class="rail-stat-value" id="teamOverall">0</div>
+            </div>
+            <div class="rail-tap rail-stat rail-stat-formation-wrap" title="Formação">
+              <div class="rail-stat-label">Formação</div>
+              <div class="rail-stat-value rail-stat-formation" id="formationBadge">4-3-3</div>
+              <select id="formationSelect" class="invisible-select" aria-label="Formação"></select>
+            </div>
+          </div>
+
+          <!-- Ações no rodapé: salvar elenco / novo elenco -->
+          <div class="pitch-bottom-actions">
+            <button class="pitch-action-btn pitch-action-btn-primary" id="btnSaveSquad" title="Salvar elenco">💾</button>
+            <button class="pitch-action-btn" id="btnNewSquad" title="Novo elenco">➕</button>
+          </div>
+
+          <!-- Textos mantidos no DOM (sem exibição própria nesta tela) para o
+               restante do app que ainda referencia esses IDs -->
+          <span class="hidden" id="coachNameDisplay"></span>
+          <span class="hidden" id="coachBonusDisplay"></span>
+          <span class="hidden" id="teamFormationLabel"></span>
         </div>
+
+        <!-- BANCO: lista de reservas / não relacionados, cobre o gramado quando ativo -->
         <div class="lineup-panel lineup-panel-banco" id="lineupPanelBanco">
           <div class="bench-col">
             <div class="bench-col-head">Reservas <span class="bench-col-hint">toque e depois toque no campo</span></div>
@@ -643,6 +659,7 @@
             <div class="bench-list unrelated-list" id="unrelatedList"></div>
           </div>
         </div>
+
       </div>
     </section>
 
