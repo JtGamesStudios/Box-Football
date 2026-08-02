@@ -589,7 +589,7 @@
       <div class="club-grid" id="clubeGrid"></div>
     </section>
 
-    <!-- ESCALAÇÃO (inalterada) -->
+    <!-- ESCALAÇÃO -->
     <section class="screen" id="screen-escalacao" data-title="Escalação">
       <h1 class="page-title">Escalação</h1>
       <p class="page-sub">Monte seu time titular, escolha o técnico e salve vários elencos.</p>
@@ -611,9 +611,14 @@
           </div>
         </div>
         <div class="card">
-          <h3 style="margin-top:0;font-family:var(--font-display);">Banco de reservas</h3>
-          <p class="page-sub" style="margin-bottom:10px;">Clique num jogador do banco, depois clique numa posição do campo. Clique numa posição preenchida para definir o capitão.</p>
-          <div class="bench-list" id="benchList"></div>
+          <h3 style="margin-top:0;font-family:var(--font-display);">Banco de Reservas <span id="reserveCount" style="color:var(--text-muted);font-weight:400;font-size:13px;"></span></h3>
+          <p class="page-sub" style="margin-bottom:10px;">Toque num reserva e depois numa posição do campo pra escalar, ou toque em ➖ pra tirar do banco.</p>
+          <div class="bench-list" id="reserveList"></div>
+        </div>
+        <div class="card" style="margin-top:16px;">
+          <h3 style="margin-top:0;font-family:var(--font-display);">Não Relacionados</h3>
+          <p class="page-sub" style="margin-bottom:10px;">Ficam fora do jogo. Toque em ➕ pra colocar no banco de reservas.</p>
+          <div class="bench-list unrelated-list" id="unrelatedList"></div>
         </div>
       </div>
     </section>
