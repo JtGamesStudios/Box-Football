@@ -2,6 +2,7 @@
   "id": "box0018",
   "name": "POTS Brasileirão Assaí 2020",
   "startsAt": "2026-07-26T00:00:00",
+  "expiresAt": "2026-08-06T00:00:00",
   "description": "",
   "banner": "assets/banners/banner-box-brasileirao-pots-2607.jpg",
   "active": true,
