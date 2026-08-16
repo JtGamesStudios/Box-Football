@@ -44,7 +44,7 @@
   // Lista vazia ([]) = manutenção vale pra todo mundo, sem exceção.
   // ---------------------------------------------------------------
   const MAINTENANCE_BYPASS_IDS = [
-    // "PQXU-Z8W7",
+    // "NER7-VM4B",
   ];
 
   function hasBypass() {
