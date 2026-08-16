@@ -1,7 +1,8 @@
 {
   "id": "box0027",
   "name": "R. Higuita — Epic",
-  "date": "",
+  "startsAt": "2026-08-16T00:00:00",
+  "expiresAt": "2026-08-30T00:00:00",
   "description": "Epic R. Higuita — 100 GK, Colômbia.",
   "banner": "assets/banners/banner-box-higuita.png",
   "active": false,
