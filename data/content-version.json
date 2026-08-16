@@ -52,6 +52,34 @@
         "assets/videos/cutscene-messi-2009.mp4",
         "assets/videos/cutscene-messi-2015.mp4"
       ]
+    },
+    {
+      "version": 7,
+      "releaseDate": "2026-08-23T00:00:00",
+      "label": "Nostalgia Vol.1, Big Time 30th Anniversary e R. Higuita",
+      "assets": [
+        "assets/players/D._BECKHAM_BIGTIME.png",
+        "assets/players/R._VAN_NISTELROOY_BIGTIME.png",
+        "assets/players/C._MAKELELE_BIGTIME.png",
+        "assets/players/F._RIJKAARD_BIGTIME.png",
+        "assets/players/S._GERRARD_BIGTIME.png",
+        "assets/players/RAUL_BIGTIME.png",
+        "assets/players/D._FORLAN_BIGTIME.png",
+        "assets/players/RONALDINHO_G_BIGTIME.png",
+        "assets/players/S._NAKAMURA_BIGTIME.png",
+        "assets/players/RIVALDO_BIGTIME.png",
+        "assets/players/F._LAMPARD_BIGTIME.png",
+        "assets/players/R._CARLOS_BIGTIME.png",
+        "assets/banners/banner-box-bigtimes.jpg",
+        "assets/players/G._PIQUE_NOSTALGIA.png",
+        "assets/players/ADRIANO_NOSTALGIA.png",
+        "assets/players/R._BAGGIO_NOSTALGIA.png",
+        "assets/banners/banner-box-nostalgia-vol1.jpg",
+        "assets/players/R._HIGUITA.png",
+        "assets/banners/banner-box-higuita.png",
+        "assets/banners/banner-evento-brazil-france.jpg",
+        "assets/banners/banner-evento-brazil-legends.jpg"
+      ]
     }
   ]
 }
