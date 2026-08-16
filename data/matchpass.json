@@ -2,7 +2,7 @@
   "activeSeason": {
     "id": "mp_season1",
     "title": "Match Pass — Temporada 1",
-    "active": false,
+    "active": true,
     "start": "2026-08-16T00:00:00",
     "end": "2026-09-03T23:59:59",
     "totalLevels": 50,
