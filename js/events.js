@@ -548,6 +548,7 @@ function startEventMatch(eventId){
     winCondition: buildEventWinCondition(evt),
     onComplete: (result) => {
       STATE.events.attemptsToday[evt.id].used += 1;
+      addMatchPassXP(result.result);
 
       if(typeof applyPostMatchPlayerEffects === "function") applyPostMatchPlayerEffects(result);
 

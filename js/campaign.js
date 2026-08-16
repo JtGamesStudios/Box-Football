@@ -35,8 +35,16 @@ function estimateRanking(rating){
 }
 
 /* Fecha a fase (temporada) se o prazo já passou: paga recompensa da
-   divisão em que o clube terminou e zera Wins/Draws/Losses. */
-function checkCampaignPhase(){
+   divisão em que o clube terminou e zera Wins/Draws/Losses.
+   IMPORTANTE: antes só rodava dentro de renderCampaign() — ou seja,
+   só quando a pessoa abria a aba "Campanha". Se ela jogasse partidas
+   ou olhasse só o Ranking sem nunca abrir essa aba, a fase vencida
+   ficava "presa" (não resetava, mas também não parava de contar
+   vitória/derrota na fase antiga). Agora é async e é chamada também
+   no boot() e no watcher de conteúdo ao vivo (js/main.js), então
+   reseta sozinha mesmo sem a pessoa abrir a tela Campanha. */
+async function checkCampaignPhase(){
+  await ensureDivisionsData();
   const c = STATE.campaign;
   const phaseLengthMs = (DIVISIONS_DATA.phaseLengthDays || 35) * 86400000;
   if(Date.now() - c.phaseStart < phaseLengthMs) return;
@@ -53,7 +61,7 @@ function checkCampaignPhase(){
 
 async function renderCampaign(){
   await ensureDivisionsData();
-  checkCampaignPhase();
+  await checkCampaignPhase();
 
   const c = STATE.campaign;
   const tier = getDivisionTier(c.rating);
@@ -363,6 +371,7 @@ function startCampaignMatch(){
     totalChances: 8,
     // sem winCondition custom = motor usa o padrão (mais gols vence)
     onComplete: (result) => {
+      addMatchPassXP(result.result);
       applyCampaignResult(result);
       applyPostMatchPlayerEffects(result);
       renderCampaign();

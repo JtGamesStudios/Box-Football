@@ -13,6 +13,7 @@ const GAME_DATA = {
   events: {},
   store: [],
   coupons: [],   // carregado por loadCoupons() em coupons.js (data/coupons.json)
+  matchPassSeason: null, // carregado de data/matchpass.json (ver js/matchpass.js)
 };
 
 async function fetchJSON(path){
@@ -46,7 +47,7 @@ function applyRarities(players){
 }
 
 async function loadGameData(){
-  const [players, formations, coaches, missions, events, store, boxIndex] = await Promise.all([
+  const [players, formations, coaches, missions, events, store, boxIndex, matchPass] = await Promise.all([
     fetchJSON("data/players.json"),
     fetchJSON("data/formations.json"),
     fetchJSON("data/coaches.json"),
@@ -54,6 +55,7 @@ async function loadGameData(){
     fetchJSON("data/events.json"),
     fetchJSON("data/store.json"),
     fetchJSON("data/boxes/index.json"),
+    fetchJSON("data/matchpass.json").catch(err=>{ console.warn(err); return null; }),
   ]);
 
   applyRarities(players);
@@ -64,6 +66,7 @@ async function loadGameData(){
   GAME_DATA.missions = missions;
   GAME_DATA.events = events;
   GAME_DATA.store = store;
+  GAME_DATA.matchPassSeason = matchPass ? matchPass.activeSeason : null;
 
   const boxFiles = await Promise.all(
     boxIndex.map(name => fetchJSON(`data/boxes/${name}`).catch(err=>{ console.warn(err); return null; }))

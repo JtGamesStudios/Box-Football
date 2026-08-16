@@ -301,6 +301,7 @@ function launchArena2DFriendly(){
     difficulty: diff.id,
     matchSeconds: duration.seconds,
     onComplete: (result)=>{
+      addMatchPassXP(result.result);
       const reward = result.result === "win" ? { gp: 120, coins: 0 } : result.result === "draw" ? { gp: 60, coins: 0 } : { gp: 20, coins: 0 };
       grantCurrency(reward.gp, reward.coins);
       const msg = result.result === "win" ? `Vitória na Arena 2D! +${reward.gp} GP`

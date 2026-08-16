@@ -51,6 +51,7 @@ const HOME_CARDS = [
   { nav: "evento", banner: "banner-home-evento", icon: "", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
   { nav: "amigo", banner: "banner-home-amigo",  icon: "", title: "Jogo c/ amigo",  sub: "Desafie um amigo, ao vivo, online", badgeSource: null },
   { nav: "campanha", banner: "banner-home-campanha",  icon: "", title: "Campanha",      sub: "", badgeSource: null },
+  { nav: "matchpass", banner: "banner-home-matchpass", icon: "🎫", title: "Match Pass", sub: "Suba de nível jogando e resgate recompensas", badgeSource: null, keepIcon: true },
 ];
 const CLUBHOUSE_CARDS = [
   { nav: "clube",     banner: "banner-club-meuclube",  icon: "", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados", badgeSource: null },
@@ -86,6 +87,7 @@ const SCREEN_PARENT_TAB = {
   boxdraw: "contratar", especial: "contratar",
   extras: "extras", presentes: "extras", config: "extras",
   informacoes: "home",
+  matchpass: "home",
 };
 
 /* Telas "hub" mostram grid de cards; as demais são telas-folha reais */
@@ -320,6 +322,7 @@ function showScreen(id, opts){
   if(id==="presentes") renderGifts();
   if(id==="missoes") renderMissions();
   if(id==="informacoes") renderInformacoes();
+  if(id==="matchpass") renderMatchPass();
   if(id==="loja") renderStore();
   if(id==="config") renderConfigScreen();
   if(id==="home") renderHome();

@@ -28,6 +28,13 @@ function defaultState(){
     ownedIds: [],               // quick lookup
     boxRemoved: {},             // { boxId: [playerId, ...] } players já contratados (removidos da box)
     boxFreeSpins: {},           // { boxId: number } giros ganhos em Boxes category:"eventspin" (nunca comprável, só ganho vencendo eventos — ver js/events.js)
+    matchPass: {                // Match Pass — temporada de níveis por XP (ver js/state.js e js/matchpass.js)
+      seasonId: null,
+      xp: 0,
+      purchasedTier2: false,
+      purchasedTier3: false,
+      claimed: { free: [], tier2: [], tier3: [] },
+    },
     adminOverrides: {},         // { boxId: {name, description, banner, priceGP, priceCoins, active, extraPlayerIds:[]} }
     missionsProgress: {},       // { missionId: { progress, claimed } }
     gifts: [],                  // [{id, title, desc, gp, coins, claimed, createdAt}]
@@ -212,6 +219,128 @@ function ownPlayer(player){
 
 function isOwned(playerId){
   return STATE.ownedIds.includes(playerId);
+}
+
+/* ---------- Match Pass (temporada de níveis por XP) ----------
+   Estrutura em data/matchpass.json (GAME_DATA.matchPassSeason).
+   3 trilhas em paralelo: "free" (sempre disponível), "tier2" e
+   "tier3" (compradas separadamente, com Moedas, cada uma com seu
+   próprio preço). O nível sobe sozinho por XP — ver addMatchPassXP,
+   chamada ao final de qualquer partida (campanha, evento, arcade,
+   vôlei de praia — ver os respectivos onComplete). */
+function ensureMatchPassState(){
+  const season = (typeof GAME_DATA !== "undefined") ? GAME_DATA.matchPassSeason : null;
+  if(!STATE.matchPass) STATE.matchPass = {};
+  const mp = STATE.matchPass;
+  if(!season){ return mp; }
+  // Temporada nova (id mudou) — zera progresso, mas preserva histórico
+  // de compras não faz sentido entre temporadas diferentes, então reseta tudo.
+  if(mp.seasonId !== season.id){
+    mp.seasonId = season.id;
+    mp.xp = 0;
+    mp.purchasedTier2 = false;
+    mp.purchasedTier3 = false;
+    mp.claimed = { free: [], tier2: [], tier3: [] };
+    persist();
+  }
+  if(!mp.claimed) mp.claimed = { free: [], tier2: [], tier3: [] };
+  return mp;
+}
+
+function isMatchPassSeasonLive(season){
+  if(!season || !season.active) return false;
+  const now = Date.now();
+  if(season.start && now < new Date(season.start).getTime()) return false;
+  if(season.end && now > new Date(season.end).getTime()) return false;
+  return true;
+}
+
+function currentMatchPassLevel(){
+  const season = GAME_DATA.matchPassSeason;
+  const mp = ensureMatchPassState();
+  if(!season) return 0;
+  return Math.min(season.totalLevels, Math.floor((mp.xp || 0) / season.xpPerLevel));
+}
+
+/* Chamada ao final de QUALQUER partida do jogo (result: "win"|"draw"|"loss").
+   Só concede XP se a temporada estiver ativa e dentro do período — assim
+   dá pra deixar o Match Pass pronto e "desligado" sem risco de acumular
+   XP fantasma antes do lançamento. */
+function addMatchPassXP(result){
+  const season = GAME_DATA.matchPassSeason;
+  if(!isMatchPassSeasonLive(season)) return;
+  const mp = ensureMatchPassState();
+  const gain = result === "win" ? season.xpPerWin : result === "draw" ? season.xpPerDraw : season.xpPerLoss;
+  const before = currentMatchPassLevel();
+  mp.xp = Math.min(season.totalLevels * season.xpPerLevel, (mp.xp || 0) + (gain || 0));
+  persist();
+  const after = currentMatchPassLevel();
+  if(after > before && typeof toast === "function"){
+    toast(`🎫 Match Pass — Nível ${after}!`, "success");
+  }
+}
+
+function purchaseMatchPassTier(tier){
+  const season = GAME_DATA.matchPassSeason;
+  if(!season) return false;
+  const mp = ensureMatchPassState();
+  const price = tier === "tier2" ? season.priceTier2 : season.priceTier3;
+  const flag = tier === "tier2" ? "purchasedTier2" : "purchasedTier3";
+  if(mp[flag]) return false; // já comprado
+  if(price > STATE.currency.coins){ toast("Moedas insuficientes.", ""); return false; }
+  if(!spendCurrency(0, price)) return false;
+  mp[flag] = true;
+  persist();
+  toast(`Passe ${tier === "tier2" ? season.tier2Name : season.tier3Name} desbloqueado!`, "success");
+  return true;
+}
+
+function grantMatchPassReward(reward){
+  if(!reward || reward.type === "none") return;
+  if(reward.type === "coins") grantCurrency(0, reward.amount || 0);
+  else if(reward.type === "gp") grantCurrency(reward.amount || 0, 0);
+  else if(reward.type === "boxSpin") grantEventBoxSpin(reward.boxId, reward.amount || 1);
+  else if(reward.type === "playerId"){
+    const p = (typeof getPlayer === "function") ? getPlayer(reward.playerId) : null;
+    if(p && !isOwned(p.id)) ownPlayer(p);
+  }
+}
+
+function claimMatchPassReward(level, tier){
+  const season = GAME_DATA.matchPassSeason;
+  if(!season) return false;
+  const mp = ensureMatchPassState();
+  if(level > currentMatchPassLevel()) return false; // ainda não chegou nesse nível
+  if(tier !== "free" && !mp[tier === "tier2" ? "purchasedTier2" : "purchasedTier3"]) return false; // trilha não comprada
+  if(mp.claimed[tier].includes(level)) return false; // já resgatado
+
+  const levelDef = season.levels.find(l => l.level === level);
+  const reward = levelDef ? levelDef[tier] : null;
+  if(!reward) return false;
+
+  grantMatchPassReward(reward);
+  mp.claimed[tier].push(level);
+  persist();
+  return true;
+}
+
+/* Resgata de uma vez todos os níveis/trilhas já alcançados e ainda não
+   resgatados — usado pelo botão "Resgatar tudo" da tela do Match Pass. */
+function claimAllMatchPassRewards(){
+  const season = GAME_DATA.matchPassSeason;
+  if(!season) return 0;
+  const mp = ensureMatchPassState();
+  const lvl = currentMatchPassLevel();
+  let count = 0;
+  ["free","tier2","tier3"].forEach(tier=>{
+    if(tier !== "free" && !mp[tier === "tier2" ? "purchasedTier2" : "purchasedTier3"]) return;
+    for(let l=1; l<=lvl; l++){
+      if(!mp.claimed[tier].includes(l)){
+        if(claimMatchPassReward(l, tier)) count++;
+      }
+    }
+  });
+  return count;
 }
 
 /* ---------- toast ---------- */

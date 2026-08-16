@@ -277,6 +277,7 @@ function launchBeachVolleyFriendly(){
     difficulty: diff.id,
     pointsToWin: target.points,
     onComplete: (result)=>{
+      addMatchPassXP(result.result);
       const reward = result.result === "win" ? { gp: 120, coins: 0 } : result.result === "draw" ? { gp: 60, coins: 0 } : { gp: 20, coins: 0 };
       grantCurrency(reward.gp, reward.coins);
       const msg = result.result === "win" ? `Vitória no Vôlei de Praia! +${reward.gp} GP`
