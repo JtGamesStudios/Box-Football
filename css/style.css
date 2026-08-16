@@ -386,6 +386,7 @@ html.hub-active .menu-card-body{
 .banner-home-evento{     background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-evento.jpg');     background-color:#5B2FA6; }
 .banner-home-amigo{      background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-amigo.jpg');      background-color:#8A1F3D; }
 .banner-home-campanha{   background-image:url('../assets/banners/banner-home-campanha.jpg');   background-color:#8A6B1E; background-position:center 30%; }
+.banner-home-matchpass{  background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-matchpass.jpg'); background-color:#198CFF; }
 .banner-home-cardbattle{ background-image:linear-gradient(150deg, rgba(20,10,40,.15), rgba(0,0,0,.35)), radial-gradient(circle at 30% 20%, rgba(255,201,60,.35), transparent 55%), linear-gradient(135deg, #2A1B5E, #0D0B2B); background-color:#1B1440; }
 
 .banner-club-meuclube{   background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-club-meuclube.jpg');   background-color:#0F6FD1; }
@@ -2171,3 +2172,54 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   color:var(--text); font-size:14px; font-family:inherit; cursor:pointer;
 }
 .splash-hamburger-item:hover{ background:var(--surface-2); }
+
+/* =========================================================
+   MATCH PASS — temporada de níveis (js/matchpass.js)
+   ========================================================= */
+.mp-header{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; margin-bottom:14px; }
+.mp-header-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
+.mp-title{ font-family:var(--font-display); font-weight:800; font-size:18px; color:var(--text); }
+.mp-days-left{ font-size:12.5px; color:var(--crimson); font-weight:700; background:rgba(230,57,80,.1); padding:4px 10px; border-radius:999px; }
+.mp-level-row{ display:flex; align-items:center; gap:10px; margin-top:12px; }
+.mp-level-badge{ font-family:var(--font-display); font-weight:800; font-size:14px; color:var(--brand); white-space:nowrap; }
+.mp-level-max{ color:var(--text-dim); font-weight:600; font-size:12px; }
+.mp-xp-bar{ flex:1; height:10px; background:var(--surface-3); border-radius:999px; overflow:hidden; }
+.mp-xp-fill{ height:100%; background:linear-gradient(90deg, var(--brand-dim), var(--brand)); border-radius:999px; transition:width .3s; }
+.mp-xp-txt{ font-size:11.5px; color:var(--text-muted); white-space:nowrap; }
+.mp-tiers-row{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+.btn-disabled-owned{ background:var(--surface-2); color:var(--turf-dim); border:1px solid var(--turf); opacity:.85; }
+
+.mp-offline-card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 16px; text-align:center; }
+.mp-offline-title{ font-family:var(--font-display); font-weight:800; font-size:17px; color:var(--text); }
+
+.mp-track-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:10px 0; }
+.mp-track{ display:inline-flex; flex-direction:column; min-width:100%; }
+.mp-track-row{ display:flex; align-items:center; }
+.mp-row-label{ position:sticky; left:0; z-index:2; width:64px; flex:0 0 64px; font-size:10.5px; font-weight:800; text-align:center;
+  padding:4px 2px; color:#fff; background:var(--text-dim); align-self:stretch; display:flex; align-items:center; justify-content:center; }
+.mp-row-gold .mp-row-label{ background:linear-gradient(160deg, var(--gold), var(--gold-dim)); color:#3A2A00; }
+.mp-row-silver .mp-row-label{ background:linear-gradient(160deg, var(--silver), var(--silver-dim)); color:#20242C; }
+.mp-row-free .mp-row-label{ background:linear-gradient(160deg, var(--brand), var(--brand-dim)); }
+.mp-row-cells{ display:flex; }
+.mp-cell{
+  flex:0 0 64px; width:64px; height:56px; margin:3px; border-radius:10px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:2px; background:var(--surface-2); border:1px solid var(--border);
+  position:relative;
+}
+.mp-cell-icon{ font-size:18px; line-height:1; }
+.mp-cell-amt{ font-size:9.5px; font-weight:700; color:var(--text-muted); }
+.mp-cell.locked{ opacity:.4; }
+.mp-cell.locked-tier{ opacity:.35; filter:grayscale(1); }
+.mp-cell.empty{ opacity:.25; }
+.mp-cell.claimable{ background:var(--brand-light); border-color:var(--brand); cursor:pointer; box-shadow:0 0 0 2px rgba(25,140,255,.15); animation:mpPulse 1.6s ease-in-out infinite; }
+.mp-cell.claimed{ background:rgba(47,184,107,.12); border-color:var(--turf); }
+.mp-cell.claimed .mp-cell-icon{ color:var(--turf-dim); font-weight:800; }
+@keyframes mpPulse{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.05);} }
+
+.mp-track-levels{ display:flex; margin-top:2px; }
+.mp-level-node{
+  flex:0 0 64px; width:64px; margin:0 3px; text-align:center; font-size:11px; font-weight:700; color:var(--text-dim);
+  padding-top:4px;
+}
+.mp-level-node.reached{ color:var(--brand); }
+.mp-level-node.current{ color:#fff; background:var(--brand); border-radius:999px; }
