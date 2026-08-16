@@ -33,6 +33,7 @@ function renderAdminPanel(){
             <option value="especial" ${box.category==="especial"?"selected":""}>Especial</option>
             <option value="boxdraw" ${box.category==="boxdraw"?"selected":""}>Box Draw</option>
             <option value="gratis" ${box.category==="gratis"?"selected":""}>Grátis</option>
+            <option value="eventspin" ${box.category==="eventspin"?"selected":""}>Giro de Evento (só ganho em evento)</option>
           </select>
         </div>
         <div>

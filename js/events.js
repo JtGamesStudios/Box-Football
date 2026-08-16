@@ -81,7 +81,11 @@ function buildMilestoneChipsHtml(evt){
   const milestones = evt.milestones || [];
   return milestones.map(m=>{
     const done = points >= m.points;
-    const rewardTxt = [m.rewardGP ? `${m.rewardGP.toLocaleString("pt-BR")} GP` : null, m.rewardCoins ? `${m.rewardCoins} Moedas` : null].filter(Boolean).join(" + ");
+    const rewardTxt = [
+      m.rewardGP ? `${m.rewardGP.toLocaleString("pt-BR")} GP` : null,
+      m.rewardCoins ? `${m.rewardCoins} Moedas` : null,
+      m.rewardBoxSpinCount ? `🎁 ${m.rewardBoxSpinCount} giro${m.rewardBoxSpinCount===1?"":"s"} na Box` : null,
+    ].filter(Boolean).join(" + ");
     return `<div class="event-milestone ${done ? "done" : ""}">
       <span class="event-milestone-pts">${m.points}</span>
       <span class="event-milestone-reward">${rewardTxt}</span>
@@ -481,7 +485,13 @@ function eventObjectiveLabel(evt){
   return "Vença a partida";
 }
 
-/* ---------- marcos de recompensa ---------- */
+/* ---------- marcos de recompensa ----------
+   Além de GP/Moedas, um marco pode conceder giro(s) numa Box
+   category:"eventspin" (ex: Box Big Time), usando os campos opcionais
+   "rewardBoxSpinBoxId" + "rewardBoxSpinCount" no marco (em
+   data/events.json). O giro cai direto no saldo da Box (ver
+   grantEventBoxSpin em js/state.js) — não passa pela Caixa de
+   Presentes, já que não é GP/Moedas. */
 function checkEventMilestones(evt){
   ensureEventProgress(evt.id);
   const points = STATE.events.points[evt.id];
@@ -489,7 +499,14 @@ function checkEventMilestones(evt){
   (evt.milestones || []).forEach(m=>{
     if(points >= m.points && !claimed.includes(m.points)){
       claimed.push(m.points);
-      addGift(`${evt.title} — ${m.points} vitória(s)`, "Recompensa de marco do Modo de Evento.", m.rewardGP, m.rewardCoins);
+      if(m.rewardGP || m.rewardCoins){
+        addGift(`${evt.title} — ${m.points} vitória(s)`, "Recompensa de marco do Modo de Evento.", m.rewardGP, m.rewardCoins);
+      }
+      if(m.rewardBoxSpinBoxId && m.rewardBoxSpinCount){
+        grantEventBoxSpin(m.rewardBoxSpinBoxId, m.rewardBoxSpinCount);
+        const spinBox = (typeof getEffectiveBox === "function") ? getEffectiveBox(m.rewardBoxSpinBoxId) : null;
+        toast(`🎁 Giro ganho na Box ${spinBox ? spinBox.name : m.rewardBoxSpinBoxId}!`, "success");
+      }
     }
   });
   persist();

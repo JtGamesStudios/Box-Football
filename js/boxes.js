@@ -121,6 +121,7 @@ function getEffectiveBox(boxId){
     priceCoins: ov.priceCoins ?? raw.priceCoins,
     startsAt: ov.startsAt ?? raw.startsAt ?? null,
     expiresAt: ov.expiresAt ?? raw.expiresAt ?? null,
+    maxFreeSpins: ov.maxFreeSpins ?? raw.maxFreeSpins ?? null,
     allPlayerIds: ov.playerIds ?? raw.players,
   };
 }
@@ -198,13 +199,24 @@ function isFreeSpinAvailable(box){
   return removedCount === 0;
 }
 
+/* ---------------- GIROS GANHOS (category:"eventspin") ----------------
+   Diferente da Box "gratis" (só o 1º giro é de graça, depois cobra
+   Moedas), a Box "eventspin" NUNCA pode ser comprada — os giros só
+   são ganhos jogando e vencendo partidas de Modo de Evento vinculadas
+   a ela (ver grantEventBoxSpin em js/state.js, chamado pelos marcos
+   de recompensa em js/events.js). O saldo fica em STATE.boxFreeSpins. */
+function eventSpinsAvailable(boxId){
+  return (STATE.boxFreeSpins && STATE.boxFreeSpins[boxId]) || 0;
+}
+
 function renderContratarGrid(category){
   const wrap = document.getElementById(CONTRATAR_GRID_IDS[category] || "contratarGrid");
   if(!wrap) return;
   const boxes = sortBoxesNewestFirst(GAME_DATA.boxesRaw.map(b=>getEffectiveBox(b.id)).filter(b=>{
     if(!b.active || !isBoxLive(b)) return false;
-    // Boxes grátis aparecem junto das "Especial" (mesma aba/grid).
-    if(category === "especial") return b.category === "especial" || b.category === "gratis";
+    // Boxes grátis e de giro-ganho (eventspin) aparecem junto das
+    // "Especial" (mesma aba/grid).
+    if(category === "especial") return b.category === "especial" || b.category === "gratis" || b.category === "eventspin";
     return b.category === category;
   }));
   if(boxes.length===0){
@@ -216,12 +228,15 @@ function renderContratarGrid(category){
     const total = box.allPlayerIds.length;
     const timeLeft = formatTimeLeft(box.expiresAt);
     const freeSpin = isFreeSpinAvailable(box);
+    const eventSpins = box.category === "eventspin" ? eventSpinsAvailable(box.id) : 0;
+    const eventSpinDisabled = box.category === "eventspin" && eventSpins <= 0;
     return `
     <div class="box-pair">
       <div class="box-card">
         <div class="box-banner" style="background-image: url('${box.banner}'), linear-gradient(150deg,#1B2438,#0A0E17); background-size: cover; background-position: center;">
           <span class="box-badge on">ATIVA</span>
           ${box.category === "gratis" ? `<span class="box-badge-free">FREE</span>` : ""}
+          ${box.category === "eventspin" ? `<span class="box-badge-free">GIRO DE EVENTO</span>` : ""}
         </div>
         <div class="box-body">
           <div class="box-name-row">
@@ -237,10 +252,13 @@ function renderContratarGrid(category){
                   ? (freeSpin
                       ? `<div class="price-pill price-pill-free">GRÁTIS</div><span class="free-left-badge">${remaining} restante${remaining===1?"":"s"}</span>`
                       : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div><span class="free-left-badge">${remaining} restante${remaining===1?"":"s"}</span>`)
-                  : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`}
+                  : box.category === "eventspin"
+                    ? `<div class="price-pill price-pill-free">${eventSpins} giro${eventSpins===1?"":"s"} ganho${eventSpins===1?"":"s"}</div>`
+                    : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`}
             </div>
           </div>
-          <button class="btn btn-primary btn-block ${freeSpin?'btn-free-spin':''}" ${remaining===0?"disabled":""} onclick="startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':'coins'}')">${freeSpin ? '🎁 Girar Grátis' : (box.category==='gratis' ? '◆ Girar' : 'Contratar')}</button>
+          ${box.category === "eventspin" ? `<div class="stat-note" style="margin:6px 0 0;">Giros só são ganhos vencendo partidas nos eventos do Brasil. Não é possível comprar com Moedas.</div>` : ""}
+          <button class="btn btn-primary btn-block ${(freeSpin||box.category==='eventspin')?'btn-free-spin':''}" ${(remaining===0||eventSpinDisabled)?"disabled":""} onclick="startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':(box.category==='eventspin'?'eventspin':'coins')}')">${box.category==='eventspin' ? '🎁 Girar (Grátis)' : (freeSpin ? '🎁 Girar Grátis' : (box.category==='gratis' ? '◆ Girar' : 'Contratar'))}</button>
           </div>
       </div>
       <div class="box-stats-panel">
@@ -278,16 +296,29 @@ function startBoxOpen(boxId, method){
   const remaining = getRemainingIds(boxId);
   if(remaining.length===0){ toast("Essa Box já foi completada. Resete para jogar de novo.", ""); return; }
 
-  const price = box.category === "boxdraw"
-    ? { gp: box.priceGP, coins: 0 }
-    : box.category === "gratis"
-      ? { gp: 0, coins: isFreeSpinAvailable(box) ? 0 : box.priceCoins }
-      : { gp: 0, coins: box.priceCoins };
-  if(price.gp > STATE.currency.gp || price.coins > STATE.currency.coins){
-    toast("Saldo insuficiente para essa contratação.", "");
-    return;
+  // Box "eventspin": nunca é comprada com GP/Moedas — só consome um
+  // giro ganho jogando o(s) evento(s) vinculado(s) a ela.
+  if(box.category === "eventspin"){
+    if(eventSpinsAvailable(boxId) <= 0){
+      toast("Sem giros disponíveis. Vença partidas nos eventos do Brasil para ganhar giros nessa Box.", "");
+      return;
+    }
+    if(!spendEventBoxSpin(boxId)){
+      toast("Sem giros disponíveis.", "");
+      return;
+    }
+  } else {
+    const price = box.category === "boxdraw"
+      ? { gp: box.priceGP, coins: 0 }
+      : box.category === "gratis"
+        ? { gp: 0, coins: isFreeSpinAvailable(box) ? 0 : box.priceCoins }
+        : { gp: 0, coins: box.priceCoins };
+    if(price.gp > STATE.currency.gp || price.coins > STATE.currency.coins){
+      toast("Saldo insuficiente para essa contratação.", "");
+      return;
+    }
+    if(!spendCurrency(price.gp, price.coins)) { toast("Saldo insuficiente.", ""); return; }
   }
-  if(!spendCurrency(price.gp, price.coins)) { toast("Saldo insuficiente.", ""); return; }
 
   const byR = getRemainingByRarity(boxId);
   // Chance de "raio": vira a roleta toda bola preta e garante o Lendário

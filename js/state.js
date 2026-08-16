@@ -27,6 +27,7 @@ function defaultState(){
     ownedPlayers: [],           // [{...player, acquiredAt}]
     ownedIds: [],               // quick lookup
     boxRemoved: {},             // { boxId: [playerId, ...] } players já contratados (removidos da box)
+    boxFreeSpins: {},           // { boxId: number } giros ganhos em Boxes category:"eventspin" (nunca comprável, só ganho vencendo eventos — ver js/events.js)
     adminOverrides: {},         // { boxId: {name, description, banner, priceGP, priceCoins, active, extraPlayerIds:[]} }
     missionsProgress: {},       // { missionId: { progress, claimed } }
     gifts: [],                  // [{id, title, desc, gp, coins, claimed, createdAt}]
@@ -177,6 +178,29 @@ function claimAllGifts(){
   if(count>0){ grantCurrency(gp, coins); toast(`${count} presente(s) resgatado(s)!`, "success"); }
   else toast("Nenhum presente pendente.", "");
   persist();
+}
+
+/* ---------- giros ganhos (Boxes category:"eventspin") ----------
+   Usado por Boxes que só podem ser giradas vencendo partidas de
+   Modo de Evento (ex: Box Big Time, ganha giro vencendo os eventos
+   do Brasil) — nunca compráveis com GP/Moedas. */
+function grantEventBoxSpin(boxId, count){
+  STATE.boxFreeSpins = STATE.boxFreeSpins || {};
+  const next = (STATE.boxFreeSpins[boxId] || 0) + (count || 1);
+  // Respeita o teto opcional "maxFreeSpins" da Box (ex: Big Time = 8),
+  // pra nunca acumular mais giros ganhos do que a Box tem jogador.
+  const box = (typeof getEffectiveBox === "function") ? getEffectiveBox(boxId) : null;
+  const cap = box && box.maxFreeSpins ? box.maxFreeSpins : null;
+  STATE.boxFreeSpins[boxId] = cap ? Math.min(next, cap) : next;
+  persist();
+}
+
+function spendEventBoxSpin(boxId){
+  STATE.boxFreeSpins = STATE.boxFreeSpins || {};
+  if((STATE.boxFreeSpins[boxId] || 0) <= 0) return false;
+  STATE.boxFreeSpins[boxId] -= 1;
+  persist();
+  return true;
 }
 
 /* ---------- jogadores ---------- */
