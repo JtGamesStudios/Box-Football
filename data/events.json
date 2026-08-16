@@ -148,19 +148,19 @@
       "title": "Brazil France — myClub Legends",
       "description": "Vença partidas contra o COM e ganhe giros grátis na Box Big Time (30th Anniversary). Não dá pra comprar giro com Moedas — só jogando e vencendo aqui.",
       "banner": "assets/banners/banner-evento-brazil-france.jpg",
-      "active": false,
-      "start": "2026-08-23T00:00:00",
-      "end": "2026-09-06T23:59:59",
+      "active": true,
+      "start": "2026-08-16T00:00:00",
+      "end": "2026-09-03T23:59:59",
       "mode": "default",
       "goalTarget": null,
       "dailyAttempts": 5,
-      "opponentStrength": 70,
+      "opponentStrength": 190,
       "totalChances": 8,
       "milestones": [
-        { "points": 1, "rewardGP": 500, "rewardCoins": 0, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
-        { "points": 2, "rewardGP": 500, "rewardCoins": 0, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
-        { "points": 3, "rewardGP": 1000, "rewardCoins": 0, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
-        { "points": 4, "rewardGP": 2000, "rewardCoins": 0, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 }
+        { "points": 1, "rewardGP": 500, "rewardCoins": 50, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
+        { "points": 2, "rewardGP": 500, "rewardCoins": 100, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
+        { "points": 3, "rewardGP": 1000, "rewardCoins": 200, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
+        { "points": 4, "rewardGP": 2000, "rewardCoins": 300, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 }
       ]
     },
     {
@@ -168,19 +168,19 @@
       "title": "Brazil Legends — myClub Legends",
       "description": "Vença partidas contra o COM e ganhe giros grátis na Box Big Time (30th Anniversary). Não dá pra comprar giro com Moedas — só jogando e vencendo aqui.",
       "banner": "assets/banners/banner-evento-brazil-legends.jpg",
-      "active": false,
-      "start": "2026-08-23T00:00:00",
-      "end": "2026-09-06T23:59:59",
+      "active": true,
+      "start": "2026-08-16T00:00:00",
+      "end": "2026-09-03T23:59:59",
       "mode": "default",
       "goalTarget": null,
       "dailyAttempts": 5,
-      "opponentStrength": 70,
+      "opponentStrength": 90,
       "totalChances": 8,
       "milestones": [
-        { "points": 1, "rewardGP": 500, "rewardCoins": 0, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
-        { "points": 2, "rewardGP": 500, "rewardCoins": 0, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
-        { "points": 3, "rewardGP": 1000, "rewardCoins": 0, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
-        { "points": 4, "rewardGP": 2000, "rewardCoins": 0, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 }
+        { "points": 1, "rewardGP": 500, "rewardCoins": 10, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
+        { "points": 2, "rewardGP": 500, "rewardCoins": 20, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
+        { "points": 3, "rewardGP": 1000, "rewardCoins": 30, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 },
+        { "points": 4, "rewardGP": 2000, "rewardCoins": 100, "rewardBoxSpinBoxId": "box0026", "rewardBoxSpinCount": 1 }
       ]
     },
     {
