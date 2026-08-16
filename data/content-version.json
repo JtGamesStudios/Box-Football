@@ -1,8 +1,8 @@
 {
   "updates": [
     {
-      "version": 6,
-      "releaseDate": "2026-08-16T00:00:00",
+      "version": 5,
+      "releaseDate": "2026-07-26T00:00:00",
       "label": "Atualização Aovivo",
       "assets": [
         "assets/players/BRUNO HENRIQUE.png",
@@ -55,7 +55,7 @@
     },
     {
       "version": 7,
-      "releaseDate": "2026-08-16T00:00:00",
+      "releaseDate": "2026-08-23T00:00:00",
       "label": "Nostalgia Vol.1, Big Time 30th Anniversary e R. Higuita",
       "assets": [
         "assets/players/D._BECKHAM_BIGTIME.png",
@@ -78,7 +78,16 @@
         "assets/players/R._HIGUITA.png",
         "assets/banners/banner-box-higuita.png",
         "assets/banners/banner-evento-brazil-france.jpg",
-        "assets/banners/banner-evento-brazil-legends.jpg"
+        "assets/banners/banner-evento-brazil-legends.jpg",
+        "assets/videos/cutscene-bigtime.mp4"
+      ]
+    },
+    {
+      "version": 8,
+      "releaseDate": "2026-09-03T00:00:00",
+      "label": "Match Pass — Temporada 1",
+      "assets": [
+        "assets/banners/banner-home-matchpass.jpg"
       ]
     }
   ]
