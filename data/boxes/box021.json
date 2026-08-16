@@ -5,7 +5,7 @@
   "expiresAt": "2026-09-03T00:00:00",
   "description": "Só giros ganhos vencendo os eventos do Brasil.",
   "banner": "assets/banners/banner-box-bigtimes.jpg",
-  "active": false,
+  "active": true,
   "category": "eventspin",
   "priceGP": 0,
   "priceCoins": 0,
