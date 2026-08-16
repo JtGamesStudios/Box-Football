@@ -19,6 +19,19 @@
 
 const INFO_ITEMS = [
 {
+    id: "big-update-2026-09",
+    date: "16/08/2026",
+    title: "Grande Atualização chegando dia 16/08!",
+    preview: "Box Nostalgia Vol.1, Box Big Time 30th Anniversary, Box R. Higuita e os eventos Brazil France / Brazil Legends.",
+    body: [
+      "Prepare o clube: no dia 16/08 chega uma atualização grande, com 3 Boxes novas e 2 eventos exclusivos do Brasil.",
+      " Box Nostalgia Vol.1 — traz R. Baggio, Adriano e G. Piqué.",
+      " Box Big Time — 30th Anniversary — 12 lendas, com um total de 8 giros grátis.",
+      " Box R. Higuita — carta Epic do lendário goleiro colombiano.",
+      " Eventos Brazil France e Brazil Legends — vença partidas contra o COM pra acumular pontos e desbloquear seus giros grátis na Box Big Time, além de recompensas em Moedas.",
+    ],
+  },
+{
     id: "battle-cards-mode-2026-08",
     date: "28/07/2026",
     title: "⚔️ Novo Modo: Batalha de Cartas (Battle Cards)!",
