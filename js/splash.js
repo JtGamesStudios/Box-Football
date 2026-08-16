@@ -21,7 +21,7 @@
   // Quando quiser liberar o app de novo, é só voltar para false.
   // ---------------------------------------------------------------
   const MAINTENANCE_MODE = true;
-  const MAINTENANCE_END_LABEL = "Domingo, 16/08 20:30h";
+  const MAINTENANCE_END_LABEL = "Em breve";
 
   // ---------------------------------------------------------------
   // MIGRAÇÃO PRO APP — a partir dessa data/hora (horário de Brasília),
@@ -36,25 +36,20 @@
   }
 
   // ---------------------------------------------------------------
-  // ACESSO SECRETO (bypass da manutenção)
-  // Troque "minha-chave-secreta" por algo só seu.
-  // Pra entrar mesmo em manutenção, abra o link assim:
-  //   https://seusite.com/?acesso=minha-chave-secreta
-  // Uma vez usado, o navegador lembra (localStorage) e você não
-  // precisa repetir o link nas próximas vezes — até apagar os dados
-  // do site ou trocar de dispositivo/navegador.
+  // ACESSO SECRETO (bypass da manutenção) — agora por ID do dispositivo,
+  // não por link, já que o acesso principal passou a ser pelo app.
+  // Seu ID aparece na própria tela inicial ("Seu ID: XXXX-XXXX") e em
+  // Configurações — copie o ID do SEU aparelho e cole na lista abaixo.
+  // Pra liberar mais de um dispositivo seu, é só adicionar mais IDs.
+  // Lista vazia ([]) = manutenção vale pra todo mundo, sem exceção.
   // ---------------------------------------------------------------
-  const BYPASS_KEY = "pes2021mobile";
-  const BYPASS_STORAGE_FLAG = "boxclube_bypass_maintenance_v8";
+  const MAINTENANCE_BYPASS_IDS = [
+    // "PQXU-Z8W7",
+  ];
 
   function hasBypass() {
     try {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("acesso") === BYPASS_KEY) {
-        localStorage.setItem(BYPASS_STORAGE_FLAG, "1");
-        return true;
-      }
-      return localStorage.getItem(BYPASS_STORAGE_FLAG) === "1";
+      return typeof getPlayerId === "function" && MAINTENANCE_BYPASS_IDS.includes(getPlayerId());
     } catch (e) {
       return false;
     }
