@@ -51,12 +51,12 @@ const HOME_CARDS = [
   { nav: "evento", banner: "banner-home-evento", icon: "", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
   { nav: "amigo", banner: "banner-home-amigo",  icon: "", title: "Jogo c/ amigo",  sub: "Desafie um amigo, ao vivo, online", badgeSource: null },
   { nav: "campanha", banner: "banner-home-campanha",  icon: "", title: "Campanha",      sub: "", badgeSource: null },
-  { nav: "matchpass", banner: "banner-home-matchpass", icon: "🎫", title: "Match Pass", sub: "Suba de nível jogando e resgate recompensas", badgeSource: null, keepIcon: true },
 ];
 const CLUBHOUSE_CARDS = [
   { nav: "clube",     banner: "banner-club-meuclube",  icon: "", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados", badgeSource: null },
   { nav: "escalacao", banner: "banner-club-escalacao", icon: "", title: "Escalação",  sub: "Monte seu time titular e salve elencos", badgeSource: null },
   { nav: "missoes",   banner: "banner-club-missoes",   icon: "", title: "Missões",   sub: "Complete objetivos e ganhe recompensas", badgeSource: "homeMissions" },
+  { nav: "matchpass", banner: "banner-club-matchpass", icon: "🎫", title: "Match Pass", sub: "Suba de nível jogando e resgate recompensas", badgeSource: null, keepIcon: true },
 ];
 const CONTRACT_CARDS = [
   { nav: "contratar", banner: "banner-contract-contratar", icon: "", title: "Contratar", sub: "Abra Boxes e contrate seu próximo reforço", badgeSource: null },
@@ -87,7 +87,7 @@ const SCREEN_PARENT_TAB = {
   boxdraw: "contratar", especial: "contratar",
   extras: "extras", presentes: "extras", config: "extras",
   informacoes: "home",
-  matchpass: "home",
+  matchpass: "clubhouse",
 };
 
 /* Telas "hub" mostram grid de cards; as demais são telas-folha reais */
