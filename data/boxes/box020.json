@@ -1,7 +1,8 @@
 {
   "id": "box0025",
   "name": "Nostalgia Vol.1",
-  "date": "",
+  "startsAt": "2026-08-20T00:00:00",
+  "expiresAt": "2026-09-03T00:00:00",
   "description": "Epic Nostalgia — Baggio, Adriano e Piqué.",
   "banner": "assets/banners/banner-box-nostalgia-vol1.jpg",
   "active": false,
