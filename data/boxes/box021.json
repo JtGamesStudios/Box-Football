@@ -1,0 +1,26 @@
+{
+  "id": "box0026",
+  "name": "Big Time — 30th Anniversary",
+  "date": "",
+  "description": "Só giros ganhos vencendo os eventos do Brasil (Brazil x France / Brazil Legends). Não é possível comprar com Moedas. 8 giros ao todo.",
+  "banner": "assets/banners/banner-box-bigtimes.jpg",
+  "active": false,
+  "category": "eventspin",
+  "priceGP": 0,
+  "priceCoins": 0,
+  "maxFreeSpins": 8,
+  "players": [
+    "p637",
+    "p638",
+    "p639",
+    "p640",
+    "p641",
+    "p642",
+    "p643",
+    "p644",
+    "p645",
+    "p646",
+    "p647",
+    "p648"
+  ]
+}

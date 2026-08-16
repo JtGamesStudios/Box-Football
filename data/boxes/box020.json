@@ -1,0 +1,16 @@
+{
+  "id": "box0025",
+  "name": "Nostalgia Vol.1",
+  "date": "",
+  "description": "Epic Nostalgia — Baggio, Adriano e Piqué.",
+  "banner": "assets/banners/banner-box-nostalgia-vol1.jpg",
+  "active": false,
+  "category": "especial",
+  "priceGP": 0,
+  "priceCoins": 100,
+  "players": [
+    "p649",
+    "p650",
+    "p651"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "box0027",
+  "name": "R. Higuita — Epic",
+  "date": "",
+  "description": "Epic R. Higuita — 100 GK, Colômbia.",
+  "banner": "assets/banners/banner-box-higuita.png",
+  "active": false,
+  "category": "especial",
+  "priceGP": 0,
+  "priceCoins": 100,
+  "players": [
+    "p652"
+  ]
+}
