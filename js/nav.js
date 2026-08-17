@@ -60,6 +60,7 @@ const CLUBHOUSE_CARDS = [
 ];
 const CONTRACT_CARDS = [
   { nav: "contratar", banner: "banner-contract-contratar", icon: "", title: "Contratar", sub: "Abra Boxes e contrate seu próximo reforço", badgeSource: null },
+  { nav: "trades",    banner: "banner-contract-trades",    icon: "🔁", title: "Trades",    sub: "Troque jogadores com o sistema ou com amigos", badgeSource: null, keepIcon: true },
   { nav: "loja",       banner: "banner-contract-loja",      icon: "", title: "Loja",       sub: "Troque Moedas por GP", badgeSource: null },
 ];
 /* Sub-hub da tela "Contratar": escolher entre a Box Draw (Legends,
@@ -83,7 +84,7 @@ const SCREEN_PARENT_TAB = {
   amigo: "home",
   cardbattle: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
-  contract: "contract", contratar: "contract", boxes: "contract", loja: "contract",
+  contract: "contract", contratar: "contract", boxes: "contract", loja: "contract", trades: "contract",
   boxdraw: "contratar", especial: "contratar",
   extras: "extras", presentes: "extras", config: "extras",
   informacoes: "home",
@@ -323,13 +324,13 @@ function showScreen(id, opts){
   if(id==="missoes") renderMissions();
   if(id==="informacoes") renderInformacoes();
   if(id==="matchpass") renderMatchPass();
-  if(id==="loja") renderStore();
-  if(id==="config") renderConfigScreen();
+  if(id==="loja") renderStore();  if(id==="config") renderConfigScreen();
   if(id==="home") renderHome();
   if(id==="campanha") renderCampaign();
   if(id==="ranking") renderRankingScreen();
   if(id==="evento") renderEventoScreen();
   if(id==="amigo") renderAmigoScreen();
+  if(id==="trades") renderTradesScreen();
   if(id==="cardbattle") initCardBattleScreen();
 
   syncTopBadges();

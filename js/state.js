@@ -86,6 +86,11 @@ function defaultState(){
       unlockedLevel: 1,          // até qual nível (1-based) o jogador já destravou
       stars: {},                 // { levelId: 1|2|3 } melhor resultado em cada nível
     },
+    trades: {                    // Trades — sistema (ver js/trades.js)
+      systemSeasonId: null,      // amarrado ao id da temporada do Match Pass
+      systemUsed: 0,             // trocas do sistema já feitas nessa temporada
+      appliedCodes: [],          // códigos de troca c/ amigo já aplicados localmente (evita duplicar)
+    },
   };
 }
 
@@ -105,6 +110,7 @@ function loadState(){
   const d = defaultState();
   for(const k in d){ if(!(k in STATE)) STATE[k] = d[k]; }
   for(const k in d.stats){ if(!(k in STATE.stats)) STATE.stats[k] = d.stats[k]; }
+  for(const k in d.trades){ if(!(k in STATE.trades)) STATE.trades[k] = d.trades[k]; }
 
   // Migração única: saves de antes do popup de Login Bonus não devem
   // "pular" o Dia 1 — zera o ciclo pra começar hoje mesmo.
