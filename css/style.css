@@ -396,6 +396,7 @@ html.hub-active .menu-card-body{
 .banner-contract-contratar{ background-image:url('../assets/banners/banner-contract-contratar.jpg'); background-color:#3A2E10; background-position:center 35%; }
 .banner-contract-boxes{     background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-contract-boxes.jpg');     background-color:#5B2FA6; }
 .banner-contract-loja{      background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-contract-loja.jpg');      background-color:#0B8A5F; }
+.banner-contract-trades{    background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.2)),  url('../assets/banners/banner-contract-trades.jpg');    background-color:#241548; }
 
 .banner-contratar-boxdraw{  background-image:url('../assets/banners/banner-contratar-boxdraw.jpg');  background-color:#3A2E10; background-position:center 35%; }
 .banner-contratar-especial{ background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-contratar-especial.jpg'); background-color:#8A6B1E; }
@@ -2253,4 +2254,104 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   .mp-body{ flex-direction:column; }
   .mp-preview{ width:100%; flex:0 0 auto; display:flex; flex-direction:column; align-items:center; }
   .mp-preview-body{ width:100%; }
+}
+
+/* =========================================================
+   TRADES — troca do sistema + troca com amigos (ver js/trades.js)
+   ========================================================= */
+.trade-tabs{ display:flex; gap:8px; margin-bottom:14px; }
+.trade-tab-btn{
+  flex:1; padding:10px 12px; border-radius:999px; border:1px solid var(--border);
+  background:var(--surface-2); color:var(--text-muted); font-weight:700; font-size:13px;
+  cursor:pointer; transition:background .15s, color .15s;
+}
+.trade-tab-btn.active{ background:var(--brand); color:#fff; border-color:var(--brand); }
+
+.trade-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
+  padding:16px;
+}
+
+.trade-offer-row{ display:flex; flex-direction:column; gap:12px; }
+.trade-offer-box{
+  background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-lg); padding:12px;
+}
+.trade-offer-title{
+  font-family:var(--font-display); font-weight:800; font-size:13px; color:var(--text);
+  display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;
+}
+.trade-offer-value{ font-size:11.5px; font-weight:700; color:var(--brand); }
+.trade-offer-grid{ display:flex; flex-wrap:wrap; gap:8px; }
+
+.trade-mini-card{
+  position:relative; width:56px; height:56px; border-radius:10px; overflow:hidden;
+  border:1px solid var(--border); background:var(--surface); cursor:pointer;
+}
+.trade-mini-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+.trade-mini-ovr{
+  position:absolute; top:2px; left:3px; font-size:10px; font-weight:800; color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.7);
+}
+.trade-mini-remove{
+  position:absolute; top:2px; right:3px; font-size:10px; font-weight:800; color:#fff;
+  background:rgba(230,57,80,.85); border-radius:999px; width:14px; height:14px;
+  display:flex; align-items:center; justify-content:center; line-height:1;
+}
+.trade-mini-card.selected{ box-shadow:0 0 0 2px var(--brand); }
+
+.trade-add-btn{
+  width:56px; height:56px; border-radius:10px; border:1px dashed var(--border-strong);
+  background:var(--surface); color:var(--text-dim); font-size:22px; font-weight:700; cursor:pointer;
+}
+
+.trade-candidates{ margin-top:4px; }
+
+.trade-confirm-panel{
+  margin-top:16px; padding-top:14px; border-top:1px solid var(--border);
+}
+.trade-confirm-row{
+  display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:8px;
+}
+.trade-confirm-side{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; max-width:260px; }
+.trade-confirm-side .p-card{ max-width:110px; }
+.trade-confirm-arrow{ font-size:22px; color:var(--brand); font-weight:800; }
+
+/* seletor de jogadores (modal reaproveitado) */
+.p-card.selectable{ cursor:pointer; transition:box-shadow .15s, transform .15s; }
+.p-card.selectable.selected{ box-shadow:0 0 0 3px var(--brand); transform:translateY(-2px); }
+
+/* troca com amigos: lista de trocas em andamento */
+.ft-ongoing-list{ display:flex; flex-direction:column; gap:8px; margin-bottom:4px; }
+.ft-ongoing-item{
+  display:flex; align-items:center; justify-content:space-between; padding:10px 12px;
+  background:var(--surface-2); border:1px solid var(--border); border-radius:12px;
+  font-weight:700; font-size:13px; color:var(--text); cursor:pointer;
+}
+.ft-ongoing-arrow{ color:var(--brand); font-size:12px; }
+
+/* sala de troca com amigo */
+.ft-room-header{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px; }
+.ft-room-title{ font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--text); }
+.ft-offer-cols{ display:flex; align-items:flex-start; gap:10px; flex-wrap:wrap; }
+.ft-offer-cols .trade-offer-box{ flex:1 1 200px; min-width:180px; }
+.ft-offer-arrow{ font-size:20px; color:var(--brand); font-weight:800; align-self:center; padding-top:20px; }
+
+.ft-chat{ margin-top:16px; padding-top:14px; border-top:1px solid var(--border); }
+.ft-chat-list{
+  max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:6px;
+  padding:10px; background:var(--surface-2); border:1px solid var(--border); border-radius:12px; margin-bottom:8px;
+}
+.ft-chat-msg{ max-width:80%; padding:6px 10px; border-radius:12px; background:var(--surface); border:1px solid var(--border); align-self:flex-start; }
+.ft-chat-msg.me{ align-self:flex-end; background:var(--brand-light); border-color:var(--brand); }
+.ft-chat-name{ display:block; font-size:10px; font-weight:800; color:var(--text-dim); margin-bottom:2px; }
+.ft-chat-text{ font-size:13px; color:var(--text); word-break:break-word; }
+.ft-chat-input-row{ display:flex; gap:8px; }
+.ft-chat-input-row input{
+  flex:1; padding:9px 12px; border-radius:999px; border:1px solid var(--border);
+  background:var(--surface); color:var(--text); font-size:13px;
+}
+
+@media (max-width: 480px){
+  .ft-offer-cols{ flex-direction:column; }
+  .ft-offer-arrow{ align-self:center; padding-top:0; transform:rotate(90deg); }
 }
