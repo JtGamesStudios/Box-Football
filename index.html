@@ -511,6 +511,18 @@
       <div class="menu-card-grid" id="contractGrid"></div>
     </section>
 
+    <!-- TRADES — troca do sistema (jogo monta as opções) e troca com
+         amigos (negociação livre, com chat). Ver js/trades.js. -->
+    <section class="screen" id="screen-trades" data-title="Trades">
+      <h1 class="page-title">Trades</h1>
+      <p class="page-sub">Troque jogadores com o sistema ou negocie diretamente com um amigo.</p>
+      <div class="trade-tabs" id="tradeTabs">
+        <button class="trade-tab-btn active" data-tsub="system">🔁 Troca do Sistema</button>
+        <button class="trade-tab-btn" data-tsub="friend">🤝 Troca com Amigos</button>
+      </div>
+      <div id="tradesRoot"></div>
+    </section>
+
     <!-- EXTRAS (hub) -->
     <section class="screen" id="screen-extras" data-title="Extras">
       <h1 class="page-title">Extras</h1>
@@ -810,6 +822,24 @@
   </div>
 </div>
 
+<!-- ===================== TRADES: modal "Escolher jogadores" =====================
+     Reaproveitado tanto pela Troca do Sistema (só destaque/lendário) quanto
+     pela Troca com Amigos (qualquer jogador do elenco). Ver js/trades.js. -->
+<div class="search-overlay hidden" id="tradePickerOverlay">
+  <div class="search-inner">
+    <div class="search-header">
+      <h3 id="tradePickerTitle">Selecionar jogadores</h3>
+      <span class="search-count">Selecionados: <strong id="tradePickerCount">0</strong></span>
+    </div>
+    <div class="search-grid" id="tradePickerGrid"></div>
+    <div class="search-actions" style="display:flex; gap:10px;">
+      <button class="btn" id="btnCloseTradePicker">‹ Voltar</button>
+      <button class="btn btn-primary btn-block" id="btnConfirmTradePicker">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+
 <!-- ===================== BOTÃO FLUTUANTE: forçar tela cheia + paisagem =====================
      Fica sempre visível no mobile (independente da tela em que o usuário
      está), pra caso a pessoa saia da tela cheia sem querer ou o app não
@@ -938,6 +968,7 @@
 <script src="js/app-transfer.js?v=1"></script>
 <script src="js/migration-notice.js?v=1"></script>
 <script src="js/online.js?v=1"></script>
+<script src="js/trades.js?v=1"></script>
 <script>
   // RANKING: mostra o popup de cadastro (se ainda não tiver nome) e já
   // carrega o mini-ranking da Campanha assim que o app inicia.
