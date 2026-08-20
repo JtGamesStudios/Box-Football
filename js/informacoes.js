@@ -19,6 +19,19 @@
 
 const INFO_ITEMS = [
 {
+    id: "big-update-2026-09-03",
+    date: "20/08/2026",
+    title: "🎬 Grande Atualização chegando dia 03/09 às 23h!",
+    preview: "Animações para todos os Iconics, Big Times e Legends, músicas originais e Nova Temporada do Match Pass.",
+    body: [
+      "Prepare o clube: no dia 03/09 às 23h chega uma das maiores atualizações do Box-Football até agora.",
+      "🎬 Animações exclusivas de abertura para TODOS os cards Iconic Moments, Big Time e Legends que chegarem ao jogo a partir dessa data.",
+      "🎵 Todas as músicas originais das cutscenes ficam disponíveis no jogo.",
+      "🏆 Nova Temporada do Match Pass — trilha mais longa, com premiação reformulada e muito mais prêmios.",
+      "Estimativa de tamanho do download: cerca de 1 GB. Fique de olho no app pra baixar assim que a atualização for liberada!",
+    ],
+  },
+{
     id: "big-update-2026-09",
     date: "16/08/2026",
     title: "Grande Atualização chegando dia 16/08!",
