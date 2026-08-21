@@ -19,12 +19,29 @@
 
 const INFO_ITEMS = [
 {
+    id: "boxes-epic-and-konami-cup-2026-09-03",
+    date: "03/09/2026",
+    title: "🏆 3 novas Boxes Epic (chegada escalonada) + evento Konami Cup / Matchday!",
+    preview: "Spanish League (03/09), Netherlands (06/09) e Brazil 1994 (10/09) — e um evento novo entra no ar toda semana.",
+    body: [
+      "Chegam 3 Boxes Epic novas, cada uma com 3 cartas principais, em datas diferentes:",
+      "🇪🇸 03/09 às 23h — Spanish League: Roberto Carlos, F. Torres e R. van der Vaart.",
+      "🇳🇱 06/09 às 23h — Netherlands: M. van Basten, F. Rijkaard e R. Gullit.",
+      "🇧🇷 10/09 às 23h — Brazil 1994: Romário, Cafu e Bebeto.",
+      "As 3 Boxes ficam disponíveis até 13/09 às 23h.",
+      "🏆 Novidade: o evento Konami Cup agora é rotativo e entra sozinho todo domingo e toda quarta-feira, sempre com prêmios em Moedas e GP — sem precisar esperar a equipe agendar manualmente.",
+      "⚽ Quando houver um clássico rolando pelo futebol mundial (Real Madrid x Atlético de Madrid, Inter x Napoli, Juventus x Milan, Everton x Manchester United, Arsenal x Chelsea, entre outros), o Konami Cup vira um Matchday temático daquele jogo — com banner especial e os mesmos prêmios.",
+      "📅 Sobre a Grande Atualização (animações de abertura para Iconics, Big Times e Legends + músicas originais + Nova Temporada do Match Pass): ela chega dia 13/09, domingo, às 23h — logo depois dessas 3 Boxes Epic. Fica ligado!",
+    ],
+  },
+{
     id: "big-update-2026-09-03",
     date: "20/08/2026",
-    title: "🎬 Grande Atualização chegando dia 03/09 às 23h!",
-    preview: "Animações para todos os Iconics, Big Times e Legends, músicas originais e Nova Temporada do Match Pass.",
+    title: "🎬 Grande Atualização ADIADA para 13/09 às 23h",
+    preview: "Animações para todos os Iconics, Big Times e Legends, músicas originais e Nova Temporada do Match Pass — nova data: 13/09.",
     body: [
-      "Prepare o clube: no dia 03/09 às 23h chega uma das maiores atualizações do Box-Football até agora.",
+      "⚠️ Atualização deste aviso: a Grande Atualização foi adiada de 03/09 para o dia 13/09 às 23h, pra dar tempo das novas Boxes Epic (Spanish League, Netherlands e Brazil 1994) rodarem até lá.",
+      "Prepare o clube: no dia 13/09 às 23h chega uma das maiores atualizações do Box-Football até agora.",
       "🎬 Animações exclusivas de abertura para TODOS os cards Iconic Moments, Big Time e Legends que chegarem ao jogo a partir dessa data.",
       "🎵 Todas as músicas originais das cutscenes ficam disponíveis no jogo.",
       "🏆 Nova Temporada do Match Pass — trilha mais longa, com premiação reformulada e muito mais prêmios.",

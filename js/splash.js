@@ -24,6 +24,34 @@
   const MAINTENANCE_END_LABEL = "Em breve";
 
   // ---------------------------------------------------------------
+  // MANUTENÇÃO SEMANAL AUTOMÁTICA — toda quarta-feira, das 23h às 0h
+  // (horário de Brasília, UTC-3 fixo, sem horário de verão). Fecha
+  // sozinho às 23h de quarta e reabre sozinho às 0h de quinta, sem
+  // precisar mexer em nada manualmente. Os mesmos IDs de
+  // MAINTENANCE_BYPASS_IDS (abaixo) também liberam esse horário.
+  // Pra desativar, é só trocar para false.
+  // ---------------------------------------------------------------
+  const WEEKLY_MAINTENANCE_ENABLED = true;
+  const WEEKLY_MAINTENANCE_DAY = 3;         // 0=domingo, 1=segunda, 2=terça, 3=quarta
+  const WEEKLY_MAINTENANCE_START_HOUR = 23; // fecha às 23h de quarta
+  const WEEKLY_MAINTENANCE_END_LABEL = "Volta hoje à 00h";
+
+  function getBrasiliaNow() {
+    // Brasília = UTC-3 fixo (Brasil não usa mais horário de verão).
+    const now = new Date();
+    const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+    return new Date(utcMs + -3 * 60 * 60000);
+  }
+
+  function isWeeklyMaintenanceActive() {
+    if (!WEEKLY_MAINTENANCE_ENABLED) return false;
+    const brNow = getBrasiliaNow();
+    // Janela: quarta-feira, a partir da hora 23 até a virada pra
+    // quinta (hora 0) — ou seja, só a última hora de quarta-feira.
+    return brNow.getDay() === WEEKLY_MAINTENANCE_DAY && brNow.getHours() >= WEEKLY_MAINTENANCE_START_HOUR;
+  }
+
+  // ---------------------------------------------------------------
   // MIGRAÇÃO PRO APP — a partir dessa data/hora (horário de Brasília),
   // o acesso pelo NAVEGADOR é bloqueado permanentemente (sem bypass).
   // Dentro do app instalado (Capacitor) esse bloqueio nunca se aplica.
@@ -91,18 +119,19 @@
     timer = null;
   }
 
-  function showMaintenance() {
+  function showMaintenance(endLabel) {
     stopCarousel();
     if (tapHint) tapHint.classList.add("hidden");
     if (loadingWrap) loadingWrap.classList.add("hidden");
 
     if (maintenanceWrap) {
       const endEl = maintenanceWrap.querySelector("#maintEndLabel");
-      if (endEl) endEl.textContent = MAINTENANCE_END_LABEL;
+      if (endEl) endEl.textContent = endLabel || MAINTENANCE_END_LABEL;
       maintenanceWrap.classList.remove("hidden");
     }
     // O overlay permanece visível — o app fica escondido atrás dele
-    // até a manutenção terminar (MAINTENANCE_MODE = false).
+    // até a manutenção terminar (MAINTENANCE_MODE = false, ou a janela
+    // semanal automática passar da hora 0h de quinta).
   }
 
   // Tela de bloqueio permanente pelo navegador, depois da data de corte
@@ -223,7 +252,11 @@
         return;
       }
       if (MAINTENANCE_MODE && !hasBypass()) {
-        showMaintenance();
+        showMaintenance(MAINTENANCE_END_LABEL);
+        return;
+      }
+      if (isWeeklyMaintenanceActive() && !hasBypass()) {
+        showMaintenance(WEEKLY_MAINTENANCE_END_LABEL);
         return;
       }
       overlay.classList.add("fade-out");

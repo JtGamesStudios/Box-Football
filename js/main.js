@@ -62,6 +62,7 @@ async function boot(){
   try{
     await loadGameData();
     await loadCoupons();
+    if(typeof injectMatchdayEvents === "function") injectMatchdayEvents();
   }catch(e){
     console.error(e);
     document.getElementById("mainContent").innerHTML = `
@@ -101,6 +102,7 @@ async function boot(){
    precisar dar F5.
    ========================================================= */
 function checkForLiveContentUpdates(){
+  if(typeof injectMatchdayEvents === "function") injectMatchdayEvents();
   if(typeof updateContratarCardBanners === "function") updateContratarCardBanners();
   if(typeof updateCardBattleCardLock === "function") updateCardBattleCardLock();
   if(currentScreen === "boxdraw" && typeof renderContratarGrid === "function") renderContratarGrid("boxdraw");
