@@ -89,6 +89,51 @@
       "assets": [
         "assets/banners/banner-home-matchpass.jpg"
       ]
+    },
+    {
+      "version": 9,
+      "releaseDate": "2026-09-13T23:00:00",
+      "label": "Grande Atualização: animações para todos os Iconics, Big Times e Legends, trilhas sonoras originais e Nova Temporada do Match Pass!",
+      "description": "Todos os cards Iconic Moments, Big Time e Legends que chegarem ao jogo a partir de 13/09 às 23h passam a ter animação de abertura própria. Todas as músicas originais das cutscenes ficam disponíveis no jogo. Nova Temporada do Match Pass, mais longa e com premiação reformulada.",
+      "estimatedSizeNote": "~1 GB (estimativa — tamanho final depende dos assets cadastrados abaixo)",
+      "features": [
+        "Animações exclusivas de abertura para todos os cards Iconic Moments",
+        "Animações exclusivas de abertura para todos os cards Big Time",
+        "Animações exclusivas de abertura para todos os cards Legends",
+        "Todas as músicas originais das cutscenes disponíveis no jogo",
+        "Nova Temporada do Match Pass — trilha mais longa e com premiação maior"
+      ],
+      "assets": [],
+      "postponedNote": "Adiada de 03/09 para 13/09 — as 3 boxes Epic (Spanish League, Netherlands, Brazil 1994) cobrem o calendário até lá."
+    },
+    {
+      "version": 10,
+      "releaseDate": "2026-09-03T23:00:00",
+      "label": "3 novas Boxes Epic + evento rotativo Konami Cup / Matchday",
+      "description": "Chegam, em datas escalonadas, as Boxes Epic Spanish League (03/09 — Roberto Carlos, Torres, Van der Vaart), Netherlands (06/09 — Van Basten, Rijkaard, Gullit) e Brazil 1994 (10/09 — Romário, Cafu, Bebeto), todas disponíveis até 13/09. Também estreia o evento rotativo: todo domingo e toda quarta um novo Konami Cup entra no ar — e quando tiver um clássico do futebol mundial na janela, ele vira um Matchday temático.",
+      "features": [
+        "Box Epic — Spanish League (Roberto Carlos, F. Torres, R. van der Vaart)",
+        "Box Epic — Netherlands (M. van Basten, F. Rijkaard, R. Gullit)",
+        "Box Epic — Brazil 1994 (Romário, Cafu, Bebeto)",
+        "Evento Konami Cup — entra automaticamente todo domingo e toda quarta",
+        "Evento Matchday — substitui o Konami Cup quando há um clássico mundial na janela"
+      ],
+      "assets": [
+        "assets/players/ROBERTO_CARLOS_SPANISHLEAGUE.png",
+        "assets/players/TORRES_SPANISHLEAGUE.png",
+        "assets/players/VAN_DER_VAART_SPANISHLEAGUE.png",
+        "assets/players/VAN_BASTEN_NETHERLANDS.png",
+        "assets/players/RIJKAARD_NETHERLANDS.png",
+        "assets/players/GULLIT_NETHERLANDS.png",
+        "assets/players/ROMARIO_BRAZIL1994.png",
+        "assets/players/CAFU_BRAZIL1994.png",
+        "assets/players/BEBETO_BRAZIL1994.png",
+        "assets/banners/banner-box-spanishleague-0309.png",
+        "assets/banners/banner-box-netherlands-0309.png",
+        "assets/banners/banner-box-brazil1994-0309.png",
+        "assets/banners/banner-home-konamicup.jpg",
+        "assets/banners/banner-home-matchday.jpg"
+      ]
     }
   ]
 }
