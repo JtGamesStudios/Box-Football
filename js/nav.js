@@ -225,9 +225,10 @@ function buildHubGrid(containerId, cards){
     if(isLocked) btn.disabled = true;
     if(c.nav) btn.dataset.nav = c.nav;
     btn.innerHTML = `
-      <div class="menu-card-banner ${c.banner}" id="menuCardBanner-${c.nav || containerId + '-' + c.title}"></div>
+      <div class="menu-card-banner ${c.banner}" id="menuCardBanner-${c.nav || containerId + '-' + c.title}">
+        ${(c.icon || c.keepIcon) ? `<div class="menu-card-icon">${c.icon}</div>` : ""}
+      </div>
       ${c.badgeSource ? `<span class="menu-card-badge hidden" data-hub-badge-for="${c.nav}">0</span>` : ""}
-      ${(c.icon || c.keepIcon) ? `<div class="menu-card-icon">${c.icon}</div>` : ""}
       <div class="menu-card-body">
         <div class="menu-card-title">${c.title}</div>
         ${c.sub ? `<div class="menu-card-sub">${c.sub}</div>` : ""}
