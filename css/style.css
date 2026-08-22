@@ -537,10 +537,10 @@ html.boxlist-active .screen-back-btn{
 html.boxlist-active .screen-back-btn:hover{ background:linear-gradient(135deg,#39A0FF,#0F6FD1); }
 /* sem o botão lá em cima, o topo não precisa mais de respiro extra */
 html.boxlist-active .carousel-title-row{ padding-top:0; }
-html.boxlist-active .carousel-title-row{ flex:0 0 auto; margin-bottom:clamp(4px,1vh,10px); }
+html.boxlist-active .carousel-title-row{ flex:0 0 auto; margin-bottom:2px; }
 html.boxlist-active .page-title{ font-size:clamp(18px,4.4vw,26px); margin-bottom:2px; }
 html.boxlist-active .page-sub{ font-size:clamp(11px,2.6vw,13px); }
-html.boxlist-active .box-grid{ flex:1; min-height:0; align-items:center; padding-bottom:4px; overflow-y:auto; }
+html.boxlist-active .box-grid{ flex:1; min-height:0; align-items:flex-start; padding-bottom:4px; overflow-y:auto; }
 html.boxlist-active .box-pair{ height:100%; max-height:100%; align-items:flex-start; }
 html.boxlist-active .box-card{ height:100%; max-height:100%; }
 /* O painel de stats NÃO acompanha mais a altura do card grande — ele fica
