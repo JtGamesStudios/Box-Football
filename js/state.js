@@ -85,6 +85,8 @@ function defaultState(){
     cardBattle: {                // progresso do modo Níveis do Card Battle
       unlockedLevel: 1,          // até qual nível (1-based) o jogador já destravou
       stars: {},                 // { levelId: 1|2|3 } melhor resultado em cada nível
+      perfectBonusClaimed: false,// true depois de fechar 3★ em TODOS os níveis (bônus único)
+      weekly: { windowStart: null, used: false }, // Desafio da Semana (reseta na janela do Konami Cup/Matchday)
     },
     trades: {                    // Trades — sistema (ver js/trades.js)
       systemSeasonId: null,      // amarrado ao id da temporada do Match Pass
@@ -111,6 +113,8 @@ function loadState(){
   for(const k in d){ if(!(k in STATE)) STATE[k] = d[k]; }
   for(const k in d.stats){ if(!(k in STATE.stats)) STATE.stats[k] = d.stats[k]; }
   for(const k in d.trades){ if(!(k in STATE.trades)) STATE.trades[k] = d.trades[k]; }
+  for(const k in d.cardBattle){ if(!(k in STATE.cardBattle)) STATE.cardBattle[k] = d.cardBattle[k]; }
+  if(!STATE.cardBattle.weekly) STATE.cardBattle.weekly = { windowStart: null, used: false };
 
   // Migração única: saves de antes do popup de Login Bonus não devem
   // "pular" o Dia 1 — zera o ciclo pra começar hoje mesmo.

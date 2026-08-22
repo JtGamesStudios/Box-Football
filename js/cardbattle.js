@@ -69,9 +69,80 @@ const CB_OPPONENTS = [
 ];
 
 function cbProgress(){
-  if(!STATE.cardBattle) STATE.cardBattle = { unlockedLevel:1, stars:{} };
+  if(!STATE.cardBattle) STATE.cardBattle = { unlockedLevel:1, stars:{}, perfectBonusClaimed:false, weekly:{windowStart:null,used:false} };
   if(!STATE.cardBattle.stars) STATE.cardBattle.stars = {};
+  if(!STATE.cardBattle.weekly) STATE.cardBattle.weekly = { windowStart:null, used:false };
   return STATE.cardBattle;
+}
+
+/* ---------- BÔNUS DE ELENCO PERFEITO (3★ em TODOS os níveis) ----------
+   Prêmio único, concedido só uma vez por conta. Reaproveita as mesmas
+   currency (GP/Moedas) — nada de arte nova pra manter simples de manter. */
+const CB_PERFECT_BONUS = { gp: 20000, coins: 100 };
+
+function cbAllLevelsPerfect(prog){
+  return CB_OPPONENTS.every(op => (prog.stars[op.id] || 0) >= 3);
+}
+
+function cbCheckPerfectBonus(prog){
+  if(prog.perfectBonusClaimed) return false;
+  if(!cbAllLevelsPerfect(prog)) return false;
+  prog.perfectBonusClaimed = true;
+  if(STATE && STATE.currency){
+    STATE.currency.gp = (STATE.currency.gp||0) + CB_PERFECT_BONUS.gp;
+    STATE.currency.coins = (STATE.currency.coins||0) + CB_PERFECT_BONUS.coins;
+  }
+  if(typeof refreshWalletUI === "function") refreshWalletUI();
+  return true;
+}
+
+/* ---------- DESAFIO DA SEMANA ----------
+   Reaproveita a janela Domingo->Quarta / Quarta->Domingo já calculada
+   em js/matchday-events.js. Se a janela atual tiver um clássico, o
+   adversário vira temático (MATCHDAY); senão fica um "All-Stars"
+   genérico. Só pode ser jogado 1x por janela — reseta sozinho toda
+   virada, sem precisar mexer em nada. */
+function cbWeeklyWindow(){
+  return (typeof getCurrentMatchdayWindow === "function")
+    ? getCurrentMatchdayWindow(new Date())
+    : (function(){ const n=new Date(); return { start:n, end:n, startISO:"", endISO:"" }; })();
+}
+
+function cbWeeklyState(){
+  const prog = cbProgress();
+  const win = cbWeeklyWindow();
+  if(prog.weekly.windowStart !== win.startISO){
+    prog.weekly = { windowStart: win.startISO, used: false };
+    if(typeof persist === "function") persist();
+  }
+  return prog.weekly;
+}
+
+function cbWeeklyOpponent(){
+  const win = cbWeeklyWindow();
+  const classics = (typeof getClassicsInWindow === "function") ? getClassicsInWindow(win) : [];
+  if(classics.length){
+    const m = classics[0];
+    return {
+      id: "weekly", name: `${m.home} x ${m.away}`, emoji: "🔥", tier: "MATCHDAY",
+      minOvr: 85, maxOvr: 97, aggro: .8,
+      reward: 1500, rewardCoins: 150,
+      weekly: true,
+    };
+  }
+  return {
+    id: "weekly", name: "Konami Cup All-Stars", emoji: "🏆", tier: "SEMANAL",
+    minOvr: 84, maxOvr: 95, aggro: .75,
+    reward: 1200, rewardCoins: 120,
+    weekly: true,
+  };
+}
+
+function cbWeeklyTimeLeft(){
+  const win = cbWeeklyWindow();
+  return (typeof formatEventTimeLeft === "function")
+    ? formatEventTimeLeft({ end: win.end.toISOString() })
+    : "";
 }
 
 const CB = {
@@ -220,8 +291,38 @@ function cbShowLevels(){
   cbRenderLevels();
 }
 
+function cbRenderWeeklyCard(){
+  const wrap = document.getElementById("cbWeeklyCard");
+  if(!wrap) return;
+  const weekly = cbWeeklyState();
+  const opponent = cbWeeklyOpponent();
+  const timeLeft = cbWeeklyTimeLeft();
+
+  wrap.innerHTML = `
+    <button class="cb-lv-card cb-weekly ${weekly.used ? 'used' : ''}" id="cbWeeklyBtn" ${weekly.used ? 'disabled' : ''}>
+      <div class="cb-weekly-tag">${opponent.tier === "MATCHDAY" ? "🔥 DESAFIO DA SEMANA · MATCHDAY" : "🏆 DESAFIO DA SEMANA"}</div>
+      <div class="cb-lv-emoji">${weekly.used ? "✅" : opponent.emoji}</div>
+      <div class="cb-lv-name">${opponent.name}</div>
+      <div class="cb-lv-tier">${weekly.used ? "Resgatado — volta em " + timeLeft : "Recompensa: +" + opponent.reward + " GP e +" + opponent.rewardCoins + " Moedas"}</div>
+    </button>`;
+
+  const btn = document.getElementById("cbWeeklyBtn");
+  if(btn && !weekly.used){
+    btn.onclick = ()=>{
+      document.getElementById("cbLevels").classList.add("hidden");
+      cbStartBattle(opponent);
+    };
+  }
+}
+
 function cbRenderLevels(){
   const prog = cbProgress();
+
+  const perfectBanner = document.getElementById("cbPerfectBanner");
+  if(perfectBanner) perfectBanner.classList.toggle("hidden", !prog.perfectBonusClaimed);
+
+  cbRenderWeeklyCard();
+
   const grid = document.getElementById("cbLevelsGrid");
   grid.innerHTML = CB_OPPONENTS.map((op, i)=>{
     const levelNum = i + 1;
@@ -505,7 +606,7 @@ function cbFinishBattle(){
     result = "lose"; title = "Derrota"; desc = `${CB.awayName} levou a melhor dessa vez. Ajuste seu elenco e tente de novo.`;
   } else if(CB.awayLife <= 0 || CB.homeLife > CB.awayLife){
     won = true;
-    result = "win"; title = opponent && opponent.boss ? "BOSS DERROTADO! 👑" : "Vitória! 🏆";
+    result = "win"; title = opponent && opponent.boss ? "BOSS DERROTADO! 👑" : (opponent && opponent.weekly ? "Desafio da Semana vencido! 🔥" : "Vitória! 🏆");
     reward = opponent ? opponent.reward : 300;
     desc = `Você venceu ${CB.awayName} e ganhou recompensas pela batalha.`;
   } else if(CB.homeLife === CB.awayLife){
@@ -520,7 +621,8 @@ function cbFinishBattle(){
 
   let starsEarned = 0;
   let unlockedNext = false;
-  if(won && opponent){
+  let perfectJustUnlocked = false;
+  if(won && opponent && !opponent.weekly){
     starsEarned = cbStarsForResult();
     const prog = cbProgress();
     const prevStars = prog.stars[opponent.id] || 0;
@@ -530,11 +632,22 @@ function cbFinishBattle(){
       prog.unlockedLevel = idx + 2;
       unlockedNext = true;
     }
+    perfectJustUnlocked = cbCheckPerfectBonus(prog);
+  }
+  if(won && opponent && opponent.weekly){
+    cbWeeklyState().used = true;
   }
 
   if(reward > 0 && STATE && STATE.currency){
     STATE.currency.gp = (STATE.currency.gp||0) + reward;
     desc += ` (+${reward} GP)`;
+  }
+  if(won && opponent && opponent.rewardCoins > 0 && STATE && STATE.currency){
+    STATE.currency.coins = (STATE.currency.coins||0) + opponent.rewardCoins;
+    desc += ` +${opponent.rewardCoins} Moedas`;
+  }
+  if(perfectJustUnlocked){
+    desc += ` 🏆 BÔNUS ELENCO PERFEITO desbloqueado: +${CB_PERFECT_BONUS.gp} GP e +${CB_PERFECT_BONUS.coins} Moedas!`;
   }
   if(typeof persist === "function") persist();
 
@@ -544,12 +657,12 @@ function cbFinishBattle(){
 
     const starsWrap = document.getElementById("cbEndStars");
     if(starsWrap){
-      starsWrap.classList.toggle("hidden", !won);
+      starsWrap.classList.toggle("hidden", !won || (opponent && opponent.weekly));
       starsWrap.innerHTML = [1,2,3].map(n=>`<span class="${n<=starsEarned?'on':''}">★</span>`).join("");
     }
     const nextBtn = document.getElementById("cbNextLevelBtn");
     if(nextBtn){
-      const hasNext = opponent && (CB_OPPONENTS.findIndex(o=>o.id===opponent.id) + 1) < CB_OPPONENTS.length;
+      const hasNext = opponent && !opponent.weekly && (CB_OPPONENTS.findIndex(o=>o.id===opponent.id) + 1) < CB_OPPONENTS.length;
       nextBtn.classList.toggle("hidden", !(won && hasNext));
       nextBtn.textContent = unlockedNext ? "Próximo nível 🔓 ›" : "Próximo nível ›";
     }
