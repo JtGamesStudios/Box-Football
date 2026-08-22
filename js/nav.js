@@ -62,6 +62,7 @@ const CONTRACT_CARDS = [
   { nav: "contratar", banner: "banner-contract-contratar", icon: "", title: "Contratar", sub: "Abra Boxes e contrate seu próximo reforço", badgeSource: null },
   { nav: "trades",    banner: "banner-contract-trades",    icon: "🔁", title: "Trades",    sub: "Troque jogadores com o sistema ou com amigos", badgeSource: null, keepIcon: true },
   { nav: "loja",       banner: "banner-contract-loja",      icon: "", title: "Loja",       sub: "Troque Moedas por GP", badgeSource: null },
+  { nav: "pacotes",    banner: "banner-contract-pacotes",   icon: "🎁", title: "Pacotes",   sub: "Conteúdo garantido — sem sorteio", badgeSource: null, keepIcon: true },
 ];
 /* Sub-hub da tela "Contratar": escolher entre a Box Draw (Legends,
    paga em GP) e as Boxes Especiais (eventos/destaque, pagas em Moedas). */
@@ -337,6 +338,7 @@ function showScreen(id, opts){
   if(id==="informacoes") renderInformacoes();
   if(id==="matchpass") renderMatchPass();
   if(id==="loja") renderStore();  if(id==="config") renderConfigScreen();
+  if(id==="pacotes") renderPacotesScreen();
   if(id==="home") renderHome();
   if(id==="campanha") renderCampaign();
   if(id==="ranking") renderRankingScreen();
