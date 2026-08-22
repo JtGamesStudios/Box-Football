@@ -58,6 +58,28 @@
 .cb-lv-emoji{ font-size:26px; line-height:1; }
 .cb-lv-name{ font-size:11.5px; font-weight:700; line-height:1.25; }
 .cb-lv-tier{ font-size:9.5px; color:#9EA0C4; font-weight:600; letter-spacing:.03em; text-transform:uppercase; }
+
+/* ---------- Desafio da Semana ---------- */
+.cb-weekly-wrap{ margin-bottom:10px; }
+.cb-weekly{
+  width:100%; flex-direction:row; justify-content:flex-start; text-align:left; gap:12px; padding:12px 14px;
+  border-color:rgba(255,90,90,.5); background:linear-gradient(100deg, rgba(255,90,90,.16), rgba(255,255,255,.05));
+  box-shadow:0 0 0 1px rgba(255,90,90,.25), 0 8px 20px rgba(255,90,90,.15);
+}
+.cb-weekly.used{ opacity:.55; box-shadow:none; border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.06); }
+.cb-weekly .cb-lv-emoji{ font-size:30px; }
+.cb-weekly-tag{
+  position:absolute; top:-9px; left:12px; font-size:8.5px; font-weight:800; letter-spacing:.03em;
+  background:#ff5a5a; color:#fff; padding:2px 8px; border-radius:20px; text-transform:uppercase;
+}
+.cb-weekly.used .cb-weekly-tag{ background:#5a5a70; }
+
+/* ---------- Banner de Elenco Perfeito ---------- */
+.cb-perfect-banner{
+  margin-bottom:10px; padding:9px 12px; border-radius:var(--radius-md); text-align:center;
+  font-size:11.5px; font-weight:700; color:#2a1c00;
+  background:linear-gradient(100deg, #ffe08a, #ffc93c); box-shadow:0 6px 16px rgba(255,201,60,.25);
+}
 .cb-lv-stars{ display:flex; gap:2px; margin-top:2px; }
 .cb-lv-stars span{ font-size:11px; color:rgba(255,255,255,.25); }
 .cb-lv-stars span.on{ color:var(--gold); text-shadow:0 0 6px rgba(255,201,60,.6); }
