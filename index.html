@@ -761,6 +761,7 @@
 
       <div style="display:flex; gap:10px; margin:18px 0; flex-wrap:wrap;">
         <button class="btn btn-danger btn-sm" id="btnResetSave">Apagar progresso salvo</button>
+        <button class="btn btn-sm btn-primary" id="btnGamepadDiag">🎮 Testar Controle</button>
       </div>
 
       <h2 class="page-title" style="font-size:20px;margin-top:30px;">Resgatar código</h2>
@@ -772,6 +773,18 @@
     </section>
 
   </main>
+</div>
+
+<!-- ===================== DIAGNÓSTICO DE CONTROLE (Gamepad) ===================== -->
+<div class="gp-diag-overlay hidden" id="gpDiagOverlay">
+  <div class="gp-diag-box">
+    <div class="gp-diag-header">
+      <h2>🎮 Diagnóstico de Controle</h2>
+      <button class="gp-diag-close" id="gpDiagCloseBtn">✕</button>
+    </div>
+    <p class="gp-diag-hint">Conecte/pareie o controle agora e aperte alguns botões. As informações abaixo atualizam sozinhas.</p>
+    <div class="gp-diag-body" id="gpDiagBody">Abrindo…</div>
+  </div>
 </div>
 
 <!-- ===================== CUTSCENE (Destaque / Lendário) ===================== -->
@@ -988,6 +1001,7 @@
   });
 </script>
 <script src="js/gamepad-controls.js?v=1"></script>
+<script src="js/gamepad-diag.js"></script>
 <script src="js/main.js"></script>
 <script>
   // Registra o service worker para permitir "Instalar app" (PWA)
