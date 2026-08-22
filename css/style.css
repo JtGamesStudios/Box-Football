@@ -540,9 +540,17 @@ html.boxlist-active .carousel-title-row{ padding-top:42px; }
 html.boxlist-active .carousel-title-row{ flex:0 0 auto; margin-bottom:clamp(6px,1.6vh,14px); }
 html.boxlist-active .page-title{ font-size:clamp(18px,4.4vw,26px); margin-bottom:2px; }
 html.boxlist-active .page-sub{ font-size:clamp(11px,2.6vw,13px); }
-html.boxlist-active .box-grid{ flex:1; min-height:0; align-items:center; padding-bottom:4px; }
-html.boxlist-active .box-pair{ height:100%; max-height:100%; }
+html.boxlist-active .box-grid{ flex:1; min-height:0; align-items:center; padding-bottom:4px; overflow-y:auto; }
+html.boxlist-active .box-pair{ height:100%; max-height:100%; align-items:flex-start; }
 html.boxlist-active .box-card{ height:100%; max-height:100%; }
+/* O painel de stats NÃO acompanha mais a altura do card grande — ele fica
+   do tamanho do próprio conteúdo, encostado no topo do par. Antes ele era
+   esticado a 100% da altura do card e, como o conteúdo é bem menor que
+   isso, ficava centralizado dentro de uma caixa invisível gigante — daí o
+   rótulo "Jogadores Restantes" nascia acima da borda visível e era
+   cortado. overflow-y:auto entra só como rede de segurança, caso a tela
+   seja baixa demais até pro conteúdo real do painel. */
+html.boxlist-active .box-stats-panel{ height:auto; max-height:100%; overflow-y:auto; justify-content:flex-start; }
 /* Banner grande, dominando o card (estilo box de myClub/PES): a arte
    do jogador ocupa a maior parte do card, com o nome/prazo/preço
    embaixo, num painel branco enxuto — igual à referência. */
@@ -554,7 +562,7 @@ html.boxlist-active .box-banner{
 html.boxlist-active .box-banner::before{ background:rgba(0,0,0,.18); }
 html.boxlist-active .box-body{ padding:clamp(10px,2vh,16px); gap:clamp(6px,1.4vh,10px); }
 html.boxlist-active .box-name-lg{ font-size:clamp(19px,4.6vw,26px); }
-html.boxlist-active .box-stats-panel{ height:100%; max-height:100%; justify-content:center; padding:clamp(10px,2vh,18px) 16px; }
+html.boxlist-active .box-stats-panel{ height:auto; max-height:100%; justify-content:flex-start; padding:clamp(10px,2vh,18px) 16px; }
 /* Telas bem baixas (paisagem/TV box): encolhe mais um pouco pra sobrar
    folga garantida pro botão "Contratar" não ficar espremido no rodapé. */
 @media (max-height: 480px){
