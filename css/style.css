@@ -141,29 +141,40 @@ button{ font-family:inherit; cursor:pointer; }
 }
 
 /* --- Abas horizontais: Match / Club House / Contract / Extras ---
-   Distribuídas em toda a largura, separadas por "|", sem sublinhado —
-   a aba ativa só fica em azul + negrito + um pouco maior, igual à
-   referência (eFootball/PES). --- */
+   Movidas pro rodapé (barra fixa), fora do topo — assim o topo fica
+   livre (só carteira + ícones), igual à referência. A navegação
+   continua funcionando do mesmo jeito, só mudou de lugar. --- */
 .menu-tabs{
-  position:sticky; top:56px; z-index:25;
+  position:fixed; left:0; right:0; bottom:0; z-index:40;
   display:flex; align-items:center; justify-content:space-between; gap:6px;
-  padding:2px 18px; background:var(--surface);
-  border-bottom:1px solid var(--border);
+  padding:6px 18px calc(6px + env(safe-area-inset-bottom, 0px));
+  background:rgba(255,255,255,0.96); backdrop-filter:blur(10px);
+  border-top:1px solid var(--border);
+  box-shadow:0 -6px 18px rgba(0,0,0,.08);
   overflow-x:auto;
 }
 .menu-tab-item{
   position:relative; background:none; border:none; white-space:nowrap;
-  padding:13px 4px; font-size:14.5px; font-weight:600; color:var(--text-dim);
+  padding:11px 4px; font-size:14px; font-weight:600; color:var(--text-dim);
   transition:color .15s, font-size .15s;
 }
-.menu-tab-item.active{ color:var(--brand); font-weight:800; font-size:15.5px; }
+.menu-tab-item.active{ color:var(--brand); font-weight:800; font-size:15px; }
 .menu-tab-item .tab-dot{
-  position:absolute; top:9px; right:-3px; width:7px; height:7px; border-radius:50%;
+  position:absolute; top:7px; right:-3px; width:7px; height:7px; border-radius:50%;
   background:var(--crimson);
 }
 .menu-tab-item .tab-dot.orange{ background:#F5A623; }
 /* Separador "|" entre as abas, igual ao eFootball */
 .tab-sep{ color:var(--border); font-size:15px; font-weight:300; user-select:none; }
+
+/* Sobra de espaço embaixo em toda tela pra nada ficar escondido atrás
+   da barra fixa — usa a altura real dela via var, calculada em JS. */
+:root{ --menu-tabs-h: 54px; }
+.main{ padding-bottom:calc(60px + var(--menu-tabs-h)); }
+/* Telas "travadas" (hub/boxlist/lineup) também precisam da mesma folga
+   embaixo, senão o conteúdo/botões ficam escondidos atrás da barra fixa. */
+html.hub-active .main,
+html.boxlist-active .main{ padding-bottom:var(--menu-tabs-h); }
 
 /* ============ Main content ============ */
 .main{ flex:1; min-width:0; padding:26px 30px 60px; }
@@ -1417,7 +1428,7 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
 /* ============ Responsive: retrato (mobile) ============ */
 @media (max-width: 880px){
   .app-topbar{ padding:10px 14px; }
-  .menu-tabs{ top:52px; padding:0 14px; gap:8px; }
+  .menu-tabs{ padding:6px 14px calc(6px + env(safe-area-inset-bottom, 0px)); gap:8px; }
   .main{ padding:16px 14px 40px; }
   .box-grid{ gap:14px; }
   .box-grid .box-pair{ max-width:88vw; }
@@ -1481,7 +1492,7 @@ html.is-fullscreen .fullscreen-fab{ display:none !important; }
   .hero-stadium{ padding:20px 22px; }
   .hero-desc{ margin-bottom:10px; }
   .app-topbar{ padding:6px 14px; }
-  .menu-tabs{ top:44px; }
+
   /* Antes usava "transform:scale(.82)" aqui pra encolher a roleta.
      Só que isso cria um conflito de camadas de composição no GPU do
      celular junto com o translateZ(0) das .ball-item (que existe
