@@ -246,7 +246,14 @@ button{ font-family:inherit; cursor:pointer; }
 .menu-card.no-nav{ cursor:default; }
 .menu-card.no-nav:hover{ transform:none; }
 .menu-card-banner{
-  height:var(--hub-banner-h); position:relative; overflow:hidden;
+  height:var(--hub-banner-h); position:relative;
+  /* "overflow:visible" (não "hidden"): o ícone circular agora mora
+     DENTRO do banner e precisa "vazar" pra baixo da borda (metade
+     dele fica sobre o corpo do card). O recorte dos cantos arredondados
+     da FOTO continua funcionando sem overflow:hidden, porque
+     border-radius já recorta o próprio background-image do elemento
+     independente do overflow — isso nunca dependeu de overflow:hidden. */
+  overflow:visible;
   border-radius:var(--radius-lg) var(--radius-lg) 0 0;
   border:none;
   background:linear-gradient(135deg, var(--brand), var(--brand-dim));
@@ -259,11 +266,18 @@ button{ font-family:inherit; cursor:pointer; }
   font-family:var(--font-display); font-size:11.5px; font-weight:800; line-height:22px; text-align:center;
   box-shadow:0 2px 6px rgba(0,0,0,.4), 0 0 0 2px var(--surface);
 }
+/* O ícone agora é filho do banner (não mais irmão), e ancorado por
+   "bottom:0" — ou seja, ele SEMPRE gruda exatamente na borda de baixo
+   da foto, seja qual for a altura real do banner (px fixo, %, vh...).
+   Isso substitui o cálculo antigo por "top:X%" relativo ao card
+   inteiro, que dependia de duas contas (altura do banner E posição
+   do ícone) baterem certinho — e quebrava em telas bem baixas
+   (paisagem/TV box), cobrindo o título do card. */
 .menu-card-icon{
-  position:absolute; left:50%; top:var(--hub-banner-h); z-index:2; transform:translate(-50%, -50%);
-  width:clamp(44px,12vw,60px); height:clamp(44px,12vw,60px); border-radius:50%;
+  position:absolute; left:50%; bottom:0; z-index:2; transform:translate(-50%, 50%);
+  width:clamp(40px,11vw,60px); height:clamp(40px,11vw,60px); border-radius:50%;
   background:var(--surface); box-shadow:0 4px 14px rgba(0,0,0,0.22), 0 0 0 4px var(--surface);
-  display:flex; align-items:center; justify-content:center; font-size:clamp(19px,5vw,25px);
+  display:flex; align-items:center; justify-content:center; font-size:clamp(17px,4.6vw,25px);
   color:var(--brand);
 }
 .menu-card-body{
@@ -307,15 +321,26 @@ html.hub-active .menu-card-grid{
   grid-template-rows:repeat(2, 1fr);
 }
 html.hub-active .menu-card{ height:100%; min-height:0; }
-/* Banner ocupa 60% da altura do card, corpo os outros 40% — os dois
-   em porcentagem (não em px fixo), então o ícone circular que fica
-   sobre a base do banner também usa "top:60%" em vez da variável
-   --hub-banner-h antiga (que só funcionava com altura em px). */
+/* Banner ocupa 65% da altura do card, corpo os outros 35% — o ícone
+   circular não depende mais dessa conta (ver comentário acima, em
+   .menu-card-icon): ele gruda sozinho na borda do banner com
+   "bottom:0", então não precisa de um "top:X%" espelhado aqui. */
 html.hub-active .menu-card-banner{ flex:0 0 65%; height:auto; min-height:0; }
-html.hub-active .menu-card-icon{ top:65%; }
 html.hub-active .menu-card-body{
   flex:1 1 auto; min-height:0; overflow:hidden;
   display:flex; flex-direction:column; justify-content:center;
+  padding-top:clamp(20px,5vh,28px); /* espaço extra pro ícone não tampar o título quando o card fica baixo */
+}
+/* Telas MUITO baixas (paisagem/TV box): encolhe o ícone e deixa ele
+   grudado mais "raso" na foto, sobrando mais altura livre pro título
+   dentro da fatia pequena que o corpo do card tem nesse formato. */
+@media (max-height: 480px){
+  html.hub-active .menu-card-icon{
+    width:clamp(30px,7vw,42px); height:clamp(30px,7vw,42px); font-size:clamp(14px,3.4vw,19px);
+    transform:translate(-50%, 30%);
+  }
+  html.hub-active .menu-card-title{ font-size:clamp(11.5px,2.6vw,13.5px); }
+  html.hub-active .menu-card-sub{ display:none; } /* sem espaço sobrando pra subtítulo nesse formato */
 }
 
 /* --- Botão "‹ Voltar" injetado no topo das telas-filha --- */
