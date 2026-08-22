@@ -318,7 +318,7 @@ html.hub-active .page-sub{ flex:0 0 auto; }
 html.hub-active .page-sub{ margin-bottom:clamp(10px,2.5vh,22px); }
 html.hub-active .menu-card-grid{
   flex:1; min-height:0;
-  grid-template-rows:repeat(2, 1fr);
+  grid-template-rows:repeat(var(--hub-rows, 2), 1fr);
 }
 html.hub-active .menu-card{ height:100%; min-height:0; }
 /* Banner ocupa 65% da altura do card, corpo os outros 35% — o ícone
