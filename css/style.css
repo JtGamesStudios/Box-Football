@@ -524,21 +524,19 @@ html.boxlist-active, html.boxlist-active body{ height:100%; overflow:hidden; }
 html.boxlist-active #app{ height:100vh; height:100dvh; }
 html.boxlist-active .main{ flex:1; min-height:0; overflow:hidden; display:flex; flex-direction:column; padding-bottom:clamp(8px,2vh,16px); }
 html.boxlist-active .screen.active{ flex:1; min-height:0; display:flex; flex-direction:column; position:relative; }
-/* Botão Voltar aqui vira pílula flutuando por cima do carrossel (igual à
-   tela de Escalação), em vez de ocupar uma linha inteira lá em cima —
-   sobra mais altura pro card da Box ficar do tamanho certo. */
+/* Botão Voltar: pílula flutuante SÓLIDA azul, no canto inferior esquerdo
+   da tela (por cima do carrossel), em vez da barra que empurrava o
+   conteúdo lá em cima. */
 html.boxlist-active .screen-back-btn{
-  position:absolute; left:0; top:0; z-index:20;
-  margin:0; padding:9px 18px; border-radius:999px;
-  background:rgba(10,14,22,.55); backdrop-filter:blur(6px);
-  color:#fff; border:1px solid rgba(255,255,255,.18); font-size:12.5px; font-weight:700;
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
+  position:absolute; left:14px; bottom:14px; top:auto; z-index:20;
+  margin:0; padding:11px 22px; border-radius:999px;
+  background:linear-gradient(135deg, var(--brand), var(--brand-dim));
+  color:#fff; border:none; font-size:13.5px; font-weight:700;
+  box-shadow:0 6px 16px rgba(25,140,255,.4);
 }
-html.boxlist-active .screen-back-btn:hover{ background:rgba(10,14,22,.72); }
-/* título sumiu da tela Especial, então sobrou só as setinhas — não
-   precisam mais do respiro grande que era só pra não ficar embaixo da
-   pílula do Voltar (que fica na ponta esquerda, sem cruzar com elas) */
-html.boxlist-active .carousel-title-row{ padding-top:6px; }
+html.boxlist-active .screen-back-btn:hover{ background:linear-gradient(135deg,#39A0FF,#0F6FD1); }
+/* sem o botão lá em cima, o topo não precisa mais de respiro extra */
+html.boxlist-active .carousel-title-row{ padding-top:0; }
 html.boxlist-active .carousel-title-row{ flex:0 0 auto; margin-bottom:clamp(4px,1vh,10px); }
 html.boxlist-active .page-title{ font-size:clamp(18px,4.4vw,26px); margin-bottom:2px; }
 html.boxlist-active .page-sub{ font-size:clamp(11px,2.6vw,13px); }
@@ -557,7 +555,7 @@ html.boxlist-active .box-stats-panel{ height:auto; max-height:100%; overflow-y:a
    do jogador ocupa a maior parte do card, com o nome/prazo/preço
    embaixo, num painel branco enxuto — igual à referência. */
 html.boxlist-active .box-banner{
-  height:clamp(220px,60vh,500px);
+  height:clamp(230px,66vh,560px);
   align-items:flex-start; /* badge "ATIVA"/"FREE" fica no topo, não em cima da arte */
   padding:12px;
 }
