@@ -507,8 +507,37 @@ html.hub-active .menu-card-body{
 .btn-reset-dark{ background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:#fff; }
 .btn-reset-dark:hover{ background:rgba(255,255,255,.16); }
 
-@media (max-width: 620px){
-  .box-pair{ flex-direction:column; max-width:340px; }
+/* ============ Box Draw / Especial travadas na tela (sem scroll) ============
+   Mesma ideia das telas hub: em vez de rolar pra ver preço/botão, o
+   card inteiro (banner + corpo + painel de stats) cabe na altura da
+   tela — igual eFootball. Só ativa nessas 2 telas (classe
+   "boxlist-active" via nav.js), então não mexe na tela "Boxes"
+   (coleção/lista com progresso, que continua rolando normal). */
+html.boxlist-active, html.boxlist-active body{ height:100%; overflow:hidden; }
+html.boxlist-active #app{ height:100vh; height:100dvh; }
+html.boxlist-active .main{ flex:1; min-height:0; overflow:hidden; display:flex; flex-direction:column; padding-bottom:clamp(8px,2vh,16px); }
+html.boxlist-active .screen.active{ flex:1; min-height:0; display:flex; flex-direction:column; }
+html.boxlist-active .carousel-title-row{ flex:0 0 auto; margin-bottom:clamp(6px,1.6vh,14px); }
+html.boxlist-active .page-title{ font-size:clamp(18px,4.4vw,26px); margin-bottom:2px; }
+html.boxlist-active .page-sub{ font-size:clamp(11px,2.6vw,13px); }
+html.boxlist-active .box-grid{ flex:1; min-height:0; align-items:center; padding-bottom:4px; }
+html.boxlist-active .box-pair{ height:100%; max-height:100%; }
+html.boxlist-active .box-card{ height:100%; max-height:100%; }
+html.boxlist-active .box-banner{ height:clamp(70px,17vh,110px); }
+html.boxlist-active .box-body{ padding:clamp(10px,2vh,16px); gap:clamp(6px,1.4vh,12px); }
+html.boxlist-active .box-stats-panel{ height:100%; max-height:100%; justify-content:center; padding:clamp(10px,2vh,18px) 16px; }
+/* Telas bem baixas (paisagem/TV box): encolhe mais um pouco pra sobrar
+   folga garantida pro botão "Contratar" não ficar espremido no rodapé. */
+@media (max-height: 480px){
+  html.boxlist-active .box-banner{ height:clamp(56px,13vh,84px); }
+  html.boxlist-active .box-body{ padding:8px 10px; gap:6px; }
+  html.boxlist-active .box-name-lg{ font-size:14px; }
+  html.boxlist-active .stat-value{ font-size:20px; }
+  html.boxlist-active .stat-block{ margin-bottom:0; }
+  html.boxlist-active .box-stats-panel{ gap:8px; }
+}
+
+@media (max-width: 620px){  .box-pair{ flex-direction:column; max-width:340px; }
   .box-pair .box-card{ max-width:none; }
   .box-stats-panel{ flex-direction:row; flex-wrap:wrap; }
   .stat-block{ flex:1 1 45%; }
