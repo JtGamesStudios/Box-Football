@@ -535,9 +535,11 @@ html.boxlist-active .screen-back-btn{
   box-shadow:0 4px 12px rgba(0,0,0,.25);
 }
 html.boxlist-active .screen-back-btn:hover{ background:rgba(10,14,22,.72); }
-/* título/carrossel ganham um respiro em cima pra não ficar embaixo da pílula */
-html.boxlist-active .carousel-title-row{ padding-top:42px; }
-html.boxlist-active .carousel-title-row{ flex:0 0 auto; margin-bottom:clamp(6px,1.6vh,14px); }
+/* título sumiu da tela Especial, então sobrou só as setinhas — não
+   precisam mais do respiro grande que era só pra não ficar embaixo da
+   pílula do Voltar (que fica na ponta esquerda, sem cruzar com elas) */
+html.boxlist-active .carousel-title-row{ padding-top:6px; }
+html.boxlist-active .carousel-title-row{ flex:0 0 auto; margin-bottom:clamp(4px,1vh,10px); }
 html.boxlist-active .page-title{ font-size:clamp(18px,4.4vw,26px); margin-bottom:2px; }
 html.boxlist-active .page-sub{ font-size:clamp(11px,2.6vw,13px); }
 html.boxlist-active .box-grid{ flex:1; min-height:0; align-items:center; padding-bottom:4px; overflow-y:auto; }
@@ -555,7 +557,7 @@ html.boxlist-active .box-stats-panel{ height:auto; max-height:100%; overflow-y:a
    do jogador ocupa a maior parte do card, com o nome/prazo/preço
    embaixo, num painel branco enxuto — igual à referência. */
 html.boxlist-active .box-banner{
-  height:clamp(200px,52vh,440px);
+  height:clamp(220px,60vh,500px);
   align-items:flex-start; /* badge "ATIVA"/"FREE" fica no topo, não em cima da arte */
   padding:12px;
 }
