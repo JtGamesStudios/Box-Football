@@ -1,4 +1,4 @@
-const CACHE_NAME = "boxclube-v3";
+const CACHE_NAME = "boxclube-v4";
 const PRECACHE_URLS = [
   "./index.html",
   "./css/style.css",
