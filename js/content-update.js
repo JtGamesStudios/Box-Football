@@ -93,14 +93,20 @@
     return total;
   }
 
-  async function downloadAssets(assets, version, onProgress) {
+  async function downloadAssets(assets, version, onProgress, signal) {
     let cache = null;
     if (window.caches && caches.open) {
       cache = await caches.open(CACHE_NAME_PREFIX + version);
     }
     let downloaded = 0;
+    let filesDone = 0;
     for (const url of assets) {
-      const res = await fetch(url, { cache: "reload" });
+      if (signal && signal.aborted) {
+        const err = new Error("Download cancelado");
+        err.name = "AbortError";
+        throw err;
+      }
+      const res = await fetch(url, { cache: "reload", signal });
       if (!res.ok) throw new Error("Falha ao baixar " + url);
       const len = parseInt(res.headers.get("content-length") || "0", 10);
       if (cache) {
@@ -111,7 +117,8 @@
         }
       }
       downloaded += len || 0;
-      onProgress(downloaded);
+      filesDone += 1;
+      onProgress(downloaded, filesDone);
     }
     return downloaded;
   }
@@ -135,16 +142,17 @@
       return;
     }
 
+    const titleEl = document.getElementById("contentUpdateTitle");
     const labelEl = document.getElementById("contentUpdateLabel");
-    const sizeEl = document.getElementById("contentUpdateSize");
+    const countEl = document.getElementById("contentUpdateCount");
     const fillEl = document.getElementById("contentUpdateFill");
+    const pctEl = document.getElementById("contentUpdatePct");
     const statusEl = document.getElementById("contentUpdateStatus");
     const btn = document.getElementById("contentUpdateBtn");
 
     // Se vários updates ficaram pendentes (pessoa sumiu um tempo), junta
     // tudo num download só, com o texto do update mais recente.
     const finalVersion = pendingUpdates[pendingUpdates.length - 1].version;
-    const label = pendingUpdates[pendingUpdates.length - 1].label || "Novidades no Box-Football.";
     const assets = [];
     const seen = new Set();
     pendingUpdates.forEach((u) => {
@@ -156,44 +164,73 @@
       });
     });
 
-    if (labelEl) labelEl.textContent = label;
-    if (sizeEl) sizeEl.textContent = "Calculando tamanho…";
+    const defaultDesc = "Não saia do aplicativo enquanto baixa dados ou durante a instalação.";
+    if (labelEl) labelEl.textContent = defaultDesc;
+    if (countEl) countEl.textContent = `0 / ${assets.length || 1}`;
+    if (statusEl) statusEl.classList.add("hidden");
 
     const totalSize = await computeTotalSize(assets);
-    if (sizeEl) {
-      sizeEl.textContent = totalSize > 0 ? `Tamanho: ${formatBytes(totalSize)}` : "Atualização leve — poucos KB.";
+    let controller = null;
+
+    function setProgress(pct, filesDone) {
+      const clamped = Math.max(0, Math.min(100, pct));
+      if (fillEl) fillEl.style.width = clamped + "%";
+      if (pctEl) pctEl.textContent = Math.round(clamped) + "%";
+      if (countEl) countEl.textContent = `${filesDone} / ${assets.length || 1}`;
     }
 
     function startDownload() {
-      if (btn) {
-        btn.disabled = true;
-        btn.textContent = "Baixando…";
-      }
-      if (statusEl) statusEl.textContent = "Baixando, não feche o jogo…";
+      controller = (typeof AbortController !== "undefined") ? new AbortController() : null;
 
-      downloadAssets(assets, finalVersion, (downloaded) => {
-        const pct = totalSize > 0 ? Math.min(100, Math.round((downloaded / totalSize) * 100)) : 100;
-        if (fillEl) fillEl.style.width = pct + "%";
-        if (statusEl) statusEl.textContent = `Baixando… ${formatBytes(downloaded)}${totalSize > 0 ? " / " + formatBytes(totalSize) : ""}`;
-      })
+      if (titleEl) titleEl.textContent = "Baixando";
+      if (labelEl) labelEl.textContent = defaultDesc;
+      if (statusEl) statusEl.classList.add("hidden");
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Cancelar";
+        btn.onclick = () => { if (controller) controller.abort(); };
+      }
+      setProgress(0, 0);
+
+      downloadAssets(assets, finalVersion, (downloaded, filesDone) => {
+        const pct = totalSize > 0 ? (downloaded / totalSize) * 100 : (filesDone / (assets.length || 1)) * 100;
+        setProgress(pct, filesDone);
+      }, controller ? controller.signal : null)
         .then(() => {
-          if (fillEl) fillEl.style.width = "100%";
-          if (statusEl) statusEl.textContent = "Concluído!";
+          setProgress(100, assets.length || 1);
           saveVersion(finalVersion);
           pending = false;
-          setTimeout(hideUpdateOverlay, 400);
+          setTimeout(hideUpdateOverlay, 350);
         })
         .catch((err) => {
+          if (err && err.name === "AbortError") {
+            if (titleEl) titleEl.textContent = "Download cancelado";
+            if (statusEl) {
+              statusEl.textContent = "Você pode continuar de onde parou quando quiser.";
+              statusEl.classList.remove("hidden");
+            }
+            if (btn) {
+              btn.disabled = false;
+              btn.textContent = "Baixar novamente";
+              btn.onclick = startDownload;
+            }
+            return;
+          }
           console.warn("[content-update] Falha no download:", err);
-          if (statusEl) statusEl.textContent = "Não deu pra baixar agora. Verifique sua conexão e tente de novo.";
+          if (titleEl) titleEl.textContent = "Falha no download";
+          if (statusEl) {
+            statusEl.textContent = "Não deu pra baixar agora. Verifique sua conexão e tente de novo.";
+            statusEl.classList.remove("hidden");
+          }
           if (btn) {
             btn.disabled = false;
-            btn.textContent = "⬇️ Tentar novamente";
+            btn.textContent = "Tentar novamente";
+            btn.onclick = startDownload;
           }
         });
     }
 
-    if (btn) btn.onclick = startDownload;
+    startDownload();
   }
 
   async function checkForUpdate() {

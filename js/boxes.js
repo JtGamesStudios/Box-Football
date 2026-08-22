@@ -250,8 +250,8 @@ function renderContratarGrid(category){
                 ? `<div class="price-pill">$ ${box.priceGP.toLocaleString("pt-BR")}</div>`
                 : box.category === "gratis"
                   ? (freeSpin
-                      ? `<div class="price-pill price-pill-free">GRÁTIS</div><span class="free-left-badge">${remaining} restante${remaining===1?"":"s"}</span>`
-                      : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div><span class="free-left-badge">${remaining} restante${remaining===1?"":"s"}</span>`)
+                      ? `<span class="free-left-badge">${remaining} rest.</span><div class="price-pill price-pill-free">GRÁTIS</div>`
+                      : `<span class="free-left-badge">${remaining} rest.</span><div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`)
                   : box.category === "eventspin"
                     ? `<div class="price-pill price-pill-free">${eventSpins} giro${eventSpins===1?"":"s"} ganho${eventSpins===1?"":"s"}</div>`
                     : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`}
