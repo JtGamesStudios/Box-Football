@@ -317,6 +317,11 @@ function showScreen(id, opts){
   // com layout próprio (toolbar + status bar + abas Campo/Banco) — por isso
   // tem sua própria classe em vez de entrar em HUB_SCREENS.
   document.documentElement.classList.toggle("lineup-active", id === "escalacao");
+  // Box Draw / Especial: mesmo truque de "trava na tela sem rolar" da
+  // hub, só que com o layout próprio delas (carrossel horizontal +
+  // painel de estatísticas ao lado) — é a tela que ficava "cortada",
+  // pedindo scroll pra ver o preço/botão, diferente do padrão eFootball.
+  document.documentElement.classList.toggle("boxlist-active", id === "boxdraw" || id === "especial");
 
   updateBackButton(id);
 
