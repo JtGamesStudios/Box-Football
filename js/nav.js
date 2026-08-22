@@ -218,6 +218,12 @@ function buildHubGrid(containerId, cards){
   const wrap = document.getElementById(containerId);
   if(!wrap) return;
   wrap.innerHTML = "";
+  // Linhas do grid calculadas pela quantidade real de cards, não mais
+  // fixas em "2" — senão uma tela com só 2 cards (ex: "Contratar", que
+  // só tem Box Draw + Especial) sobra com uma linha inteira vazia
+  // embaixo, e os cards ficam espremidos/achatados no topo da tela
+  // em vez de preencherem a altura toda (como no eFootball).
+  wrap.style.setProperty("--hub-rows", Math.max(1, Math.ceil(cards.length / 2)));
   cards.forEach(c=>{
     const btn = document.createElement("button");
     const isLocked = !!c.locked;
