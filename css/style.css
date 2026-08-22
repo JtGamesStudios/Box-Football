@@ -468,7 +468,7 @@ html.hub-active .menu-card-body{
 .box-name-lg{ font-family:var(--font-display); font-weight:700; font-size:16.5px; color:var(--text); }
 .box-timeleft{ font-size:11.5px; color:var(--text-muted); }
 
-.box-bottom-row{ display:flex; align-items:center; gap:10px; }
+.box-bottom-row{ display:flex; align-items:flex-end; gap:10px; }
 .box-search-btn{
   flex:0 0 auto; width:38px; height:38px; border-radius:50%;
   border:1px solid var(--border); background:var(--surface-2); color:var(--text-muted);
@@ -476,14 +476,16 @@ html.hub-active .menu-card-body{
   transition:transform .12s, border-color .15s, color .15s;
 }
 .box-search-btn:hover{ transform:translateY(-1px); border-color:var(--brand); color:var(--brand); }
-.box-prices-inline{ flex:1; display:flex; align-items:center; gap:8px; }
-.box-prices-inline .price-pill{ flex:1; }
+/* Empilhado: "X restante(s)" em cima, botão de preço/GRÁTIS embaixo —
+   igual à referência (texto do estoque fica colado acima do botão). */
+.box-prices-inline{ flex:1; display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
+.box-prices-inline .price-pill{ width:100%; }
 .price-pill-free{
   background:linear-gradient(135deg,#FF2D78,#FF7EB3); border-color:transparent; color:#fff;
   box-shadow:0 0 10px rgba(255,45,120,.45);
 }
 .free-left-badge{
-  flex:0 0 auto; font-size:11px; font-weight:700; color:var(--text-muted);
+  flex:0 0 auto; font-size:12px; font-weight:700; color:#FF7A1A;
   white-space:nowrap; padding:0 2px;
 }
 .btn-free-spin{
@@ -523,15 +525,24 @@ html.boxlist-active .page-sub{ font-size:clamp(11px,2.6vw,13px); }
 html.boxlist-active .box-grid{ flex:1; min-height:0; align-items:center; padding-bottom:4px; }
 html.boxlist-active .box-pair{ height:100%; max-height:100%; }
 html.boxlist-active .box-card{ height:100%; max-height:100%; }
-html.boxlist-active .box-banner{ height:clamp(70px,17vh,110px); }
-html.boxlist-active .box-body{ padding:clamp(10px,2vh,16px); gap:clamp(6px,1.4vh,12px); }
+/* Banner grande, dominando o card (estilo box de myClub/PES): a arte
+   do jogador ocupa a maior parte do card, com o nome/prazo/preço
+   embaixo, num painel branco enxuto — igual à referência. */
+html.boxlist-active .box-banner{
+  height:clamp(200px,52vh,440px);
+  align-items:flex-start; /* badge "ATIVA"/"FREE" fica no topo, não em cima da arte */
+  padding:12px;
+}
+html.boxlist-active .box-banner::before{ background:rgba(0,0,0,.18); }
+html.boxlist-active .box-body{ padding:clamp(10px,2vh,16px); gap:clamp(6px,1.4vh,10px); }
+html.boxlist-active .box-name-lg{ font-size:clamp(19px,4.6vw,26px); }
 html.boxlist-active .box-stats-panel{ height:100%; max-height:100%; justify-content:center; padding:clamp(10px,2vh,18px) 16px; }
 /* Telas bem baixas (paisagem/TV box): encolhe mais um pouco pra sobrar
    folga garantida pro botão "Contratar" não ficar espremido no rodapé. */
 @media (max-height: 480px){
-  html.boxlist-active .box-banner{ height:clamp(56px,13vh,84px); }
+  html.boxlist-active .box-banner{ height:clamp(120px,38vh,220px); }
   html.boxlist-active .box-body{ padding:8px 10px; gap:6px; }
-  html.boxlist-active .box-name-lg{ font-size:14px; }
+  html.boxlist-active .box-name-lg{ font-size:16px; }
   html.boxlist-active .stat-value{ font-size:20px; }
   html.boxlist-active .stat-block{ margin-bottom:0; }
   html.boxlist-active .box-stats-panel{ gap:8px; }
