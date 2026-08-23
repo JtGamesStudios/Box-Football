@@ -1,0 +1,61 @@
+{
+  "cups": [
+    {
+      "id": "cup_test_1",
+      "title": "[TESTE] Copa Exemplo",
+      "league": "Liga de Teste — trocar quando a liga real for definida",
+      "banner": "assets/banners/banner-home-konamicup.jpg",
+      "active": true,
+      "rewardCoins": 1000,
+      "rewardBadgeId": "badge_cup_test_1",
+      "rewardBadgeIcon": "🏆",
+      "rewardBadgeLabel": "Campeão: Copa Exemplo [TESTE]",
+      "opponentStrength": 68,
+      "homeClubs": [
+        {
+          "id": "club_home_1",
+          "name": "Clube Casa A [exemplo]",
+          "roster": [
+            { "name": "Jogador Exemplo A1", "pos": "GOL" },
+            { "name": "Jogador Exemplo A2", "pos": "ZAG" },
+            { "name": "Jogador Exemplo A3", "pos": "ZAG" },
+            { "name": "Jogador Exemplo A4", "pos": "LAT" },
+            { "name": "Jogador Exemplo A5", "pos": "LAT" },
+            { "name": "Jogador Exemplo A6", "pos": "VOL" },
+            { "name": "Jogador Exemplo A7", "pos": "VOL" },
+            { "name": "Jogador Exemplo A8", "pos": "MEI" },
+            { "name": "Jogador Exemplo A9", "pos": "PON" },
+            { "name": "Jogador Exemplo A10", "pos": "PON" },
+            { "name": "Jogador Exemplo A11", "pos": "ATA" }
+          ]
+        },
+        {
+          "id": "club_home_2",
+          "name": "Clube Casa B [exemplo]",
+          "roster": [
+            { "name": "Jogador Exemplo B1", "pos": "GOL" },
+            { "name": "Jogador Exemplo B2", "pos": "ZAG" },
+            { "name": "Jogador Exemplo B3", "pos": "ZAG" },
+            { "name": "Jogador Exemplo B4", "pos": "LAT" },
+            { "name": "Jogador Exemplo B5", "pos": "LAT" },
+            { "name": "Jogador Exemplo B6", "pos": "VOL" },
+            { "name": "Jogador Exemplo B7", "pos": "VOL" },
+            { "name": "Jogador Exemplo B8", "pos": "MEI" },
+            { "name": "Jogador Exemplo B9", "pos": "PON" },
+            { "name": "Jogador Exemplo B10", "pos": "PON" },
+            { "name": "Jogador Exemplo B11", "pos": "ATA" }
+          ]
+        }
+      ],
+      "opponentClubs": [
+        { "id": "club_opp_1", "name": "Rival Exemplo 1", "npcStrength": 64 },
+        { "id": "club_opp_2", "name": "Rival Exemplo 2", "npcStrength": 66 },
+        { "id": "club_opp_3", "name": "Rival Exemplo 3", "npcStrength": 68 },
+        { "id": "club_opp_4", "name": "Rival Exemplo 4", "npcStrength": 70 },
+        { "id": "club_opp_5", "name": "Rival Exemplo 5", "npcStrength": 72 },
+        { "id": "club_opp_6", "name": "Rival Exemplo 6", "npcStrength": 74 },
+        { "id": "club_opp_7", "name": "Rival Exemplo 7", "npcStrength": 76 }
+      ]
+    }
+  ]
+}
