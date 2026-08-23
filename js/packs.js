@@ -39,18 +39,31 @@ function packPlayerById(id){
    Roda uma vez no boot (idempotente: não duplica se já tem). */
 function backfillPackBadges(){
   let changed = false;
+  const newlyGranted = [];
   (GAME_DATA.packs || []).forEach(pack=>{
     if(!pack.badgeId) return;
     if(packPurchaseCount(pack.id) <= 0) return;
     STATE.profileBadges = STATE.profileBadges || [];
     if(!STATE.profileBadges.some(b => b.id === pack.badgeId)){
-      STATE.profileBadges.push({ id: pack.badgeId, icon: pack.badgeIcon || "🎖️", label: pack.cosmeticLabel || pack.title });
+      const badge = { id: pack.badgeId, icon: pack.badgeIcon || "🎖️", label: pack.cosmeticLabel || pack.title };
+      STATE.profileBadges.push(badge);
+      newlyGranted.push(badge);
       changed = true;
     }
   });
   if(changed){
     persist();
     if(typeof syncRankingToFirebase === "function") syncRankingToFirebase();
+    // Avisa a pessoa de verdade — sem isso, ela só ficaria sabendo se
+    // abrisse Configurações por acaso. Um toast por insígnia nova,
+    // com um pequeno atraso pro boot terminar de desenhar a tela.
+    setTimeout(()=>{
+      newlyGranted.forEach(b=>{
+        if(typeof toast === "function"){
+          toast(`${b.icon} Nova insígnia conquistada: "${b.label}"! Veja em Configurações.`, "success");
+        }
+      });
+    }, 1200);
   }
 }
 
