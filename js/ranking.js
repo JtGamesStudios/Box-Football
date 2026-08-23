@@ -273,6 +273,7 @@ async function pushProfileToFirestore() {
         losses: c.losses,
         isBot: false,
         playerIdLocal: typeof getPlayerId === "function" ? getPlayerId() : null,
+        badges: (STATE.profileBadges || []).map(b => ({ icon: b.icon, label: b.label })),
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       },
       { merge: true }
@@ -345,7 +346,7 @@ function leaderboardRowHtml(entry, position, isMe) {
       <img class="leaderboard-avatar" src="${avatarUrl(entry.avatar)}" alt="" onerror="this.style.opacity=0">
       <span class="leaderboard-flag-badge">${entry.nationalityFlag || "🏳️"}</span>
     </span>
-    <span class="leaderboard-name">${entry.username || "?"}</span>
+    <span class="leaderboard-name">${entry.username || "?"}${entry.badges && entry.badges[0] ? `<span class="leaderboard-badge" title="${entry.badges[0].label || ""}">${entry.badges[0].icon}</span>` : ""}</span>
     <span class="leaderboard-rating"><span class="leaderboard-coin">🪙</span>${(entry.rating || 0).toLocaleString("pt-BR")}</span>
   </div>`;
 }
@@ -443,6 +444,7 @@ async function renderRankingScreen() {
     username: STATE.profile.username,
     nationalityFlag: STATE.profile.nationalityFlag,
     rating,
+    badges: (STATE.profileBadges || []).map(b => ({ icon: b.icon, label: b.label })),
   };
   meWrap.innerHTML =
     `<div class="ranking-me-label">Sua posição</div>` +

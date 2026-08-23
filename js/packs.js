@@ -58,7 +58,7 @@ function renderPacotesScreen(){
 
     return `
     <div class="pack-card">
-      <div class="pack-header">
+      <div class="pack-header" ${pack.banner ? `style="background-image:url('${pack.banner}')"` : ""}>
         <div>
           <div class="pack-subtitle">${pack.subtitle || "Pacote Especial"}</div>
           <div class="pack-title">${pack.title}</div>
@@ -91,6 +91,28 @@ function renderPacotesScreen(){
   }).join("");
 }
 
+/* ---------- Insígnias de perfil ----------
+   Por enquanto só os Pacotes concedem insígnia (campo "badgeId" no
+   pack), mas STATE.profileBadges foi feito genérico de propósito —
+   dá pra qualquer outro sistema (Card Battle, eventos, etc.) chamar
+   STATE.profileBadges.push({id,icon,label}) no futuro sem mudar nada
+   aqui. Aparecem em Configurações e (se sincronizado) no Ranking
+   Global, junto do nome do jogador. */
+function renderProfileBadges(){
+  const wrap = document.getElementById("profileBadgesGrid");
+  if(!wrap) return;
+  const badges = STATE.profileBadges || [];
+  if(!badges.length){
+    wrap.innerHTML = `<p class="page-sub" style="margin:0;">Nenhuma insígnia ainda — compre um Pacote especial pra conquistar a primeira.</p>`;
+    return;
+  }
+  wrap.innerHTML = badges.map(b => `
+    <div class="badge-chip" title="${b.label}">
+      <span class="badge-chip-icon">${b.icon}</span>
+      <span class="badge-chip-label">${b.label}</span>
+    </div>`).join("");
+}
+
 function buyPack(packId){
   const pack = getPackById(packId);
   if(!pack || !isPackLive(pack)) { toast("Esse Pacote não está mais disponível.", ""); return; }
@@ -110,8 +132,17 @@ function buyPack(packId){
   STATE.packPurchases = STATE.packPurchases || {};
   STATE.packPurchases[packId] = (STATE.packPurchases[packId] || 0) + 1;
 
+  if(pack.badgeId){
+    STATE.profileBadges = STATE.profileBadges || [];
+    if(!STATE.profileBadges.some(b => b.id === pack.badgeId)){
+      STATE.profileBadges.push({ id: pack.badgeId, icon: pack.badgeIcon || "🎖️", label: pack.cosmeticLabel || pack.title });
+    }
+  }
+
   persist();
   if(typeof refreshWalletUI === "function") refreshWalletUI();
+  if(typeof syncRankingToFirebase === "function") syncRankingToFirebase();
+  if(typeof renderProfileBadges === "function") renderProfileBadges();
   toast(`Pacote "${pack.title}" resgatado! ${1 + squad.length} cartas adicionadas ao seu elenco.`, "success");
   renderPacotesScreen();
 }

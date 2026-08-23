@@ -29,6 +29,7 @@ function renderHome(){
 function renderConfigScreen(){
   const el = document.getElementById("configPlayerId");
   if(el) el.textContent = getPlayerId();
+  if(typeof renderProfileBadges === "function") renderProfileBadges();
 }
 
 function wireSettings(){

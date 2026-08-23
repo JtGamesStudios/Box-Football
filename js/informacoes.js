@@ -19,6 +19,18 @@
 
 const INFO_ITEMS = [
 {
+    id: "pacotes-teaser-2026-09",
+    date: "22/08/2026",
+    title: "🎁 Chegam os Pacotes — conteúdo garantido, sem sorteio!",
+    preview: "Novo tipo de oferta: você vê exatamente o que vai ganhar antes de comprar.",
+    body: [
+      "Chegou o modo Pacotes! Diferente das Boxes normais, aqui não tem sorteio: você vê a carta principal e todo o esquadrão garantido ANTES de comprar, além de bônus em GP, Moedas e um item cosmético exclusivo.",
+      "🔒 Fique de olho: alguns dos próximos Pacotes vão trazer jogadores exclusivos que nunca estiveram disponíveis no Box Football antes — nomes de peso que ainda não vamos revelar aqui, pra manter a surpresa.",
+      "Cada Pacote tem estoque limitado por conta e prazo pra acabar, então quando um chamar sua atenção, não deixa pra depois.",
+      "Confira em Contract > Pacotes.",
+    ],
+  },
+{
     id: "boxes-epic-and-konami-cup-2026-09-03",
     date: "03/09/2026",
     title: "🏆 3 novas Boxes Epic (chegada escalonada) + evento Konami Cup / Matchday!",

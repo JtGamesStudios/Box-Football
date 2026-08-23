@@ -85,7 +85,7 @@ const SCREEN_PARENT_TAB = {
   amigo: "home",
   cardbattle: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
-  contract: "contract", contratar: "contract", boxes: "contract", loja: "contract", trades: "contract",
+  contract: "contract", contratar: "contract", boxes: "contract", loja: "contract", trades: "contract", pacotes: "contract",
   boxdraw: "contratar", especial: "contratar",
   extras: "extras", presentes: "extras", config: "extras",
   informacoes: "home",
