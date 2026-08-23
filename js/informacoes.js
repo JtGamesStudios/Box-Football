@@ -32,7 +32,7 @@ const INFO_ITEMS = [
   },
 {
     id: "boxes-epic-and-konami-cup-2026-09-03",
-    date: "03/09/2026",
+    date: "21/08/2026",
     title: "🏆 3 novas Boxes Epic (chegada escalonada) + evento Konami Cup / Matchday!",
     preview: "Spanish League (03/09), Netherlands (06/09) e Brazil 1994 (10/09) — e um evento novo entra no ar toda semana.",
     body: [
