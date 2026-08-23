@@ -179,9 +179,9 @@ function refreshWalletUI(){
 }
 
 /* ---------- presentes ---------- */
-function addGift(title, desc, gp, coins){
+function addGift(title, desc, gp, coins, badge){
   const id = "g" + (STATE.stats.giftIdSeq++);
-  STATE.gifts.push({ id, title, desc, gp: gp||0, coins: coins||0, claimed:false, createdAt: Date.now() });
+  STATE.gifts.push({ id, title, desc, gp: gp||0, coins: coins||0, badge: badge||null, claimed:false, createdAt: Date.now() });
   persist();
 }
 
@@ -190,14 +190,38 @@ function claimGift(id){
   if(!g || g.claimed) return;
   g.claimed = true;
   grantCurrency(g.gp, g.coins);
+  if(g.badge){
+    STATE.profileBadges = STATE.profileBadges || [];
+    if(!STATE.profileBadges.some(b => b.id === g.badge.id)){
+      STATE.profileBadges.push(g.badge);
+      if(typeof syncRankingToFirebase === "function") syncRankingToFirebase();
+      if(typeof renderProfileBadges === "function") renderProfileBadges();
+    }
+  }
   persist();
 }
 
 function claimAllGifts(){
   let gp=0, coins=0, count=0;
-  STATE.gifts.forEach(g=>{ if(!g.claimed){ gp+=g.gp; coins+=g.coins; g.claimed=true; count++; } });
+  const badgesGranted = [];
+  STATE.gifts.forEach(g=>{
+    if(!g.claimed){
+      gp+=g.gp; coins+=g.coins; g.claimed=true; count++;
+      if(g.badge){
+        STATE.profileBadges = STATE.profileBadges || [];
+        if(!STATE.profileBadges.some(b => b.id === g.badge.id)){
+          STATE.profileBadges.push(g.badge);
+          badgesGranted.push(g.badge);
+        }
+      }
+    }
+  });
   if(count>0){ grantCurrency(gp, coins); toast(`${count} presente(s) resgatado(s)!`, "success"); }
   else toast("Nenhum presente pendente.", "");
+  if(badgesGranted.length){
+    if(typeof syncRankingToFirebase === "function") syncRankingToFirebase();
+    if(typeof renderProfileBadges === "function") renderProfileBadges();
+  }
   persist();
 }
 

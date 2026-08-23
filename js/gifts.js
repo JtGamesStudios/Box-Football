@@ -19,6 +19,7 @@ function renderGifts(){
       </div>
       <div style="text-align:right;">
         <div class="mission-reward" style="color:var(--gold);">${g.gp?g.gp.toLocaleString("pt-BR")+" GP":""} ${g.coins? "+ "+g.coins.toLocaleString("pt-BR")+" Moedas":""}</div>
+        ${g.badge ? `<div class="gift-badge-tag">${g.badge.icon} ${g.badge.label}</div>` : ""}
         ${g.claimed
           ? `<span style="font-size:11.5px;color:var(--turf);">Resgatado ✓</span>`
           : `<button class="btn btn-sm btn-primary" onclick="claimGiftUI('${g.id}')">Resgatar</button>`}

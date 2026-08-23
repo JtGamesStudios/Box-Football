@@ -38,33 +38,20 @@ function packPlayerById(id){
    pra sempre sem a insígnia que passou a valer depois da compra dele.
    Roda uma vez no boot (idempotente: não duplica se já tem). */
 function backfillPackBadges(){
-  let changed = false;
-  const newlyGranted = [];
   (GAME_DATA.packs || []).forEach(pack=>{
     if(!pack.badgeId) return;
     if(packPurchaseCount(pack.id) <= 0) return;
-    STATE.profileBadges = STATE.profileBadges || [];
-    if(!STATE.profileBadges.some(b => b.id === pack.badgeId)){
-      const badge = { id: pack.badgeId, icon: pack.badgeIcon || "🎖️", label: pack.cosmeticLabel || pack.title };
-      STATE.profileBadges.push(badge);
-      newlyGranted.push(badge);
-      changed = true;
-    }
+    const already = (STATE.profileBadges || []).some(b => b.id === pack.badgeId)
+      || (STATE.gifts || []).some(g => g.badge && g.badge.id === pack.badgeId);
+    if(already) return;
+    const badge = { id: pack.badgeId, icon: pack.badgeIcon || "🎖️", label: pack.cosmeticLabel || pack.title };
+    addGift(
+      `${badge.icon} Insígnia: ${badge.label}`,
+      `Conquistada ao comprar o Pacote "${pack.title}" (adicionada com o novo sistema de insígnias).`,
+      0, 0, badge
+    );
+    setTimeout(()=>{ if(typeof toast === "function") toast(`🎁 Você tem um novo presente te esperando: insígnia "${badge.label}"!`, "success"); }, 1200);
   });
-  if(changed){
-    persist();
-    if(typeof syncRankingToFirebase === "function") syncRankingToFirebase();
-    // Avisa a pessoa de verdade — sem isso, ela só ficaria sabendo se
-    // abrisse Configurações por acaso. Um toast por insígnia nova,
-    // com um pequeno atraso pro boot terminar de desenhar a tela.
-    setTimeout(()=>{
-      newlyGranted.forEach(b=>{
-        if(typeof toast === "function"){
-          toast(`${b.icon} Nova insígnia conquistada: "${b.label}"! Veja em Configurações.`, "success");
-        }
-      });
-    }, 1200);
-  }
 }
 
 function formatPackTimeLeft(endsAt){
@@ -170,16 +157,16 @@ function buyPack(packId){
   STATE.packPurchases[packId] = (STATE.packPurchases[packId] || 0) + 1;
 
   if(pack.badgeId){
-    STATE.profileBadges = STATE.profileBadges || [];
-    if(!STATE.profileBadges.some(b => b.id === pack.badgeId)){
-      STATE.profileBadges.push({ id: pack.badgeId, icon: pack.badgeIcon || "🎖️", label: pack.cosmeticLabel || pack.title });
-    }
+    const badge = { id: pack.badgeId, icon: pack.badgeIcon || "🎖️", label: pack.cosmeticLabel || pack.title };
+    addGift(
+      `${badge.icon} Insígnia: ${badge.label}`,
+      `Conquistada ao comprar o Pacote "${pack.title}".`,
+      0, 0, badge
+    );
   }
 
   persist();
   if(typeof refreshWalletUI === "function") refreshWalletUI();
-  if(typeof syncRankingToFirebase === "function") syncRankingToFirebase();
-  if(typeof renderProfileBadges === "function") renderProfileBadges();
-  toast(`Pacote "${pack.title}" resgatado! ${1 + squad.length} cartas adicionadas ao seu elenco.`, "success");
+  toast(`Pacote "${pack.title}" resgatado! ${1 + squad.length} cartas adicionadas ao seu elenco.${pack.badgeId ? " Sua insígnia te espera na Caixa de Presentes." : ""}`, "success");
   renderPacotesScreen();
 }
