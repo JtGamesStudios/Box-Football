@@ -30,6 +30,30 @@ function packPlayerById(id){
   return (GAME_DATA.players || []).find(p => p.id === id);
 }
 
+/* ---------- Correção retroativa pra quem comprou ANTES da insígnia existir ----------
+   Se um pacote com badgeId já foi comprado (packPurchases > 0) mas a
+   insígnia ainda não está em STATE.profileBadges, concede ela agora.
+   Precisa disso porque stockPerUser normalmente é 1 — quem já comprou
+   nunca mais vai passar pelo buyPack() de novo, então sem isso ficaria
+   pra sempre sem a insígnia que passou a valer depois da compra dele.
+   Roda uma vez no boot (idempotente: não duplica se já tem). */
+function backfillPackBadges(){
+  let changed = false;
+  (GAME_DATA.packs || []).forEach(pack=>{
+    if(!pack.badgeId) return;
+    if(packPurchaseCount(pack.id) <= 0) return;
+    STATE.profileBadges = STATE.profileBadges || [];
+    if(!STATE.profileBadges.some(b => b.id === pack.badgeId)){
+      STATE.profileBadges.push({ id: pack.badgeId, icon: pack.badgeIcon || "🎖️", label: pack.cosmeticLabel || pack.title });
+      changed = true;
+    }
+  });
+  if(changed){
+    persist();
+    if(typeof syncRankingToFirebase === "function") syncRankingToFirebase();
+  }
+}
+
 function formatPackTimeLeft(endsAt){
   if(!endsAt) return "";
   const diff = new Date(endsAt).getTime() - Date.now();

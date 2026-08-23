@@ -64,6 +64,7 @@ async function boot(){
     await loadGameData();
     await loadCoupons();
     if(typeof injectMatchdayEvents === "function") injectMatchdayEvents();
+    if(typeof backfillPackBadges === "function") backfillPackBadges();
   }catch(e){
     console.error(e);
     document.getElementById("mainContent").innerHTML = `
