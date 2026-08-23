@@ -1479,24 +1479,6 @@ html.rotate-dismissed .rotate-overlay{
    tem conflito visual entre os dois). Some sozinho assim que a
    tela cheia de verdade for confirmada, e também quando o
    navegador não é mobile (só faz sentido em tela pequena). */
-.fullscreen-fab{
-  display:none;
-  position:fixed; right:16px; bottom:16px; z-index:400;
-  width:48px; height:48px; border-radius:50%;
-  border:1px solid rgba(255,255,255,.25);
-  background:rgba(10,14,22,.72); backdrop-filter:blur(6px);
-  color:#fff; font-size:20px;
-  align-items:center; justify-content:center;
-  box-shadow:0 6px 18px rgba(0,0,0,.35);
-  transition:transform .15s ease, background .15s ease;
-  padding-bottom:env(safe-area-inset-bottom, 0px);
-}
-.fullscreen-fab:hover{ transform:translateY(-2px); background:rgba(25,140,255,.85); }
-.fullscreen-fab:active{ transform:translateY(0); }
-@media (max-width: 900px){
-  .fullscreen-fab{ display:flex; }
-}
-html.is-fullscreen .fullscreen-fab{ display:none !important; }
 
 /* ============ Responsive: retrato (mobile) ============ */
 @media (max-width: 880px){
