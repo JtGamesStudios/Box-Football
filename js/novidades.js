@@ -45,10 +45,11 @@ function buildNovidadesItems(){
 
   if(typeof isCardBattleReleased === "function" && isCardBattleReleased()){
     items.push({
-      banner: "",
+      banner: "assets/banners/banner-home-efootball.jpg",
       title: "Card Battle chegou! ⚔️",
       sub: "Duele com as cartas do seu elenco contra o CPU",
       nav: "cardbattle",
+      sortDate: 0, // não tem data própria — sempre trata como "sempre disponível", não entra no ranking de recência
     });
   }
 
@@ -60,6 +61,7 @@ function buildNovidadesItems(){
       sub: `Código: <strong>${code}</strong> — resgate em Configurações`,
       nav: "config",
       couponCode: code,
+      sortDate: Date.now(), // cupom não tem data de início própria — trata como "agora" (sempre no topo dos itens datados)
     });
   });
 
@@ -72,6 +74,7 @@ function buildNovidadesItems(){
         title: b.name,
         sub: b.category === "boxdraw" ? "Box Draw — sorteio pago em GP" : "Especial — pago em Moedas",
         nav: "contratar",
+        sortDate: b.startsAt ? new Date(b.startsAt).getTime() : 0,
       });
     });
 
@@ -81,10 +84,17 @@ function buildNovidadesItems(){
       title: evt.title,
       sub: "Ganhe prêmios em jogos contra o COM",
       nav: "evento",
+      sortDate: evt.start ? new Date(evt.start).getTime() : 0,
     });
   });
 
-  return items;
+  // Conteúdos datados (cupons/boxes/eventos) sempre do mais recente pro
+  // mais antigo. O Card Battle não tem "data de chegada" course própria
+  // (é um recurso, não uma rotação de conteúdo), então fica fixo no
+  // topo, como um aviso permanente enquanto for novidade.
+  const cardBattleItem = items.find(it => it.nav === "cardbattle");
+  const dated = items.filter(it => it.nav !== "cardbattle").sort((a,b) => (b.sortDate||0) - (a.sortDate||0));
+  return cardBattleItem ? [cardBattleItem, ...dated] : dated;
 }
 
 function renderNovidadesList(){
