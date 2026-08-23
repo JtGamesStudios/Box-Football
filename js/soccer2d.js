@@ -594,16 +594,22 @@ function s2dHandleAI(f, dt){
   if(f.kickCooldown > 0) f.kickCooldown -= dt;
   const d = s2dDist(f.x, feetY-f.legH*0.6, ball.x, ball.y);
   if(d < f.reach + 4 && f.kickCooldown <= 0 && Math.random() < reactionNow){
+    // Perto do PRÓPRIO gol, isso é uma DEFESA — o chute tem que
+    // sempre afastar a bola dali (pra longe do gol que o CPU
+    // defende), nunca na direção que ele por acaso estava andando
+    // (antes usava f.facing puro, que podia apontar pro próprio gol
+    // e a "defesa" acabava empurrando a bola pra dentro da rede).
+    const clearDir = inOwnThird ? (ownGoalX > f.x ? -1 : 1) : f.facing;
     // mira: quanto maior o aimSkill, mais perto das quinas do gol
     // (mais difícil de defender) em vez de sempre reto pro centro.
     const aimSpread = (1 - diff.aimSkill) * 0.35;
     const aimBias = (Math.random()-0.5) * aimSpread;
-    const power = f.kickPow * (0.9 + diff.aimSkill*0.25 + Math.random()*0.1);
-    ball.vx = f.facing*power*(1-Math.abs(aimBias)) + f.vx*0.3;
+    const power = f.kickPow * (0.9 + diff.aimSkill*0.25 + Math.random()*0.1) * (inOwnThird ? 1.15 : 1);
+    ball.vx = clearDir*power*(1-Math.abs(aimBias)) + f.vx*0.3;
     ball.vy = -power*(0.82 + aimBias);
     f.kickCooldown = 0.42;
     s2dSfxKick(power);
-    s2dSpawnKickParticles(ball.x, ball.y, f.facing);
+    s2dSpawnKickParticles(ball.x, ball.y, clearDir);
   }
 }
 

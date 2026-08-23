@@ -33,6 +33,56 @@ function getClubCupById(id){
   return (GAME_DATA.clubCups || []).find(c => c.id === id);
 }
 
+/* Copa fica visível na lista de Eventos se estiver "active" E dentro
+   da janela startsAt/endsAt (quando definidas) — assim dá pra
+   agendar pra entrar junto de um Matchday temático real (ex: a Copa
+   "England" liberada na mesma janela do Matchday Arsenal x Chelsea),
+   sem precisar estar sempre disponível o ano inteiro. Sem datas
+   definidas, fica sempre ativa enquanto "active" for true. */
+function isClubCupLive(cup){
+  if(!cup.active) return false;
+  const now = Date.now();
+  if(cup.startsAt && new Date(cup.startsAt).getTime() > now) return false;
+  if(cup.endsAt && new Date(cup.endsAt).getTime() < now) return false;
+  return true;
+}
+
+function getActiveClubCups(){
+  return (GAME_DATA.clubCups || []).filter(isClubCupLive);
+}
+
+/* Cards no MESMO estilo visual dos eventos normais (.event-card),
+   listados junto do Konami Cup/Matchday na tela "Modo de Evento".
+   Clicar leva pra tela dedicada das Copas (que já tem toda a lógica
+   de grupos/mata-mata) em vez do modal padrão de evento. */
+function renderClubCupEventCards(){
+  const cups = getActiveClubCups();
+  return cups.map(cup=>{
+    const s = ccState(cup.id);
+    let metaText;
+    if(s.stage === "pick") metaText = "Escolha seu clube";
+    else if(s.stage === "champion") metaText = "🏆 Campeão — jogar de novo?";
+    else if(s.stage === "eliminated") metaText = "Eliminado — tentar de novo?";
+    else metaText = ccClubById(cup, s.homeClubId).name;
+    const timeLeft = cup.endsAt ? formatEventTimeLeft({ end: cup.endsAt }) : "";
+
+    return `
+    <button type="button" class="event-card" onclick="showScreen('clubcups')">
+      <div class="event-card-banner" style="background-image:url('${cup.banner}')">
+        <div class="event-card-shade"></div>
+        <div class="event-card-body">
+          <div class="event-title">${cup.title}</div>
+          ${timeLeft ? `<div class="event-timeleft">${timeLeft}</div>` : ""}
+        </div>
+      </div>
+      <div class="event-card-footer">
+        <span class="event-card-meta">${metaText}</span>
+        <span class="event-card-cta">Ver detalhes ›</span>
+      </div>
+    </button>`;
+  }).join("");
+}
+
 /* Acha, dentro da coleção da pessoa, a melhor carta (maior overall)
    cujo nome bate com o nome real do roster. Comparação frouxa (sem
    acento, ignora inicial de primeiro nome) pra pegar variações tipo

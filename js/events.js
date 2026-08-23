@@ -610,7 +610,8 @@ function renderEventoScreen(){
   if(!wrap) return;
 
   const events = getActiveEvents();
-  if(!events.length){
+  const activeClubCups = (typeof getActiveClubCups === "function") ? getActiveClubCups() : [];
+  if(!events.length && !activeClubCups.length){
     wrap.innerHTML = `<div class="empty-state"><div class="big">🏆</div>Nenhum evento ativo no momento. Volte em breve!</div>`;
     return;
   }
@@ -648,7 +649,7 @@ function renderEventoScreen(){
         <span class="event-card-cta">Ver detalhes ›</span>
       </div>
     </button>`;
-  }).join("");
+  }).join("") + renderClubCupEventCards();
 
   // liga o cronômetro ao vivo (mm:ss) se houver algum evento externo rodando
   clearInterval(_externalTimerInterval);
