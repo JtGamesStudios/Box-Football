@@ -414,6 +414,7 @@ html.hub-active .menu-card-body{
    que a imagem certa aparece automaticamente no card certo. */
 .banner-home-efootball{  background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-efootball.jpg');  background-color:#0B8A5F; }
 .banner-home-evento{     background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-evento.jpg');     background-color:#5B2FA6; }
+.banner-home-konamicup{  background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-konamicup.jpg');  background-color:#0B3D91; }
 .banner-home-amigo{      background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-amigo.jpg');      background-color:#8A1F3D; }
 .banner-home-campanha{   background-image:url('../assets/banners/banner-home-campanha.jpg');   background-color:#8A6B1E; background-position:center 30%; }
 .banner-club-matchpass{  background-image:linear-gradient(150deg, rgba(0,0,0,0), rgba(0,0,0,.15)), url('../assets/banners/banner-home-matchpass.jpg'); background-color:#198CFF; }
@@ -630,6 +631,14 @@ html.boxlist-active .box-stats-panel{ height:auto; max-height:100%; justify-cont
   .pack-headliner{ width:130px; }
   .pack-squad-grid{ grid-template-columns:repeat(3, 1fr); }
 }
+
+/* ============ COPAS DE CLUBES ============ */
+.clubcup-pick-grid{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.clubcup-table{ width:100%; border-collapse:collapse; font-size:12px; margin-bottom:4px; }
+.clubcup-table th{ text-align:left; color:var(--text-muted); font-weight:600; padding:4px 6px; border-bottom:1px solid var(--border); }
+.clubcup-table td{ padding:5px 6px; border-bottom:1px solid var(--border); }
+.clubcup-table th:not(:first-child), .clubcup-table td:not(:first-child){ text-align:center; }
+.clubcup-me{ background:rgba(55,224,122,.12); font-weight:700; }
 
 @media (max-width: 620px){  .box-pair{ flex-direction:column; max-width:340px; }
   .box-pair .box-card{ max-width:none; }
