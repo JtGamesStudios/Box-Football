@@ -4,7 +4,7 @@
       "id": "pack_messi_edition",
       "title": "Leo Messi",
       "subtitle": "Pacote Especial",
-      "banner": "assets/players/L. MESSI_BIGTIME_BCN_107.jpg",
+      "banner": "assets/banners/banner-box-messibigtime-0208.jpg",
       "endsAt": "2026-12-25T23:59:59",
       "headlinerPlayerId": "p635",
       "squadPlayerIds": ["p634", "p636", "p560", "p559", "p565", "p599", "p558", "p573", "p543"],
@@ -12,6 +12,8 @@
       "bonusCoins": 300,
       "cosmeticLabel": "Emblema Exclusivo",
       "cosmeticDesc": "Leo Messi Edition — Coleção Argentina",
+      "badgeId": "badge_messi_edition",
+      "badgeIcon": "🐐",
       "priceCoins": 1800,
       "stockPerUser": 1,
       "active": true
