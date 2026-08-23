@@ -51,6 +51,7 @@ const HOME_CARDS = [
   { nav: "evento", banner: "banner-home-evento", icon: "", title: "Modo de evento", sub: "Ganhe prêmios em jogos contra o COM", badgeSource: null },
   { nav: "amigo", banner: "banner-home-amigo",  icon: "", title: "Jogo c/ amigo",  sub: "Desafie um amigo, ao vivo, online", badgeSource: null },
   { nav: "campanha", banner: "banner-home-campanha",  icon: "", title: "Campanha",      sub: "", badgeSource: null },
+  { nav: "clubcups", banner: "banner-home-konamicup", icon: "🏆", title: "Copas de Clubes", sub: "Grupos + mata-mata pelo seu clube do coração", badgeSource: null, keepIcon: true },
 ];
 const CLUBHOUSE_CARDS = [
   { nav: "clube",     banner: "banner-club-meuclube",  icon: "", title: "Meu Clube",  sub: "Veja e organize seus jogadores contratados", badgeSource: null },
@@ -84,6 +85,7 @@ const SCREEN_PARENT_TAB = {
   evento: "home",
   amigo: "home",
   cardbattle: "home",
+  clubcups: "home",
   clubhouse: "clubhouse", clube: "clubhouse", escalacao: "clubhouse", missoes: "clubhouse",
   contract: "contract", contratar: "contract", boxes: "contract", loja: "contract", trades: "contract", pacotes: "contract",
   boxdraw: "contratar", especial: "contratar",
@@ -339,6 +341,7 @@ function showScreen(id, opts){
   if(id==="matchpass") renderMatchPass();
   if(id==="loja") renderStore();  if(id==="config") renderConfigScreen();
   if(id==="pacotes") renderPacotesScreen();
+  if(id==="clubcups") renderClubCupsScreen();
   if(id==="home") renderHome();
   if(id==="campanha") renderCampaign();
   if(id==="ranking") renderRankingScreen();
