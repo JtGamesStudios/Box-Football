@@ -6,6 +6,8 @@
       "league": "Liga de Teste — trocar quando a liga real for definida",
       "banner": "assets/banners/banner-home-konamicup.jpg",
       "active": true,
+      "startsAt": null,
+      "endsAt": null,
       "rewardCoins": 1000,
       "rewardBadgeId": "badge_cup_test_1",
       "rewardBadgeIcon": "🏆",
