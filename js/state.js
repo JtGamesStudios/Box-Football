@@ -91,6 +91,7 @@ function defaultState(){
     packPurchases: {},           // { packId: quantidade já comprada nessa conta } — ver js/packs.js
     profileBadges: [],           // [{ id, icon, label }] insígnias de perfil conquistadas (ex: ao comprar Pacotes)
     clubCups: {},                 // { cupId: {...} } progresso das Copas de Clubes — ver js/clubcups.js
+    dailyAdSpins: { date: null, used: 0 }, // giros grátis por anúncio assistido — ver js/ads.js
     trades: {                    // Trades — sistema (ver js/trades.js)
       systemSeasonId: null,      // amarrado ao id da temporada do Match Pass
       systemUsed: 0,             // trocas do sistema já feitas nessa temporada
@@ -121,6 +122,7 @@ function loadState(){
   if(!STATE.packPurchases) STATE.packPurchases = {};
   if(!STATE.profileBadges) STATE.profileBadges = [];
   if(!STATE.clubCups) STATE.clubCups = {};
+  if(!STATE.dailyAdSpins) STATE.dailyAdSpins = { date: null, used: 0 };
 
   // Migração única: saves de antes do popup de Login Bonus não devem
   // "pular" o Dia 1 — zera o ciclo pra começar hoje mesmo.
