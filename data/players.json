@@ -6043,5 +6043,83 @@
     "rarityLabel": "Lendária",
     "image": "assets/players/BEBETO_BRAZIL1994.png",
     "tier": "iconic"
+  },
+  {
+    "id": "p662",
+    "name": "K. MIURA",
+    "overall": 95,
+    "club": "Santos",
+    "nationality": "Japan",
+    "nationalityFlag": "🇯🇵",
+    "position": "ATA",
+    "rarity": "dourada",
+    "rarityLabel": "Ouro",
+    "image": "assets/players/MIURA_ADSBOX.png",
+    "tier": "destaque"
+  },
+  {
+    "id": "p663",
+    "name": "C. DEMPSEY",
+    "overall": 101,
+    "club": "United States",
+    "nationality": "United States",
+    "nationalityFlag": "🇺🇸",
+    "position": "ATA",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/CLINT_DEMPSEY_ADSBOX.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p664",
+    "name": "I. MANSIZ",
+    "overall": 103,
+    "club": "Turkey",
+    "nationality": "Turkey",
+    "nationalityFlag": "🇹🇷",
+    "position": "ATA",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/ILHAN_MANSIZ_ADSBOX.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p665",
+    "name": "NEYMAR",
+    "overall": 102,
+    "club": "Santos",
+    "nationality": "Brazil",
+    "nationalityFlag": "🇧🇷",
+    "position": "PON",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/NEYMAR_BRAZILIANLEAGUE.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p666",
+    "name": "ZICO",
+    "overall": 100,
+    "club": "Flamengo",
+    "nationality": "Brazil",
+    "nationalityFlag": "🇧🇷",
+    "position": "MEI",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/ZICO_BRAZILIANLEAGUE.png",
+    "tier": "iconic"
+  },
+  {
+    "id": "p667",
+    "name": "ROMÁRIO",
+    "overall": 102,
+    "club": "Vasco da Gama",
+    "nationality": "Brazil",
+    "nationalityFlag": "🇧🇷",
+    "position": "ATA",
+    "rarity": "preta",
+    "rarityLabel": "Lendária",
+    "image": "assets/players/ROMARIO_BRAZILIANLEAGUE.png",
+    "tier": "iconic"
   }
 ]
