@@ -257,8 +257,8 @@ function renderContratarGrid(category){
                     : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`}
             </div>
           </div>
-          ${box.category !== "eventspin" ? `
-          <button class="btn btn-sm btn-block btn-ad-spin" data-ad-spin-btn="${box.id}" ${adSpinsRemainingToday()<=0?"disabled":""} onclick="watchAdForBoxSpin('${box.id}')">
+          ${box.category === "eventspin" && box.id === AD_BOX_ID ? `
+          <button class="btn btn-sm btn-block btn-ad-spin" data-ad-spin-btn="${box.id}" ${adSpinsRemainingToday()<=0?"disabled":""} onclick="watchAdForBoxSpin()">
             🎬 Assistir Anúncio — Giro Grátis (${adSpinsRemainingToday()} restante${adSpinsRemainingToday()===1?"":"s"} hoje)
           </button>` : ""}
           ${box.category === "eventspin" ? `<div class="stat-note" style="margin:6px 0 0;">Giros só são ganhos vencendo partidas nos eventos do Brasil. Não é possível comprar com Moedas.</div>` : ""}
@@ -311,10 +311,6 @@ function startBoxOpen(boxId, method){
       toast("Sem giros disponíveis.", "");
       return;
     }
-  } else if(method === "ad"){
-    // Giro pago com anúncio assistido (js/ads.js já descontou o giro
-    // diário e confirmou o anúncio ANTES de chamar isso aqui) — não
-    // cobra Moedas/GP nenhum.
   } else {
     const price = box.category === "boxdraw"
       ? { gp: box.priceGP, coins: 0 }
