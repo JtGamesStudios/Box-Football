@@ -498,11 +498,10 @@ html.hub-active .menu-card-body{
 .btn-free-spin{
   background:linear-gradient(135deg,#FF2D78,#FF7EB3) !important; border-color:transparent !important;
 }
-.btn-ad-spin{
-  margin-top:8px; font-size:11.5px; font-weight:700;
-  background:linear-gradient(135deg,#7B2FF7,#B26BFA) !important; border-color:transparent !important; color:#fff !important;
+.ad-remaining-label{
+  font-size:12.5px; font-weight:700; color:var(--text-muted); margin-left:auto;
 }
-.btn-ad-spin:disabled{ opacity:.45; filter:grayscale(.4); }
+.ad-remaining-label strong{ color:var(--text); }
 
 /* --- Painel escuro: Jogadores/Bolas restantes + Resetar --- */
 .box-stats-panel{
