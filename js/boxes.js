@@ -230,6 +230,42 @@ function renderContratarGrid(category){
     const freeSpin = isFreeSpinAvailable(box);
     const eventSpins = box.category === "eventspin" ? eventSpinsAvailable(box.id) : 0;
     const eventSpinDisabled = box.category === "eventspin" && eventSpins <= 0;
+
+    // Box Exclusiva de Anúncios: card dedicado e enxuto (sem badge de
+    // evento, sem nota de texto que não é dela, sem botão duplicado)
+    // — assistir o anúncio já abre a Box na hora, não tem "girar"
+    // separado depois.
+    if(box.id === AD_BOX_ID){
+      const adsLeft = adSpinsRemainingToday();
+      return `
+      <div class="box-pair">
+        <div class="box-card box-card-ad">
+          <div class="box-banner" style="background-image: url('${box.banner}'), linear-gradient(150deg,#1B2438,#0A0E17); background-size: cover; background-position: center;">
+            <span class="box-badge on">ATIVA</span>
+          </div>
+          <div class="box-body">
+            <div class="box-name-row">
+              <span class="box-name-lg">${box.name}</span>
+              ${timeLeft ? `<span class="box-timeleft">⏱ ${timeLeft}</span>` : ""}
+            </div>
+            <div class="box-bottom-row">
+              <button class="box-search-btn" onclick="showBoxSearchModal('${box.id}')" title="Ver jogadores disponíveis">🔍</button>
+              <div class="ad-remaining-label">Restantes: <strong>${adsLeft}</strong></div>
+            </div>
+            <button class="btn btn-primary btn-block btn-free-spin" ${adsLeft<=0?"disabled":""} onclick="watchAdForBoxSpin()">
+              ${adsLeft<=0 ? "Esgotado" : "👤×1 Assistir anúncio"}
+            </button>
+          </div>
+        </div>
+        <div class="box-stats-panel">
+          <div class="stat-block">
+            <div class="stat-label">Jogadores Restantes</div>
+            <div class="stat-value">${remaining}/${total}</div>
+          </div>
+        </div>
+      </div>`;
+    }
+
     return `
     <div class="box-pair">
       <div class="box-card">
@@ -257,10 +293,6 @@ function renderContratarGrid(category){
                     : `<div class="price-pill">◆ ${box.priceCoins.toLocaleString("pt-BR")}</div>`}
             </div>
           </div>
-          ${box.category === "eventspin" && box.id === AD_BOX_ID ? `
-          <button class="btn btn-sm btn-block btn-ad-spin" data-ad-spin-btn="${box.id}" ${adSpinsRemainingToday()<=0?"disabled":""} onclick="watchAdForBoxSpin()">
-            🎬 Assistir Anúncio — Giro Grátis (${adSpinsRemainingToday()} restante${adSpinsRemainingToday()===1?"":"s"} hoje)
-          </button>` : ""}
           ${box.category === "eventspin" ? `<div class="stat-note" style="margin:6px 0 0;">Giros só são ganhos vencendo partidas nos eventos do Brasil. Não é possível comprar com Moedas.</div>` : ""}
           <button class="btn btn-primary btn-block ${(freeSpin||box.category==='eventspin')?'btn-free-spin':''}" ${(remaining===0||eventSpinDisabled)?"disabled":""} onclick="startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':(box.category==='eventspin'?'eventspin':'coins')}')">${box.category==='eventspin' ? '🎁 Girar (Grátis)' : (freeSpin ? '🎁 Girar Grátis' : (box.category==='gratis' ? '◆ Girar' : 'Contratar'))}</button>
           </div>
