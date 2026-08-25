@@ -134,6 +134,26 @@
         "assets/banners/banner-home-konamicup.jpg",
         "assets/banners/banner-home-matchday.jpg"
       ]
+    },
+    {
+      "version": 12,
+      "releaseDate": "2026-08-25T00:00:00",
+      "label": "Pré-carregamento — conteúdo de 13/09",
+      "description": "Baixa hoje os arquivos da próxima leva de conteúdo (Box Exclusiva de Anúncios atualizada, Brazilian League Vol.1 e o retorno da Big Time do Messi) — assim, quando a data chegar, nada precisa baixar na hora, o conteúdo já libera na mesma hora.",
+      "features": [
+        "Box Exclusiva de Anúncios — novos jogadores (I. Mansiz, C. Dempsey, Miura)",
+        "Box Brazilian League Vol.1 — chega 13/09 (Romário, Neymar, Zico)",
+        "Retorno da Box Messi Big Time — 17/09"
+      ],
+      "assets": [
+        "assets/players/MIURA_ADSBOX.png",
+        "assets/players/CLINT_DEMPSEY_ADSBOX.png",
+        "assets/players/ILHAN_MANSIZ_ADSBOX.png",
+        "assets/players/NEYMAR_BRAZILIANLEAGUE.png",
+        "assets/players/ZICO_BRAZILIANLEAGUE.png",
+        "assets/players/ROMARIO_BRAZILIANLEAGUE.png",
+        "assets/banners/banner-box-brazilianleague-1309.jpeg"
+      ]
     }
   ]
 }
