@@ -19,6 +19,19 @@
 
 const INFO_ITEMS = [
 {
+    id: "update-parte1-2026-08-26",
+    date: "26/08/2026",
+    title: "🚀 Update Parte 1 no ar! Pack Blue Lock, animações e Nova Temporada chegando",
+    preview: "Pack Blue Lock (500 Moedas) com 1 Iconic garantido, animações em todas as próximas boxes especiais e Nova Temporada dia 03/09 com Match Pass.",
+    body: [
+      "Chegou a Parte 1 da nossa atualização! Confira tudo que já está disponível hoje:",
+      "⚽ Pack Blue Lock — por 500 Moedas, contendo 1 carta Iconic garantida. Sem sorteio: o conteúdo é exatamente o que você vê antes de comprar. Confira em Contract > Pacotes.",
+      "🎬 Animações — a partir de agora, todas as próximas Boxes especiais vão contar com animações exclusivas de abertura. Fique de olho nos próximos lançamentos!",
+      "🏆 Nova Temporada — chegando dia 03/09, com Match Pass renovado e muitas Boxes inéditas te esperando.",
+      "📦 Sobre a Parte 2: o restante do update completo chega dia 03/09, junto com a Nova Temporada, trazendo mais de 100MB em atualizações. Prepare espaço no seu dispositivo!",
+    ],
+  },
+{
     id: "pacotes-teaser-2026-09",
     date: "22/08/2026",
     title: "🎁 Chegam os Pacotes — conteúdo garantido, sem sorteio!",
