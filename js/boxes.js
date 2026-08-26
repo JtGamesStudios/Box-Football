@@ -42,6 +42,38 @@ const CUTSCENE_BY_PLAYER = {
   p634: "assets/videos/cutscene-messi-2022.mp4", // Messi Big Time - Argentina (Copa do Mundo 2022)
   p635: "assets/videos/cutscene-messi-2009.mp4", // Messi Big Time - Barcelona 107
   p636: "assets/videos/cutscene-messi-2015.mp4", // Messi Big Time - Barcelona 106
+
+  // ---- Box Trio MSN - Barcelona (16/09) — animação própria por carta ----
+  p668: "assets/videos/cutscene-xavi-msn.mp4",       // Xavi
+  p669: "assets/videos/cutscene-iniesta-msn.mp4",    // Iniesta
+  p670: "assets/videos/cutscene-busquets-msn.mp4",   // Busquets
+  p671: "assets/videos/cutscene-messi-alba-msn.mp4", // Messi (vem com Jordi Alba de brinde — ver PAIRED_DROPS)
+  p672: "assets/videos/cutscene-neymar-msn.mp4",     // Neymar
+  p673: "assets/videos/cutscene-suarez-msn.mp4",     // Suárez
+  // p674 (Jordi Alba) não tem vídeo próprio: quando sorteado, a abertura
+  // sempre é resolvida como Messi (p671) — ver PAIRED_DROPS abaixo.
+
+  // ---- Messi - Show Time (giro grátis, 03/09) ----
+  p678: "assets/videos/cutscene-messi-showtime.mp4",
+};
+
+/* ---------------- PARES OBRIGATÓRIOS (ex: Messi + Jordi Alba) ----------------
+   Regra da Box Trio MSN: sempre que a roleta sortear o Messi (p671), o
+   Jordi Alba (p674) tem que sair JUNTO de brinde (a animação já mostra
+   os dois juntos). E o inverso também: se a roleta sortear o Jordi Alba,
+   quem "sai" oficialmente é o Messi primeiro (com o Alba de brinde do
+   mesmo jeito) — nunca o Alba sozinho sem o Messi.
+
+   Formato: "idSorteado": "idQueViraOficial" (o par sempre resolve pro
+   lado do jogador "principal"). Pra criar um novo par no futuro, basta
+   adicionar as duas entradas cruzadas aqui embaixo.
+   ========================================================= */
+const PAIRED_DROPS = {
+  p674: "p671", // se sair Jordi Alba, resolve como Messi (Alba some sozinho, os dois saem juntos)
+};
+// Jogador principal -> parceiro que sai de brinde junto (mesma direção sempre)
+const PAIRED_BONUS = {
+  p671: "p674", // Messi -> Jordi Alba de brinde
 };
 
 function getCutsceneSrc(player){
@@ -374,10 +406,39 @@ function startBoxOpen(boxId, method){
     chosenPlayer = candidates[Math.floor(Math.random()*candidates.length)];
   }
 
+  // ---- PAR OBRIGATÓRIO (ex: Jordi Alba sempre vem com o Messi) ----
+  // Se a roleta sorteou o "lado secundário" do par (ex: Jordi Alba),
+  // resolve a abertura como o jogador principal do par (ex: Messi),
+  // desde que ele ainda esteja disponível nessa Box.
+  if(PAIRED_DROPS[chosenPlayer.id]){
+    const primaryId = PAIRED_DROPS[chosenPlayer.id];
+    const primaryPlayer = getRemainingIds(boxId).includes(primaryId)
+      ? getPlayer(primaryId)
+      : null;
+    if(primaryPlayer){
+      chosenPlayer = primaryPlayer;
+      chosenRarity = primaryPlayer.rarity;
+    }
+  }
+
   // remove da box, entrega ao clube
   STATE.boxRemoved[boxId] = STATE.boxRemoved[boxId] || [];
   STATE.boxRemoved[boxId].push(chosenPlayer.id);
   ownPlayer(chosenPlayer);
+
+  // ---- BRINDE DO PAR (ex: Messi -> Jordi Alba junto) ----
+  // Se o jogador sorteado é o lado "principal" de um par, o parceiro sai
+  // de brinde automaticamente (se ainda estiver disponível nessa Box).
+  let bonusPlayer = null;
+  const bonusId = PAIRED_BONUS[chosenPlayer.id];
+  if(bonusId && getRemainingIds(boxId).includes(bonusId)){
+    bonusPlayer = getPlayer(bonusId);
+    if(bonusPlayer){
+      STATE.boxRemoved[boxId].push(bonusPlayer.id);
+      ownPlayer(bonusPlayer);
+      STATE.stats.ballCounts[bonusPlayer.rarity] = (STATE.stats.ballCounts[bonusPlayer.rarity]||0) + 1;
+    }
+  }
 
   STATE.stats.boxesOpened += 1;
   STATE.stats.ballCounts[chosenRarity] += 1;
@@ -394,7 +455,11 @@ function startBoxOpen(boxId, method){
     addGift(`Box completa: ${box.name}`, "Você contratou todos os jogadores dessa Box!", 3000, 50);
   }
 
-  _pendingOpen = { boxId, method };
+  if(bonusPlayer){
+    addGift(`De brinde: ${bonusPlayer.name}!`, `Junto com ${chosenPlayer.name}, você também ganhou ${bonusPlayer.name} de brinde nessa Box.`, 2500, 0);
+  }
+
+  _pendingOpen = { boxId, method, bonusPlayer };
   playOpenAnimation(chosenRarity, chosenPlayer, lightningStrike, byR);
 }
 

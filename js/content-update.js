@@ -28,6 +28,12 @@
 
    Expõe isContentUpdatePending(), usado por js/splash.js pra não
    deixar a pessoa entrar no jogo enquanto o download não terminar.
+
+   FLUXO (03/09): ao chegar a hora do update, a pessoa vê primeiro uma
+   tela com o TAMANHO do download e dois botões — "Baixar" e "Cancelar".
+   Cancelar NÃO libera o jogo: mostra uma tela de bloqueio ("Download
+   necessário") com um botão pra voltar a baixar quando quiser. Só depois
+   que o download completar (saveVersion) é que pending vira false.
    ========================================================= */
 (function () {
   const VERSION_URL = "data/content-version.json";
@@ -148,11 +154,17 @@
     const fillEl = document.getElementById("contentUpdateFill");
     const pctEl = document.getElementById("contentUpdatePct");
     const statusEl = document.getElementById("contentUpdateStatus");
+    const sizeEl = document.getElementById("contentUpdateSize");
     const btn = document.getElementById("contentUpdateBtn");
+    const choiceRow = document.getElementById("contentUpdateChoiceRow");
+    const confirmBtn = document.getElementById("contentUpdateConfirmBtn");
+    const cancelBtn = document.getElementById("contentUpdateCancelBtn");
+    const progressTrack = overlay.querySelector(".cu-progress-track");
 
     // Se vários updates ficaram pendentes (pessoa sumiu um tempo), junta
     // tudo num download só, com o texto do update mais recente.
     const finalVersion = pendingUpdates[pendingUpdates.length - 1].version;
+    const latestLabel = pendingUpdates[pendingUpdates.length - 1].label || "";
     const assets = [];
     const seen = new Set();
     pendingUpdates.forEach((u) => {
@@ -165,10 +177,11 @@
     });
 
     const defaultDesc = "Não saia do aplicativo enquanto baixa dados ou durante a instalação.";
-    if (labelEl) labelEl.textContent = defaultDesc;
     if (countEl) countEl.textContent = `0 / ${assets.length || 1}`;
     if (statusEl) statusEl.classList.add("hidden");
 
+    // Pré-calcula o tamanho ANTES de perguntar pra pessoa se quer baixar,
+    // pra já mostrar "Baixar (X MB)" na primeira tela.
     const totalSize = await computeTotalSize(assets);
     let controller = null;
 
@@ -179,13 +192,60 @@
       if (countEl) countEl.textContent = `${filesDone} / ${assets.length || 1}`;
     }
 
+    function showChoiceScreen() {
+      if (titleEl) titleEl.textContent = "Atualização disponível";
+      if (labelEl) labelEl.textContent = latestLabel || "Uma nova atualização de conteúdo está disponível.";
+      if (sizeEl) {
+        sizeEl.textContent = `Tamanho do download: ${formatBytes(totalSize)}`;
+        sizeEl.classList.remove("hidden");
+      }
+      if (statusEl) statusEl.classList.add("hidden");
+      if (progressTrack) progressTrack.classList.add("hidden");
+      if (pctEl) pctEl.classList.add("hidden");
+      if (countEl) countEl.classList.add("hidden");
+      if (btn) btn.classList.add("hidden");
+      if (choiceRow) choiceRow.classList.remove("hidden");
+      if (confirmBtn) {
+        confirmBtn.textContent = `Baixar (${formatBytes(totalSize)})`;
+        confirmBtn.onclick = startDownload;
+      }
+      if (cancelBtn) cancelBtn.onclick = showBlockedScreen;
+    }
+
+    function showBlockedScreen() {
+      if (choiceRow) choiceRow.classList.add("hidden");
+      if (sizeEl) sizeEl.classList.add("hidden");
+      if (progressTrack) progressTrack.classList.add("hidden");
+      if (pctEl) pctEl.classList.add("hidden");
+      if (countEl) countEl.classList.add("hidden");
+      if (titleEl) titleEl.textContent = "Download necessário";
+      if (labelEl) labelEl.textContent = defaultDesc;
+      if (statusEl) {
+        statusEl.textContent = "Você precisa baixar essa atualização pra continuar jogando.";
+        statusEl.classList.remove("hidden");
+      }
+      if (btn) {
+        btn.classList.remove("hidden");
+        btn.disabled = false;
+        btn.textContent = "Baixar agora";
+        btn.onclick = showChoiceScreen;
+      }
+    }
+
     function startDownload() {
       controller = (typeof AbortController !== "undefined") ? new AbortController() : null;
+
+      if (choiceRow) choiceRow.classList.add("hidden");
+      if (sizeEl) sizeEl.classList.add("hidden");
+      if (progressTrack) progressTrack.classList.remove("hidden");
+      if (pctEl) pctEl.classList.remove("hidden");
+      if (countEl) countEl.classList.remove("hidden");
 
       if (titleEl) titleEl.textContent = "Baixando";
       if (labelEl) labelEl.textContent = defaultDesc;
       if (statusEl) statusEl.classList.add("hidden");
       if (btn) {
+        btn.classList.remove("hidden");
         btn.disabled = false;
         btn.textContent = "Cancelar";
         btn.onclick = () => { if (controller) controller.abort(); };
@@ -204,6 +264,7 @@
         })
         .catch((err) => {
           if (err && err.name === "AbortError") {
+            // Cancelou NO MEIO do download: continua bloqueado até baixar.
             if (titleEl) titleEl.textContent = "Download cancelado";
             if (statusEl) {
               statusEl.textContent = "Você pode continuar de onde parou quando quiser.";
@@ -230,7 +291,10 @@
         });
     }
 
-    startDownload();
+    // Primeira tela sempre pergunta: Baixar ou Cancelar (com o tamanho
+    // já calculado). Cancelar não libera o jogo — só mostra a tela de
+    // bloqueio com um botão pra voltar a baixar quando quiser.
+    showChoiceScreen();
   }
 
   async function checkForUpdate() {
