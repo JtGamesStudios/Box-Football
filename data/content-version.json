@@ -154,6 +154,56 @@
         "assets/players/ROMARIO_BRAZILIANLEAGUE.png",
         "assets/banners/banner-box-brazilianleague-1309.jpeg"
       ]
+    },
+    {
+      "version": 10,
+      "releaseDate": "2026-09-03T23:00:00",
+      "label": "Live Update 03/09 — Trio MSN, Brasil 2009, Messi Show Time e Pack Blue Lock",
+      "description": "Chegam a Box Trio MSN - Barcelona (16/09, com Messi, Suárez, Neymar, Xavi, Iniesta e Busquets), a Box Brasil - 2009 (20/09, com R. Carlos, Willian e Neymar), o giro grátis Messi - Show Time (a partir de hoje) e o Pack Blue Lock (500 Moedas, colab com o anime). Nem todas as Boxes têm animação de abertura exclusiva — só as mais especiais. Na Box Trio MSN, sempre que sair o Messi, Jordi Alba vem de brinde (e vice-versa: se sair o Jordi Alba, o Messi vem primeiro). Também estreia a Temporada 2 do Match Pass, e agora o popup de atualização mostra o tamanho do download e deixa escolher entre baixar ou cancelar.",
+      "estimatedSizeNote": "calculado automaticamente a partir dos assets abaixo",
+      "features": [
+        "Box Trio MSN - Barcelona — chega 16/09 (Messi, Suárez, Neymar, Xavi, Iniesta, Busquets)",
+        "Regra especial: ao sair Messi, Jordi Alba vem de brinde — e se sair Jordi Alba, o Messi vem primeiro",
+        "Box Brasil - 2009 — chega 20/09 (R. Carlos, Willian, Neymar) — SEM animação de abertura exclusiva",
+        "Messi - Show Time — giro grátis por tempo limitado, com animação exclusiva",
+        "Pack Blue Lock — 500 Moedas, com card Iconic do Inzaghi",
+        "Match Pass — Temporada 2 (a Temporada 1 se encerra e vira histórico)",
+        "Popup de atualização agora mostra o tamanho do download e pergunta Baixar ou Cancelar antes de começar"
+      ],
+      "assets": [
+        "assets/players/XAVI_MSN.png",
+        "assets/players/INIESTA_MSN.png",
+        "assets/players/BUSQUETS_MSN.png",
+        "assets/players/MESSI_MSN.png",
+        "assets/players/NEYMAR_MSN.png",
+        "assets/players/SUAREZ_MSN.png",
+        "assets/players/JORDI_ALBA_MSN.png",
+        "assets/players/R_CARLOS_BRASIL2009.png",
+        "assets/players/WILLIAN_BRASIL2009.png",
+        "assets/players/NEYMAR_BRASIL2009.png",
+        "assets/players/L_MESSI_SHOWTIME.png",
+        "assets/players/MULLER_BLUELOCK.png",
+        "assets/players/CHOUPO_MOTING_BLUELOCK.png",
+        "assets/players/KANE_BLUELOCK.png",
+        "assets/players/BRUNO_FERNANDES_BLUELOCK.png",
+        "assets/players/KIMMICH_BLUELOCK.png",
+        "assets/players/RASHFORD_BLUELOCK.png",
+        "assets/players/KUBO_BLUELOCK.png",
+        "assets/players/HOJLUND_BLUELOCK.png",
+        "assets/players/MAINOO_BLUELOCK.png",
+        "assets/players/INZAGHI_BLUELOCK.png",
+        "assets/videos/cutscene-xavi-msn.mp4",
+        "assets/videos/cutscene-iniesta-msn.mp4",
+        "assets/videos/cutscene-busquets-msn.mp4",
+        "assets/videos/cutscene-messi-alba-msn.mp4",
+        "assets/videos/cutscene-neymar-msn.mp4",
+        "assets/videos/cutscene-suarez-msn.mp4",
+        "assets/videos/cutscene-messi-showtime.mp4",
+        "assets/banners/banner-pack-bluelock-500coins.png",
+        "assets/banners/banner-box-messi-showtime-0309.jpg",
+        "assets/banners/banner-matchpass-season2.jpg",
+        "assets/splash/splash-bluelock-collab.jpg"
+      ]
     }
   ]
 }

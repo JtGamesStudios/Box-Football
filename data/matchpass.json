@@ -1,10 +1,10 @@
 {
   "activeSeason": {
-    "id": "mp_season1",
-    "title": "Match Pass — Temporada 1",
+    "id": "mp_season2",
+    "title": "Match Pass — Temporada 2",
     "active": true,
-    "start": "2026-08-16T00:00:00",
-    "end": "2026-09-03T23:59:59",
+    "start": "2026-09-03T23:59:59",
+    "end": "2026-09-22T23:59:59",
     "totalLevels": 50,
     "xpPerLevel": 100,
     "xpPerWin": 50,
@@ -14,7 +14,7 @@
     "tier3Name": "Passe Ouro",
     "priceTier2": 150,
     "priceTier3": 350,
-    "banner": "assets/banners/banner-matchpass-season1.jpg",
+    "banner": "assets/banners/banner-matchpass-season2.jpg",
     "levels": [
       {
         "level": 1,
@@ -101,10 +101,9 @@
           "label": "500 GP"
         },
         "tier3": {
-          "type": "boxSpin",
-          "boxId": "box0026",
-          "amount": 1,
-          "label": "1 Giro — Box Big Time"
+          "type": "gp",
+          "amount": 900,
+          "label": "900 GP"
         }
       },
       {
@@ -187,10 +186,9 @@
           "label": "20 Moedas"
         },
         "tier2": {
-          "type": "boxSpin",
-          "boxId": "box0026",
-          "amount": 1,
-          "label": "1 Giro — Box Big Time"
+          "type": "gp",
+          "amount": 500,
+          "label": "500 GP"
         },
         "tier3": {
           "type": "coins",
@@ -283,10 +281,9 @@
           "label": "25 Moedas"
         },
         "tier3": {
-          "type": "boxSpin",
-          "boxId": "box0026",
-          "amount": 1,
-          "label": "1 Giro — Box Big Time"
+          "type": "gp",
+          "amount": 900,
+          "label": "900 GP"
         }
       },
       {
@@ -369,10 +366,9 @@
           "label": "20 Moedas"
         },
         "tier2": {
-          "type": "boxSpin",
-          "boxId": "box0026",
-          "amount": 1,
-          "label": "1 Giro — Box Big Time"
+          "type": "gp",
+          "amount": 500,
+          "label": "500 GP"
         },
         "tier3": {
           "type": "coins",
@@ -465,10 +461,9 @@
           "label": "500 GP"
         },
         "tier3": {
-          "type": "boxSpin",
-          "boxId": "box0026",
-          "amount": 1,
-          "label": "1 Giro — Box Big Time"
+          "type": "gp",
+          "amount": 900,
+          "label": "900 GP"
         }
       },
       {
@@ -551,10 +546,9 @@
           "label": "20 Moedas"
         },
         "tier2": {
-          "type": "boxSpin",
-          "boxId": "box0026",
-          "amount": 1,
-          "label": "1 Giro — Box Big Time"
+          "type": "gp",
+          "amount": 500,
+          "label": "500 GP"
         },
         "tier3": {
           "type": "coins",
@@ -647,10 +641,9 @@
           "label": "500 GP"
         },
         "tier3": {
-          "type": "boxSpin",
-          "boxId": "box0026",
-          "amount": 1,
-          "label": "1 Giro — Box Big Time"
+          "type": "gp",
+          "amount": 900,
+          "label": "900 GP"
         }
       },
       {
@@ -733,10 +726,9 @@
           "label": "20 Moedas"
         },
         "tier2": {
-          "type": "boxSpin",
-          "boxId": "box0026",
-          "amount": 1,
-          "label": "1 Giro — Box Big Time"
+          "type": "gp",
+          "amount": 500,
+          "label": "500 GP"
         },
         "tier3": {
           "type": "coins",
@@ -829,10 +821,9 @@
           "label": "25 Moedas"
         },
         "tier3": {
-          "type": "boxSpin",
-          "boxId": "box0026",
-          "amount": 1,
-          "label": "1 Giro — Box Big Time"
+          "type": "gp",
+          "amount": 900,
+          "label": "900 GP"
         }
       },
       {
@@ -926,5 +917,935 @@
         }
       }
     ]
-  }
+  },
+  "pastSeasons": [
+    {
+      "id": "mp_season1",
+      "title": "Match Pass — Temporada 1",
+      "active": false,
+      "start": "2026-08-16T00:00:00",
+      "end": "2026-09-03T23:59:59",
+      "totalLevels": 50,
+      "xpPerLevel": 100,
+      "xpPerWin": 50,
+      "xpPerDraw": 25,
+      "xpPerLoss": 10,
+      "tier2Name": "Passe Prata",
+      "tier3Name": "Passe Ouro",
+      "priceTier2": 150,
+      "priceTier3": 350,
+      "banner": "assets/banners/banner-matchpass-season1.jpg",
+      "levels": [
+        {
+          "level": 1,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 2,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 3,
+          "free": {
+            "type": "coins",
+            "amount": 50,
+            "label": "50 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 4,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 5,
+          "free": {
+            "type": "coins",
+            "amount": 20,
+            "label": "20 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "boxSpin",
+            "boxId": "box0026",
+            "amount": 1,
+            "label": "1 Giro — Box Big Time"
+          }
+        },
+        {
+          "level": 6,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 7,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 8,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 9,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 10,
+          "free": {
+            "type": "coins",
+            "amount": 20,
+            "label": "20 Moedas"
+          },
+          "tier2": {
+            "type": "boxSpin",
+            "boxId": "box0026",
+            "amount": 1,
+            "label": "1 Giro — Box Big Time"
+          },
+          "tier3": {
+            "type": "coins",
+            "amount": 100,
+            "label": "100 Moedas"
+          }
+        },
+        {
+          "level": 11,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 12,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 13,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 14,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 15,
+          "free": {
+            "type": "coins",
+            "amount": 20,
+            "label": "20 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "boxSpin",
+            "boxId": "box0026",
+            "amount": 1,
+            "label": "1 Giro — Box Big Time"
+          }
+        },
+        {
+          "level": 16,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 17,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 18,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 19,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 20,
+          "free": {
+            "type": "coins",
+            "amount": 20,
+            "label": "20 Moedas"
+          },
+          "tier2": {
+            "type": "boxSpin",
+            "boxId": "box0026",
+            "amount": 1,
+            "label": "1 Giro — Box Big Time"
+          },
+          "tier3": {
+            "type": "coins",
+            "amount": 100,
+            "label": "100 Moedas"
+          }
+        },
+        {
+          "level": 21,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 22,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 23,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 24,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 25,
+          "free": {
+            "type": "coins",
+            "amount": 20,
+            "label": "20 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "boxSpin",
+            "boxId": "box0026",
+            "amount": 1,
+            "label": "1 Giro — Box Big Time"
+          }
+        },
+        {
+          "level": 26,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 27,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 28,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 29,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 30,
+          "free": {
+            "type": "coins",
+            "amount": 20,
+            "label": "20 Moedas"
+          },
+          "tier2": {
+            "type": "boxSpin",
+            "boxId": "box0026",
+            "amount": 1,
+            "label": "1 Giro — Box Big Time"
+          },
+          "tier3": {
+            "type": "coins",
+            "amount": 100,
+            "label": "100 Moedas"
+          }
+        },
+        {
+          "level": 31,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 32,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 33,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 34,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 35,
+          "free": {
+            "type": "coins",
+            "amount": 20,
+            "label": "20 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "boxSpin",
+            "boxId": "box0026",
+            "amount": 1,
+            "label": "1 Giro — Box Big Time"
+          }
+        },
+        {
+          "level": 36,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 37,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 38,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 39,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 40,
+          "free": {
+            "type": "coins",
+            "amount": 20,
+            "label": "20 Moedas"
+          },
+          "tier2": {
+            "type": "boxSpin",
+            "boxId": "box0026",
+            "amount": 1,
+            "label": "1 Giro — Box Big Time"
+          },
+          "tier3": {
+            "type": "coins",
+            "amount": 100,
+            "label": "100 Moedas"
+          }
+        },
+        {
+          "level": 41,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 42,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 43,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 44,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 45,
+          "free": {
+            "type": "coins",
+            "amount": 20,
+            "label": "20 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "boxSpin",
+            "boxId": "box0026",
+            "amount": 1,
+            "label": "1 Giro — Box Big Time"
+          }
+        },
+        {
+          "level": 46,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 47,
+          "free": {
+            "type": "gp",
+            "amount": 300,
+            "label": "300 GP"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 48,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 25,
+            "label": "25 Moedas"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 49,
+          "free": {
+            "type": "coins",
+            "amount": 10,
+            "label": "10 Moedas"
+          },
+          "tier2": {
+            "type": "gp",
+            "amount": 500,
+            "label": "500 GP"
+          },
+          "tier3": {
+            "type": "gp",
+            "amount": 900,
+            "label": "900 GP"
+          }
+        },
+        {
+          "level": 50,
+          "free": {
+            "type": "coins",
+            "amount": 150,
+            "label": "150 Moedas"
+          },
+          "tier2": {
+            "type": "coins",
+            "amount": 250,
+            "label": "250 Moedas"
+          },
+          "tier3": {
+            "type": "coins",
+            "amount": 500,
+            "label": "500 Moedas — Nível Máximo!"
+          }
+        }
+      ]
+    }
+  ]
 }
