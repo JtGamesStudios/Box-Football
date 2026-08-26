@@ -205,6 +205,22 @@
   }
   .cu-btn:hover{ background:#CFE0FF; }
   .cu-btn:disabled{ opacity:.6; cursor:default; }
+  .cu-size{
+    margin:0 0 14px;
+    font-size:13px;
+    font-weight:700;
+    color:#555;
+  }
+  .cu-btn-row{
+    display:flex;
+    gap:10px;
+  }
+  .cu-btn-row .cu-btn{ margin:0; }
+  .cu-btn-ghost{
+    background:#EEE;
+    color:#444;
+  }
+  .cu-btn-ghost:hover{ background:#E2E2E2; }
 </style>
 </head>
 <body>
@@ -286,7 +302,12 @@
       </div>
       <p class="cu-pct" id="contentUpdatePct">0%</p>
       <p class="cu-error hidden" id="contentUpdateStatus"></p>
-      <button class="cu-btn" id="contentUpdateBtn">Cancelar</button>
+      <p class="cu-size hidden" id="contentUpdateSize"></p>
+      <div class="cu-btn-row" id="contentUpdateChoiceRow">
+        <button class="cu-btn cu-btn-ghost" id="contentUpdateCancelBtn">Cancelar</button>
+        <button class="cu-btn" id="contentUpdateConfirmBtn">Baixar</button>
+      </div>
+      <button class="cu-btn hidden" id="contentUpdateBtn">Cancelar</button>
     </div>
   </div>
 </div>
