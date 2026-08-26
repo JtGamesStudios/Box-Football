@@ -4,7 +4,7 @@
   "startsAt": "2026-08-24T00:00:00",
   "description": "Giros exclusivos ganhos assistindo anúncios recompensados. Nunca disponível pra compra com Moedas/GP.",
   "banner": "assets/banners/banner-home-konamicup.jpg",
-  "active": true,
+  "active": false,
   "category": "eventspin",
   "priceGP": 0,
   "priceCoins": 0,
