@@ -1,0 +1,15 @@
+{
+  "id": "box0035",
+  "name": "Brasil - 2009",
+  "startsAt": "2026-09-20T23:00:00",
+  "expiresAt": "2026-09-27T23:00:00",
+  "description": "Seleção Brasileira — sem animações de abertura exclusivas (usa a animação padrão Iconic Moments)",
+  "banner": "assets/players/NEYMAR_BRASIL2009.png",
+  "active": true,
+  "priceCoins": 100,
+  "players": [
+    "p675",
+    "p676",
+    "p677"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "box0036",
+  "name": "Messi - Show Time [Grátis]",
+  "startsAt": "2026-09-03T23:00:00",
+  "expiresAt": "2026-09-10T23:00:00",
+  "description": "Giro grátis por tempo limitado — garante Messi com animação exclusiva",
+  "banner": "assets/banners/banner-box-messi-showtime-0309.jpg",
+  "active": true,
+  "category": "gratis",
+  "priceCoins": 0,
+  "players": [
+    "p678"
+  ]
+}
