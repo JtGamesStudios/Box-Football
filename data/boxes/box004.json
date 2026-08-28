@@ -1,7 +1,8 @@
 {
   "id": "box008",
   "name": "LEGENDS - Worldwide Clubs",
-  "date": "--/--/----",
+ "startsAt": "2026-08-02T00:00:00",
+  "expiresAt": "2026-08-29T00:00:00",
   "description": "LEGENDS - Worldwide Clubs",
   "banner": "assets/banners/Worldwide Clubs.png",
   "active": true,
