@@ -1,16 +1,19 @@
 {
   "id": "box038",
-  "name": "Box Figo",
-  "date": "03/09/2026",
+  "name": "Spanish Attackers",
+  "date": "30/08/2026",
   "description": "Luís Figo, Kluivert e Saviola disponíveis nessa Box.",
   "banner": "assets/banners/banner-box-figo.jpg",
   "active": true,
   "category": "especial",
   "priceGP": 0,
   "priceCoins": 100,
-  "startsAt": "2026-09-03T00:00:00",
-  "expiresAt": "2026-09-13T23:00:00",
+  "startsAt": "2026-08-30T00:00:00",
+  "expiresAt": "2026-09-03T23:00:00",
   "players": [
+    "p697",
+    "p698",
+    "p699",
     "p101",
     "p102",
     "p103",
@@ -89,9 +92,6 @@
     "p176",
     "p177",
     "p178",
-    "p179",
-    "p697",
-    "p698",
-    "p699"
+    "p179"
   ]
 }
