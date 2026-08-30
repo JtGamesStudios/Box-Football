@@ -203,6 +203,34 @@
         "assets/banners/banner-box-messi-showtime-0309.jpg",
         "assets/splash/splash-bluelock-collab.jpg"
       ]
+    },
+    {
+      "version": 16,
+      "releaseDate": "2026-09-03T00:00:00",
+      "label": "Live Update 03/09 — Box Ronaldo, Box Figo e Box Super Onze",
+      "assets": [
+        "assets/players/maradona_epico.png",
+        "assets/players/dida_epico.png",
+        "assets/players/owen_epico.png",
+        "assets/players/romario_epico.png",
+        "assets/players/ferdinand_bigtime.png",
+        "assets/players/vandersar_bigtime.png",
+        "assets/players/buffon_bigtime.png",
+        "assets/players/ronaldo_fenomeno_bigtime.jpg",
+        "assets/banners/banner-box-ronaldo.jpeg",
+        "assets/videos/ronaldobox-epic.mp4",
+        "assets/videos/ronaldobox-bigtime.mp4",
+        "assets/players/figo_preta.png",
+        "assets/players/kluivert_preta.png",
+        "assets/players/saviola_preta.png",
+        "assets/players/davids_kidou_preta.png",
+        "assets/players/forlan_goenji_preta.png",
+        "assets/players/vandersar_markevans_preta.png",
+        "assets/banners/banner-box-figo.jpg",
+        "assets/banners/banner-box-inazuma.png",
+        "assets/videos/cutscene-figo-box.mp4",
+        "assets/videos/cutscene-inazuma-box.mp4"
+      ]
     }
   ]
 }
