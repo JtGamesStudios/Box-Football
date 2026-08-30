@@ -458,6 +458,7 @@ html.hub-active .menu-card-body{
   background:var(--surface-2); border:1px solid var(--border); border-radius:20px; padding:5px 10px 5px 6px;
 }
 .ball-dot{ width:14px; height:14px; border-radius:50%; background-size:cover; background-position:center; }
+.ball-dot.epico{   background-image:url('../assets/balls/ball-preta.png');   box-shadow:0 0 10px rgba(56,220,255,.75); }
 .ball-dot.preta{   background-image:url('../assets/balls/ball-preta.png');   box-shadow:0 0 8px rgba(124,77,255,.65); }
 .ball-dot.dourada{ background-image:url('../assets/balls/ball-dourada.png'); box-shadow:0 0 6px rgba(255,201,60,.6); }
 .ball-dot.prata{   background-image:url('../assets/balls/ball-prata.png');   box-shadow:0 0 4px rgba(185,194,206,.5); }
@@ -805,6 +806,7 @@ html.boxlist-active .box-stats-panel{ height:auto; max-height:100%; justify-cont
   display:flex; align-items:center; justify-content:center; position:relative;
   background-size:cover; background-position:center;
 }
+.reveal-ball.glow-epico{   background-image:url('../assets/balls/ball-preta.png');   animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 55px rgba(56,220,255,.8); }
 .reveal-ball.glow-preta{   background-image:url('../assets/balls/ball-preta.png');   animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 50px rgba(124,77,255,.7); }
 .reveal-ball.glow-dourada{ background-image:url('../assets/balls/ball-dourada.png'); animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 44px rgba(255,201,60,.65); }
 .reveal-ball.glow-prata{   background-image:url('../assets/balls/ball-prata.png');   animation:pulseGlow 1s ease-in-out infinite alternate, ballOpen 1.6s ease forwards; box-shadow:0 0 34px rgba(185,194,206,.5); }
