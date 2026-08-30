@@ -1,6 +1,6 @@
 {
   "id": "box039",
-  "name": "Box Super Onze",
+  "name": "Super Onze",
   "date": "03/09/2026",
   "description": "Crossover Super Onze (Inazuma Eleven): Davids/Kidou, Forlán/Goenji e Van der Sar/Mark Evans.",
   "banner": "assets/banners/banner-box-inazuma.png",
@@ -11,6 +11,9 @@
   "startsAt": "2026-09-03T00:00:00",
   "expiresAt": "2026-09-13T23:00:00",
   "players": [
+    "p700",
+    "p701",
+    "p702",
     "p101",
     "p102",
     "p103",
@@ -89,9 +92,6 @@
     "p176",
     "p177",
     "p178",
-    "p179",
-    "p700",
-    "p701",
-    "p702"
+    "p179"
   ]
 }
