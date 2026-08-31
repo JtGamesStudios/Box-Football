@@ -70,12 +70,12 @@ function systemTradesLeft(){
 let _tradesActiveTab = "system";
 
 function renderTradesScreen(){
-  document.querySelectorAll("#tradeTabs .trade-tab-btn").forEach(btn=>{
-    btn.classList.toggle("active", btn.dataset.tsub === _tradesActiveTab);
-    btn.onclick = ()=> tdSwitchTab(btn.dataset.tsub);
-  });
-  if(_tradesActiveTab === "system") renderTransferMarket(); // era renderSystemTrade() — agora é o Mercado
-  else renderFriendTrade();
+  // O Mercado agora ocupa o lugar inteiro da troca de jogador — sem abas.
+  // (código de Troca do Sistema / Troca com Amigos continua no arquivo,
+  // só não é mais chamado daqui — dá pra reativar depois se quiser)
+  const tabs = document.getElementById("tradeTabs");
+  if(tabs) tabs.style.display = "none";
+  renderTransferMarket();
 }
 
 function tdSwitchTab(tab){

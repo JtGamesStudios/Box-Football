@@ -175,6 +175,25 @@ function updateContratarCardBanners(){
       }
     }
   });
+  updatePacotesCardBanner();
+}
+
+/* O card "Pacotes" (menu Contract) usa sempre a foto do Pacote mais
+   recente que estiver ativo (o último da lista em data/packs.json
+   que ainda estiver dentro do prazo) — sem precisar trocar a imagem
+   fixa toda vez que sai um pacote novo. Antes disso era hardcoded
+   em CSS (.banner-contract-pacotes) pra sempre mostrar o do Messi. */
+function updatePacotesCardBanner(){
+  if(typeof GAME_DATA === 'undefined' || !Array.isArray(GAME_DATA.packs)) return;
+  const el = document.getElementById("menuCardBanner-pacotes");
+  if(!el) return;
+  const liveOnes = GAME_DATA.packs.filter(p => typeof isPackLive === "function" ? isPackLive(p) : p.active);
+  const mostRecent = liveOnes[liveOnes.length - 1]; // último ativo da lista = o mais recente
+  if(mostRecent && mostRecent.banner){
+    el.style.backgroundImage = `url('${mostRecent.banner}')`;
+    el.style.backgroundSize = "cover";
+    el.style.backgroundPosition = "center";
+  }
 }
 
 function buildTopTabs(){
