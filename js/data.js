@@ -40,6 +40,10 @@ function rarityForOverall(overall){
 
 function applyRarities(players){
   players.forEach(p=>{
+    // Épico/Big Time (Box Ronaldo, Figo, Super Onze) já vêm com raridade
+    // fixa no players.json — não pode recalcular por overall, ou vira
+    // "preta" de novo (overall >=90) e quebra o sistema inteiro.
+    if(p.rarity === "epico" || p.rarity === "bigtime") return;
     const r = rarityForOverall(p.overall);
     p.rarity = r.rarity;
     p.rarityLabel = r.label;

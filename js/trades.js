@@ -74,7 +74,7 @@ function renderTradesScreen(){
     btn.classList.toggle("active", btn.dataset.tsub === _tradesActiveTab);
     btn.onclick = ()=> tdSwitchTab(btn.dataset.tsub);
   });
-  if(_tradesActiveTab === "system") renderSystemTrade();
+  if(_tradesActiveTab === "system") renderTransferMarket(); // era renderSystemTrade() — agora é o Mercado
   else renderFriendTrade();
 }
 
