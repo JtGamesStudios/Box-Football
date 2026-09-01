@@ -34,7 +34,6 @@ const INFO_ITEMS = [
       "📅 Continue acompanhando as Informações do jogo: nos próximos dias, novas mensagens revelarão mais detalhes até a chegada da atualização."
     ],
   },
-
 {
     id: "update-countdown-2-days-2026-09-01",
     date: "01/09/2026",
@@ -51,7 +50,6 @@ const INFO_ITEMS = [
       "⏳ Amanhã entraremos no último dia da contagem regressiva. Prepare o seu elenco!"
     ],
   },
-
 {
     id: "update-countdown-1-day-2026-09-02",
     date: "02/09/2026",
@@ -72,7 +70,6 @@ const INFO_ITEMS = [
       "⏳ Prepare-se!"
     ],
   },
-
 {
     id: "update-day-2026-09-03",
     date: "03/09/2026",
@@ -95,6 +92,7 @@ const INFO_ITEMS = [
       "Obrigado por continuar jogando. Entre agora e descubra todas as novidades da atualização de 03/09!"
     ],
   },
+   {
     id: "box-barcelona-repeticao-2026-08-28",
     date: "28/08/2026",
     title: "🔵🔴 Repetição de Box: Barcelona Iconic Moments até 03/09",
