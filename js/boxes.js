@@ -1,9 +1,12 @@
 /* =========================================================
    BOXES — grid de contratação, animação de abertura, coleção
    ========================================================= */
-const RARITY_ORDER = ["preta","dourada","prata","branca"];
-const RARITY_LABEL = { preta:"bigtime", preta:"epico", preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
-const RARITY_WEIGHT_BASE = { preta:1, dourada:3, prata:8, branca:14 }; // peso "natural" de cada bola quando sorteando visual
+const RARITY_ORDER = ["bigtime","epico","preta","dourada","prata","branca"];
+const RARITY_LABEL = { bigtime:"Big Time", epico:"Épico", preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
+const RARITY_WEIGHT_BASE = { bigtime:1, epico:2, preta:3, dourada:5, prata:9, branca:14 }; // peso "natural" de cada bola quando sorteando visual
+
+// Raridades "topo de tabela" — são as que disparam cutscene de abertura.
+const TOP_TIER_RARITIES = ["bigtime","epico","preta"];
 
 /* ---------------- RAIO (bola preta garantida) ----------------
    Igual ao PES Mobile: só nas Boxes de GP (category:"boxdraw"),
@@ -203,7 +206,7 @@ function getRemainingIds(boxId){
 
 function getRemainingByRarity(boxId){
   const remaining = getRemainingIds(boxId).map(getPlayer).filter(Boolean);
-  const out = { preta:[], dourada:[], prata:[], branca:[] };
+  const out = { bigtime:[], epico:[], preta:[], dourada:[], prata:[], branca:[] };
   remaining.forEach(p=> out[p.rarity] && out[p.rarity].push(p));
   return out;
 }
@@ -619,7 +622,7 @@ function playOpenAnimation(rarity, player, lightningStrike, byR){
       // Bola preta + jogador com cutscene cadastrada (por carta específica em
       // CUTSCENE_BY_PLAYER, ou por tier em CUTSCENE_BY_TIER como fallback)
       // -> toca a cutscene certa antes da carta.
-      const cutsceneSrc = rarity === "preta" ? getCutsceneSrc(player) : null;
+      const cutsceneSrc = TOP_TIER_RARITIES.includes(rarity) ? getCutsceneSrc(player) : null;
 
       setTimeout(()=>{
         if(cutsceneSrc){
