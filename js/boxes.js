@@ -2,7 +2,7 @@
    BOXES — grid de contratação, animação de abertura, coleção
    ========================================================= */
 const RARITY_ORDER = ["preta","dourada","prata","branca"];
-const RARITY_LABEL = { preta:"Big Time", preta:"Épico", preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
+const RARITY_LABEL = { preta:"bigtime", preta:"epico", preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
 const RARITY_WEIGHT_BASE = { preta:1, dourada:3, prata:8, branca:14 }; // peso "natural" de cada bola quando sorteando visual
 
 /* ---------------- RAIO (bola preta garantida) ----------------
