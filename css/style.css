@@ -788,6 +788,8 @@ html.boxlist-active .box-stats-panel{ height:auto; max-height:100%; justify-cont
   -webkit-backface-visibility:hidden;
   backface-visibility:hidden;
 }
+.ball-item.bigtime{ background-image:url('../assets/balls/ball-preta.png'); border-color:rgba(255,180,40,.65); box-shadow:0 0 30px rgba(255,180,40,.85); }
+.ball-item.epico{   background-image:url('../assets/balls/ball-preta.png'); border-color:rgba(56,220,255,.6);  box-shadow:0 0 28px rgba(56,220,255,.75); }
 .ball-item.preta{   background-image:url('../assets/balls/ball-preta.png');   border-color:rgba(124,77,255,.55); box-shadow:0 0 26px rgba(124,77,255,.65); }
 .ball-item.dourada{ background-image:url('../assets/balls/ball-dourada.png'); box-shadow:0 0 22px rgba(255,201,60,.55); }
 .ball-item.prata{   background-image:url('../assets/balls/ball-prata.png');   box-shadow:0 0 16px rgba(185,194,206,.45); }
