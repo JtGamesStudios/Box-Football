@@ -345,7 +345,7 @@ function renderContratarGrid(category){
             </div>
           </div>
           ${box.category === "eventspin" ? `<div class="stat-note" style="margin:6px 0 0;">Giros só são ganhos vencendo partidas nos eventos do Brasil. Não é possível comprar com Moedas.</div>` : ""}
-          <button class="btn btn-primary btn-block ${(freeSpin||box.category==='eventspin')?'btn-free-spin':''}" ${(remaining===0||eventSpinDisabled)?"disabled":""} onclick="${box.pullCount===10 ? `startRonaldoBoxOpen('${box.id}')` : `startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':(box.category==='eventspin'?'eventspin':'coins')}')`}"${box.category==='eventspin' ? '🎁 Girar (Grátis)' : (freeSpin ? '🎁 Girar Grátis' : (box.category==='gratis' ? '◆ Girar' : 'Contratar'))}</button>
+          <button class="btn btn-primary btn-block ${(freeSpin||box.category==='eventspin')?'btn-free-spin':''}" ${(remaining===0||eventSpinDisabled)?"disabled":""} onclick="${box.pullCount===10 ? `startRonaldoBoxOpen('${box.id}')` : `startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':(box.category==='eventspin'?'eventspin':'coins')}')`}">${box.category==='eventspin' ? '🎁 Girar (Grátis)' : (freeSpin ? '🎁 Girar Grátis' : (box.category==='gratis' ? '◆ Girar' : 'Contratar'))}</button>
           </div>
       </div>
       <div class="box-stats-panel">
@@ -410,7 +410,7 @@ function startBoxOpen(boxId, method){
   const byR = getRemainingByRarity(boxId);
   // Chance de "raio": vira a roleta toda bola preta e garante o Lendário
   // (só em Box de GP, e só se sobrar bola preta pra sortear).
-    const lightningStrike = rollLightningStrike(box, byR);
+  const lightningStrike = rollLightningStrike(box, byR);
 
   let chosenRarity, chosenPlayer;
   if(lightningStrike){
