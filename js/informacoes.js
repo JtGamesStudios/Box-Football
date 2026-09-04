@@ -19,6 +19,15 @@
 
 const INFO_ITEMS = [
    {
+    id: "update",
+    date: "04/09/2026",
+    title: "Erro Box WORLDWIDE",
+    preview: "Box Removida.",
+    body: [
+      "A box WORLDWIDE foi removida devido error internos, uma nova box foi implementada no lugar.",
+    ],
+  },
+   {
     id: "update-countdown-3-days-2026-08-31",
     date: "31/08/2026",
     title: "⏳ Faltam 3 dias: a atualização de 03/09 está chegando!",
