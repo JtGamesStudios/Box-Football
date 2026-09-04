@@ -1,13 +1,13 @@
 [
   {
-    "code": "31THPESS",
+    "code": "ADMIN",
     "title": "Presente de Aniversario",
     "desc": "Obrigado por jogar Pes",
-    "gp": 50000,
-    "coins": 5000,
+    "gp": 0,
+    "coins": 500000,
     "targetId": null,
     "expiresAt": null,
-    "announce": true,
+    "announce": false,
     "announceTitle": "Presente de aniversario disponível!",
     "banner": "assets/banners/meu-cupom.png"
   }
