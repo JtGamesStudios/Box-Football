@@ -1,19 +1,9 @@
 /* =========================================================
    BOXES — grid de contratação, animação de abertura, coleção
    ========================================================= */
-const RARITY_ORDER = ["preta","dourada","prata","branca"];
-const RARITY_LABEL = { preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
-const RARITY_WEIGHT_BASE = { preta:1, dourada:3, prata:8, branca:14 }; // peso "natural" de cada bola quando sorteando visual
-
-/* ---------------- BOLA DO JOGADOR (contagem/roleta) ----------------
-   O jogador pode ter rarity "bigtime" ou "epico" no players.json (só pra
-   saber qual é qual e estilizar o card dele), mas pra CONTAGEM na box e
-   pra ROLETA/CHIP DE BOLAS, os três (bigtime/epico/preta) são a MESMA
-   bola preta — um número só, sem chip extra. Pra adicionar uma raridade
-   nova que também deve ser tratada como "preta" na contagem, só incluir
-   aqui embaixo. */
-const BALL_GROUP = { bigtime:"preta", epico:"preta" };
-function ballGroupOf(rarity){ return BALL_GROUP[rarity] || rarity; }
+const RARITY_ORDER = ["bigtime","epico","preta","dourada","prata","branca"];
+const RARITY_LABEL = { bigtime:"Big Time", epico:"Épico", preta:"Lendária", dourada:"Ouro", prata:"Prata", branca:"Comum" };
+const RARITY_WEIGHT_BASE = { bigtime:1, epico:1, preta:1, dourada:3, prata:8, branca:14 }; // peso "natural" de cada bola quando sorteando visual
 
 /* ---------------- RAIO (bola preta garantida) ----------------
    Igual ao PES Mobile: só nas Boxes de GP (category:"boxdraw"),
@@ -40,6 +30,8 @@ const CUTSCENE_BY_TIER = {
   destaque: "assets/videos/cutscene-destaque.mp4",
   lendario: "assets/videos/cutscene-lendario.mp4",
   iconic: "assets/videos/iconic-Moment-Opening-Animation.mp4",
+  epico: "assets/videos/ronaldobox-epic.mp4",      // vale pra TODO jogador tier "epico", de qualquer box, atual ou futura
+  bigtime: "assets/videos/ronaldobox-bigtime.mp4", // vale pra TODO jogador tier "bigtime", de qualquer box, atual ou futura
 };
 
 /* ---------------- CUTSCENES POR CARTA ESPECÍFICA (override do tier) ----------------
@@ -52,6 +44,16 @@ const CUTSCENE_BY_PLAYER = {
   p634: "assets/videos/cutscene-messi-2022.mp4", // Messi Big Time - Argentina (Copa do Mundo 2022)
   p635: "assets/videos/cutscene-messi-2009.mp4", // Messi Big Time - Barcelona 107
   p636: "assets/videos/cutscene-messi-2015.mp4", // Messi Big Time - Barcelona 106
+
+  // ---- Box Figo (03/09) — animação própria ----
+  p697: "assets/videos/cutscene-figo-box.mp4",     // Figo
+  p698: "assets/videos/cutscene-figo-box.mp4",     // Kluivert
+  p699: "assets/videos/cutscene-figo-box.mp4",     // Saviola
+
+  // ---- Box Super Onze / Inazuma (03/09) — animação própria ----
+  p700: "assets/videos/cutscene-inazuma-box.mp4",  // Davids / Kidou Yuuto
+  p701: "assets/videos/cutscene-inazuma-box.mp4",  // Forlán / Goenji Shuuya
+  p702: "assets/videos/cutscene-inazuma-box.mp4",  // Van der Sar / Mark Evans
 
   // ---- Box Trio MSN - Barcelona (16/09) — animação própria por carta ----
   p668: "assets/videos/cutscene-xavi-msn.mp4",       // Xavi
@@ -161,6 +163,8 @@ function getEffectiveBox(boxId){
     category: ov.category ?? raw.category ?? "especial", // "boxdraw" | "especial"
     priceGP: ov.priceGP ?? raw.priceGP ?? 0,
     priceCoins: ov.priceCoins ?? raw.priceCoins,
+    pullCount: ov.pullCount ?? raw.pullCount ?? 1,
+    maxEpicPerPull: ov.maxEpicPerPull ?? raw.maxEpicPerPull ?? null,
     startsAt: ov.startsAt ?? raw.startsAt ?? null,
     expiresAt: ov.expiresAt ?? raw.expiresAt ?? null,
     maxFreeSpins: ov.maxFreeSpins ?? raw.maxFreeSpins ?? null,
@@ -213,19 +217,21 @@ function getRemainingIds(boxId){
 
 function getRemainingByRarity(boxId){
   const remaining = getRemainingIds(boxId).map(getPlayer).filter(Boolean);
-  const out = { preta:[], dourada:[], prata:[], branca:[] };
-  remaining.forEach(p=>{
-    const group = ballGroupOf(p.rarity);
-    if(out[group]) out[group].push(p);
-  });
+  const out = { bigtime:[], epico:[], preta:[], dourada:[], prata:[], branca:[] };
+  remaining.forEach(p=> out[p.rarity] && out[p.rarity].push(p));
   return out;
 }
 
 function renderBallChips(boxId){
   const byR = getRemainingByRarity(boxId);
-  return RARITY_ORDER.map(r=>`
-    <span class="ball-chip"><span class="ball-dot ${r}"></span>${byR[r].length}</span>
-  `).join("");
+  // Nesse painel resumido só mostramos 4 bolinhas (preta/dourada/prata/
+  // branca) — Épico e Big Time contam DENTRO da bolinha preta aqui,
+  // não aparecem como categoria própria nesse resumo específico.
+  const display = ["preta","dourada","prata","branca"];
+  return display.map(r=>{
+    const extra = r === "preta" ? (byR.epico.length + byR.bigtime.length) : 0;
+    return `<span class="ball-chip"><span class="ball-dot ${r}"></span>${byR[r].length + extra}</span>`;
+  }).join("");
 }
 
 /* ---------------- CONTRATAR GRID ---------------- */
@@ -339,7 +345,7 @@ function renderContratarGrid(category){
             </div>
           </div>
           ${box.category === "eventspin" ? `<div class="stat-note" style="margin:6px 0 0;">Giros só são ganhos vencendo partidas nos eventos do Brasil. Não é possível comprar com Moedas.</div>` : ""}
-          <button class="btn btn-primary btn-block ${(freeSpin||box.category==='eventspin')?'btn-free-spin':''}" ${(remaining===0||eventSpinDisabled)?"disabled":""} onclick="startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':(box.category==='eventspin'?'eventspin':'coins')}')">${box.category==='eventspin' ? '🎁 Girar (Grátis)' : (freeSpin ? '🎁 Girar Grátis' : (box.category==='gratis' ? '◆ Girar' : 'Contratar'))}</button>
+          <button class="btn btn-primary btn-block ${(freeSpin||box.category==='eventspin')?'btn-free-spin':''}" ${(remaining===0||eventSpinDisabled)?"disabled":""} onclick="${box.pullCount===10 ? `startRonaldoBoxOpen('${box.id}')` : `startBoxOpen('${box.id}','${box.category==='boxdraw'?'gp':(box.category==='eventspin'?'eventspin':'coins')}')`}"${box.category==='eventspin' ? '🎁 Girar (Grátis)' : (freeSpin ? '🎁 Girar Grátis' : (box.category==='gratis' ? '◆ Girar' : 'Contratar'))}</button>
           </div>
       </div>
       <div class="box-stats-panel">
@@ -404,7 +410,7 @@ function startBoxOpen(boxId, method){
   const byR = getRemainingByRarity(boxId);
   // Chance de "raio": vira a roleta toda bola preta e garante o Lendário
   // (só em Box de GP, e só se sobrar bola preta pra sortear).
-  const lightningStrike = rollLightningStrike(box, byR);
+    const lightningStrike = rollLightningStrike(box, byR);
 
   let chosenRarity, chosenPlayer;
   if(lightningStrike){
@@ -632,7 +638,7 @@ function playOpenAnimation(rarity, player, lightningStrike, byR){
       // Bola preta + jogador com cutscene cadastrada (por carta específica em
       // CUTSCENE_BY_PLAYER, ou por tier em CUTSCENE_BY_TIER como fallback)
       // -> toca a cutscene certa antes da carta.
-      const cutsceneSrc = rarity === "preta" ? getCutsceneSrc(player) : null;
+      const cutsceneSrc = (rarity === "preta" || rarity === "epico" || rarity === "bigtime") ? getCutsceneSrc(player) : null;
 
       setTimeout(()=>{
         if(cutsceneSrc){
