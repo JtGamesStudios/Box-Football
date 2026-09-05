@@ -764,6 +764,42 @@
     </section>
 
     <!-- CAIXA DE PRESENTES (inalterada) -->
+    <section class="screen" id="screen-userinfo" data-title="Informações de usuário">
+      <h1 class="page-title">Informações de usuário</h1>
+      <div class="userinfo-list">
+        <div class="userinfo-row" onclick="openTeamSelectContinents()">
+          <span class="userinfo-icon">🛡️</span>
+          <span class="userinfo-label">Time base</span>
+          <span class="userinfo-value" id="uiTimeBase">Não selecionado</span>
+          <span class="userinfo-chevron">›</span>
+        </div>
+        <div class="userinfo-row">
+          <span class="userinfo-icon">🅰️</span>
+          <span class="userinfo-label">Nome do Time</span>
+          <span class="userinfo-value" id="uiNomeTime">—</span>
+          <span class="userinfo-chevron">›</span>
+        </div>
+        <div class="userinfo-row">
+          <span class="userinfo-icon">🔤</span>
+          <span class="userinfo-label">Abreviatura</span>
+          <span class="userinfo-value" id="uiAbrev">—</span>
+          <span class="userinfo-chevron">›</span>
+        </div>
+        <div class="userinfo-row">
+          <span class="userinfo-icon">🏟️</span>
+          <span class="userinfo-label">Estádio padrão</span>
+          <span class="userinfo-value" id="uiEstadio">—</span>
+          <span class="userinfo-chevron">›</span>
+        </div>
+        <div class="userinfo-row">
+          <span class="userinfo-icon">📍</span>
+          <span class="userinfo-label">Cidade natal</span>
+          <span class="userinfo-value" id="uiCidade">—</span>
+          <span class="userinfo-chevron">›</span>
+        </div>
+      </div>
+    </section>
+
     <section class="screen" id="screen-presentes" data-title="Caixa de Presentes">
       <h1 class="page-title">Caixa de Presentes</h1>
       <p class="page-sub">Resgate suas recompensas de missões, eventos e login diário.</p>
@@ -1058,6 +1094,7 @@
 <script src="js/ronaldo-box.js?v=1"></script>
 <script src="js/market.js?v=1"></script>
 <script src="js/release-player.js?v=1"></script>
+<script src="js/team-select.js?v=1"></script>
 <script src="js/ads.js"></script>
 <script src="js/packs.js"></script>
 <script src="js/clubcups.js"></script>
