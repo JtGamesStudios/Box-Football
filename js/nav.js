@@ -71,7 +71,7 @@ const CONTRATAR_CARDS = [
   { nav: "especial", banner: "banner-contratar-especial", icon: "", title: "Especial", sub: "Boxes de eventos, jogadores em destaque e grátis", badgeSource: null },
 ];
 const EXTRAS_CARDS = [
-  { nav: "presentes", banner: "banner-extras-presentes", icon: "", title: "Caixa de Presentes", sub: "Resgate recompensas de missões e eventos", badgeSource: "homeGifts" },
+  { nav: "userinfo",  banner: "banner-extras-presentes", icon: "", title: "Informações de usuário", sub: "Resgate recompensas de missões e eventos", badgeSource: "homeGifts" },
   { nav: "config",     banner: "banner-extras-config",    icon: "⚙",  title: "Configurações",       sub: "Preferências, seu ID e resgate de código", badgeSource: null, keepIcon: true },
 ];
 
@@ -350,6 +350,7 @@ function showScreen(id, opts){
   if(id==="boxdraw") renderContratarGrid("boxdraw");
   if(id==="especial") renderContratarGrid("especial");
   if(id==="contratar") updateContratarCardBanners();
+  if(id==="userinfo" && typeof renderUserInfoScreen==="function") renderUserInfoScreen();
   if(id==="boxes") renderBoxesScreen();
   if(id==="clube") renderClubeGrid();
   if(id==="escalacao") renderEscalacao();

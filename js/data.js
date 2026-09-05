@@ -51,7 +51,7 @@ function applyRarities(players){
 }
 
 async function loadGameData(){
-  const [players, formations, coaches, missions, events, store, boxIndex, matchPass, packs, clubCups] = await Promise.all([
+  const [players, formations, coaches, missions, events, store, boxIndex, matchPass, packs, clubCups, teams] = await Promise.all([
     fetchJSON("data/players.json"),
     fetchJSON("data/formations.json"),
     fetchJSON("data/coaches.json"),
@@ -62,6 +62,7 @@ async function loadGameData(){
     fetchJSON("data/matchpass.json").catch(err=>{ console.warn(err); return null; }),
     fetchJSON("data/packs.json").catch(err=>{ console.warn(err); return null; }),
     fetchJSON("data/club-cups.json").catch(err=>{ console.warn(err); return null; }),
+    fetchJSON("data/teams.json").catch(err=>{ console.warn(err); return null; }),
   ]);
 
   applyRarities(players);
@@ -75,6 +76,7 @@ async function loadGameData(){
   GAME_DATA.matchPassSeason = matchPass ? matchPass.activeSeason : null;
   GAME_DATA.packs = packs ? packs.packs : [];
   GAME_DATA.clubCups = clubCups ? clubCups.cups : [];
+  GAME_DATA.teams = teams; // base de continentes/campeonatos/clubes do seletor de time (js/team-select.js)
 
   const boxFiles = await Promise.all(
     boxIndex.map(name => fetchJSON(`data/boxes/${name}`).catch(err=>{ console.warn(err); return null; }))
