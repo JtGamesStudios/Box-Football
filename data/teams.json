@@ -1,0 +1,359 @@
+{
+  "continents": [
+    {
+      "id": "america-sul",
+      "name": "América do Sul",
+      "leagues": [
+        {
+          "id": "liga-argentina",
+          "name": "Liga Argentina",
+          "logo": "assets/leagues/liga-argentina.png",
+          "clubs": []
+        },
+        {
+          "id": "brasileirao-a",
+          "name": "Campeonato Brasileiro Série A",
+          "logo": "assets/leagues/brasileirao-a.png",
+          "clubs": [
+            {
+              "id": "atletico-mg",
+              "name": "Atlético Mineiro",
+              "badge": "assets/clubs/atletico-mg.png",
+              "stadium": "Arena MRV",
+              "city": "Belo Horizonte"
+            },
+            {
+              "id": "athletico-pr",
+              "name": "Athletico Paranaense",
+              "badge": "assets/clubs/athletico-pr.png",
+              "stadium": "Ligga Arena",
+              "city": "Curitiba"
+            },
+            {
+              "id": "bahia",
+              "name": "Bahia",
+              "badge": "assets/clubs/bahia.png",
+              "stadium": "Arena Fonte Nova",
+              "city": "Salvador"
+            },
+            {
+              "id": "botafogo",
+              "name": "Botafogo",
+              "badge": "assets/clubs/botafogo.png",
+              "stadium": "Estádio Nilton Santos",
+              "city": "Rio de Janeiro"
+            },
+            {
+              "id": "corinthians",
+              "name": "Corinthians",
+              "badge": "assets/clubs/corinthians.png",
+              "stadium": "Neo Química Arena",
+              "city": "São Paulo"
+            },
+            {
+              "id": "cruzeiro",
+              "name": "Cruzeiro",
+              "badge": "assets/clubs/cruzeiro.png",
+              "stadium": "Mineirão",
+              "city": "Belo Horizonte"
+            },
+            {
+              "id": "flamengo",
+              "name": "Flamengo",
+              "badge": "assets/clubs/flamengo.png",
+              "stadium": "Maracanã",
+              "city": "Rio de Janeiro"
+            },
+            {
+              "id": "fluminense",
+              "name": "Fluminense",
+              "badge": "assets/clubs/fluminense.png",
+              "stadium": "Maracanã",
+              "city": "Rio de Janeiro"
+            },
+            {
+              "id": "gremio",
+              "name": "Grêmio",
+              "badge": "assets/clubs/gremio.png",
+              "stadium": "Arena do Grêmio",
+              "city": "Porto Alegre"
+            },
+            {
+              "id": "internacional",
+              "name": "Internacional",
+              "badge": "assets/clubs/internacional.png",
+              "stadium": "Beira-Rio",
+              "city": "Porto Alegre"
+            },
+            {
+              "id": "palmeiras",
+              "name": "Palmeiras",
+              "badge": "assets/clubs/palmeiras.png",
+              "stadium": "Allianz Parque",
+              "city": "São Paulo"
+            },
+            {
+              "id": "santos",
+              "name": "Santos",
+              "badge": "assets/clubs/santos.png",
+              "stadium": "Vila Belmiro",
+              "city": "Santos"
+            },
+            {
+              "id": "sao-paulo",
+              "name": "São Paulo",
+              "badge": "assets/clubs/sao-paulo.png",
+              "stadium": "MorumBIS",
+              "city": "São Paulo"
+            },
+            {
+              "id": "vasco",
+              "name": "Vasco da Gama",
+              "badge": "assets/clubs/vasco.png",
+              "stadium": "São Januário",
+              "city": "Rio de Janeiro"
+            },
+            {
+              "id": "bragantino",
+              "name": "Red Bull Bragantino",
+              "badge": "assets/clubs/bragantino.png",
+              "stadium": "Nabi Abi Chedid",
+              "city": "Bragança Paulista"
+            },
+            {
+              "id": "vitoria",
+              "name": "Vitória",
+              "badge": "assets/clubs/vitoria.webp",
+              "stadium": "Barradão",
+              "city": "Salvador"
+            },
+            {
+              "id": "mirassol",
+              "name": "Mirassol",
+              "badge": "assets/clubs/mirassol.png",
+              "stadium": "Campos Maia",
+              "city": "Mirassol"
+            },
+            {
+              "id": "chapecoense",
+              "name": "Chapecoense",
+              "badge": "assets/clubs/chapecoense.png",
+              "stadium": "Arena Condá",
+              "city": "Chapecó"
+            },
+            {
+              "id": "coritiba",
+              "name": "Coritiba",
+              "badge": "assets/clubs/coritiba.png",
+              "stadium": "Estádio Couto Pereira",
+              "city": "Curitiba"
+            },
+            {
+              "id": "remo",
+              "name": "Remo",
+              "badge": "assets/clubs/remo.png",
+              "stadium": "Estádio Baenão",
+              "city": "Belém"
+            }
+          ]
+        },
+        {
+          "id": "brasileirao-b",
+          "name": "Campeonato Brasileiro Série B",
+          "logo": "assets/leagues/brasileirao-b.png",
+          "clubs": []
+        },
+        {
+          "id": "campeonato-planvital",
+          "name": "Campeonato PlanVital",
+          "logo": "assets/leagues/planvital.png",
+          "clubs": []
+        },
+        {
+          "id": "liga-colombiana",
+          "name": "Liga Colombiana",
+          "logo": "assets/leagues/liga-colombiana.png",
+          "clubs": []
+        },
+        {
+          "id": "liga-pla",
+          "name": "Liga PLA",
+          "logo": "assets/leagues/liga-pla.png",
+          "clubs": []
+        }
+      ]
+    },
+    {
+      "id": "europa",
+      "name": "Europa",
+      "leagues": [
+        {
+          "id": "serie-a-tim",
+          "name": "Serie A TIM",
+          "logo": "assets/leagues/serie-a-tim.png",
+          "clubs": []
+        },
+        {
+          "id": "serie-bkt",
+          "name": "Serie BKT",
+          "logo": "assets/leagues/serie-bkt.png",
+          "clubs": []
+        },
+        {
+          "id": "eredivisie",
+          "name": "Eredivisie",
+          "logo": "assets/leagues/eredivisie.png",
+          "clubs": []
+        },
+        {
+          "id": "liga-portugal-bwin",
+          "name": "Liga Portugal bwin",
+          "logo": "assets/leagues/liga-portugal.png",
+          "clubs": []
+        },
+        {
+          "id": "tinkoff-russian",
+          "name": "Tinkoff Russian Premier Liga",
+          "logo": "assets/leagues/tinkoff.png",
+          "clubs": []
+        },
+        {
+          "id": "cinch-scottish",
+          "name": "cinch Scottish Premiership",
+          "logo": "assets/leagues/scottish.png",
+          "clubs": []
+        },
+        {
+          "id": "liga-espanhola",
+          "name": "Liga Espanhola",
+          "logo": "assets/leagues/liga-espanhola.png",
+          "clubs": []
+        },
+        {
+          "id": "segunda-espanhola",
+          "name": "2ª Divisão Espanhola",
+          "logo": "assets/leagues/segunda-espanhola.png",
+          "clubs": []
+        },
+        {
+          "id": "credit-suisse",
+          "name": "Credit Suisse Super League",
+          "logo": "assets/leagues/credit-suisse.png",
+          "clubs": []
+        },
+        {
+          "id": "spor-toto",
+          "name": "Spor Toto Süper Lig",
+          "logo": "assets/leagues/spor-toto.png",
+          "clubs": []
+        },
+        {
+          "id": "liga-peu",
+          "name": "Liga PEU",
+          "logo": "assets/leagues/liga-peu.png",
+          "clubs": []
+        },
+        {
+          "id": "outros-europa",
+          "name": "Outros times (Europa)",
+          "logo": "assets/leagues/outros-europa.png",
+          "clubs": []
+        },
+        {
+          "id": "jupiler-pro",
+          "name": "Jupiler Pro League",
+          "logo": "assets/leagues/jupiler.png",
+          "clubs": []
+        },
+        {
+          "id": "3f-superliga",
+          "name": "3F Superliga",
+          "logo": "assets/leagues/3f-superliga.png",
+          "clubs": []
+        },
+        {
+          "id": "liga-inglesa",
+          "name": "Liga inglesa",
+          "logo": "assets/leagues/liga-inglesa.png",
+          "clubs": []
+        },
+        {
+          "id": "segunda-inglaterra",
+          "name": "2ª divisão da Inglaterra",
+          "logo": "assets/leagues/segunda-inglaterra.png",
+          "clubs": []
+        },
+        {
+          "id": "ligue-1",
+          "name": "Ligue 1 Uber Eats",
+          "logo": "assets/leagues/ligue-1.png",
+          "clubs": []
+        },
+        {
+          "id": "ligue-2",
+          "name": "Ligue 2 BKT",
+          "logo": "assets/leagues/ligue-2.png",
+          "clubs": []
+        }
+      ]
+    },
+    {
+      "id": "asia",
+      "name": "Ásia",
+      "leagues": [
+        {
+          "id": "jleague-1",
+          "name": "J.League Divisão1",
+          "logo": "assets/leagues/jleague1.png",
+          "clubs": []
+        },
+        {
+          "id": "jleague-2",
+          "name": "J.League Divisão2",
+          "logo": "assets/leagues/jleague2.png",
+          "clubs": []
+        },
+        {
+          "id": "liga-chinesa",
+          "name": "Liga Chinesa",
+          "logo": "assets/leagues/liga-chinesa.png",
+          "clubs": []
+        },
+        {
+          "id": "thai-league",
+          "name": "Hilux Revo Thai League",
+          "logo": "assets/leagues/thai-league.png",
+          "clubs": []
+        },
+        {
+          "id": "afc-champions",
+          "name": "AFC Champions League",
+          "logo": "assets/leagues/afc-champions.png",
+          "clubs": []
+        }
+      ]
+    },
+    {
+      "id": "america-central-norte",
+      "name": "América Central e do Norte",
+      "leagues": [
+        {
+          "id": "outros-america-latina",
+          "name": "Outros (América Latina)",
+          "logo": "assets/leagues/outros-america-latina.png",
+          "clubs": []
+        }
+      ]
+    },
+    {
+      "id": "africa",
+      "name": "África",
+      "leagues": []
+    },
+    {
+      "id": "oceania",
+      "name": "Oceania",
+      "leagues": []
+    }
+  ]
+}
