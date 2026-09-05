@@ -108,7 +108,7 @@
     },
     {
       "version": 11,
-      "releaseDate": "2026-09-03T00:00:00",
+      "releaseDate": "2026-09-03T23:00:00",
       "label": "Live Update ",
       "description": "Chegam, em datas escalonadas, as Boxes Epic Spanish League (03/09 — Roberto Carlos, Torres, Van der Vaart), Netherlands (06/09 — Van Basten, Rijkaard, Gullit) e Brazil 1994 (10/09 — Romário, Cafu, Bebeto), todas disponíveis até 13/09. Também estreia o evento rotativo: todo domingo e toda quarta um novo Konami Cup entra no ar — e quando tiver um clássico do futebol mundial na janela, ele vira um Matchday temático.",
       "features": [
@@ -206,8 +206,8 @@
     },
     {
       "version": 16,
-      "releaseDate": "2026-08-30T00:00:00",
-      "label": "Live Update 30/08",
+      "releaseDate": "2026-09-03T00:00:00",
+      "label": "Live Update 03/09 — Box Ronaldo, Box Figo e Box Super Onze",
       "assets": [
         "assets/players/maradona_epico.png",
         "assets/players/dida_epico.png",
@@ -230,6 +230,34 @@
         "assets/banners/banner-box-inazuma.png",
         "assets/videos/cutscene-figo-box.mp4",
         "assets/videos/cutscene-inazuma-box.mp4"
+      ]
+    },
+    {
+      "version": 17,
+      "releaseDate": "2026-09-05T00:00:00",
+      "label": "Informações de Usuário — Perfil do Clube (Série A Brasileira)",
+      "description": "Nova tela em Extras > Informações de usuário: escolha seu Time base (Continente > Campeonato > Clube). Campeonato Brasileiro Série A já disponível com os 20 clubes e escudos reais.",
+      "assets": [
+        "assets/clubs/atletico-mg.png",
+        "assets/clubs/athletico-pr.png",
+        "assets/clubs/bahia.png",
+        "assets/clubs/botafogo.png",
+        "assets/clubs/corinthians.png",
+        "assets/clubs/cruzeiro.png",
+        "assets/clubs/flamengo.png",
+        "assets/clubs/fluminense.png",
+        "assets/clubs/gremio.png",
+        "assets/clubs/internacional.png",
+        "assets/clubs/palmeiras.png",
+        "assets/clubs/santos.png",
+        "assets/clubs/sao-paulo.png",
+        "assets/clubs/vasco.png",
+        "assets/clubs/bragantino.png",
+        "assets/clubs/vitoria.webp",
+        "assets/clubs/mirassol.png",
+        "assets/clubs/chapecoense.png",
+        "assets/clubs/coritiba.png",
+        "assets/clubs/remo.png"
       ]
     }
   ]
