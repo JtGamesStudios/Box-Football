@@ -6576,5 +6576,18 @@
     "rarityLabel": "Épico",
     "image": "assets/players/vandersar_markevans_preta.png",
     "tier": "iconic"
-  }
+  },
+  { "id": "p703", "name": "F. Beckenbauer", "overall": 91, "club": "Bayern Munich", "nationality": "Germany", "nationalityFlag": "🇩🇪", "position": "CB", "rarity": "preta", "rarityLabel": "Lendária", "image": "assets/players/beckenbauer.png", "tier": "lendario" },
+  { "id": "p704", "name": "K. Rummenigge", "overall": 90, "club": "Bayern Munich", "nationality": "Germany", "nationalityFlag": "🇩🇪", "position": "SS", "rarity": "preta", "rarityLabel": "Lendária", "image": "assets/players/rummenigge.png", "tier": "lendario" },
+  { "id": "p705", "name": "I. Casillas", "overall": 87, "club": "Real Madrid", "nationality": "Spain", "nationalityFlag": "🇪🇸", "position": "GK", "rarity": "dourada", "rarityLabel": "Ouro", "image": "assets/players/casillas.png", "tier": "lendario" },
+  { "id": "p706", "name": "P. Scholes", "overall": 87, "club": "Manchester United", "nationality": "England", "nationalityFlag": "🏴", "position": "CMF", "rarity": "dourada", "rarityLabel": "Ouro", "image": "assets/players/scholes.png", "tier": "lendario" },
+  { "id": "p707", "name": "D. Law", "overall": 87, "club": "Manchester United", "nationality": "Scotland", "nationalityFlag": "🏴", "position": "CF", "rarity": "dourada", "rarityLabel": "Ouro", "image": "assets/players/d_law.png", "tier": "lendario" },
+  { "id": "p708", "name": "H. Nakata", "overall": 86, "club": "Roma", "nationality": "Japan", "nationalityFlag": "🇯🇵", "position": "AMF", "rarity": "dourada", "rarityLabel": "Ouro", "image": "assets/players/nakata.png", "tier": "lendario" },
+  { "id": "p709", "name": "Deco", "overall": 85, "club": "Barcelona", "nationality": "Portugal", "nationalityFlag": "🇵🇹", "position": "AMF", "rarity": "dourada", "rarityLabel": "Ouro", "image": "assets/players/deco.png", "tier": "lendario" },
+  { "id": "p710", "name": "A. Arshavin", "overall": 85, "club": "Arsenal", "nationality": "Russia", "nationalityFlag": "🇷🇺", "position": "LWF", "rarity": "dourada", "rarityLabel": "Ouro", "image": "assets/players/arshavin.png", "tier": "lendario" },
+  { "id": "p711", "name": "S. Ono", "overall": 85, "club": "Feyenoord", "nationality": "Japan", "nationalityFlag": "🇯🇵", "position": "CF", "rarity": "dourada", "rarityLabel": "Ouro", "image": "assets/players/s_ono.png", "tier": "lendario" },
+  { "id": "p712", "name": "F. Morientes", "overall": 85, "club": "Real Madrid", "nationality": "Spain", "nationalityFlag": "🇪🇸", "position": "CF", "rarity": "dourada", "rarityLabel": "Ouro", "image": "assets/players/morientes.png", "tier": "lendario" },
+  { "id": "p713", "name": "R. Keane", "overall": 84, "club": "Tottenham", "nationality": "Ireland", "nationalityFlag": "🇮🇪", "position": "CF", "rarity": "prata", "rarityLabel": "Prata", "image": "assets/players/r_keane.png", "tier": "lendario" },
+  { "id": "p714", "name": "B. Lizarazu", "overall": 82, "club": "Bayern Munich", "nationality": "France", "nationalityFlag": "🇫🇷", "position": "DMF", "rarity": "prata", "rarityLabel": "Prata", "image": "assets/players/lizarazu.png", "tier": "lendario" },
+  { "id": "p715", "name": "J. Inamoto", "overall": 82, "club": "Arsenal", "nationality": "Japan", "nationalityFlag": "🇯🇵", "position": "CMF", "rarity": "prata", "rarityLabel": "Prata", "image": "assets/players/inamoto.png", "tier": "lendario" }
 ]
