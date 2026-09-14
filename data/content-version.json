@@ -259,6 +259,32 @@
         "assets/clubs/coritiba.png",
         "assets/clubs/remo.png"
       ]
+    },
+    {
+      "version": 18,
+      "releaseDate": "2026-09-11T00:00:00",
+      "label": "Box LEGENDS - Worldwide Clubs reformulada",
+      "description": "A box LEGENDS - Worldwide Clubs foi reformulada por completo: agora traz todos os Legends já existentes no jogo + 13 lendas novas (Beckenbauer, Rummenigge, Casillas, Scholes, D. Law, Nakata, Deco, Arshavin, S. Ono, Morientes, R. Keane, Lizarazu, Inamoto), além de um lote de jogadores genéricos (Bronze/Comum/Prata/Ouro, sem nenhuma ligação com jogador real) para completar o pool em 309 jogadores.",
+      "features": [
+        "13 novas Legends adicionadas ao banco de dados e à box",
+        "Pool da box reformulado: todos os Legends do jogo + genéricos, total de 309 jogadores",
+        "Jogadores genéricos usam a arte padrão já existente (assets/players/default.png) — sem asset novo necessário"
+      ],
+      "assets": [
+        "assets/players/beckenbauer.png",
+        "assets/players/rummenigge.png",
+        "assets/players/casillas.png",
+        "assets/players/scholes.png",
+        "assets/players/d_law.png",
+        "assets/players/nakata.png",
+        "assets/players/deco.png",
+        "assets/players/arshavin.png",
+        "assets/players/s_ono.png",
+        "assets/players/morientes.png",
+        "assets/players/r_keane.png",
+        "assets/players/lizarazu.png",
+        "assets/players/inamoto.png"
+      ]
     }
   ]
 }
