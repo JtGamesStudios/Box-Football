@@ -568,7 +568,7 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/m_salas.png",
+    "image": "assets/players/M. SALAS.png",
     "tier": "lendario"
   },
   {
@@ -581,7 +581,7 @@
     "position": "SS",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/a_del_piero.png",
+    "image": "assets/players/A. DEL PIERO.png",
     "tier": "lendario"
   },
   {
@@ -594,7 +594,7 @@
     "position": "GK",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/p_cech.png",
+    "image": "assets/players/P. ČECH.png",
     "tier": "lendario"
   },
   {
@@ -607,7 +607,7 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/a_cole.png",
+    "image": "assets/players/A. COLE.png",
     "tier": "lendario"
   },
   {
@@ -620,7 +620,7 @@
     "position": "DMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/g_barry.png",
+    "image": "assets/players/G. BARRY.png",
     "tier": "lendario"
   },
   {
@@ -633,7 +633,7 @@
     "position": "SS",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/f_totti.png",
+    "image": "assets/players/F. TOTTI.png",
     "tier": "lendario"
   },
   {
@@ -646,7 +646,7 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/b_robson.png",
+    "image": "assets/players/B. ROBSON.png",
     "tier": "lendario"
   },
   {
@@ -659,7 +659,7 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/d_yorke.png",
+    "image": "assets/players/D. YORKE.png",
     "tier": "lendario"
   },
   {
@@ -672,7 +672,7 @@
     "position": "DMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/gilberto_silva.png",
+    "image": "assets/players/GILBERTO SILVA.png",
     "tier": "lendario"
   },
   {
@@ -685,7 +685,7 @@
     "position": "LB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/irwin.png",
+    "image": "assets/players/IRWIN.png",
     "tier": "lendario"
   },
   {
@@ -698,7 +698,7 @@
     "position": "CB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/s_campbell.png",
+    "image": "assets/players/S. CAMPBELL.png",
     "tier": "lendario"
   },
   {
@@ -711,7 +711,7 @@
     "position": "DMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/e_petit.png",
+    "image": "assets/players/E. PETIT.png",
     "tier": "lendario"
   },
   {
@@ -724,7 +724,7 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/j_koller.png",
+    "image": "assets/players/J. KOLLER.png",
     "tier": "lendario"
   },
   {
@@ -737,7 +737,7 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/s_given.png",
+    "image": "assets/players/S. GIVEN.png",
     "tier": "lendario"
   },
   {
