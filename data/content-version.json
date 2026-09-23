@@ -261,8 +261,8 @@
       ]
     },
     {
-      "version": 38,
-      "releaseDate": "2026-09-23T00:00:00",
+      "version": 18,
+      "releaseDate": "2026-09-11T00:00:00",
       "label": "Box LEGENDS - Worldwide Clubs reformulada",
       "description": "A box LEGENDS - Worldwide Clubs foi reformulada por completo: agora traz todos os Legends já existentes no jogo + 13 lendas novas (Beckenbauer, Rummenigge, Casillas, Scholes, D. Law, Nakata, Deco, Arshavin, S. Ono, Morientes, R. Keane, Lizarazu, Inamoto), além de um lote de jogadores genéricos (Bronze/Comum/Prata/Ouro, sem nenhuma ligação com jogador real) para completar o pool em 309 jogadores.",
       "features": [
@@ -283,19 +283,27 @@
         "assets/players/morientes.png",
         "assets/players/r_keane.png",
         "assets/players/lizarazu.png",
-        "assets/players/inamoto.png",
+        "assets/players/inamoto.png"
+      ]
+    },
+    {
+      "version": 19,
+      "releaseDate": "2026-09-23T00:00:00",
+      "label": "Fotos dos Legends",
+      "description": "14 Legends ganharam a foto própria da carta (M. Salas, Del Piero, Čech, Cole, Barry, Totti, Robson, Yorke, Gilberto Silva, Irwin, Campbell, Petit, Koller e S. Given).",
+      "assets": [
         "assets/players/M. SALAS.png",
         "assets/players/A. DEL PIERO.png",
         "assets/players/P. ČECH.png",
-        "assets/players/A. COLE_leg.png",
+        "assets/players/A. COLE.png",
         "assets/players/G. BARRY.png",
         "assets/players/F. TOTTI.png",
         "assets/players/B. ROBSON.png",
-        "assets/players/D. YORKE_leg.png",
+        "assets/players/D. YORKE.png",
         "assets/players/GILBERTO SILVA.png",
         "assets/players/IRWIN.png",
         "assets/players/S. CAMPBELL.png",
-        "assets/players/E. PETIT_leg.png",
+        "assets/players/E. PETIT.png",
         "assets/players/J. KOLLER.png",
         "assets/players/S. GIVEN.png"
       ]
