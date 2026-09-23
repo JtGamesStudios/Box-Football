@@ -20,6 +20,18 @@
 const INFO_ITEMS = [
    {
     id: "update",
+    date: "23/09/2026",
+    title: "Major Update Parte 2",
+    preview: "Parte 2 do grande update de setembro",
+    body: [
+      "A parte 2 da atualização de grande port do Box Clube chegará hoje as 00:00h.",
+       "Um novo sistema de gameplay será introduzido",
+       "Nova boxa por gp chegando a cada quinta-feira",
+       "+20 Jogadores classicos e outros adicionados ao banco de dados",
+    ],
+  },
+   {
+    id: "update",
     date: "04/09/2026",
     title: "Erro Box WORLDWIDE",
     preview: "Box Removida.",
