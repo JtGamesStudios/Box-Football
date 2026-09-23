@@ -1,4 +1,8 @@
 /* ============ Splash Screen — carrossel + toque pra entrar ============
+   - Visual estilo PES: logo à esquerda + círculo de toque, "Seu ID" /
+     versão (APP_VERSION) / copyright no canto inferior esquerdo, selo
+     da marca no canto superior direito e botão de menu no inferior
+     direito (peças novas montadas em setupPesLayout()).
    - Troca a imagem de fundo a cada SLIDE_INTERVAL ms.
    - Ao tocar/clicar em qualquer lugar da splash, mostra um loading rápido
      e depois exibe a tela de MANUTENÇÃO (o app não é liberado enquanto
@@ -14,6 +18,15 @@
   const SLIDE_INTERVAL = 10000;   // troca de imagem a cada 10s
   const LOADING_DURATION = 1400;  // quanto tempo o loading fica visível
   const FADE_OUT_DURATION = 500;  // precisa bater com a transição no CSS
+
+  // ---------------------------------------------------------------
+  // VERSÃO DO JOGO — aparece no canto inferior esquerdo da splash.
+  // Troque aqui a cada versão nova (é o único lugar).
+  // ---------------------------------------------------------------
+  const APP_VERSION = "1.0.1";
+  const APP_COPYRIGHT = "©2026 JT Games Studios";
+  const BRAND_BADGE = "JT";              // texto dentro do círculo (canto superior direito)
+  const BRAND_NAME = "GAMES STUDIOS";    // texto embaixo do círculo
 
   // ---------------------------------------------------------------
   // MODO MANUTENÇÃO
@@ -119,6 +132,64 @@
   const loadingWrap = document.getElementById("splashLoading");
   const maintenanceWrap = document.getElementById("splashMaintenance");
 
+  /* ---------- Layout estilo PES ----------
+     Monta, por JS, as peças novas da splash (não precisa mexer no
+     index.html): vinheta leve, círculo de toque, bloco de informações
+     (ID + versão + copyright) e selo da marca. Os elementos que já
+     existem (#splashTapHint, #splashPlayerId) são reaproveitados. */
+  function setupPesLayout() {
+    if (overlay.querySelector(".splash-info")) return;
+
+    // vinheta logo depois dos slides (fica acima da foto e abaixo do texto)
+    const vignette = document.createElement("div");
+    vignette.className = "splash-vignette";
+    const slidesWrap = overlay.querySelector(".splash-slides");
+    if (slidesWrap) slidesWrap.insertAdjacentElement("afterend", vignette);
+    else overlay.insertBefore(vignette, overlay.firstChild);
+
+    // círculo de toque dentro do "toque pra entrar" (some junto com ele)
+    if (tapHint && !tapHint.querySelector(".splash-ring")) {
+      // se o hint for só texto, o texto vira o rótulo embaixo do círculo
+      const label = tapHint.children.length ? "" : tapHint.textContent.trim();
+      if (label) tapHint.textContent = "";
+      const ring = document.createElement("span");
+      ring.className = "splash-ring";
+      tapHint.insertBefore(ring, tapHint.firstChild);
+      if (label) {
+        const lbl = document.createElement("span");
+        lbl.className = "splash-tap-label";
+        lbl.textContent = label;
+        tapHint.appendChild(lbl);
+      }
+    }
+
+    // informações do jogador: Seu ID / versão / copyright
+    const info = document.createElement("div");
+    info.className = "splash-info";
+    if (idEl) info.appendChild(idEl); // move o elemento existente pra cá
+
+    const ver = document.createElement("div");
+    ver.className = "splash-version";
+    ver.id = "splashVersion";
+    ver.innerHTML = "Versão <b></b>";
+    ver.querySelector("b").textContent = APP_VERSION;
+    info.appendChild(ver);
+
+    const copy = document.createElement("div");
+    copy.className = "splash-copy";
+    copy.textContent = APP_COPYRIGHT;
+    info.appendChild(copy);
+    overlay.appendChild(info);
+
+    // selo da marca (canto superior direito)
+    const brand = document.createElement("div");
+    brand.className = "splash-brand";
+    brand.innerHTML = '<div class="splash-brand-ring"></div><span class="splash-brand-name"></span>';
+    brand.querySelector(".splash-brand-ring").textContent = BRAND_BADGE;
+    brand.querySelector(".splash-brand-name").textContent = BRAND_NAME;
+    overlay.appendChild(brand);
+  }
+
   let current = 0;
   let timer = null;
   let started = false;
@@ -217,7 +288,12 @@
     btn.id = "splashHamburgerBtn";
     btn.className = "splash-hamburger-btn";
     btn.setAttribute("aria-label", "Menu");
-    btn.textContent = "☰";
+    // ícone de lista (pontos + linhas), igual ao botão de menu do PES
+    btn.innerHTML =
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#fff">' +
+      '<circle cx="3.5" cy="6" r="1.7"/><circle cx="3.5" cy="12" r="1.7"/><circle cx="3.5" cy="18" r="1.7"/>' +
+      '<rect x="8" y="4.9" width="14" height="2.2" rx="1.1"/><rect x="8" y="10.9" width="14" height="2.2" rx="1.1"/>' +
+      '<rect x="8" y="16.9" width="14" height="2.2" rx="1.1"/></g></svg>';
 
     const menu = document.createElement("div");
     menu.id = "splashHamburgerMenu";
@@ -312,5 +388,6 @@
   });
 
   startCarousel();
+  setupPesLayout();
   setupAppMenu();
 })();
