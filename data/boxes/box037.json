@@ -5,7 +5,7 @@
   "expiresAt": "2026-10-11T00:00:00",
   "description": "",
   "banner": "assets/banners/banner-box-ronaldo.jpeg",
-  "active": false,
+  "active": true,
   "priceCoins": 100,
   "players": [
     "p058",
