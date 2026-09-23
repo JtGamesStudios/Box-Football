@@ -53,11 +53,31 @@
 
   // ---------------------------------------------------------------
   // MIGRAÇÃO PRO APP — a partir dessa data/hora (horário de Brasília),
-  // o acesso pelo NAVEGADOR é bloqueado permanentemente (sem bypass).
+  // o acesso pelo NAVEGADOR é bloqueado para todo mundo, EXCETO os
+  // dispositivos listados em MIGRATION_BYPASS_IDS (abaixo).
   // Dentro do app instalado (Capacitor) esse bloqueio nunca se aplica.
   // ---------------------------------------------------------------
   const MIGRATION_CUTOFF_DATE = new Date("2026-07-30T23:59:00-03:00");
   const DOWNLOAD_APP_URL = ""; // preencher com o link do app (Play Store) quando disponível
+
+  // ---------------------------------------------------------------
+  // ACESSO PELO NAVEGADOR (só o seu PC) — IDs de dispositivo que podem
+  // entrar pelo navegador mesmo depois da data de corte da migração.
+  // Abra o jogo no navegador do PC, copie o "Seu ID: XXXX-XXXX" que
+  // aparece na tela inicial e cole aqui (uma linha por dispositivo).
+  // Lista vazia ([]) = ninguém entra pelo navegador depois do corte.
+  // ---------------------------------------------------------------
+  const MIGRATION_BYPASS_IDS = [
+    "82P5-7ZBY", 
+  ];
+
+  function hasMigrationBypass() {
+    try {
+      return typeof getPlayerId === "function" && MIGRATION_BYPASS_IDS.includes(getPlayerId());
+    } catch (e) {
+      return false;
+    }
+  }
 
   function isNativePlatform() {
     return !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
@@ -134,9 +154,10 @@
     // semanal automática passar da hora 0h de quinta).
   }
 
-  // Tela de bloqueio permanente pelo navegador, depois da data de corte
-  // da migração — reaproveita o visual da tela de manutenção, mas com
-  // texto próprio e SEM bypass nenhum (localStorage/URL não liberam).
+  // Tela de bloqueio pelo navegador, depois da data de corte da
+  // migração — reaproveita o visual da tela de manutenção, mas com
+  // texto próprio. Só libera quem estiver em MIGRATION_BYPASS_IDS
+  // (localStorage/URL não liberam).
   function showMigrationLock() {
     stopCarousel();
     if (tapHint) tapHint.classList.add("hidden");
@@ -247,7 +268,7 @@
     if (loadingWrap) loadingWrap.classList.remove("hidden");
 
     setTimeout(() => {
-      if (!isNativePlatform() && Date.now() > MIGRATION_CUTOFF_DATE.getTime()) {
+      if (!isNativePlatform() && Date.now() > MIGRATION_CUTOFF_DATE.getTime() && !hasMigrationBypass()) {
         showMigrationLock();
         return;
       }
