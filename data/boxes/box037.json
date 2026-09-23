@@ -5,7 +5,7 @@
   "expiresAt": "2026-10-11T00:00:00",
   "description": "500 jogadores no giro! Cada giro de 1000 moedas traz 10 jogadores de uma vez, com chance de vir até 3 Épicos/Big Time juntos.",
   "banner": "assets/banners/banner-box-ronaldo.jpeg",
-  "active": false,
+  "active": true,
   "priceCoins": 100,
   "players": [
     "p551",
