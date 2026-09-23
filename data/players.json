@@ -6756,7 +6756,7 @@
     "position": "CB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_j_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6769,7 +6769,7 @@
     "position": "LB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_r_salgado.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6782,7 +6782,7 @@
     "position": "AMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_m_almeida.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6795,7 +6795,7 @@
     "position": "RB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_s_ramalho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6808,7 +6808,7 @@
     "position": "RB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_o_valente.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6821,7 +6821,7 @@
     "position": "LWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_d_ferreira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6834,7 +6834,7 @@
     "position": "AMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_g_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6847,7 +6847,7 @@
     "position": "CF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_g_gomes.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6860,7 +6860,7 @@
     "position": "CB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_v_pacheco.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6873,7 +6873,7 @@
     "position": "CF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_m_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6886,7 +6886,7 @@
     "position": "AMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_l_baptista.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6899,7 +6899,7 @@
     "position": "RWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_i_andrade.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6912,7 +6912,7 @@
     "position": "SS",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_l_souza.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6925,7 +6925,7 @@
     "position": "DMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_l_duarte.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6938,7 +6938,7 @@
     "position": "DMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_e_andrade.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6951,7 +6951,7 @@
     "position": "CMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_t_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6964,7 +6964,7 @@
     "position": "RWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_a_salgado.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6977,7 +6977,7 @@
     "position": "LMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_b_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -6990,7 +6990,7 @@
     "position": "RWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_g_costa.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7003,7 +7003,7 @@
     "position": "GK",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_g_fontes.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7016,7 +7016,7 @@
     "position": "RB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_w_braga.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7029,7 +7029,7 @@
     "position": "LMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_b_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7042,7 +7042,7 @@
     "position": "LB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_f_baptista.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7055,7 +7055,7 @@
     "position": "SS",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_w_mendonça.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7068,7 +7068,7 @@
     "position": "CMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_f_rocha.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7081,7 +7081,7 @@
     "position": "CB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_m_martins.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7094,7 +7094,7 @@
     "position": "LB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_n_ramalho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7107,7 +7107,7 @@
     "position": "AMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_i_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7120,7 +7120,7 @@
     "position": "RMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_j_martins.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7133,7 +7133,7 @@
     "position": "DMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_g_martins.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7146,7 +7146,7 @@
     "position": "LB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_e_ferreira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7159,7 +7159,7 @@
     "position": "CF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_a_pereira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7172,7 +7172,7 @@
     "position": "RWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_c_pereira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7185,7 +7185,7 @@
     "position": "LB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_v_moreira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7198,7 +7198,7 @@
     "position": "RMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_j_ramalho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7211,7 +7211,7 @@
     "position": "GK",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_r_andrade.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7224,7 +7224,7 @@
     "position": "GK",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_f_fialho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7237,7 +7237,7 @@
     "position": "SS",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_h_ribeiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7250,7 +7250,7 @@
     "position": "LB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_p_loureiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7263,7 +7263,7 @@
     "position": "DMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_n_correia.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7276,7 +7276,7 @@
     "position": "SS",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_t_machado.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7289,7 +7289,7 @@
     "position": "RWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_v_brandão.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7302,7 +7302,7 @@
     "position": "CB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_f_duarte.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7315,7 +7315,7 @@
     "position": "GK",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_w_baptista.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7328,7 +7328,7 @@
     "position": "RB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_j_ribeiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7341,7 +7341,7 @@
     "position": "CB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_m_coelho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7354,7 +7354,7 @@
     "position": "RB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_d_marques.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7367,7 +7367,7 @@
     "position": "LB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_w_fialho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7380,7 +7380,7 @@
     "position": "CF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_h_valente.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7393,7 +7393,7 @@
     "position": "CB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_n_pacheco.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7406,7 +7406,7 @@
     "position": "LMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_m_gomes.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7419,7 +7419,7 @@
     "position": "SS",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_f_pinto.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7432,7 +7432,7 @@
     "position": "LMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_p_mendonça.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7445,7 +7445,7 @@
     "position": "LMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_f_ribeiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7458,7 +7458,7 @@
     "position": "RMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_r_costa.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7471,7 +7471,7 @@
     "position": "GK",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_l_nogueira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7484,7 +7484,7 @@
     "position": "LMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_h_correia.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7497,7 +7497,7 @@
     "position": "GK",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_a_guerreiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7510,7 +7510,7 @@
     "position": "DMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_e_freitas.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7523,7 +7523,7 @@
     "position": "SS",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_o_marques.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7536,7 +7536,7 @@
     "position": "DMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_t_costa.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7549,7 +7549,7 @@
     "position": "RMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_m_braga.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7562,7 +7562,7 @@
     "position": "LWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_h_pereira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7575,7 +7575,7 @@
     "position": "GK",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_s_carvalho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7588,7 +7588,7 @@
     "position": "LWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_b_martins.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7601,7 +7601,7 @@
     "position": "LWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_i_souza.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7614,7 +7614,7 @@
     "position": "AMF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_s_braga.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7627,7 +7627,7 @@
     "position": "RWF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_g_nogueira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7640,7 +7640,7 @@
     "position": "LB",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_c_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7653,7 +7653,7 @@
     "position": "CF",
     "rarity": "bronze",
     "rarityLabel": "Bronze",
-    "image": "assets/players/generic_l_ferreira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7666,7 +7666,7 @@
     "position": "LWF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_r_ribeiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7679,7 +7679,7 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_d_rocha.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7692,7 +7692,7 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_f_andrade.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7705,7 +7705,7 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_o_machado.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7718,7 +7718,7 @@
     "position": "RWF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_s_ferreira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7731,7 +7731,7 @@
     "position": "RWF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_r_rocha.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7744,7 +7744,7 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_o_teixeira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7757,7 +7757,7 @@
     "position": "LWF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_t_coelho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7770,7 +7770,7 @@
     "position": "RWF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_d_pereira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7783,7 +7783,7 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_l_mendonça.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7796,7 +7796,7 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_g_rocha.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7809,7 +7809,7 @@
     "position": "SS",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_e_baptista.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7822,7 +7822,7 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_p_salgado.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7835,7 +7835,7 @@
     "position": "CMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_p_souza.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7848,7 +7848,7 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_m_pacheco.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7861,7 +7861,7 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_r_pacheco.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7874,7 +7874,7 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_i_teixeira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7887,7 +7887,7 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_a_valente.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7900,7 +7900,7 @@
     "position": "SS",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_g_valente.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7913,7 +7913,7 @@
     "position": "LB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_r_guerreiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7926,7 +7926,7 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_e_pacheco.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7939,7 +7939,7 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_j_pinto.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7952,7 +7952,7 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_l_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7965,7 +7965,7 @@
     "position": "RMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_b_salgado.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7978,7 +7978,7 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_d_barbosa.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -7991,7 +7991,7 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_r_ramalho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8004,7 +8004,7 @@
     "position": "SS",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_g_mendonça.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8017,7 +8017,7 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_b_fialho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8030,7 +8030,7 @@
     "position": "GK",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_n_ferreira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8043,7 +8043,7 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_o_pinto.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8056,7 +8056,7 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_g_sequeira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8069,7 +8069,7 @@
     "position": "CB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_c_valente.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8082,7 +8082,7 @@
     "position": "SS",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_c_baptista.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8095,7 +8095,7 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_b_barbosa.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8108,7 +8108,7 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_b_baptista.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8121,7 +8121,7 @@
     "position": "DMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_t_mendonça.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8134,7 +8134,7 @@
     "position": "RWF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_g_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8147,7 +8147,7 @@
     "position": "RWF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_t_pereira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8160,7 +8160,7 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_a_carvalho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8173,7 +8173,7 @@
     "position": "RWF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_i_coelho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8186,7 +8186,7 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_f_machado.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8199,7 +8199,7 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_p_almeida.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8212,7 +8212,7 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_i_ribeiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8225,7 +8225,7 @@
     "position": "RWF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_w_pinto.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8238,7 +8238,7 @@
     "position": "AMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_f_teixeira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8251,7 +8251,7 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_r_mendonça.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8264,7 +8264,7 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_s_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8277,7 +8277,7 @@
     "position": "RB",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_r_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8290,7 +8290,7 @@
     "position": "LMF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_s_baptista.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8303,7 +8303,7 @@
     "position": "CF",
     "rarity": "branca",
     "rarityLabel": "Comum",
-    "image": "assets/players/generic_e_sequeira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8316,7 +8316,7 @@
     "position": "RMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_e_moreira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8329,7 +8329,7 @@
     "position": "DMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_f_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8342,7 +8342,7 @@
     "position": "RWF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_e_ribeiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8355,7 +8355,7 @@
     "position": "DMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_g_braga.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8368,7 +8368,7 @@
     "position": "LB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_p_duarte.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8381,7 +8381,7 @@
     "position": "LB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_t_ribeiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8394,7 +8394,7 @@
     "position": "CMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_o_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8407,7 +8407,7 @@
     "position": "RB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_n_guerreiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8420,7 +8420,7 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_w_guerreiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8433,7 +8433,7 @@
     "position": "CMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_c_guerreiro.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8446,7 +8446,7 @@
     "position": "SS",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_o_ramalho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8459,7 +8459,7 @@
     "position": "RB",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_d_mendonça.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8472,7 +8472,7 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_a_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8485,7 +8485,7 @@
     "position": "RMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_j_fontes.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8498,7 +8498,7 @@
     "position": "RWF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_j_carvalho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8511,7 +8511,7 @@
     "position": "LMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_a_costa.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8524,7 +8524,7 @@
     "position": "CMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_t_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8537,7 +8537,7 @@
     "position": "CF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_n_cardoso.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8550,7 +8550,7 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_o_costa.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8563,7 +8563,7 @@
     "position": "RWF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_j_nogueira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8576,7 +8576,7 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_h_martins.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8589,7 +8589,7 @@
     "position": "LMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_d_andrade.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8602,7 +8602,7 @@
     "position": "LWF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_r_moreira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8615,7 +8615,7 @@
     "position": "LWF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_j_machado.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8628,7 +8628,7 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_b_pinto.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8641,7 +8641,7 @@
     "position": "SS",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_f_gomes.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8654,7 +8654,7 @@
     "position": "RWF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_i_martins.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8667,7 +8667,7 @@
     "position": "GK",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_v_salgado.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8680,7 +8680,7 @@
     "position": "CMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_l_pereira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8693,7 +8693,7 @@
     "position": "AMF",
     "rarity": "prata",
     "rarityLabel": "Prata",
-    "image": "assets/players/generic_h_gomes.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8706,7 +8706,7 @@
     "position": "RWF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_e_teixeira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8719,7 +8719,7 @@
     "position": "SS",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_s_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8732,7 +8732,7 @@
     "position": "RMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_h_xavier.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8745,7 +8745,7 @@
     "position": "SS",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_w_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8758,7 +8758,7 @@
     "position": "RB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_e_nogueira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8771,7 +8771,7 @@
     "position": "LWF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_b_coelho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8784,7 +8784,7 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_a_marques.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8797,7 +8797,7 @@
     "position": "CF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_d_coelho.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8810,7 +8810,7 @@
     "position": "LWF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_d_baptista.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8823,7 +8823,7 @@
     "position": "RB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_n_marques.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8836,7 +8836,7 @@
     "position": "RB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_h_marques.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8849,7 +8849,7 @@
     "position": "GK",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_l_freitas.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8862,7 +8862,7 @@
     "position": "SS",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_w_andrade.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8875,7 +8875,7 @@
     "position": "RMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_v_mendonça.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8888,7 +8888,7 @@
     "position": "CMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_e_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8901,7 +8901,7 @@
     "position": "RB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_r_pinto.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8914,7 +8914,7 @@
     "position": "SS",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_o_barbosa.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8927,7 +8927,7 @@
     "position": "SS",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_h_vieira.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8940,7 +8940,7 @@
     "position": "RMF",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_i_freitas.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   },
   {
@@ -8953,7 +8953,7 @@
     "position": "RB",
     "rarity": "dourada",
     "rarityLabel": "Ouro",
-    "image": "assets/players/generic_c_duarte.png",
+    "image": "assets/players/default.png",
     "tier": "normal"
   }
 ]
