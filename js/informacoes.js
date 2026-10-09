@@ -20,6 +20,17 @@
 const INFO_ITEMS = [
    {
     id: "update",
+    date: "09/10/2026",
+    title: "Major Update Out.",
+    preview: "Update de outubro",
+    body: [
+      "Atualização de grande port do Box Clube chegará Domingo as 23hrs",
+       "Novas boxes serão adicionadas",
+       "Sistema de narração + Gameplay 3d",
+       "+15 Jogadores classicos e outros adicionados ao banco de dados",
+    ],
+  },
+    id: "update",
     date: "23/09/2026",
     title: "Major Update Parte 2",
     preview: "Parte 2 do grande update de setembro",
